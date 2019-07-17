@@ -11,6 +11,32 @@
 Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><-wroc</a>  </a> 
 <br/> <br/>
 <h3>KURSY</h3>
+<div class="table-responsive">
+<table class="table table-bordered">
+<thead>
+ <tr>
+   <td>Id</td>
+   <td>Kategoria </td>
+   <td>Instruktor</td>
+   <td>Początek</td>
+   <td>Koniec</td>
+   
+ </tr>
+</thead>
+<tbody>
+  <tr th:each="course:${courses}">
+    <td th:text="${course.id_category}"/>
+    <td th:text="${course.id_instructor}"/>
+    <td th:text="${course.startDate}"/>
+    <td th:text="${course.finished}"/>
+    
+ </tr>
+
+</tbody>
+
+
+</table>
+</div>
 
 
 

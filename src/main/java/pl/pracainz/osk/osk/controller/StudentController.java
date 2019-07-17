@@ -7,17 +7,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import pl.pracainz.osk.osk.dao.StudentRepository;
 import pl.pracainz.osk.osk.entity.Student;
-import pl.pracainz.osk.osk.service.StudentService;
 
 @Controller
-@RequestMapping("/studentss")
+@RequestMapping("/students")
 public class StudentController {
 
-	private StudentService studentService;
+	//private StudentService studentService;
 	
-	public StudentController(StudentService service) {
-	this.studentService=service;
+	private StudentRepository studentRepository;
+	
+	public StudentController(StudentRepository service) {
+	this.studentRepository=service;
 	}
 	
 	
@@ -25,7 +27,7 @@ public class StudentController {
 	@GetMapping("/list")
 	public String listStudents(Model theModel) {
 		
-		List<Student> theStudents=studentService.findAll();
+		List<Student> theStudents=studentRepository.findAll();
 		
 		theModel.addAttribute("students", theStudents);
 		

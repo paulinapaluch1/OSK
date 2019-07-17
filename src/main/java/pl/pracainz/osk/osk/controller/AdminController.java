@@ -2,7 +2,6 @@ package pl.pracainz.osk.osk.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class AdminController {
@@ -30,13 +29,6 @@ public class AdminController {
 		
 		return "adminViews/adminInstructors/instructors";
 	}
-	/*
-	@GetMapping("/students")
-	public String showStudents() {
-		
-		return "adminViews/adminStudents/students";
-	}
-	*/
 	
 	@GetMapping("/cars")
 	public String showCars() {
