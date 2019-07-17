@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Admin Students</title>
+<meta charset="utf-8">
+
+</head>
+<body>
+
+Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a>
+<br/> <br/>
+
+<h3>KURSANCI</h3>
+
+<table border="1">
+<thead>
+ <tr>
+   <td>Id</td>
+   <td>Imie</td>
+   <td>Nazwisko</td>
+   <td>Login</td>
+   <td>Haslo</td>
+   <td>Data ur.</td>
+   <td>Adres</td>
+   <td>Telefon</td>
+   <td>Email</td>
+   
+   
+ </tr>
+</thead>
+<tbody>
+ <tr th:each="tempStudent:${students}">
+    <td th:text="${tempStudent.id}"/>
+    <td th:text="${tempStudent.name}"/>
+    <td th:text="${tempStudent.surname}"/>
+    <td th:text="${tempStudent.login}"/>
+    <td> Wyslij haslo</td> 
+    <td th:text="${tempStudent.birthdate} "/>
+    
+    <td th:text="${tempStudent.street}"/>
+   
+     <td th:text="${tempStudent.phoneNumber}"/> 
+    <td th:text="${tempStudent.email}"/>
+   
+
+    
+    
+ </tr>
+
+</tbody>
+
+
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+
+</HTML>
