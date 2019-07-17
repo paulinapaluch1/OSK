@@ -2,25 +2,22 @@ package pl.pracainz.osk.osk.entity;
 
 import java.util.Date;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="students")
 public class Student {
 
-	public Student() {
-	}
-	
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="studentId")
+	@Column(name="id_student")
 	private int id;
 	
 	@Column(name="name")
@@ -35,11 +32,14 @@ public class Student {
 	@Column(name="street")
 	private String street;
 	
+	@Column(name="login")
+	private String login;
+	
 	@Column(name="buildingNumber")
 	private String buildingNumber;
 	
-	@Column(name="apartmentNumber")
-	private String apartmentNumber;
+  //  @Column(name="apartmentNumber")
+	//private String apartmentNumber;
 	
 	@Column(name="city")
 	private String city;
@@ -60,10 +60,55 @@ public class Student {
 	private boolean deleted;
 	
 	@Column(name="id_course")
-	
-	@ManyToMany
 	private int id_course;
 
+
+	
+	public Student() {}
+	
+	public Student(String name, String surname
+			, String login, Date birthdate, String street, 
+			String buildingNumber,
+			//String apartmentNumber, 
+			String city, String postcode,
+			String phoneNumber, 
+			String email, String pKK,
+			boolean deleted, int id_course) {
+		//this.id = id;
+		this.name = name;
+		this.surname = surname;
+		this.birthdate = birthdate;
+		this.street = street;
+		this.login=login;
+		this.buildingNumber = buildingNumber;
+		//this.apartmentNumber = apartmentNumber;
+		this.city = city;
+		this.postcode = postcode;
+		//this.phoneNumber = phoneNumber;
+		this.email = email;
+		PKK = pKK;
+		this.deleted = deleted;
+		this.id_course = id_course; 
+	}
+
+
+
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
 
 	public String getName() {
 		return name;
@@ -104,7 +149,6 @@ public class Student {
 		this.street = street;
 	}
 
-
 	public String getBuildingNumber() {
 		return buildingNumber;
 	}
@@ -114,7 +158,7 @@ public class Student {
 		this.buildingNumber = buildingNumber;
 	}
 
-
+/*
 	public String getApartmentNumber() {
 		return apartmentNumber;
 	}
@@ -123,7 +167,7 @@ public class Student {
 	public void setApartmentNumber(String apartmentNumber) {
 		this.apartmentNumber = apartmentNumber;
 	}
-
+*/
 
 	public String getCity() {
 		return city;
@@ -153,6 +197,7 @@ public class Student {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+	
 
 
 	public String getEmail() {
@@ -193,6 +238,8 @@ public class Student {
 	public void setId_course(int id_course) {
 		this.id_course = id_course;
 	}
+	
+	
 	
 	
 

@@ -11,12 +11,13 @@ public class AdminController {
 	public AdminController() {
 	}
 	
+	
 	@GetMapping("/")
 	public String showAdminProfile() {
 	
 		return "adminViews/adminProfile";
 	}
-	
+		
 	@GetMapping("/courses")
 	public String showCourses() {
 		
@@ -29,12 +30,13 @@ public class AdminController {
 		
 		return "adminViews/adminInstructors/instructors";
 	}
-	
+	/*
 	@GetMapping("/students")
 	public String showStudents() {
 		
 		return "adminViews/adminStudents/students";
 	}
+	*/
 	
 	@GetMapping("/cars")
 	public String showCars() {
