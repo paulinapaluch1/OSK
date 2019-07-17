@@ -13,19 +13,20 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a>
 
 <h3>KURSANCI</h3>
 <div class="table-responsive">
-<table class="table">
+<table class="table table-bordered">
 <thead>
  <tr>
    <td>Id</td>
-   <td>Imie</td>
+   <td>Imię </td>
    <td>Nazwisko</td>
    <td>Login</td>
-   <td>Haslo</td>
+   <td>Hasło</td>
    <td>Data ur.</td>
    <td>Adres</td>
    <td>Telefon</td>
    <td>Email</td>
-   
+   <td>PKK</td>
+   <td>Archiwizowany</td>
    
  </tr>
 </thead>
@@ -35,13 +36,14 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a>
     <td th:text="${tempStudent.name}"/>
     <td th:text="${tempStudent.surname}"/>
     <td th:text="${tempStudent.login}"/>
-    <td> Wyslij haslo</td> 
+    <td><button name="sendPassword">Wyslij haslo</button> </td> 
     <td th:text="${tempStudent.birthdate} "/>
-    
     <td th:text="${tempStudent.street}"/>
-   
      <td th:text="${tempStudent.phoneNumber}"/> 
-    <td th:text="${tempStudent.email}"/>
+     <td th:text="${tempStudent.email}"/>
+     <td th:text="${tempStudent.PKK}"/>
+     <td th:text="${tempStudent.deleted}"/>
+    
    
 
     

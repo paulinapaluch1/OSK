@@ -2,7 +2,6 @@ package pl.pracainz.osk.osk.entity;
 
 import java.util.Date;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,20 +25,20 @@ public class Student {
 	@Column(name="surname")
 	private String surname;
 	
+	@Column(name="login")
+	private String login;
+	
 	@Column(name="birthdate")
 	private Date birthdate;
 	
 	@Column(name="street")
 	private String street;
 	
-	@Column(name="login")
-	private String login;
-	
 	@Column(name="buildingNumber")
 	private String buildingNumber;
 	
-  //  @Column(name="apartmentNumber")
-	//private String apartmentNumber;
+    @Column(name="apartmentNumber")
+	private String apartmentNumber;
 	
 	@Column(name="city")
 	private String city;
@@ -59,9 +58,6 @@ public class Student {
 	@Column(name="deleted")
 	private boolean deleted;
 	
-	@Column(name="id_course")
-	private int id_course;
-
 
 	
 	public Student() {}
@@ -69,26 +65,25 @@ public class Student {
 	public Student(String name, String surname
 			, String login, Date birthdate, String street, 
 			String buildingNumber,
-			//String apartmentNumber, 
+		    String apartmentNumber, 
 			String city, String postcode,
 			String phoneNumber, 
 			String email, String pKK,
-			boolean deleted, int id_course) {
-		//this.id = id;
+			boolean deleted) {
 		this.name = name;
 		this.surname = surname;
 		this.birthdate = birthdate;
 		this.street = street;
 		this.login=login;
 		this.buildingNumber = buildingNumber;
-		//this.apartmentNumber = apartmentNumber;
+		this.apartmentNumber = apartmentNumber;
 		this.city = city;
 		this.postcode = postcode;
-		//this.phoneNumber = phoneNumber;
+		this.phoneNumber = phoneNumber;
 		this.email = email;
-		PKK = pKK;
+		this.PKK = pKK;
 		this.deleted = deleted;
-		this.id_course = id_course; 
+	
 	}
 
 
@@ -158,7 +153,7 @@ public class Student {
 		this.buildingNumber = buildingNumber;
 	}
 
-/*
+
 	public String getApartmentNumber() {
 		return apartmentNumber;
 	}
@@ -167,7 +162,7 @@ public class Student {
 	public void setApartmentNumber(String apartmentNumber) {
 		this.apartmentNumber = apartmentNumber;
 	}
-*/
+
 
 	public String getCity() {
 		return city;
@@ -230,15 +225,7 @@ public class Student {
 	}
 
 
-	public int getId_course() {
-		return id_course;
-	}
 
-
-	public void setId_course(int id_course) {
-		this.id_course = id_course;
-	}
-	
 	
 	
 	
