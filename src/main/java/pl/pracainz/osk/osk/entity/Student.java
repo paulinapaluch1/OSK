@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
+
 @Entity
 @Table(name="students")
 public class Student {
@@ -17,7 +19,7 @@ public class Student {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_student")
-	private int id;
+	private Integer id;
 	
 	@Column(name="name")
 	private String name;
@@ -55,10 +57,10 @@ public class Student {
 	@Column(name="PKK")
 	private String PKK;
 	
-	@Column(name="deleted")
-	private boolean deleted;
 	
-
+	@Column(name="deleted")
+	private Integer deleted;
+	
 	
 	public Student() {}
 	
@@ -69,7 +71,7 @@ public class Student {
 			String city, String postcode,
 			String phoneNumber, 
 			String email, String pKK,
-			boolean deleted) {
+			 Integer deleted) {
 		this.name = name;
 		this.surname = surname;
 		this.birthdate = birthdate;
@@ -87,13 +89,11 @@ public class Student {
 	}
 
 
-
-
 	public int getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -178,6 +178,7 @@ public class Student {
 		return postcode;
 	}
 
+	
 
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
@@ -215,12 +216,13 @@ public class Student {
 	}
 
 
-	public boolean isDeleted() {
+	public Integer getDeleted() {
 		return deleted;
+	
 	}
 
 
-	public void setDeleted(boolean deleted) {
+	public void setDeleted(int deleted) {
 		this.deleted = deleted;
 	}
 

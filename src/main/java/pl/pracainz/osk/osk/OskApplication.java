@@ -13,5 +13,7 @@ public class OskApplication {
 		SpringApplication.run(OskApplication.class, args);
 	}
 
+
+	
 	
 }

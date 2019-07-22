@@ -19,17 +19,17 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><
    <td>Kategoria </td>
    <td>Instruktor</td>
    <td>Początek</td>
-   <td>Koniec</td>
+   <td>Zakończony</td>
    
  </tr>
 </thead>
 <tbody>
   <tr th:each="course:${courses}">
-    <td th:text="${course.id_category}"/>
-    <td th:text="${course.id_instructor}"/>
+      <td th:text="${course.id}"/>
+    <td th:text="${course.idCategory}"/>
+    <td th:text="${course.idInstructor}"/>
     <td th:text="${course.startDate}"/>
     <td th:text="${course.finished}"/>
-    
  </tr>
 
 </tbody>
@@ -40,7 +40,8 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><
 
 
 
-
+</body>
+</html>
 
 
 

@@ -13,15 +13,12 @@ import pl.pracainz.osk.osk.entity.Student;
 @Controller
 @RequestMapping("/students")
 public class StudentController {
-
-	//private StudentService studentService;
 	
 	private StudentRepository studentRepository;
 	
-	public StudentController(StudentRepository service) {
-	this.studentRepository=service;
+	public StudentController(StudentRepository repository) {
+	this.studentRepository=repository;
 	}
-	
 	
 	
 	@GetMapping("/list")

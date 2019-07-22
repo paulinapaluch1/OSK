@@ -17,12 +17,6 @@ public class AdminController {
 		return "adminViews/adminProfile";
 	}
 		
-	@GetMapping("/courses")
-	public String showCourses() {
-		
-		return "adminViews/adminCourses/courses";
-	}
-	
 	
 	@GetMapping("/instructors")
 	public String showInstructors() {
