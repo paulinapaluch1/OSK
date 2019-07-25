@@ -4,32 +4,37 @@
 <title>Admin Profile</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 
 Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><-wroc</a>  </a> 
 <br/> <br/>
 <h3>KURSY</h3>
+<button name="add" class="btn btn-primary">DODAJ</button> <br><br>
+<input class="form-control" id="myInput" type="text" placeholder="Szukaj...">
+  <br>
 <div class="table-responsive">
-<table class="table table-bordered">
-<thead>
- <tr>
+<table class="table table-bordered table-hover">
+<thead >
+ <tr class="table-primary">
    <td>Id</td>
    <td>Kategoria </td>
    <td>Instruktor</td>
    <td>Początek</td>
-   <td>Koniec</td>
+   <td>Zakończony</td>
    
  </tr>
 </thead>
-<tbody>
+<tbody id="myTable">
   <tr th:each="course:${courses}">
-    <td th:text="${course.id_category}"/>
-    <td th:text="${course.id_instructor}"/>
+      <td th:text="${course.id}"/>
+    <td th:text="${course.idCategory}"/>
+    <td th:text="${course.idInstructor}"/>
     <td th:text="${course.startDate}"/>
     <td th:text="${course.finished}"/>
-    
+      <td><button name="edit" class="btn btn-primary">EDYTUJ</button> </td> 
  </tr>
 
 </tbody>
@@ -39,8 +44,20 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><
 </div>
 
 
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 
 
+</body>
+</html>
 
 
 

@@ -10,31 +10,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.pracainz.osk.osk.dao.CourseRepository;
 import pl.pracainz.osk.osk.entity.Course;
 
+
 @Controller
 @RequestMapping("/courses")
 public class CourseController {
 
-private CourseRepository courseRepo;
+private CourseRepository courseRepository;
 	
-	public CourseController(CourseRepository service) {
-	   this.courseRepo=service;
+	public CourseController(CourseRepository repository) {
+	   this.courseRepository = repository;
 	}
 	
-	
-	public CourseController() {
-	}
 
 	
 	@GetMapping("/list")
-	public String listStudents(Model theModel) {
+	public String listCourses(Model theModel) {
 		
-		List<Course> courses=courseRepo.findAll();
+		List<Course> theCourses= courseRepository.findAll();
 		
-		theModel.addAttribute("courses", courses);
+		theModel.addAttribute("courses", theCourses);
 		
 		return "adminViews/adminCourses/courses";
 	}
-	
-	
 	
 }

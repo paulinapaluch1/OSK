@@ -15,29 +15,28 @@ public class Course {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_course")
+	@Column(name="id")
 	private int id;
 	
-	@Column(name="id_category")
-	private int id_category;
+	@Column
+	private int idCategory;
 	
-	@Column(name="id_instructor")
-	private int id_instructor;
+	@Column
+	private int idInstructor;
 	
-	@Column(name="startDate")
+	@Column
 	private Date startDate;
 	
-	@Column(name="finished")
-	private Boolean finished;
+	@Column
+	private int finished;
 	
 	
 	public Course() {
 	}
 
-	public Course(int id_category, int id_instructor, Date startDate, Boolean finished) {
-		super();
-		this.id_category = id_category;
-		this.id_instructor = id_instructor;
+	public Course(int id_category, int id_instructor, Date startDate, int finished) {
+		this.idCategory = id_category;
+		this.idInstructor = id_instructor;
 		this.startDate = startDate;
 		this.finished = finished;
 	}
@@ -53,23 +52,23 @@ public class Course {
 	}
 
 
-	public int getId_category() {
-		return id_category;
+	public int getIdCategory() {
+		return idCategory;
 	}
 
 
-	public void setId_category(int id_category) {
-		this.id_category = id_category;
+	public void setIdCategory(int id_category) {
+		this.idCategory = id_category;
 	}
 
 
-	public int getId_instructor() {
-		return id_instructor;
+	public int getIdInstructor() {
+		return idInstructor;
 	}
 
 
-	public void setId_instructor(int id_instructor) {
-		this.id_instructor = id_instructor;
+	public void setIdInstructor(int id_instructor) {
+		this.idInstructor = id_instructor;
 	}
 
 
@@ -83,18 +82,17 @@ public class Course {
 	}
 
 
-	public Boolean getFinished() {
+	public int getFinished() {
 		return finished;
 	}
 
 
-	public void setFinished(Boolean finished) {
+	public void setFinished(int finished) {
 		this.finished = finished;
 	}
 
 	
-	
-	
+
 	
 	
 	
