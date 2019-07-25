@@ -21,44 +21,44 @@ public class Student {
 	@Column(name="id_student")
 	private Integer id;
 	
-	@Column(name="name")
+	@Column
 	private String name;
 	
-	@Column(name="surname")
+	@Column
 	private String surname;
 	
-	@Column(name="login")
+	@Column
 	private String login;
 	
-	@Column(name="birthdate")
+	@Column
 	private Date birthdate;
 	
-	@Column(name="street")
+	@Column
 	private String street;
 	
-	@Column(name="buildingNumber")
+	@Column
 	private String buildingNumber;
 	
-    @Column(name="apartmentNumber")
+    @Column
 	private String apartmentNumber;
 	
-	@Column(name="city")
+	@Column
 	private String city;
 	
-	@Column(name="postcode")
+	@Column
 	private String postcode;
 	
-	@Column(name="phoneNumber")
+	@Column
 	private String phoneNumber;
 	
-	@Column(name="email")
+	@Column
 	private String email;
 	
-	@Column(name="PKK")
+	@Column
 	private String PKK;
 	
 	
-	@Column(name="deleted")
+	@Column
 	private Integer deleted;
 	
 	

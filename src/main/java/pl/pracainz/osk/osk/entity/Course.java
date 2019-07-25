@@ -18,16 +18,16 @@ public class Course {
 	@Column(name="id")
 	private int id;
 	
-	@Column(name="idCategory")
+	@Column
 	private int idCategory;
 	
-	@Column(name="idInstructor")
+	@Column
 	private int idInstructor;
 	
-	@Column(name="startDate")
+	@Column
 	private Date startDate;
 	
-	@Column(name="finished")
+	@Column
 	private int finished;
 	
 	
