@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Admin Students</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/students/list}"><-wroc</a>  </a> 
+<br/> <br/>
+
+
+
+<body>
+
+	<div class="container">
+	
+		<h3>DODAJ KURSANTA</h3>
+		
+	
+	
+		<form action="#" th:action="@{/students/save}"
+						 th:object="${student}" method="POST">
+		
+			<!-- Add hidden form field to handle update -->
+		  <input type="hidden" th:field="*{id}" />
+			
+			<input type="text" th:field="*{name}"
+					class="form-control mb-4 col-4" placeholder="Imię">
+
+			<input type="text" th:field="*{surname}"
+					class="form-control mb-4 col-4" placeholder="Nazwisko">
+
+			<input type="text" th:field="*{login}"
+					class="form-control mb-4 col-4" placeholder="Login">
+					Data urodzenia
+		 	<input type="date"  th:field="*{birthdate}" th:value="${birthdate}"
+					class="form-control mb-4 col-4" placeholder="Data urodzenia">
+ 
+			<input type="text" th:field="*{street}"
+					class="form-control mb-4 col-4" placeholder="Ulica">
+
+			<input type="text" th:field="*{buildingNumber}"
+					class="form-control mb-4 col-4" placeholder="Numer budynku">
+
+			<input type="text" th:field="*{apartmentNumber}"
+					class="form-control mb-4 col-4" placeholder="Numer mieszkania">
+					
+			<input type="text" th:field="*{city}"
+					class="form-control mb-4 col-4" placeholder="Miasto">
+					
+			<input type="text" th:field="*{postcode}"
+					class="form-control mb-4 col-4" placeholder="Kod pocztowy">
+					
+			<input type="text" th:field="*{phoneNumber}"
+					class="form-control mb-4 col-4" placeholder="Numer telefonu">
+					
+			<input type="text" th:field="*{email}"
+					class="form-control mb-4 col-4" placeholder="Email">
+					
+	   		<input type="text" th:field="*{PKK}"
+					class="form-control mb-4 col-4" placeholder="PKK">
+				
+			<button type="submit" class="btn btn-info col-2">Zapisz</button>
+						
+		</form>
+	
+		
+	</div>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+
+</HTML>

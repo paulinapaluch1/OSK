@@ -2,9 +2,8 @@ package pl.pracainz.osk.osk;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.context.annotation.Bean;
+import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
 @SpringBootApplication   //(scanBasePackages= {"pl.praca.inz.osk"})
 public class OskApplication {
@@ -13,6 +12,5 @@ public class OskApplication {
 		SpringApplication.run(OskApplication.class, args);
 	}
 
-	
 	
 }

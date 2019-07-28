@@ -15,13 +15,13 @@ public class Course {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name="id_course")
 	private int id;
 	
-	@Column
+	@Column(name="id_category")
 	private int idCategory;
 	
-	@Column
+	@Column(name="id_instructor")
 	private int idInstructor;
 	
 	@Column
