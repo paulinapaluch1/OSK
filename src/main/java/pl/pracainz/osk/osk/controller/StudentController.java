@@ -1,10 +1,13 @@
 package pl.pracainz.osk.osk.controller;
 
+import java.time.Instant;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.pracainz.osk.osk.dao.StudentRepository;
@@ -20,7 +23,6 @@ public class StudentController {
 	this.studentRepository=repository;
 	}
 	
-	
 	@GetMapping("/list")
 	public String listStudents(Model theModel) {
 		
@@ -29,6 +31,25 @@ public class StudentController {
 		theModel.addAttribute("students", theStudents);
 		
 		return "adminViews/adminStudents/students";
+	}
+	
+	@GetMapping("/showFormForAdd")
+	public String showFormForAdd(Model theModel) {
+		
+		Student theStudent = new Student();
+		
+		theModel.addAttribute("student", theStudent);
+		
+		return "adminViews/adminStudents/addStudent";
+	}
+
+	
+	
+	@PostMapping("save")
+	public String saveStudent(@ModelAttribute("student") Student theStudent) {
+		studentRepository.save(theStudent);
+		
+		return "redirect:/students/list";
 	}
 	
 

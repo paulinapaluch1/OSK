@@ -10,7 +10,6 @@ public class AdminController {
 	public AdminController() {
 	}
 	
-	
 	@GetMapping("/")
 	public String showAdminProfile() {
 	

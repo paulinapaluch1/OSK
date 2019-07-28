@@ -8,18 +8,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 
 @Entity
 @Table(name="students")
 public class Student {
-
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_student")
-	private Integer id;
+	private int id;
 	
 	@Column
 	private String name;
@@ -31,7 +34,10 @@ public class Student {
 	private String login;
 	
 	@Column
-	private Date birthdate;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) 
+    @NotNull
+    @Past	
+    private Date birthdate;
 	
 	@Column
 	private String street;
@@ -89,11 +95,31 @@ public class Student {
 	}
 
 
+	public Student(Integer id, String name, String surname, String login, Date birthdate, String street,
+			String buildingNumber, String apartmentNumber, String city, String postcode, String phoneNumber,
+			String email, String pKK, Integer deleted) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+		this.login = login;
+		this.birthdate = birthdate;
+		this.street = street;
+		this.buildingNumber = buildingNumber;
+		this.apartmentNumber = apartmentNumber;
+		this.city = city;
+		this.postcode = postcode;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+		PKK = pKK;
+		this.deleted = deleted;
+	}
+	
 	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -133,7 +159,6 @@ public class Student {
 	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
 	}
-
 
 	public String getStreet() {
 		return street;
@@ -224,6 +249,14 @@ public class Student {
 
 	public void setDeleted(int deleted) {
 		this.deleted = deleted;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", name=" + name + ", surname=" + surname + ", login=" + login + ", birthdate="
+				+ birthdate + ", street=" + street + ", buildingNumber=" + buildingNumber + ", apartmentNumber="
+				+ apartmentNumber + ", city=" + city + ", postcode=" + postcode + ", phoneNumber=" + phoneNumber
+				+ ", email=" + email + ", PKK=" + PKK + ", deleted=" + deleted + "]";
 	}
 
 
