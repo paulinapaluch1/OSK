@@ -12,7 +12,7 @@
 Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><-wroc</a>  </a> 
 <br/> <br/>
 <h3>KURSY</h3>
-<button name="add" class="btn btn-primary">DODAJ</button> <br><br>
+<a th:href="@{/courses/showFormForAdd}" class="btn btn-primary">DODAJ</a> <br><br>
 <input class="form-control" id="myInput" type="text" placeholder="Szukaj...">
   <br>
 <div class="table-responsive">
@@ -34,7 +34,7 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><
     <td th:text="${course.idInstructor}"/>
     <td th:text="${course.startDate}"/>
     <td th:text="${course.finished}"/>
-      <td><button name="edit" class="btn btn-primary">EDYTUJ</button> </td> 
+     <td><a th:href="@{/courses/showFormForUpdate(id_course=${course.id})}" class="btn btn-primary">EDYTUJ</a> </td> 
  </tr>
 
 </tbody>

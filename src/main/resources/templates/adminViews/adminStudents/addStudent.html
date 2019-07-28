@@ -21,8 +21,7 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/stud
 		<form action="#" th:action="@{/students/save}"
 						 th:object="${student}" method="POST">
 		
-			<!-- Add hidden form field to handle update -->
-		  <input type="hidden" th:field="*{id}" />
+     		<input type="hidden" th:field="*{id}" />
 			
 			<input type="text" th:field="*{name}"
 					class="form-control mb-4 col-4" placeholder="Imię">
@@ -69,20 +68,6 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/stud
 </body>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-</body>
 
 
 </HTML>
