@@ -35,7 +35,6 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><
    <td>Godz. przejechane</td>
    <td>Godz. opłacone</td>
    <td>Archiwizowany</td>
-     <td><button name="edit" class="btn btn-primary">EDYTUJ</button> </td> 
    
  </tr>
 </thead>
@@ -54,7 +53,7 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><
      <td></td>
      <td>30</td>
      <td th:text="${tempStudent.deleted}"/>
-     <td><button name="edit" class="btn btn-primary">EDYTUJ</button> </td> 
+     <td><a th:href="@{/students/showFormForUpdate(id_student=${tempStudent.id})}" class="btn btn-primary">EDYTUJ</a> </td> 
       
  </tr>
 </tbody>

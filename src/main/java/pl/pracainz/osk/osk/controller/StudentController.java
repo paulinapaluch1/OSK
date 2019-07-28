@@ -1,7 +1,7 @@
 package pl.pracainz.osk.osk.controller;
 
-import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pracainz.osk.osk.dao.StudentRepository;
 import pl.pracainz.osk.osk.entity.Student;
@@ -43,8 +44,18 @@ public class StudentController {
 		return "adminViews/adminStudents/addStudent";
 	}
 
+	@GetMapping("/showFormForUpdate")
+	public String showFormForUpdate(@RequestParam("id_student") int id,
+									Model theModel) {
+		
+		Optional<Student> theStudent = studentRepository.findById(id);
+		
+		theModel.addAttribute("student", theStudent);
+		
+		return "adminViews/adminStudents/addStudent";			
+	}
 	
-	
+
 	@PostMapping("save")
 	public String saveStudent(@ModelAttribute("student") Student theStudent) {
 		studentRepository.save(theStudent);
