@@ -7,9 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,11 +23,13 @@ public class Course {
 	@Column(name="id_course")
 	private int id;
 	
-	@Column(name="id_category")
-	private int idCategory;
+	@ManyToOne
+	@JoinColumn(name="id_category")
+	private Category category;
 	
-	@Column(name="id_instructor")
-	private int idInstructor;
+	@ManyToOne
+	@JoinColumn(name="id_instructor")
+	private Instructor instructor;
 	
 	@Column
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) 
@@ -40,9 +43,9 @@ public class Course {
 	public Course() {
 	}
 
-	public Course(int id_category, int id_instructor, Date startDate, int finished) {
-		this.idCategory = id_category;
-		this.idInstructor = id_instructor;
+	public Course(Category id_category, Instructor instructor, Date startDate, int finished) {
+		this.category = id_category;
+		this.instructor = instructor;
 		this.startDate = startDate;
 		this.finished = finished;
 	}
@@ -57,26 +60,23 @@ public class Course {
 		this.id = id;
 	}
 
-
-	public int getIdCategory() {
-		return idCategory;
+	public Category getCategory() {
+		return category;
 	}
 
-
-	public void setIdCategory(int id_category) {
-		this.idCategory = id_category;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
+	
 
-	public int getIdInstructor() {
-		return idInstructor;
+	public Instructor getInstructor() {
+		return instructor;
 	}
 
-
-	public void setIdInstructor(int id_instructor) {
-		this.idInstructor = id_instructor;
+	public void setInstructor(Instructor instructor) {
+		this.instructor = instructor;
 	}
-
 
 	public Date getStartDate() {
 		return startDate;

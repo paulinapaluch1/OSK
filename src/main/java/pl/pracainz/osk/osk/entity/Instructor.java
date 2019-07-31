@@ -1,10 +1,13 @@
 package pl.pracainz.osk.osk.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -13,7 +16,7 @@ public class Instructor {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name="id_instructor")
 	private int id_instructor;
 	
 	@Column(name="name")
@@ -35,11 +38,19 @@ public class Instructor {
 	private String phoneNumber;
 	
 	@Column
-	private int deleted;
+	private Integer deleted;
 
+	@OneToMany()
+	List<InternalExam> exams;
+	
+	@OneToMany()
+	List<Course> courses;
+	
+	public Instructor() {}
+	
 	public Instructor(String name, String surname, String login, String password, String email, String phoneNumber,
 			int deleted) {
-		super();
+	
 		this.name = name;
 		this.surname = surname;
 		this.login = login;
@@ -105,12 +116,32 @@ public class Instructor {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public int getDeleted() {
+	public Integer getDeleted() {
 		return deleted;
 	}
 
-	public void setDeleted(int deleted) {
+	public void setDeleted(Integer deleted) {
 		this.deleted = deleted;
+	}
+	
+	
+
+	public List<InternalExam> getExams() {
+		return exams;
+	}
+
+	public void setExams(List<InternalExam> exams) {
+		this.exams = exams;
+	}
+	
+	
+
+	public List<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
 	}
 
 	@Override

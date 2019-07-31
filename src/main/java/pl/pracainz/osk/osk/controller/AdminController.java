@@ -16,6 +16,7 @@ public class AdminController {
 		return "adminViews/adminProfile";
 	}
 	
+	
 	@GetMapping("/instructors")
 	public String showInstructors() {
 		

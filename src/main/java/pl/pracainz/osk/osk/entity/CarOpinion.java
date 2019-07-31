@@ -32,6 +32,8 @@ public class CarOpinion {
 	@Column
 	private int deleted;
 
+	public CarOpinion() {}
+	
 	public CarOpinion(int id_student, int id_car, int carMark, int carOpinion, int deleted) {
 		super();
 		this.id_student = id_student;
@@ -88,9 +90,6 @@ public class CarOpinion {
 	public void setDeleted(int deleted) {
 		this.deleted = deleted;
 	}
-	
-	
-	
 	
 	
 	

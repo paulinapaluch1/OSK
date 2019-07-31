@@ -30,8 +30,8 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><
 <tbody id="myTable">
   <tr th:each="course:${courses}">
       <td th:text="${course.id}"/>
-    <td th:text="${course.idCategory}"/>
-    <td th:text="${course.idInstructor}"/>
+    <td th:text="${course.category.categoryName}"/>
+    <td th:text="${course.instructor.name}+' ' +${course.instructor.surname} "/>
     <td th:text="${course.startDate}"/>
     <td th:text="${course.finished}"/>
      <td><a th:href="@{/courses/showFormForUpdate(id_course=${course.id})}" class="btn btn-primary">EDYTUJ</a> </td> 

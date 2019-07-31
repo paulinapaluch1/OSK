@@ -37,6 +37,12 @@ public class GpsPoint {
 	@Column
 	private int id_instructor;
 
+	
+	
+	public GpsPoint() {
+		
+	}
+
 	public GpsPoint(String gps_ns, String gps_ew, String gps_z, Date time, int id_driving, int id_instructor) {
 		super();
 		this.gps_ns = gps_ns;
