@@ -19,6 +19,8 @@ public class DrivingType {
 		@Column
 		private int type;
 
+		public DrivingType() {}
+		
 		public DrivingType(int type) {
 			super();
 			this.type = type;

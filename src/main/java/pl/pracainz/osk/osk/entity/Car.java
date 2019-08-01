@@ -29,6 +29,8 @@ public class Car {
 	private int deleted;
 	
 
+	public Car() {}
+	
 	public Car(String registration_number, String brand, String model, int deleted) {
 		super();
 		this.registration_number = registration_number;

@@ -1,12 +1,14 @@
 package pl.pracainz.osk.osk.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -52,7 +54,7 @@ public class Student {
 	private String city;
 	
 	@Column
-	private String postcode;
+	private String postCode;
 	
 	@Column
 	private String phoneNumber;
@@ -67,6 +69,8 @@ public class Student {
 	@Column
 	private Integer deleted;
 	
+	@OneToMany()
+	List<InternalExam> exams;
 	
 	public Student() {}
 	
@@ -86,7 +90,7 @@ public class Student {
 		this.buildingNumber = buildingNumber;
 		this.apartmentNumber = apartmentNumber;
 		this.city = city;
-		this.postcode = postcode;
+		this.postCode = postcode;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
 		this.PKK = pKK;
@@ -108,7 +112,7 @@ public class Student {
 		this.buildingNumber = buildingNumber;
 		this.apartmentNumber = apartmentNumber;
 		this.city = city;
-		this.postcode = postcode;
+		this.postCode = postcode;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
 		PKK = pKK;
@@ -199,14 +203,14 @@ public class Student {
 	}
 
 
-	public String getPostcode() {
-		return postcode;
+	public String getPostCode() {
+		return postCode;
 	}
 
 	
 
-	public void setPostcode(String postcode) {
-		this.postcode = postcode;
+	public void setPostCode(String postcode) {
+		this.postCode = postcode;
 	}
 
 
@@ -244,10 +248,17 @@ public class Student {
 	public Integer getDeleted() {
 		return deleted;
 	
+	}	
+	
+	public List<InternalExam> getExams() {
+		return exams;
 	}
 
+	public void setExams(List<InternalExam> exams) {
+		this.exams = exams;
+	}
 
-	public void setDeleted(int deleted) {
+	public void setDeleted(Integer deleted) {
 		this.deleted = deleted;
 	}
 
@@ -255,7 +266,7 @@ public class Student {
 	public String toString() {
 		return "Student [id=" + id + ", name=" + name + ", surname=" + surname + ", login=" + login + ", birthdate="
 				+ birthdate + ", street=" + street + ", buildingNumber=" + buildingNumber + ", apartmentNumber="
-				+ apartmentNumber + ", city=" + city + ", postcode=" + postcode + ", phoneNumber=" + phoneNumber
+				+ apartmentNumber + ", city=" + city + ", postcode=" + postCode + ", phoneNumber=" + phoneNumber
 				+ ", email=" + email + ", PKK=" + PKK + ", deleted=" + deleted + "]";
 	}
 

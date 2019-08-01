@@ -36,6 +36,8 @@ public class Driving {
 	
 	@Column
 	private int cancelled;
+	
+	public Driving() {}
 
 	public Driving(int id_type, int id_student, Date startHour, Date finishHour, int done, int cancelled) {
 		super();

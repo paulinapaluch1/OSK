@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,11 +21,14 @@ public class InternalExam {
 	private int id;
 	
 	
-	@Column
-	private int id_instructor;
+	@ManyToOne
+	@JoinColumn(name="id_instructor")
+	private Instructor id_instructor;
 	
-	@Column
-	private int id_student;
+	
+	@ManyToOne
+	@JoinColumn(name="id_student")
+	private Student id_student;
 	
 	@Column
 	private Date dateHour;
@@ -37,8 +42,8 @@ public class InternalExam {
 	@Column
 	private int deleted;
 
-	public InternalExam(int id_instructor, int id_student, Date dateHour, int result, String type, int deleted) {
-		super();
+	public InternalExam(Instructor id_instructor, Student id_student, Date dateHour, int result, String type, int deleted) {
+		
 		this.id_instructor = id_instructor;
 		this.id_student = id_student;
 		this.dateHour = dateHour;
@@ -55,19 +60,21 @@ public class InternalExam {
 		this.id = id;
 	}
 
-	public int getId_instructor() {
+
+
+	public Instructor getId_instructor() {
 		return id_instructor;
 	}
 
-	public void setId_instructor(int id_instructor) {
+	public void setId_instructor(Instructor id_instructor) {
 		this.id_instructor = id_instructor;
 	}
 
-	public int getId_student() {
+	public Student getId_student() {
 		return id_student;
 	}
 
-	public void setId_student(int id_student) {
+	public void setId_student(Student id_student) {
 		this.id_student = id_student;
 	}
 

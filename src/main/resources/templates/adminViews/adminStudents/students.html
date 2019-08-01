@@ -46,7 +46,7 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><
     <td th:text="${tempStudent.login}"/>
     <td><button name="sendPassword">Wyslij haslo</button> </td> 
     <td th:text="${tempStudent.birthdate} "/>
-    <td th:text="${tempStudent.street}"/>
+    <td th:text="'ul. '+${tempStudent.street}+ ' ' +${tempStudent.buildingNumber}+ '/ ' +${tempStudent.apartmentNumber}+ ' ' +${tempStudent.postCode}+ ' ' +${tempStudent.city}"/>
      <td th:text="${tempStudent.phoneNumber}"/> 
      <td th:text="${tempStudent.email}"/>
      <td th:text="${tempStudent.PKK}"/>
@@ -61,10 +61,6 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><
 
 </table>
 </div>
-
-
-
-
 
 
 <script>
