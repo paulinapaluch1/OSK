@@ -22,7 +22,7 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/stud
 						 th:object="${student}" method="POST">
 		
      		<input type="hidden" th:field="*{id}" />
-			
+		
 			<input type="text" th:field="*{name}"
 					class="form-control mb-4 col-4" placeholder="Imię">
 
@@ -47,7 +47,7 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/stud
 			<input type="text" th:field="*{city}"
 					class="form-control mb-4 col-4" placeholder="Miasto">
 					
-			<input type="text" th:field="*{postcode}"
+			<input type="text" th:field="*{postCode}"
 					class="form-control mb-4 col-4" placeholder="Kod pocztowy">
 					
 			<input type="text" th:field="*{phoneNumber}"
