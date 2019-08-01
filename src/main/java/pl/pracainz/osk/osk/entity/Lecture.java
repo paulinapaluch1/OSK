@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,8 +20,9 @@ public class Lecture {
 	@Column(name="id_lecture")
 	private int id;
 	
-	@Column
-	private int id_course;
+	@ManyToOne
+	@JoinColumn(name="id_course")
+	private Course course;
 	
 	@Column
 	private String roomNumber;
@@ -27,9 +30,9 @@ public class Lecture {
 	@Column
 	private Date date;
 
-	public Lecture(int id_course, String roomNumber, Date date) {
+	public Lecture(Course course, String roomNumber, Date date) {
 		super();
-		this.id_course = id_course;
+		this.course = course;
 		this.roomNumber = roomNumber;
 		this.date = date;
 	}
@@ -42,12 +45,13 @@ public class Lecture {
 		this.id = id;
 	}
 
-	public int getId_course() {
-		return id_course;
+	
+	public Course getCourse() {
+		return course;
 	}
 
-	public void setId_course(int id_course) {
-		this.id_course = id_course;
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 
 	public String getRoomNumber() {

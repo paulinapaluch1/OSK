@@ -1,6 +1,7 @@
 package pl.pracainz.osk.osk.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -40,6 +42,9 @@ public class Course {
 	private int finished;
 	
 	
+	@OneToMany
+	List<Lecture> lectures;
+	
 	public Course() {
 	}
 
@@ -69,7 +74,6 @@ public class Course {
 	}
 
 	
-
 	public Instructor getInstructor() {
 		return instructor;
 	}
@@ -97,10 +101,16 @@ public class Course {
 		this.finished = finished;
 	}
 
-	
+	public List<Lecture> getLectures() {
+		return lectures;
+	}
+
+	public void setLectures(List<Lecture> lectures) {
+		this.lectures = lectures;
+	}
 
 	
-	
+
 	
 }
 

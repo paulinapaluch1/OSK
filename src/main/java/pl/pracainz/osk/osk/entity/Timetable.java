@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,9 +20,11 @@ public class Timetable {
 	@Column
 	private int id;
 	
-	@Column
-	private int id_instructor;
+	@ManyToOne
+	@JoinColumn(name="id_instructor")
+	private Instructor instructor;
 
+	
 	@Column
 	private Date begin;
 	
@@ -36,9 +40,9 @@ public class Timetable {
 	@Column
 	private int archived;
 
-	public Timetable(int id_instructor, Date begin, Date end, int id_car, int id_driving, int archived) {
+	public Timetable(Instructor instructor, Date begin, Date end, int id_car, int id_driving, int archived) {
 		super();
-		this.id_instructor = id_instructor;
+		this.instructor = instructor;
 		this.begin = begin;
 		this.end = end;
 		this.id_car = id_car;
@@ -54,12 +58,13 @@ public class Timetable {
 		this.id = id;
 	}
 
-	public int getId_instructor() {
-		return id_instructor;
+	
+	public Instructor getInstructor() {
+		return instructor;
 	}
 
-	public void setId_instructor(int id_instructor) {
-		this.id_instructor = id_instructor;
+	public void setInstructor(Instructor instructor) {
+		this.instructor = instructor;
 	}
 
 	public Date getBegin() {
@@ -102,12 +107,6 @@ public class Timetable {
 		this.archived = archived;
 	}
 
-	@Override
-	public String toString() {
-		return "Timetable [id=" + id + ", id_instructor=" + id_instructor + ", begin=" + begin + ", end=" + end
-				+ ", id_car=" + id_car + ", id_driving=" + id_driving + ", archived=" + archived + "]";
-	}
-	
 	
 	
 	

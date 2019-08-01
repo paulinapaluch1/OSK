@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,8 +22,9 @@ public class InstructorOpinion{
 	@Column
 	private int id_student;
 	
-	@Column
-	private int id_instructor;
+	@ManyToOne
+	@JoinColumn(name="id_instructor")
+	private Instructor instructor;
 	
 	@Column
 	private int instructorMark;
@@ -32,10 +35,10 @@ public class InstructorOpinion{
 	@Column
 	private int deleted;
 
-	public InstructorOpinion(int id_student, int id_instructor, int instructorMark, String instructorOpinion, int deleted) {
+	public InstructorOpinion(int id_student, Instructor instructor, int instructorMark, String instructorOpinion, int deleted) {
 		super();
 		this.id_student = id_student;
-		this.id_instructor = id_instructor;
+		this.instructor = instructor;
 		this.instructorMark = instructorMark;
 		this.instructorOpinion = instructorOpinion;
 		this.deleted = deleted;
@@ -67,8 +70,15 @@ public class InstructorOpinion{
 
 
 
-	public void setId_instructor(int id_instructor) {
-		this.id_instructor = id_instructor;
+
+	public Instructor getInstructor() {
+		return instructor;
+	}
+
+
+
+	public void setInstructor(Instructor instructor) {
+		this.instructor = instructor;
 	}
 
 
@@ -89,9 +99,7 @@ public class InstructorOpinion{
 		this.id_student = id_student;
 	}
 
-	public int getId_instructor() {
-		return id_instructor;
-	}
+	
 	int getDeleted() {
 		return deleted;
 	}

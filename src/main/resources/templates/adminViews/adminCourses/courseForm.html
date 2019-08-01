@@ -22,11 +22,13 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/cour
 						 th:object="${course}" method="POST">
 		
      		<input type="hidden" th:field="*{id}" />
-			
-			<input type="text" th:field="*{idCategory}"
+			Kategoria:
+			<input type="text" th:field="*{category.categoryName}"
 					class="form-control mb-4 col-4" placeholder="Kategoria">
-
-			<input type="text" th:field="*{idInstructor}"
+			Instruktor:
+			<input type="text" th:field="*{instructor.name}"
+					class="form-control mb-4 col-4" placeholder="Instruktor">
+			<input type="text" th:field="*{instructor.surname}"
 					class="form-control mb-4 col-4" placeholder="Instruktor">
 
 					Data rozpoczęcia

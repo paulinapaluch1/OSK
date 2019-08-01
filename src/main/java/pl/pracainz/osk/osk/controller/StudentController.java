@@ -40,7 +40,6 @@ public class StudentController {
 		Student theStudent = new Student();
 		
 		theModel.addAttribute("student", theStudent);
-		
 		return "adminViews/adminStudents/addStudent";
 	}
 
