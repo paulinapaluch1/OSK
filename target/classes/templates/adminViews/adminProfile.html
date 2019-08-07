@@ -1,9 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<title>Admin Exams</title>
+<title>Admin Profile</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 
 </head>
 <body>
@@ -11,11 +13,17 @@
 Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a>
 <br/> <br/>
 
-<h3>EGZAMINY</h3>
-
-To tu będą kiedyś wyniki....
-
-Albo i nie
+<a th:href="@{/courses/list}">KURSY</a>
+<a th:href="@{/students/list}" >KURSANCI</a>
+<a th:href="@{/instructors}">INSTRUKTORZY</a>
+<br/>
+<a th:href="@{/cars}" >SAMOCHODY</a>
+<a th:href="@{/exams}" >EGZAMINY</a>
+<a th:href="grafik.html" >GRAFIK</a>
+<br>
+<a th:href="opinie.html" >OPINIE</a>
+<a th:href="jazdy.html" >JAZDY</a>
+<a th:href="wyklady.html" >WYKŁADY</a>
 
 
 
