@@ -23,7 +23,7 @@ public class Category {
 	@Column
 	private String categoryName;
 
-	@OneToMany
+	@OneToMany(mappedBy="id")
 	private List<Course> kursy;
 	
 	

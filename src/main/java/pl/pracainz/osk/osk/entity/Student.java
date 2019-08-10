@@ -69,7 +69,7 @@ public class Student {
 	@Column
 	private Integer deleted;
 	
-	@OneToMany()
+	@OneToMany(mappedBy="id")
 	List<InternalExam> exams;
 	
 	public Student() {}
@@ -269,11 +269,5 @@ public class Student {
 				+ apartmentNumber + ", city=" + city + ", postcode=" + postCode + ", phoneNumber=" + phoneNumber
 				+ ", email=" + email + ", PKK=" + PKK + ", deleted=" + deleted + "]";
 	}
-
-
-
-	
-	
-	
 
 }

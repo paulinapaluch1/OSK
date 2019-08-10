@@ -23,12 +23,11 @@ public class InternalExam {
 	
 	@ManyToOne
 	@JoinColumn(name="id_instructor")
-	private Instructor id_instructor;
-	
+	private Instructor instructor;
 	
 	@ManyToOne
 	@JoinColumn(name="id_student")
-	private Student id_student;
+	private Student student;
 	
 	@Column
 	private Date dateHour;
@@ -42,10 +41,10 @@ public class InternalExam {
 	@Column
 	private int deleted;
 
-	public InternalExam(Instructor id_instructor, Student id_student, Date dateHour, int result, String type, int deleted) {
-		
-		this.id_instructor = id_instructor;
-		this.id_student = id_student;
+	public InternalExam(Instructor instructor, Student student, Date dateHour, int result, String type, int deleted) {
+	
+		this.instructor = instructor;
+		this.student = student;
 		this.dateHour = dateHour;
 		this.result = result;
 		this.type = type;
@@ -62,20 +61,20 @@ public class InternalExam {
 
 
 
-	public Instructor getId_instructor() {
-		return id_instructor;
+	public Instructor getInstructor() {
+		return instructor;
 	}
 
-	public void setId_instructor(Instructor id_instructor) {
-		this.id_instructor = id_instructor;
+	public void setinstructor(Instructor instructor) {
+		this.instructor = instructor;
 	}
 
-	public Student getId_student() {
-		return id_student;
+	public Student getStudent() {
+		return student;
 	}
 
-	public void setId_student(Student id_student) {
-		this.id_student = id_student;
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
 	public Date getDateHour() {
@@ -112,7 +111,7 @@ public class InternalExam {
 
 	@Override
 	public String toString() {
-		return "InternalExam [id=" + id + ", id_instructor=" + id_instructor + ", id_student=" + id_student
+		return "InternalExam [id=" + id + ", id_instructor="+instructor.getName() + ", id_student=" + student.getName()
 				+ ", dateHour=" + dateHour + ", result=" + result + ", type=" + type + ", deleted=" + deleted + "]";
 	}
 	

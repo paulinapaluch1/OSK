@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pl.pracainz.osk.osk.dao.CategoryRepository;
 import pl.pracainz.osk.osk.dao.CourseRepository;
+import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.entity.Course;
 
 
@@ -20,9 +22,13 @@ import pl.pracainz.osk.osk.entity.Course;
 public class CourseController {
 
 private CourseRepository courseRepository;
-	
-	public CourseController(CourseRepository repository) {
+private InstructorRepository instructorRepository;
+private CategoryRepository categoryRepository;
+
+	public CourseController(CourseRepository repository,InstructorRepository instructorRepository,CategoryRepository categoryRepository) {
 	   this.courseRepository = repository;
+	   this.instructorRepository=instructorRepository;
+	   this.categoryRepository = categoryRepository;
 	}
 	
 
@@ -44,7 +50,9 @@ private CourseRepository courseRepository;
 		Course theCourse = new Course();
 		
 		theModel.addAttribute("course", theCourse);
-		
+		theModel.addAttribute("instructors",instructorRepository.findAll() );
+		theModel.addAttribute("categories",categoryRepository.findAll() );
+
 		return "adminViews/adminCourses/courseForm";
 	}
 
@@ -56,6 +64,9 @@ private CourseRepository courseRepository;
 		
 		theModel.addAttribute("course", theCourse);
 		
+		theModel.addAttribute("instructors",instructorRepository.findAll() );
+		theModel.addAttribute("categories",categoryRepository.findAll() );
+
 		return "adminViews/adminCourses/courseForm";		
 	}
 	
@@ -64,12 +75,8 @@ private CourseRepository courseRepository;
 	public String saveCourse(@ModelAttribute("course") Course theCourse) {
 		courseRepository.save(theCourse);
 		
+		
 		return "redirect:/courses/list";
 	}
-	
-	
-	
-	
-	
-	
+
 }
