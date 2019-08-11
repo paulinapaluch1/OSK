@@ -1,0 +1,66 @@
+﻿<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Admin Students</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/courses/list}"><-wroc</a>  </a> 
+<br/> <br/>
+
+
+
+<body>
+
+	<div class="container">
+	
+		<h3>KURS</h3>
+
+		<form action="#" th:action="@{/courses/save}"
+						 th:object="${course}" method="POST">
+		
+     		<input type="hidden" th:field="*{id}" />
+			Kategoria:
+		
+			<select th:field="*{category}" class="form-control" >
+   			 <option 
+   			 	 th:each="category: ${categories}" 
+   				 th:value="${category.id}"
+   			 	 th:text="${category.categoryName}" 
+   			 />
+ 			 </select>
+		
+			Instruktor:
+	
+ 			<select th:field="*{instructor}" class="form-control" >
+   			 <option 
+   			 	 th:each="instructor: ${instructors}" 
+   				 th:value="${instructor.id}"
+   			 	 th:text="${instructor.name}+' '+${instructor.surname}" 
+   			 />
+ 			 </select>
+	
+
+
+					Data rozpoczęcia
+		 	<input type="date"  th:field="*{startDate}" th:value="${birthdate}"
+					class="form-control mb-4 col-4" placeholder="Data rozpoczęcia">
+		
+			<button type="submit" class="btn btn-info col-2">Zapisz</button>
+						
+		</form>
+	
+		
+	</div>
+</body>
+
+
+
+
+
+
+
+
+</HTML>
