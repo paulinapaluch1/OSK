@@ -3,6 +3,7 @@ package pl.pracainz.osk.osk.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,11 +26,11 @@ public class Course {
 	@Column(name="id_course")
 	private int id;
 	
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.DETACH})
 	@JoinColumn(name="id_category")
 	private Category category;
 	
-	@ManyToOne
+	@ManyToOne(cascade= {CascadeType.DETACH})
 	@JoinColumn(name="id_instructor")
 	private Instructor instructor;
 	
@@ -42,7 +43,7 @@ public class Course {
 	private int finished;
 	
 	
-	@OneToMany
+	@OneToMany(mappedBy="id")
 	List<Lecture> lectures;
 	
 	public Course() {

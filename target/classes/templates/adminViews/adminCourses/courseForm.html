@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Admin Students</title>
@@ -23,13 +23,26 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/cour
 		
      		<input type="hidden" th:field="*{id}" />
 			Kategoria:
-			<input type="text" th:field="*{category.categoryName}"
-					class="form-control mb-4 col-4" placeholder="Kategoria">
+		
+			<select th:field="*{category}" class="form-control" >
+   			 <option 
+   			 	 th:each="category: ${categories}" 
+   				 th:value="${category.id}"
+   			 	 th:text="${category.categoryName}" 
+   			 />
+ 			 </select>
+		
 			Instruktor:
-			<input type="text" th:field="*{instructor.name}"
-					class="form-control mb-4 col-4" placeholder="Instruktor">
-			<input type="text" th:field="*{instructor.surname}"
-					class="form-control mb-4 col-4" placeholder="Instruktor">
+	
+ 			<select th:field="*{instructor}" class="form-control" >
+   			 <option 
+   			 	 th:each="instructor: ${instructors}" 
+   				 th:value="${instructor.id}"
+   			 	 th:text="${instructor.name}+' '+${instructor.surname}" 
+   			 />
+ 			 </select>
+	
+
 
 					Data rozpoczęcia
 		 	<input type="date"  th:field="*{startDate}" th:value="${birthdate}"

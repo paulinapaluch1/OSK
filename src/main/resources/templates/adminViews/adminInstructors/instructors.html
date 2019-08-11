@@ -1,16 +1,107 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Instructors</title>
+<title>Instruktorzy</title>
 <meta charset="utf-8">
-
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><-wroc</a>
-<br/> <br/>
-<h3>INSTRUKTORZY</h3>
+	Zalogowany użytkownik: administrator
+	<a href="">WYLOGUJ</a>
+	<a th:href="@{/}"><-wroc</a>
+	<br />
+	<br />
+
+	<h3>Instruktorzy</h3>
+	<a th:href="@{/instructors/showFormForAdd}" class="btn btn-primary">DODAJ</a>
+	<br>
+	<br>
+
+	<input class="form-control" id="myInput" type="text"
+		placeholder="Szukaj...">
+	<br>
+
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover  table-sm">
+			<thead>
+				<tr class="table-primary">
+					<td>Id</td>
+					<td>Imię</td>
+					<td>Nazwisko</td>
+					<td>Login</td>
+					<td>Hasło</td>
+					<td>Telefon</td>
+					<td>Email</td>
+					<td>Archiwizowany</td>
+
+				</tr>
+			</thead>
+			<tbody id="myTable">
+				<tr th:each="instructor:${instructors}">
+					<td th:text="${instructor.id}" />
+					<td th:text="${instructor.name}" />
+					<td th:text="${instructor.surname}" />
+					<td th:text="${instructor.login}" />
+					<td><button name="sendPassword">Wyslij haslo</button></td>
+					<td th:text="${instructor.phoneNumber}" />
+					<td th:text="${instructor.email}" />
+
+					<td th:text="${instructor.deleted}" />
+					<td><a
+						th:href="@{/instructors/showFormForUpdate(id_instructor=${instructor.id})}"
+						class="btn btn-primary">EDYTUJ</a></td>
+
+				</tr>
+			</tbody>
+
+
+		</table>
+	</div>
+
+
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$("#myInput")
+									.on(
+											"keyup",
+											function() {
+												var value = $(this).val()
+														.toLowerCase();
+												$("#myTable tr")
+														.filter(
+																function() {
+																	$(this)
+																			.toggle(
+																					$(
+																							this)
+																							.text()
+																							.toLowerCase()
+																							.indexOf(
+																									value) > -1)
+																});
+											});
+						});
+	</script>
+
+
+
+
+
+
+
+
 
 </body>
 
-</html>
+
+</HTML>
