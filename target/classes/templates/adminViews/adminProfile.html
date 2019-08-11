@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -26,30 +26,8 @@ div {
 </head>
 <body>
 
-Zalogowany użytkownik: <b>administrator</b> <a href=""><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-<br/> <br/>
-<!--
-<a th:href="@{/courses/list}">KURSY</a>
-<a th:href="@{/students/list}" >KURSANCI</a>
-<a th:href="@{/instructors}">INSTRUKTORZY</a>
+Zalogowany użytkownik: <b>administrator</b> <a href=""><button type="button" class="btn btn-primary">WYLOGUJ</button></a><br/> <br/>
 
-Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a>
-<br/> <br/>
-<!--
-<a th:href="@{/courses/list}">KURSY</a>
-<a th:href="@{/students/list}" >KURSANCI</a>
-<a th:href="@{/instructors/list}">INSTRUKTORZY</a>
-
-<br/>
-<a th:href="@{/cars}" >SAMOCHODY</a>
-<a th:href="@{/exams}" >EGZAMINY</a>
-<a th:href="grafik.html" >GRAFIK</a>
-<br>
-<a th:href="opinie.html" >OPINIE</a>
-<a th:href="jazdy.html" >JAZDY</a>
-<a th:href="wyklady.html" >WYKŁADY</a>
-
--->
 <div class="card bg-light mb-4 ml-4 mr-4">
 		<div class="card-body text-center mt-4" >
 			<a th:href="@{/courses/list}"> </br> </br>
@@ -70,7 +48,7 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a>
 
 	<div class="card bg-light mb-4 ml-4 mr-4">
 		<div class="card-body text-center mt-4">
-			<a th:href="@{/instructors}"> </br> </br>
+			<a th:href="@{/instructors/list}"> </br> </br>
 				<p class="card-text">Instruktorzy</p>
 			</a>
 		</div>
@@ -128,6 +106,14 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a>
 			</a>
 		</div>
 	</div>
+
+
+
+
+
+
+
+
 
 
 </body>

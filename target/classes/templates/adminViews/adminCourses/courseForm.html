@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Admin Students</title>
@@ -23,7 +23,7 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/cour
 		
      		<input type="hidden" th:field="*{id}" />
 			Kategoria:
-		
+			
 			<select th:field="*{category}" class="form-control" >
    			 <option 
    			 	 th:each="category: ${categories}" 
@@ -42,7 +42,6 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/cour
    			 />
  			 </select>
 	
-
 
 					Data rozpoczęcia
 		 	<input type="date"  th:field="*{startDate}" th:value="${birthdate}"

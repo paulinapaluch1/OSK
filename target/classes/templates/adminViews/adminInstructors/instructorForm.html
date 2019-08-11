@@ -23,21 +23,23 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/inst
 		
      		<input type="hidden" th:field="*{id}" />
 
+			Imię:
 			<input type="text" th:field="*{name}"
-					class="form-control mb-4 col-4" placeholder="Imię">
-
+					class="form-control mb-4 col-4" >
+			Nazwisko:
 			<input type="text" th:field="*{surname}"
-					class="form-control mb-4 col-4" placeholder="Nazwisko">
+					class="form-control mb-4 col-4">
 
+			Login:
 			<input type="text" th:field="*{login}"
-					class="form-control mb-4 col-4" placeholder="Login">
+					class="form-control mb-4 col-4" >
 		 	
- 
+			 Numer telefonu:
 			<input type="text" th:field="*{phoneNumber}"
-					class="form-control mb-4 col-4" placeholder="Numer telefonu">
-					
+					class="form-control mb-4 col-4">
+			Email:
 			<input type="text" th:field="*{email}"
-					class="form-control mb-4 col-4" placeholder="Email">
+					class="form-control mb-4 col-4" >
 				
 			<button type="submit" class="btn btn-info col-2">Zapisz</button>
 						
