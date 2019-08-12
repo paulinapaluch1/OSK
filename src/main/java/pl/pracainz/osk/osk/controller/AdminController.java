@@ -16,13 +16,6 @@ public class AdminController {
 		return "adminViews/adminProfile";
 	}
 	
-	
-	@GetMapping("/instructors")
-	public String showInstructors() {
-		
-		return "adminViews/adminInstructors/instructors";
-	}
-	
 	@GetMapping("/cars")
 	public String showCars() {
 		

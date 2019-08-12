@@ -2,6 +2,7 @@ package pl.pracainz.osk.osk.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +19,7 @@ public class Instructor {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_instructor")
-	private int id_instructor;
+	private int id;
 	
 	@Column(name="name")
 	private String name;
@@ -41,20 +42,21 @@ public class Instructor {
 	@Column
 	private Integer deleted;
 
-	@OneToMany()
+	@OneToMany(mappedBy="instructor")
 	List<InternalExam> exams;
 	
-	@OneToMany()
+	@OneToMany(mappedBy="instructor")
 	List<Course> courses;
 	
-	@ManyToMany
+	@OneToMany(mappedBy="instructor")
 	List<InstructorOpinion> instructorOpinions;
 	
 	public Instructor() {}
 	
-	public Instructor(String name, String surname, String login, String password, String email, String phoneNumber,
+	public Instructor(int id,String name, String surname, String login, String password, String email, String phoneNumber,
 			int deleted) {
 	
+		this.id=id;
 		this.name = name;
 		this.surname = surname;
 		this.login = login;
@@ -64,12 +66,12 @@ public class Instructor {
 		this.deleted = deleted;
 	}
 
-	public int getId_instructor() {
-		return id_instructor;
+	public int getId() {
+		return id;
 	}
 
-	public void setId_instructor(int id_instructor) {
-		this.id_instructor = id_instructor;
+	public void setId(int id_instructor) {
+		this.id = id_instructor;
 	}
 
 	public String getName() {
@@ -160,13 +162,10 @@ public class Instructor {
 
 	@Override
 	public String toString() {
-		return "Instructor [id_instructor=" + id_instructor + ", name=" + name + ", surname=" + surname + ", login="
+		return "Instructor [id_instructor=" + id + ", name=" + name + ", surname=" + surname + ", login="
 				+ login + ", password=" + password + ", email=" + email + ", phoneNumber=" + phoneNumber + ", deleted="
 				+ deleted + "]";
 	}
-	
-	
-	
 	
 	
 
