@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Admin Lectures</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+
+Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a>
+<br/> <br/>
+
+<h3>WYKŁADY</h3>
+  
+<a th:href="@{/lectures/showFormForAdd}" class="btn btn-primary">DODAJ</a> <br><br>
+  <br>
+<div class="table-responsive">
+<table class="table table-bordered table-hover">
+<thead >
+ <tr class="table-primary">
+   <td>Id wykładu</td>
+   <td>Id kursu</td>
+   <td>Kategoria</td>
+   <td>Instruktor</td>
+   <td>Numer sali</td>
+   <td>Data</td>  
+ </tr>
+</thead>
+<tbody id="myTable">
+				<tr th:each="lecture:${lectures}">
+					<td th:text="${lecture.id}" />
+					<td th:text="${lecture.course.id}" />
+					<td th:text="${lecture.course.category.categoryName}" />
+					<td th:text="${lecture.course.instructor.name} + ' ' + ${lecture.course.instructor.surname}" />
+					<td th:text="${lecture.roomNumber}" />
+					<td th:text="${lecture.date}" />
+					<td><a
+						th:href="@{/lectures/showFormForUpdate(id_lecture=${lecture.id})}"
+						class="btn btn-primary">EDYTUJ</a></td>
+
+				</tr>
+			</tbody>
+
+
+</table>
+</div>
+
+</body>
+
+
+</HTML>

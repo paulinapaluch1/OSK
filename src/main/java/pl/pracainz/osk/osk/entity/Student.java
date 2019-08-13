@@ -72,6 +72,12 @@ public class Student {
 	@OneToMany(mappedBy="id")
 	List<InternalExam> exams;
 	
+	@OneToMany(mappedBy="id")
+	List<CarOpinion> carOpinions;
+	
+	@OneToMany(mappedBy="id")
+	List<InstructorOpinion> instructorOpinions;
+	
 	public Student() {}
 	
 	public Student(String name, String surname
