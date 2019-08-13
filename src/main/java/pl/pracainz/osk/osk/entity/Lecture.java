@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="lectures")
@@ -28,6 +31,8 @@ public class Lecture {
 	private String roomNumber;
 	
 	@Column
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) 
+    @NotNull
 	private Date date;
 
 	public Lecture(Course course, String roomNumber, Date date) {
@@ -35,6 +40,10 @@ public class Lecture {
 		this.course = course;
 		this.roomNumber = roomNumber;
 		this.date = date;
+	}
+
+	public Lecture() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getId() {
