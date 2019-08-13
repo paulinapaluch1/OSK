@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Admin Cars</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+
+Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a>
+<br/> <br/>
+
+<h3>WYKŁADY</h3>
+
+<a th:href="@{/lectures/showFormForAdd}" class="btn btn-primary">DODAJ</a> <br><br>
+<input class="form-control" id="myInput" type="text" placeholder="Szukaj...">
+  <br>
+<div class="table-responsive">
+<table class="table table-bordered table-hover">
+<thead >
+ <tr class="table-primary">
+   <td>Id wykładu</td>
+   <td>Id kursu</td>
+   <td>Numer sali</td>
+   <td>Data</td>  
+ </tr>
+</thead>
+<tbody id="myTable">
+  <tr th:each="lecture:${lectures}">
+      
+     <td><a th:href="@{/lectures/showFormForUpdate(id_lecture=${lecture.id})}" class="btn btn-primary">EDYTUJ</a> </td> 
+ </tr>
+
+</tbody>
+
+
+</table>
+</div>
+
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+
+
+
+</body>
+
+
+</HTML>
