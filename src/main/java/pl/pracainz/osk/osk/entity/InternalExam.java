@@ -11,8 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.lang.Nullable;
+
 @Entity
-@Table(name="internalexam")
+@Table(name="internalexams")
 public class InternalExam {
 
 	@Id
@@ -38,9 +40,12 @@ public class InternalExam {
 	@Column 
 	private String type;
 	
+	@Nullable
 	@Column
 	private int deleted;
 
+	public InternalExam() {}
+	
 	public InternalExam(Instructor instructor, Student student, Date dateHour, int result, String type, int deleted) {
 	
 		this.instructor = instructor;
