@@ -8,24 +8,42 @@
 </head>
 <body>
 
-Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a>
+Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><-wroc</a>  </a> 
 <br/> <br/>
 
 <h3>EGZAMINY</h3>
 
-To tu będą kiedyś wyniki....
+  <br>
+<div class="table-responsive">
+<table class="table table-bordered table-hover">
+<thead >
+ <tr class="table-primary">
+   <td>Id egzaminu</td>
+   <td>Instruktor</td>
+   <td>Kursant</td>
+   <td>Data</td>
+   <td>Wynik</td>
+   <td>Typ</td> 
+   <td>Stan</td> 
+    
+ </tr>
+</thead>
+<tbody id="myTable">
+				<tr th:each="exam:${internalexams}">
+					<td th:text="${exam.id}" />
+					<td th:text="${exam.instructor.name} + ' ' + ${exam.instructor.surname}" />
+					<td th:text="${exam.student.name} + ' ' + ${exam.student.surname}" />
+					<td th:text="${exam.dateHour}" />
+					<td th:text="${exam.result}" />
+					<td th:text="${exam.type}" />
+					<td th:text="${exam.deleted}" />
 
-Albo i nie
+				</tr>
+			</tbody>
 
 
-
-
-
-
-
-
-
-
+</table>
+</div>
 
 
 
