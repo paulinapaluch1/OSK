@@ -13,6 +13,48 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a>
 
 <h3>SAMOCHODY</h3>
 
+<a th:href="@{/cars/showFormForAdd}" class="btn btn-primary">DODAJ</a> <br><br>
+<input class="form-control" id="myInput" type="text" placeholder="Szukaj...">
+  <br>
+<div class="table-responsive">
+<table class="table table-bordered table-hover">
+<thead >
+ <tr class="table-primary">
+   <td>Id</td>
+   <td>Numer rejestracyjny</td>
+   <td>Marka</td>
+   <td>Model</td> 
+   <td>Usunięty</td>  
+ </tr>
+</thead>
+<tbody id="myTable">
+  <tr th:each="car:${cars}">
+      <td th:text="${car.id}"/>
+    <td th:text="${car.registrationNumber}"/>
+    <td th:text="${car.brand}"/>
+      <td th:text="${car.model}"/>
+    <td th:text="${car.deleted}"/>
+     <td><a th:href="@{/cars/showFormForUpdate(id_car=${car.id})}" class="btn btn-primary">EDYTUJ</a> </td> 
+ </tr>
+
+</tbody>
+
+
+</table>
+</div>
+
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
 
 
 
