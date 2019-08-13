@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Admin Cars</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/courses/list}"><-wroc</a>  </a> 
+<br/> <br/>
+
+
+
+<body>
+
+	<div class="container">
+	
+
+		
+     		
+		<h3>WYKŁAD</h3>
+
+		<form action="#" th:action="@{/lectures/save}"
+						 th:object="${lecture}" method="POST">
+		
+     		<input type="hidden" th:field="*{id}" /> 
+     		Id kursu:		
+			<select th:field="*{course}" class="form-control mb-4 col-4" >
+   			 <option 
+   			 	 th:each="course: ${courses}" 
+   				 th:value="${course.id}"
+   				 th:text="${course.id}"
+   			 	 
+   			 />
+ 			 </select>
+
+			Kategoria:
+				<select th:field="*{course.category}" class="form-control mb-4 col-4" >
+   			 <option 
+   			 	 th:each="category: ${categories}" 
+   				 th:value="${category.id}"
+   				 th:text="${category.categoryName}"
+   			 	 
+   			 />
+ 			 </select>
+			
+			Instruktor:
+				<select th:field="*{course.instructor}" class="form-control mb-4 col-4" >
+   			 <option 
+   			 	 th:each="instructor: ${instructors}" 
+   				 th:value="${instructor.id}"
+   				 th:text="${instructor.name} + ' ' + ${instructor.surname}"
+   			 	 
+   			 />
+ 			 </select>
+ 			 
+			Numer sali:
+			<input type="text" th:field="*{roomNumber}"
+					class="form-control mb-4 col-4">
+					
+			Data:
+			<input type="date" th:field="*{date}" th:value="${date}"
+					class="form-control mb-4 col-4">
+		
+			<button type="submit" class="btn btn-info col-2">Zapisz</button>
+						
+		</form>
+	
+		
+	</div>
+</body>
+
+
+
+
+
+
+
+
+</HTML>
