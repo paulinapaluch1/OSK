@@ -45,7 +45,7 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><
     <td th:text="${tempStudent.surname}"/>
     <td th:text="${tempStudent.login}"/>
     <td><button name="sendPassword">Wyslij haslo</button> </td> 
-    <td th:text="${tempStudent.birthdate} "/>
+    <td th:text="${#dates.format(tempStudent.birthdate,'dd.MM.yyyy')} "/>
     <td th:text="'ul. '+${tempStudent.street}+ ' ' +${tempStudent.buildingNumber}+ '/ ' +${tempStudent.apartmentNumber}+ ' ' +${tempStudent.postCode}+ ' ' +${tempStudent.city}"/>
      <td th:text="${tempStudent.phoneNumber}"/> 
      <td th:text="${tempStudent.email}"/>
@@ -73,13 +73,6 @@ $(document).ready(function(){
   });
 });
 </script>
-
-
-
-
-
-
-
 
 
 </body>

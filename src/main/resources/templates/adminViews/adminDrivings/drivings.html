@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Drivings</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><-wroc</a>  </a> 
+<br/> <br/>
+
+<h3>JAZDY</h3>
+  <a th:href="@{/drivings/showFormForAdd}" class="btn btn-primary">DODAJ</a> <br><br>
+ 
+ <input class="form-control" id="myInput" type="text" placeholder="Szukaj...">
+  <br>
+  
+<div class="table-responsive">
+<table class="table table-bordered table-hover">
+<thead >
+ <tr class="table-primary">
+   <td>Id</td>
+   <td>Typ</td>
+   <td>Kursant</td>
+   <td>Początek</td>
+   <td>Koniec</td>
+   <td>Zrealizowana</td>  
+   <td>Odwołana</td>  
+   
+ </tr>
+</thead>
+<tbody id="myTable">
+				<tr th:each="driving:${drivings}">
+					<td th:text="${driving.id}" />
+					<td th:text="${driving.drivingType.type}" />
+					<td th:text="${driving.student.name}+' '+${driving.student.surname} " />
+					<td th:text="${#dates.format(driving.startHour,'dd.MM.yyyy HH:mm')}" />
+					<td th:text="${#dates.format(driving.finishHour,'dd.MM.yyyy HH:mm')}" />
+					<td th:text="${driving.done}" />
+					<td th:text="${driving.cancelled}" />
+			     <td><a th:href="@{/drivings/showFormForUpdate(id_driving=${driving.id})}" class="btn btn-primary">EDYTUJ</a> </td> 
+			
+				</tr>
+			</tbody>
+
+
+</table>
+</div>
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+
+
+
+
+
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+
+
+
+
+
+
+</body>
+
+
+</HTML>

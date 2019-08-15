@@ -34,7 +34,7 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a>
 					<td th:text="${lecture.course.category.categoryName}" />
 					<td th:text="${lecture.course.instructor.name} + ' ' + ${lecture.course.instructor.surname}" />
 					<td th:text="${lecture.roomNumber}" />
-					<td th:text="${lecture.date}" />
+					<td th:text="${#dates.format(lecture.date,'dd.MM.yyyy HH:mm')}" />
 					<td><a
 						th:href="@{/lectures/showFormForUpdate(id_lecture=${lecture.id})}"
 						class="btn btn-primary">EDYTUJ</a></td>

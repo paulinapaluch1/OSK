@@ -1,53 +1,60 @@
 package pl.pracainz.osk.osk.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="dricingtype")
+@Table(name = "drivingtype")
 public class DrivingType {
 
-		@Id
-		@GeneratedValue(strategy=GenerationType.IDENTITY)
-		@Column(name="id")
-		private int id;
-		
-		@Column
-		private int type;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private int id;
 
-		public DrivingType() {}
-		
-		public DrivingType(int type) {
-			super();
-			this.type = type;
-		}
+	@Column
+	private String type;
 
-		public int getId() {
-			return id;
-		}
+	@OneToMany(mappedBy = "drivingType")
+	List<Driving> drivings;
 
-		public void setId(int id) {
-			this.id = id;
-		}
+	public DrivingType() {
+	}
 
-		public int getType() {
-			return type;
-		}
+	public DrivingType(String type) {
+		super();
+		this.type = type;
+	}
 
-		public void setType(int type) {
-			this.type = type;
-		}
+	public int getId() {
+		return id;
+	}
 
-		@Override
-		public String toString() {
-			return "DrivingType [id=" + id + ", type=" + type + "]";
-		}
-		
-		
-		
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public List<Driving> getDrivings() {
+		return drivings;
+	}
+
+	public void setDrivings(List<Driving> drivings) {
+		this.drivings = drivings;
+	}
 
 }
