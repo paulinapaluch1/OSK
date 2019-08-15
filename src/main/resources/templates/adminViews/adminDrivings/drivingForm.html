@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Jazdy</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/drivings/list}"><-wroc</a>  </a> 
+<br/> <br/>
+
+<body>
+
+	<div class="container">
+	
+		<h3>JAZDA</h3>
+
+		<form action="#" th:action="@{/drivings/save}"
+						 th:object="${driving}" method="POST">
+		
+     		<input type="hidden" th:field="*{id}" />
+
+			Typ:
+			<select th:field="*{drivingType}" class="form-control" >
+   			 <option 
+   			 	 th:each="type: ${drivingTypes}" 
+   				 th:value="${type.id}"
+   			 	 th:text="${type.type}" 
+   			 />
+ 			 </select>
+ 			 
+ 			 Kursant:
+			<select th:field="*{student}" class="form-control" >
+   			 <option 
+   			 	 th:each="student: ${students}" 
+   				 th:value="${student.id}"
+   			 	 th:text="${student.name}+' '+${student.surname}" 
+   			 />
+ 			 </select>
+ 			 
+ 			Początek:
+		 	<input type="datetime"  th:field="*{startHour}" th:value="${startHour}"
+					class="form-control mb-4 col-4">
+					
+			
+ 			Koniec:
+ 		
+		 	<input type="datetime"  th:field="*{finishHour}" th:value="${finishHour}"
+					class="form-control mb-4 col-4">
+ 
+			
+			<button type="submit" class="btn btn-info col-2">Zapisz</button>
+						
+		</form>
+	
+		
+	</div>
+</body>
+
+
+
+
+</HTML>

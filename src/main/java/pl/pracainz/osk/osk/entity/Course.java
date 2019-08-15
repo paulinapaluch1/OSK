@@ -18,34 +18,33 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="courses")
+@Table(name = "courses")
 public class Course {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_course")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_course")
 	private int id;
-	
-	@ManyToOne(cascade = {CascadeType.DETACH})
-	@JoinColumn(name="id_category")
+
+	@ManyToOne(cascade = { CascadeType.DETACH })
+	@JoinColumn(name = "id_category")
 	private Category category;
-	
-	@ManyToOne(cascade= {CascadeType.DETACH})
-	@JoinColumn(name="id_instructor")
+
+	@ManyToOne(cascade = { CascadeType.DETACH })
+	@JoinColumn(name = "id_instructor")
 	private Instructor instructor;
-	
+
 	@Column
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) 
-    @NotNull
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	@NotNull
 	private Date startDate;
-	
+
 	@Column
 	private int finished;
-	
-	
-	@OneToMany(mappedBy="id")
+
+	@OneToMany(mappedBy = "id")
 	List<Lecture> lectures;
-	
+
 	public Course() {
 	}
 
@@ -56,11 +55,9 @@ public class Course {
 		this.finished = finished;
 	}
 
-
 	public int getId() {
 		return id;
 	}
-
 
 	public void setId(int id) {
 		this.id = id;
@@ -74,7 +71,6 @@ public class Course {
 		this.category = category;
 	}
 
-	
 	public Instructor getInstructor() {
 		return instructor;
 	}
@@ -87,16 +83,13 @@ public class Course {
 		return startDate;
 	}
 
-
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-
 	public int getFinished() {
 		return finished;
 	}
-
 
 	public void setFinished(int finished) {
 		this.finished = finished;
@@ -110,8 +103,4 @@ public class Course {
 		this.lectures = lectures;
 	}
 
-	
-
-	
 }
-
