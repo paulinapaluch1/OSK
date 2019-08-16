@@ -1,5 +1,6 @@
 package pl.pracainz.osk.osk.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -28,10 +29,10 @@ private InstructorRepository instructorRepository;
 	}
 
 	@GetMapping("/list")
-	public String showTimetable(Model theModel) {
+	public String showTimetable( Model theModel) {
 		List<Timetable> theTimetable= timetableRepository.findAll();
 		
-		theModel.addAttribute("timetables",theTimetable);
+		theModel.addAttribute("timetables",timetableRepository.findByBegin(new Date(2019,1,3)));
 		theModel.addAttribute("cars",carRepository.findAll());
 		return "adminViews/adminTimetable/timetable";
 	}

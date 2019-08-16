@@ -25,11 +25,8 @@ public class CarController {
 
 	@GetMapping("/list")
 	public String listCars(Model theModel) {
-
 		List<Car> theCars = carRepository.findAll();
-
 		theModel.addAttribute("cars", theCars);
-
 		return "adminViews/adminCars/cars";
 	}
 
