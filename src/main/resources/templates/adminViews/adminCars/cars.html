@@ -4,16 +4,13 @@
 <title>Admin Cars</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<style>
-.page{
-padding: 10px;
+<link rel="stylesheet" th:href="@{/css/style.css}"  type="text/css"/>
 
-}
-</style>
 </head>
 <body>
 <div class="page">
-Zalogowany użytkownik: administrator <a href="/logout">WYLOGUJ</a>
+Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>  
+<a th:href="@{/}"><-wroc</a>
 <br/> <br/>
 
 <h3>SAMOCHODY</h3>

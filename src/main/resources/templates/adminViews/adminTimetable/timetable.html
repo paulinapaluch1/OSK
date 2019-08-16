@@ -3,11 +3,13 @@
 <head>
 <title>Admin Grafik</title>
 <meta charset="utf-8">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+<link rel="stylesheet" th:href="@{/css/style.css}"  type="text/css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style>
+
 .accordion {
   background-color: #eee;
   color: #444;
@@ -21,6 +23,7 @@
   transition: 0.4s;
 }
 
+
 .active, .accordion:hover {
   background-color: #ccc; 
 }
@@ -30,20 +33,17 @@
   display: none;
   background-color: white;
   overflow: hidden;
-  }
-   
-.page{
-  padding: 10px;
-
 }
-  
+
+
 </style>
 
-
 </head>
+
 <body>
 <div class="page">
-Zalogowany użytkownik: administrator <a href="/logout">WYLOGUJ</a> <a th:href="@{/}"><-wroc</a>  </a> 
+Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>   <a th:href="@{/}"><-wroc</a>
+
 <br/> <br/>
 <h3>GRAFIK</h3>
    
@@ -86,7 +86,6 @@ Zalogowany użytkownik: administrator <a href="/logout">WYLOGUJ</a> <a th:href="
   <p>Piątek</p>
   <p>Sobota</p>
 </div>
-
  </for:each>
 
 </div>
@@ -106,13 +105,6 @@ for (i = 0; i < acc.length; i++) {
   });
 }
 </script>
-
-
-
-
-
-
-
 
 </body>
 
