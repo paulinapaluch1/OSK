@@ -10,24 +10,29 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="lectures")
+@Table(name = "lectures")
 public class Lecture {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_lecture")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_lecture")
 	private int id;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_course")
+	@JoinColumn(name = "id_course")
 	private Course course;
-	
+
 	@Column
 	private String roomNumber;
-	
+
 	@Column
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	@NotNull
 	private Date date;
 
 	public Lecture(Course course, String roomNumber, Date date) {
@@ -35,6 +40,10 @@ public class Lecture {
 		this.course = course;
 		this.roomNumber = roomNumber;
 		this.date = date;
+	}
+
+	public Lecture() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getId() {
@@ -45,7 +54,6 @@ public class Lecture {
 		this.id = id;
 	}
 
-	
 	public Course getCourse() {
 		return course;
 	}
@@ -69,12 +77,5 @@ public class Lecture {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
-	
-	
-	
-	
-	
+
 }
-
-

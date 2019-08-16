@@ -2,61 +2,63 @@ package pl.pracainz.osk.osk.entity;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="instructors")
+@Table(name = "instructors")
 public class Instructor {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_instructor")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_instructor")
 	private int id;
-	
-	@Column(name="name")
+
+	@Column(name = "name")
 	private String name;
-	
+
 	@Column
 	private String surname;
-	
-	@Column 
+
+	@Column
 	private String login;
-	
+
 	@Column
 	private String password;
-	
+
 	@Column
 	private String email;
-	
-	@Column(name="phoneNumber")
+
+	@Column(name = "phoneNumber")
 	private String phoneNumber;
-	
+
 	@Column
 	private Integer deleted;
 
-	@OneToMany(mappedBy="instructor")
+	@OneToMany(mappedBy = "instructor")
 	List<InternalExam> exams;
-	
-	@OneToMany(mappedBy="instructor")
+
+	@OneToMany(mappedBy = "instructor")
 	List<Course> courses;
-	
-	@OneToMany(mappedBy="instructor")
+
+	@OneToMany(mappedBy = "instructor")
 	List<InstructorOpinion> instructorOpinions;
-	
-	public Instructor() {}
-	
-	public Instructor(int id,String name, String surname, String login, String password, String email, String phoneNumber,
-			int deleted) {
-	
-		this.id=id;
+
+	@OneToMany(mappedBy = "instructor")
+	List<Timetable> timetables;
+
+	public Instructor() {
+	}
+
+	public Instructor(int id, String name, String surname, String login, String password, String email,
+			String phoneNumber, int deleted) {
+
+		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.login = login;
@@ -129,8 +131,6 @@ public class Instructor {
 	public void setDeleted(Integer deleted) {
 		this.deleted = deleted;
 	}
-	
-	
 
 	public List<InternalExam> getExams() {
 		return exams;
@@ -139,8 +139,6 @@ public class Instructor {
 	public void setExams(List<InternalExam> exams) {
 		this.exams = exams;
 	}
-	
-	
 
 	public List<Course> getCourses() {
 		return courses;
@@ -150,8 +148,6 @@ public class Instructor {
 		this.courses = courses;
 	}
 
-	
-	
 	public List<InstructorOpinion> getInstructorOpinions() {
 		return instructorOpinions;
 	}
@@ -160,13 +156,12 @@ public class Instructor {
 		this.instructorOpinions = instructorOpinions;
 	}
 
-	@Override
-	public String toString() {
-		return "Instructor [id_instructor=" + id + ", name=" + name + ", surname=" + surname + ", login="
-				+ login + ", password=" + password + ", email=" + email + ", phoneNumber=" + phoneNumber + ", deleted="
-				+ deleted + "]";
+	public List<Timetable> getTimetables() {
+		return timetables;
 	}
-	
-	
+
+	public void setTimetables(List<Timetable> timetables) {
+		this.timetables = timetables;
+	}
 
 }

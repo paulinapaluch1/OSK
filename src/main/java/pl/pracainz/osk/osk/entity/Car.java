@@ -1,39 +1,59 @@
 package pl.pracainz.osk.osk.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import io.micrometer.core.lang.Nullable;
+
 @Entity
-@Table(name="cars")
+@Table(name = "cars")
 public class Car {
 
+	public List<CarOpinion> getCarOpinions() {
+		return carOpinions;
+	}
+
+	public void setCarOpinions(List<CarOpinion> carOpinions) {
+		this.carOpinions = carOpinions;
+	}
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_car")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_car")
 	private int id;
-	
-	@Column
-	private String registration_number;
-	
+
+	@Column(name = "registration_number")
+	private String registrationNumber;
+
 	@Column
 	private String brand;
-	
+
 	@Column
 	private String model;
-	
+
+	@Nullable
 	@Column
 	private int deleted;
-	
 
-	public Car() {}
-	
+	@OneToMany(mappedBy = "id")
+	List<CarOpinion> carOpinions;
+
+	@OneToMany(mappedBy = "id")
+	List<Timetable> timetables;
+
+	public Car() {
+	}
+
 	public Car(String registration_number, String brand, String model, int deleted) {
 		super();
-		this.registration_number = registration_number;
+		this.registrationNumber = registration_number;
 		this.brand = brand;
 		this.model = model;
 		this.deleted = deleted;
@@ -47,12 +67,12 @@ public class Car {
 		this.id = id;
 	}
 
-	public String getRegistration_number() {
-		return registration_number;
+	public String getRegistrationNumber() {
+		return registrationNumber;
 	}
 
-	public void setRegistration_number(String registration_number) {
-		this.registration_number = registration_number;
+	public void setRegistrationNumber(String registrationNumber) {
+		this.registrationNumber = registrationNumber;
 	}
 
 	public String getBrand() {
@@ -81,15 +101,16 @@ public class Car {
 
 	@Override
 	public String toString() {
-		return "Car [id=" + id + ", registration_number=" + registration_number + ", brand=" + brand + ", model="
-				+ model + ", deleted=" + deleted + "]";
+		return "Car [id=" + id + ", registration_number=" + registrationNumber + ", brand=" + brand + ", model=" + model
+				+ ", deleted=" + deleted + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+	public List<Timetable> getTimetables() {
+		return timetables;
+	}
+
+	public void setTimetables(List<Timetable> timetables) {
+		this.timetables = timetables;
+	}
+
 }

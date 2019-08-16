@@ -15,78 +15,80 @@ import javax.validation.constraints.Past;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-
-
 @Entity
-@Table(name="students")
+@Table(name = "students")
 public class Student {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_student")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_student")
 	private int id;
-	
+
 	@Column
 	private String name;
-	
+
 	@Column
 	private String surname;
-	
+
 	@Column
 	private String login;
-	
+
 	@Column
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) 
-    @NotNull
-    @Past	
-    private Date birthdate;
-	
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	@NotNull
+	@Past
+	private Date birthdate;
+
 	@Column
 	private String street;
-	
+
 	@Column
 	private String buildingNumber;
-	
-    @Column
+
+	@Column
 	private String apartmentNumber;
-	
+
 	@Column
 	private String city;
-	
+
 	@Column
 	private String postCode;
-	
+
 	@Column
 	private String phoneNumber;
-	
+
 	@Column
 	private String email;
-	
+
 	@Column
 	private String PKK;
-	
-	
+
 	@Column
 	private Integer deleted;
-	
-	@OneToMany(mappedBy="id")
+
+	@OneToMany(mappedBy = "id")
 	List<InternalExam> exams;
-	
-	public Student() {}
-	
-	public Student(String name, String surname
-			, String login, Date birthdate, String street, 
-			String buildingNumber,
-		    String apartmentNumber, 
-			String city, String postcode,
-			String phoneNumber, 
-			String email, String pKK,
-			 Integer deleted) {
+
+	@OneToMany(mappedBy = "id")
+	List<CarOpinion> carOpinions;
+
+	@OneToMany(mappedBy = "id")
+	List<InstructorOpinion> instructorOpinions;
+
+	@OneToMany(mappedBy = "id")
+	List<Driving> drivings;
+
+	public Student() {
+	}
+
+	public Student(String name, String surname, String login, Date birthdate, String street, String buildingNumber,
+			String apartmentNumber, String city, String postcode, String phoneNumber, String email, String pKK,
+			Integer deleted) {
 		this.name = name;
 		this.surname = surname;
 		this.birthdate = birthdate;
 		this.street = street;
-		this.login=login;
+		this.login = login;
 		this.buildingNumber = buildingNumber;
 		this.apartmentNumber = apartmentNumber;
 		this.city = city;
@@ -95,9 +97,8 @@ public class Student {
 		this.email = email;
 		this.PKK = pKK;
 		this.deleted = deleted;
-	
-	}
 
+	}
 
 	public Student(Integer id, String name, String surname, String login, Date birthdate, String street,
 			String buildingNumber, String apartmentNumber, String city, String postcode, String phoneNumber,
@@ -118,7 +119,7 @@ public class Student {
 		PKK = pKK;
 		this.deleted = deleted;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -139,26 +140,21 @@ public class Student {
 		return name;
 	}
 
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 
 	public String getSurname() {
 		return surname;
 	}
 
-
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
 
-
 	public Date getBirthdate() {
 		return birthdate;
 	}
-
 
 	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
@@ -168,7 +164,6 @@ public class Student {
 		return street;
 	}
 
-
 	public void setStreet(String street) {
 		this.street = street;
 	}
@@ -177,79 +172,63 @@ public class Student {
 		return buildingNumber;
 	}
 
-
 	public void setBuildingNumber(String buildingNumber) {
 		this.buildingNumber = buildingNumber;
 	}
-
 
 	public String getApartmentNumber() {
 		return apartmentNumber;
 	}
 
-
 	public void setApartmentNumber(String apartmentNumber) {
 		this.apartmentNumber = apartmentNumber;
 	}
-
 
 	public String getCity() {
 		return city;
 	}
 
-
 	public void setCity(String city) {
 		this.city = city;
 	}
-
 
 	public String getPostCode() {
 		return postCode;
 	}
 
-	
-
 	public void setPostCode(String postcode) {
 		this.postCode = postcode;
 	}
-
 
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	
-
 
 	public String getEmail() {
 		return email;
 	}
 
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 
 	public String getPKK() {
 		return PKK;
 	}
 
-
 	public void setPKK(String pKK) {
 		PKK = pKK;
 	}
 
-
 	public Integer getDeleted() {
 		return deleted;
-	
-	}	
-	
+
+	}
+
 	public List<InternalExam> getExams() {
 		return exams;
 	}
@@ -262,12 +241,28 @@ public class Student {
 		this.deleted = deleted;
 	}
 
-	@Override
-	public String toString() {
-		return "Student [id=" + id + ", name=" + name + ", surname=" + surname + ", login=" + login + ", birthdate="
-				+ birthdate + ", street=" + street + ", buildingNumber=" + buildingNumber + ", apartmentNumber="
-				+ apartmentNumber + ", city=" + city + ", postcode=" + postCode + ", phoneNumber=" + phoneNumber
-				+ ", email=" + email + ", PKK=" + PKK + ", deleted=" + deleted + "]";
+	public List<CarOpinion> getCarOpinions() {
+		return carOpinions;
+	}
+
+	public void setCarOpinions(List<CarOpinion> carOpinions) {
+		this.carOpinions = carOpinions;
+	}
+
+	public List<InstructorOpinion> getInstructorOpinions() {
+		return instructorOpinions;
+	}
+
+	public void setInstructorOpinions(List<InstructorOpinion> instructorOpinions) {
+		this.instructorOpinions = instructorOpinions;
+	}
+
+	public List<Driving> getDrivings() {
+		return drivings;
+	}
+
+	public void setDrivings(List<Driving> drivings) {
+		this.drivings = drivings;
 	}
 
 }

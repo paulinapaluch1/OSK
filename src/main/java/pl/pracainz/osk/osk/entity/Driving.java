@@ -1,48 +1,63 @@
 package pl.pracainz.osk.osk.entity;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
-@Table(name="drivings")
+@Table(name = "drivings")
 public class Driving {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_driving")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_driving")
 	private int id;
-	
+
+	@ManyToOne(cascade = { CascadeType.DETACH })
+	@JoinColumn(name = "id_type")
+	private DrivingType drivingType;
+
+	@ManyToOne(cascade = { CascadeType.DETACH })
+	@JoinColumn(name = "id_student")
+	private Student student;
+
 	@Column
-	private int id_type;
-	
-	
-	@Column 
-	private int id_student;
-	
-	@Column
+	@DateTimeFormat(pattern="dd.MM.yyy HH:mm")
+	//@Temporal(TemporalType.TIMESTAMP)
 	private Date startHour;
-	
+
 	@Column
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private Date finishHour;
-	
+
 	@Column
 	private int done;
-	
+
 	@Column
 	private int cancelled;
-	
-	public Driving() {}
 
-	public Driving(int id_type, int id_student, Date startHour, Date finishHour, int done, int cancelled) {
+	@OneToMany(mappedBy = "id")
+	private List<Timetable> timetables;
+
+	public Driving() {
+	}
+
+	public Driving(DrivingType type, Student student, Date startHour, Date finishHour, int done, int cancelled) {
 		super();
-		this.id_type = id_type;
-		this.id_student = id_student;
+		this.drivingType = type;
+		this.student = student;
 		this.startHour = startHour;
 		this.finishHour = finishHour;
 		this.done = done;
@@ -57,20 +72,20 @@ public class Driving {
 		this.id = id;
 	}
 
-	public int getId_type() {
-		return id_type;
+	public DrivingType getDrivingType() {
+		return drivingType;
 	}
 
-	public void setId_type(int id_type) {
-		this.id_type = id_type;
+	public void setDrivingType(DrivingType drivingType) {
+		this.drivingType = drivingType;
 	}
 
-	public int getId_student() {
-		return id_student;
+	public Student getStudent() {
+		return student;
 	}
 
-	public void setId_student(int id_student) {
-		this.id_student = id_student;
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
 	public Date getStartHour() {
@@ -104,11 +119,13 @@ public class Driving {
 	public void setCancelled(int cancelled) {
 		this.cancelled = cancelled;
 	}
-	
-	
-	
-	
-	
 
-	
+	public List<Timetable> getTimetables() {
+		return timetables;
+	}
+
+	public void setTimetables(List<Timetable> timetables) {
+		this.timetables = timetables;
+	}
+
 }

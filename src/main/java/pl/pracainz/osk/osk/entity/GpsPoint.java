@@ -10,37 +10,34 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="gpspoints")
+@Table(name = "gpspoints")
 public class GpsPoint {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private int id;
-	
-	@Column(name="GPS_NS")
+
+	@Column(name = "GPS_NS")
 	private String gps_ns;
-	
-	@Column(name="GPS_EW")
+
+	@Column(name = "GPS_EW")
 	private String gps_ew;
-	
-	@Column(name="GPS_Z")
+
+	@Column(name = "GPS_Z")
 	private String gps_z;
-	
-	
-	@Column(name="time")
+
+	@Column(name = "time")
 	private Date time;
-	
+
 	@Column
 	private int id_driving;
-	
+
 	@Column
 	private int id_instructor;
 
-	
-	
 	public GpsPoint() {
-		
+
 	}
 
 	public GpsPoint(String gps_ns, String gps_ew, String gps_z, Date time, int id_driving, int id_instructor) {
@@ -108,10 +105,5 @@ public class GpsPoint {
 	public void setId_instructor(int id_instructor) {
 		this.id_instructor = id_instructor;
 	}
-	
-	
-	
-	
-	
-	
+
 }

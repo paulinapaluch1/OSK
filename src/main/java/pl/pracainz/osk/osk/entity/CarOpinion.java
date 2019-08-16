@@ -1,27 +1,31 @@
 package pl.pracainz.osk.osk.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="caropinions")
 public class CarOpinion {
 
-
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_carOpinion")
 	private int id;
 	
-	@Column
-	private int id_student;
+	@ManyToOne(cascade = {CascadeType.DETACH})
+	@JoinColumn(name = "id_student")
+	private Student student;
 	
-	@Column
-	private int id_car;
+	@ManyToOne(cascade = {CascadeType.DETACH})
+	@JoinColumn(name = "id_car")
+	private Car car;
 	
 	@Column
 	private int carMark;
@@ -34,10 +38,10 @@ public class CarOpinion {
 
 	public CarOpinion() {}
 	
-	public CarOpinion(int id_student, int id_car, int carMark, int carOpinion, int deleted) {
+	public CarOpinion(Student id_student, Car id_car, int carMark, int carOpinion, int deleted) {
 		super();
-		this.id_student = id_student;
-		this.id_car = id_car;
+		this.student = id_student;
+		this.car =id_car;
 		this.carMark = carMark;
 		this.carOpinion = carOpinion;
 		this.deleted = deleted;
@@ -51,20 +55,20 @@ public class CarOpinion {
 		this.id = id;
 	}
 
-	public int getId_student() {
-		return id_student;
+	public Student getStudent() {
+		return student;
 	}
 
-	public void setId_student(int id_student) {
-		this.id_student = id_student;
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
-	public int getId_car() {
-		return id_car;
+	public Car getCar() {
+		return car;
 	}
 
-	public void setId_car(int id_car) {
-		this.id_car = id_car;
+	public void setCar(Car car) {
+		this.car = car;
 	}
 
 	public int getCarMark() {
@@ -90,7 +94,6 @@ public class CarOpinion {
 	public void setDeleted(int deleted) {
 		this.deleted = deleted;
 	}
-	
 	
 	
 }

@@ -7,8 +7,8 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <style>
-div {
-	width: 250px;
+#card{
+	width: 255px;
 	height: 250px;
 	float: left;
 	box-sizing: border-box;
@@ -20,15 +20,24 @@ div {
 	font-size: 40px;
 	vertical-align: center;
 	text-align: center;
+	
+	
 }
+
+.page{
+
+	padding: 10px;
+	
+	}
+	
 </style>
 
 </head>
 <body>
+<div class="page">
 
 Zalogowany użytkownik: <b>administrator</b> <a href=""><button type="button" class="btn btn-primary">WYLOGUJ</button></a><br/> <br/>
-
-<div class="card bg-light mb-4 ml-4 mr-4">
+<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 		<div class="card-body text-center mt-4" >
 			<a th:href="@{/courses/list}"> </br> </br>
 				<p class="card-text">Kursy</p>
@@ -38,7 +47,7 @@ Zalogowany użytkownik: <b>administrator</b> <a href=""><button type="button" cl
 
 
 
-	<div class="card bg-light mb-4 ml-4 mr-4">
+	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 		<div class="card-body text-center mt-4">
 			<a th:href="@{/students/list}"> </br> </br>
 				<p class="card-text">Kursanci</p>
@@ -46,7 +55,7 @@ Zalogowany użytkownik: <b>administrator</b> <a href=""><button type="button" cl
 		</div>
 	</div>
 
-	<div class="card bg-light mb-4 ml-4 mr-4">
+	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 		<div class="card-body text-center mt-4">
 			<a th:href="@{/instructors/list}"> </br> </br>
 				<p class="card-text">Instruktorzy</p>
@@ -54,7 +63,7 @@ Zalogowany użytkownik: <b>administrator</b> <a href=""><button type="button" cl
 		</div>
 	</div>
 
-	<div class="card bg-light mb-4 ml-4 mr-4">
+	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 		<div class="card-body text-center mt-4">
 			<a th:href="@{/cars}"> </br> </br>
 				<p class="card-text">Samochody</p>
@@ -62,7 +71,7 @@ Zalogowany użytkownik: <b>administrator</b> <a href=""><button type="button" cl
 		</div>
 	</div>
 
-	<div class="card bg-light mb-4 ml-4 mr-4">
+	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 		<div class="card-body text-center mt-4">
 			<a th:href="@{/exams}"> </br> </br>
 				<p class="card-text">Egzaminy</p>
@@ -70,7 +79,7 @@ Zalogowany użytkownik: <b>administrator</b> <a href=""><button type="button" cl
 		</div>
 	</div>
 
-	<div class="card bg-light mb-4 ml-4 mr-4">
+	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 		<div class="card-body text-center mt-4">
 			<a th:href="@{/timetable/list}"> </br> </br>
 				<p class="card-text">Grafik</p>
@@ -79,7 +88,7 @@ Zalogowany użytkownik: <b>administrator</b> <a href=""><button type="button" cl
 	</div>
 
 
-	<div class="card bg-light mb-4 ml-4 mr-4">
+	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 		<div class="card-body text-center mt-4">
 			<a th:href="opinie.html"> </br> </br>
 				<p class="card-text">Opinie</p>
@@ -89,9 +98,9 @@ Zalogowany użytkownik: <b>administrator</b> <a href=""><button type="button" cl
 
 
 
-	<div class="card bg-light mb-4 ml-4 mr-4">
+	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 		<div class="card-body text-center mt-4">
-			<a th:href="jazdy.html"> </br> </br>
+			<a th:href="@{/drivings/list}"> </br> </br>
 				<p class="card-text">Jazdy</p>
 			</a>
 		</div>
@@ -99,23 +108,16 @@ Zalogowany użytkownik: <b>administrator</b> <a href=""><button type="button" cl
 
 
 
-	<div class="card bg-light mb-4 ml-4 mr-4">
+	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 		<div class="card-body text-center mt-4">
-			<a th:href="wyklady.html"> </br> </br>
+			<a th:href="@{/lectures/list}"> </br> </br>
 				<p class="card-text">Wykłady</p>
 			</a>
 		</div>
 	</div>
-
-
-
-
-
-
-
-
-
-
+	
+	
+</div>
 </body>
 
 
