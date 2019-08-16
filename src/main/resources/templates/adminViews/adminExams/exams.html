@@ -5,13 +5,22 @@
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+<style>
+
+.page{
+padding: 10px;
+
+}
+</style>
+
 </head>
 <body>
-
-Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><-wroc</a>  </a> 
+<div class="page">
+Zalogowany użytkownik: administrator <a href="/logout">WYLOGUJ</a> <a th:href="@{/}"><-wroc</a>  </a> 
 <br/> <br/>
 
 <h3>EGZAMINY</h3>
+<input class="form-control" id="myInput" type="text" placeholder="Szukaj...">
 
   <br>
 <div class="table-responsive">
@@ -46,7 +55,7 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><
 </div>
 
 
-
+</div>
 </body>
 
 

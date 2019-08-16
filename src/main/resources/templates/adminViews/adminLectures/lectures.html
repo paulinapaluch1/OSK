@@ -4,17 +4,24 @@
 <title>Admin Lectures</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
 
+.page{
+padding: 10px;
+
+}</style>
 </head>
 <body>
-
-Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a>
+<div class="page">
+Zalogowany użytkownik: administrator <a href="/logout">WYLOGUJ</a> <a th:href="@{/}"><-wroc</a>  </a> 
 <br/> <br/>
 
 <h3>WYKŁADY</h3>
   
 <a th:href="@{/lectures/showFormForAdd}" class="btn btn-primary">DODAJ</a> <br><br>
   <br>
+ <input class="form-control" id="myInput" type="text" placeholder="Szukaj...">
+  
 <div class="table-responsive">
 <table class="table table-bordered table-hover">
 <thead >
@@ -45,7 +52,7 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a>
 
 </table>
 </div>
-
+</div>
 </body>
 
 
