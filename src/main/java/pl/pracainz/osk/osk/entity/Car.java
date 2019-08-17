@@ -10,7 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import io.micrometer.core.lang.Nullable;
+import org.springframework.lang.Nullable;
+
 
 @Entity
 @Table(name = "cars")
