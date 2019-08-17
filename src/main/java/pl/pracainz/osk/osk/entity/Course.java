@@ -1,7 +1,9 @@
 package pl.pracainz.osk.osk.entity;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -45,6 +47,11 @@ public class Course {
 	@OneToMany(mappedBy = "id")
 	List<Lecture> lectures;
 
+	
+	private Set<Participant> participants = new HashSet<>();
+	
+	
+	
 	public Course() {
 	}
 
@@ -53,6 +60,18 @@ public class Course {
 		this.instructor = instructor;
 		this.startDate = startDate;
 		this.finished = finished;
+	}
+
+	
+	
+	@OneToMany(mappedBy = "primaryKey.course",
+            cascade = CascadeType.ALL)
+	public Set<Participant> getParticipants() {
+		return participants;
+	}
+
+	public void setParticipants(Set<Participant> participants) {
+		this.participants = participants;
 	}
 
 	public int getId() {
