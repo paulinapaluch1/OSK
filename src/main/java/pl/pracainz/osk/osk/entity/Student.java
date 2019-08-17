@@ -81,8 +81,8 @@ public class Student {
 	@OneToMany(mappedBy = "id")
 	List<Driving> drivings;
 
-	
-	private Set<Participant> participants= new HashSet<>();
+	@OneToMany(targetEntity = Participant.class)
+	private Set<Participant> participants = new HashSet<Participant>();
 	
 	public void addParticipant(Participant participant) {
 		this.participants.add(participant);

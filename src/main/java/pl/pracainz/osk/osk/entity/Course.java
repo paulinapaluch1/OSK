@@ -47,7 +47,7 @@ public class Course {
 	@OneToMany(mappedBy = "id")
 	List<Lecture> lectures;
 
-	
+	@OneToMany(targetEntity = Participant.class)
 	private Set<Participant> participants = new HashSet<>();
 	
 	
@@ -62,7 +62,7 @@ public class Course {
 		this.finished = finished;
 	}
 
-	
+
 	
 	@OneToMany(mappedBy = "primaryKey.course",
             cascade = CascadeType.ALL)
