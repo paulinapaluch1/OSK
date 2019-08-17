@@ -1,8 +1,11 @@
 package pl.pracainz.osk.osk.entity;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -78,6 +81,14 @@ public class Student {
 	@OneToMany(mappedBy = "id")
 	List<Driving> drivings;
 
+	
+	private Set<Participant> participants= new HashSet<>();
+	
+	public void addParticipant(Participant participant) {
+		this.participants.add(participant);
+	}
+	
+	
 	public Student() {
 	}
 
@@ -265,4 +276,18 @@ public class Student {
 		this.drivings = drivings;
 	}
 
+
+	@OneToMany(mappedBy="primaryKey.student",cascade=CascadeType.ALL)
+	public Set<Participant> getParticipants() {
+		return participants;
+	}
+
+
+	public void setParticipants(Set<Participant> participants) {
+		this.participants = participants;
+	}
+
+	
+	
+	
 }
