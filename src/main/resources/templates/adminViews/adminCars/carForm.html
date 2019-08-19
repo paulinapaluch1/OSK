@@ -4,15 +4,13 @@
 <title>Admin Cars</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}"  type="text/css"/>
+
 </head>
 <body>
-
+<div class="page">
 Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/courses/list}"><-wroc</a>  </a> 
 <br/> <br/>
-
-
-
-<body>
 
 	<div class="container">
 	
@@ -23,14 +21,14 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/cour
 		
      		<input type="hidden" th:field="*{id}" />
 			Numer rejestracyjny:
-			<input type="text" th:field="*{car.registration_number}"
+			<input type="text" th:field="*{registration_number}"
 					class="form-control mb-4 col-4">
 			Marka:
-			<input type="text" th:field="*{car.brand}"
+			<input type="text" th:field="*{brand}"
 					class="form-control mb-4 col-4">
 
 			Model:
-		 	<input type="text" th:field="*{car.model}"
+		 	<input type="text" th:field="*{model}"
 					class="form-control mb-4 col-4">
 		
 			<button type="submit" class="btn btn-info col-2">Zapisz</button>
@@ -38,6 +36,8 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/cour
 		</form>
 	
 		
+	</div>
+	
 	</div>
 </body>
 
