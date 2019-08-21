@@ -10,8 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.lang.Nullable;
+
+
 @Entity
-@Table(name="cars")
+@Table(name = "cars")
 public class Car {
 
 	public List<CarOpinion> getCarOpinions() {
@@ -21,10 +24,12 @@ public class Car {
 	public void setCarOpinions(List<CarOpinion> carOpinions) {
 		this.carOpinions = carOpinions;
 	}
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_car")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_car")
 	private int id;
+
 	
 	@Column(name = "registration_number")
 	private String registrationNumber;
@@ -36,14 +41,19 @@ public class Car {
 	private String model;
 	
 	@Column(name = "deleted")
+
+
 	private int deleted;
-	
-	
-	@OneToMany(mappedBy="id")
+
+	@OneToMany(mappedBy = "id")
 	List<CarOpinion> carOpinions;
 
-	public Car() {}
-	
+	@OneToMany(mappedBy = "id")
+	List<Timetable> timetables;
+
+	public Car() {
+	}
+
 	public Car(String registration_number, String brand, String model, int deleted) {
 		super();
 		this.registrationNumber = registration_number;
@@ -60,7 +70,6 @@ public class Car {
 		this.id = id;
 	}
 
-	
 	public String getRegistrationNumber() {
 		return registrationNumber;
 	}
@@ -96,15 +105,16 @@ public class Car {
 
 	@Override
 	public String toString() {
-		return "Car [id=" + id + ", registration_number=" + registrationNumber + ", brand=" + brand + ", model="
-				+ model + ", deleted=" + deleted + "]";
+		return "Car [id=" + id + ", registration_number=" + registrationNumber + ", brand=" + brand + ", model=" + model
+				+ ", deleted=" + deleted + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+	public List<Timetable> getTimetables() {
+		return timetables;
+	}
+
+	public void setTimetables(List<Timetable> timetables) {
+		this.timetables = timetables;
+	}
+
 }

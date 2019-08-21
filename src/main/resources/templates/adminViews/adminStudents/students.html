@@ -6,18 +6,20 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" th:href="@{/css/style.css}"  type="text/css"/>
+
 </head>
 <body>
-
-Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><-wroc</a>  </a> 
+<div class="page">
+Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a> <a th:href="@{/}"><-wroc</a>   
 <br/> <br/>
 
 <h3>KURSANCI</h3>
 <a th:href="@{/students/showFormForAdd}" class="btn btn-primary">DODAJ</a> <br><br>
- 
- <input class="form-control" id="myInput" type="text" placeholder="Szukaj...">
-  <br>
 
+ <input class="form-control" id="myInput" type="text" placeholder="Szukaj...">
+
+  <br>
 <div class="table-responsive">
 <table class="table table-bordered table-hover  table-sm">
 <thead>
@@ -45,7 +47,7 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><
     <td th:text="${tempStudent.surname}"/>
     <td th:text="${tempStudent.login}"/>
     <td><button name="sendPassword">Wyslij haslo</button> </td> 
-    <td th:text="${tempStudent.birthdate} "/>
+    <td th:text="${#dates.format(tempStudent.birthdate,'dd.MM.yyyy')} "/>
     <td th:text="'ul. '+${tempStudent.street}+ ' ' +${tempStudent.buildingNumber}+ '/ ' +${tempStudent.apartmentNumber}+ ' ' +${tempStudent.postCode}+ ' ' +${tempStudent.city}"/>
      <td th:text="${tempStudent.phoneNumber}"/> 
      <td th:text="${tempStudent.email}"/>
@@ -54,15 +56,12 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><
      <td>30</td>
      <td th:text="${tempStudent.deleted}"/>
      <td><a th:href="@{/students/showFormForUpdate(id_student=${tempStudent.id})}" class="btn btn-primary">EDYTUJ</a> </td> 
-      
+    
  </tr>
 </tbody>
-
-
 </table>
 </div>
-
-
+</div>
 <script>
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {
@@ -73,13 +72,6 @@ $(document).ready(function(){
   });
 });
 </script>
-
-
-
-
-
-
-
 
 
 </body>
