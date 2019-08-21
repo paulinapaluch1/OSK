@@ -11,38 +11,43 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.lang.Nullable;
+
 @Entity
-@Table(name="internalexam")
+@Table(name = "internalexams")
 public class InternalExam {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_internalExam")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_internalExam")
 	private int id;
-	
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_instructor")
+	@JoinColumn(name = "id_instructor")
 	private Instructor instructor;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_student")
+	@JoinColumn(name = "id_student")
 	private Student student;
-	
+
 	@Column
 	private Date dateHour;
-	
+
 	@Column
 	private int result;
-	
-	@Column 
+
+	@Column
 	private String type;
-	
+
+	@Nullable
 	@Column
 	private int deleted;
 
+	public InternalExam() {
+	}
+
 	public InternalExam(Instructor instructor, Student student, Date dateHour, int result, String type, int deleted) {
-	
+
 		this.instructor = instructor;
 		this.student = student;
 		this.dateHour = dateHour;
@@ -58,8 +63,6 @@ public class InternalExam {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
 
 	public Instructor getInstructor() {
 		return instructor;
@@ -111,14 +114,9 @@ public class InternalExam {
 
 	@Override
 	public String toString() {
-		return "InternalExam [id=" + id + ", id_instructor="+instructor.getName() + ", id_student=" + student.getName()
-				+ ", dateHour=" + dateHour + ", result=" + result + ", type=" + type + ", deleted=" + deleted + "]";
+		return "InternalExam [id=" + id + ", id_instructor=" + instructor.getName() + ", id_student="
+				+ student.getName() + ", dateHour=" + dateHour + ", result=" + result + ", type=" + type + ", deleted="
+				+ deleted + "]";
 	}
-	
-	
-	
-	
-	
-
 
 }

@@ -2,6 +2,7 @@ package pl.pracainz.osk.osk.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,42 +12,52 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.Nullable;
+
 @Entity
-@Table(name="timetable")
+@Table(name = "timetable")
 public class Timetable {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private int id;
-	
-	@ManyToOne
-	@JoinColumn(name="id_instructor")
+
+	@ManyToOne(cascade = { CascadeType.DETACH })
+	@JoinColumn(name = "id_instructor")
+	@Nullable
 	private Instructor instructor;
 
-	
 	@Column
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private Date begin;
-	
+
 	@Column
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private Date end;
-	
-	@Column
-	private int id_car;
-	
-	@Column
-	private int id_driving;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_car")
+	private Car car;
+
+	@ManyToOne(cascade = { CascadeType.DETACH })
+	@JoinColumn(name = "id_driving")
+	private Driving driving;
+
 	@Column
 	private int archived;
 
-	public Timetable(Instructor instructor, Date begin, Date end, int id_car, int id_driving, int archived) {
+	public Timetable() {
+	}
+
+	public Timetable(Instructor instructor, Date begin, Date end, Car car, Driving driving, int archived) {
 		super();
 		this.instructor = instructor;
 		this.begin = begin;
 		this.end = end;
-		this.id_car = id_car;
-		this.id_driving = id_driving;
+		this.car = car;
+		this.driving = driving;
 		this.archived = archived;
 	}
 
@@ -58,7 +69,6 @@ public class Timetable {
 		this.id = id;
 	}
 
-	
 	public Instructor getInstructor() {
 		return instructor;
 	}
@@ -83,20 +93,20 @@ public class Timetable {
 		this.end = end;
 	}
 
-	public int getId_car() {
-		return id_car;
+	public Car getCar() {
+		return car;
 	}
 
-	public void setId_car(int id_car) {
-		this.id_car = id_car;
+	public void setCar(Car car) {
+		this.car = car;
 	}
 
-	public int getId_driving() {
-		return id_driving;
+	public Driving getDriving() {
+		return driving;
 	}
 
-	public void setId_driving(int id_driving) {
-		this.id_driving = id_driving;
+	public void setDriving(Driving driving) {
+		this.driving = driving;
 	}
 
 	public int getArchived() {
@@ -107,9 +117,4 @@ public class Timetable {
 		this.archived = archived;
 	}
 
-	
-	
-	
-	
-	
 }

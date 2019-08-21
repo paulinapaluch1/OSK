@@ -10,35 +10,33 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="instructorOpinions")
-public class InstructorOpinion{
-
-
-	
+@Table(name = "instructorOpinions")
+public class InstructorOpinion {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_instructorOpinion")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_instructorOpinion")
 	private int id;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_student")
+	@JoinColumn(name = "id_student")
 	private Student student;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_instructor")
+	@JoinColumn(name = "id_instructor")
 	private Instructor instructor;
-	
+
 	@Column
 	private int instructorMark;
-	
+
 	@Column
 	private String instructorOpinion;
-	
+
 	@Column
 	private int deleted;
 
-	public InstructorOpinion(Student id_student, Instructor instructor, int instructorMark, String instructorOpinion, int deleted) {
+	public InstructorOpinion(Student id_student, Instructor instructor, int instructorMark, String instructorOpinion,
+			int deleted) {
 		super();
 		this.student = id_student;
 		this.instructor = instructor;
@@ -47,44 +45,29 @@ public class InstructorOpinion{
 		this.deleted = deleted;
 	}
 
-	
-	
 	public int getInstructorMark() {
 		return instructorMark;
 	}
-
-
 
 	public void setInstructorMark(int instructorMark) {
 		this.instructorMark = instructorMark;
 	}
 
-
-
 	public String getInstructorOpinion() {
 		return instructorOpinion;
 	}
-
-
 
 	public void setInstructorOpinion(String instructorOpinion) {
 		this.instructorOpinion = instructorOpinion;
 	}
 
-
-
-
 	public Instructor getInstructor() {
 		return instructor;
 	}
 
-
-
 	public void setInstructor(Instructor instructor) {
 		this.instructor = instructor;
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -94,7 +77,6 @@ public class InstructorOpinion{
 		this.id = id;
 	}
 
-	
 	public Student getStudent() {
 		return student;
 	}
@@ -102,7 +84,7 @@ public class InstructorOpinion{
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-	
+
 	int getDeleted() {
 		return deleted;
 	}
@@ -110,10 +92,5 @@ public class InstructorOpinion{
 	public void setDeleted(int deleted) {
 		this.deleted = deleted;
 	}
-	
-	
-	
-	
-	
-	
+
 }

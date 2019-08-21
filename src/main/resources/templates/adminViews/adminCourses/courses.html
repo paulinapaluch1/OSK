@@ -6,10 +6,12 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" th:href="@{/css/style.css}"  type="text/css"/>
+
 </head>
 <body>
-
-Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><-wroc</a>  </a> 
+<div class="page">
+Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>  <a th:href="@{/}"><-wroc</a>  </a> 
 <br/> <br/>
 <h3>KURSY</h3>
 <a th:href="@{/courses/showFormForAdd}" class="btn btn-primary">DODAJ</a> <br><br>
@@ -43,7 +45,7 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/}"><
 </table>
 </div>
 
-
+</div>
 <script>
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {
