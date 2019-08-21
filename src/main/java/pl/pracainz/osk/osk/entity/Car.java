@@ -26,16 +26,16 @@ public class Car {
 	@Column(name="id_car")
 	private int id;
 	
-	@Column
+	@Column(name = "registration_number")
 	private String registrationNumber;
 	
-	@Column
+	@Column(name = "brand")
 	private String brand;
 	
-	@Column
+	@Column(name = "model")
 	private String model;
 	
-	@Column
+	@Column(name = "deleted")
 	private int deleted;
 	
 	
@@ -92,15 +92,8 @@ public class Car {
 	public void setDeleted(int deleted) {
 		this.deleted = deleted;
 	}
-	/*
-	public List<CarOpinion> getCarOpinions() {
-		return carOpinions;
-	}
 
-	public void setInstructorOpinions(List<CarOpinion> carOpinions) {
-		this.carOpinions = carOpinions;
-	}
-*/
+
 	@Override
 	public String toString() {
 		return "Car [id=" + id + ", registration_number=" + registrationNumber + ", brand=" + brand + ", model="
