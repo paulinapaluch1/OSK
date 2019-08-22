@@ -10,11 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="instructorOpinions")
+@Table(name="instructoropinions")
 public class InstructorOpinion{
-
-
-	
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -29,22 +26,23 @@ public class InstructorOpinion{
 	@JoinColumn(name="id_instructor")
 	private Instructor instructor;
 	
-	@Column
+	@Column(name = "instructorMark")
 	private int instructorMark;
 	
-	@Column
+	@Column(name = "instructorOpinion")
 	private String instructorOpinion;
 	
-	@Column
-	private int deleted;
+	@Column(name = "status")
+	private String status;
 
-	public InstructorOpinion(Student id_student, Instructor instructor, int instructorMark, String instructorOpinion, int deleted) {
+	public InstructorOpinion () {}
+	public InstructorOpinion(Student id_student, Instructor instructor, int instructorMark, String instructorOpinion, String deleted) {
 		super();
 		this.student = id_student;
 		this.instructor = instructor;
 		this.instructorMark = instructorMark;
 		this.instructorOpinion = instructorOpinion;
-		this.deleted = deleted;
+		this.status = deleted;
 	}
 
 	
@@ -102,13 +100,11 @@ public class InstructorOpinion{
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-	
-	int getDeleted() {
-		return deleted;
+	public String getStatus() {
+		return status;
 	}
-
-	public void setDeleted(int deleted) {
-		this.deleted = deleted;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	
