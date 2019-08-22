@@ -12,6 +12,9 @@ Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="but
 <br/> <br/>
 
 <h3>EGZAMINY</h3>
+<br><br>
+<a th:href="@{/exams/showFormForAdd}" class="btn btn-primary">DODAJ</a> <br><br>
+
 <input class="form-control" id="myInput" type="text" placeholder="Szukaj...">
 
   <br>
@@ -38,7 +41,11 @@ Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="but
 					<td th:text="${exam.result}" />
 					<td th:text="${exam.type}" />
 					<td th:text="${exam.deleted}" />
-
+					
+					
+					<td><a
+						th:href="@{/exams/showFormForUpdate(id_internalExam=${exam.id})}"
+						class="btn btn-primary">EDYTUJ</a></td>
 				</tr>
 			</tbody>
 
