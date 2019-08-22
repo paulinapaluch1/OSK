@@ -26,10 +26,6 @@ public class InstructorOpinion{
 	@JoinColumn(name = "id_instructor")
 	private Instructor instructor;
 
-<<<<<<< HEAD
-=======
-	
->>>>>>> 17fb6d693d85ca73d87ae8483a7829b3b2cbbe05
 	@Column(name = "instructorMark")
 	private int instructorMark;
 	
@@ -38,10 +34,6 @@ public class InstructorOpinion{
 	
 	@Column(name = "status")
 	private String status;
-<<<<<<< HEAD
-
-=======
->>>>>>> 17fb6d693d85ca73d87ae8483a7829b3b2cbbe05
 
 	public InstructorOpinion () {}
 	public InstructorOpinion(Student id_student, Instructor instructor, int instructorMark, String instructorOpinion, String deleted) {
@@ -93,23 +85,13 @@ public class InstructorOpinion{
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-
-<<<<<<< HEAD
-
+	public String getStatus() {
+		return status;
+	}
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getStatus() {
-		return status;
-=======
-	public String getStatus() {
-		return status;
 
-	}
-	public void setStatus(String status) {
-		this.status = status;
->>>>>>> 17fb6d693d85ca73d87ae8483a7829b3b2cbbe05
-	}
-	
+
 
 }
