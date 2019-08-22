@@ -1,7 +1,9 @@
 package pl.pracainz.osk.osk.entity;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,33 +20,37 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="courses")
+@Table(name = "courses")
 public class Course {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_course")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_course")
 	private int id;
-	
-	@ManyToOne(cascade = {CascadeType.DETACH})
-	@JoinColumn(name="id_category")
+
+	@ManyToOne(cascade = { CascadeType.DETACH })
+	@JoinColumn(name = "id_category")
 	private Category category;
-	
-	@ManyToOne(cascade= {CascadeType.DETACH})
-	@JoinColumn(name="id_instructor")
+
+	@ManyToOne(cascade = { CascadeType.DETACH })
+	@JoinColumn(name = "id_instructor")
 	private Instructor instructor;
-	
+
 	@Column
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) 
-    @NotNull
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	@NotNull
 	private Date startDate;
-	
+
 	@Column
 	private int finished;
-	
-	
-	@OneToMany(mappedBy="id")
+
+	@OneToMany(mappedBy = "id")
 	List<Lecture> lectures;
+
+	@OneToMany(targetEntity = Participant.class)
+	private Set<Participant> participants = new HashSet<>();
+	
+	
 	
 	public Course() {
 	}
@@ -57,10 +63,20 @@ public class Course {
 	}
 
 
+	
+	@OneToMany(mappedBy = "primaryKey.course",
+            cascade = CascadeType.ALL)
+	public Set<Participant> getParticipants() {
+		return participants;
+	}
+
+	public void setParticipants(Set<Participant> participants) {
+		this.participants = participants;
+	}
+
 	public int getId() {
 		return id;
 	}
-
 
 	public void setId(int id) {
 		this.id = id;
@@ -74,7 +90,6 @@ public class Course {
 		this.category = category;
 	}
 
-	
 	public Instructor getInstructor() {
 		return instructor;
 	}
@@ -87,16 +102,13 @@ public class Course {
 		return startDate;
 	}
 
-
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-
 	public int getFinished() {
 		return finished;
 	}
-
 
 	public void setFinished(int finished) {
 		this.finished = finished;
@@ -110,8 +122,4 @@ public class Course {
 		this.lectures = lectures;
 	}
 
-	
-
-	
 }
-
