@@ -25,7 +25,6 @@ public class InstructorOpinion{
 	@ManyToOne
 	@JoinColumn(name = "id_instructor")
 	private Instructor instructor;
-
 	@Column(name = "instructorMark")
 	private int instructorMark;
 	
@@ -87,12 +86,12 @@ public class InstructorOpinion{
 		this.student = student;
 	}
 
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
 	public String getStatus() {
 		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+
 	}
 	
 
