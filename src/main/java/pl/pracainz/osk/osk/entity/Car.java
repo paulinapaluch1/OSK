@@ -30,17 +30,19 @@ public class Car {
 	@Column(name = "id_car")
 	private int id;
 
+	
 	@Column(name = "registration_number")
 	private String registrationNumber;
-
-	@Column
+	
+	@Column(name = "brand")
 	private String brand;
-
-	@Column
+	
+	@Column(name = "model")
 	private String model;
+	
+	@Column(name = "deleted")
 
-	@Nullable
-	@Column
+
 	private int deleted;
 
 	@OneToMany(mappedBy = "id")
@@ -99,6 +101,7 @@ public class Car {
 	public void setDeleted(int deleted) {
 		this.deleted = deleted;
 	}
+
 
 	@Override
 	public String toString() {

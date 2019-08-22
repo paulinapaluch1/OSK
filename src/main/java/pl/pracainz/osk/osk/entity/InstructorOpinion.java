@@ -25,6 +25,7 @@ public class InstructorOpinion{
 	@ManyToOne
 	@JoinColumn(name = "id_instructor")
 	private Instructor instructor;
+
 	@Column(name = "instructorMark")
 	private int instructorMark;
 	
@@ -33,7 +34,6 @@ public class InstructorOpinion{
 	
 	@Column(name = "status")
 	private String status;
-
 
 	public InstructorOpinion () {}
 	public InstructorOpinion(Student id_student, Instructor instructor, int instructorMark, String instructorOpinion, String deleted) {
@@ -88,6 +88,10 @@ public class InstructorOpinion{
 
 	public String getStatus() {
 		return status;
+
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	public void setStatus(String status) {
 		this.status = status;
