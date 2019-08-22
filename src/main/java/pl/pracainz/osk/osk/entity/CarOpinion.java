@@ -16,24 +16,24 @@ public class CarOpinion {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_carOpinion")
+	@Column(name = "id_carOpinion")
 	private int id;
 	
-	@ManyToOne(cascade = {CascadeType.DETACH})
+	@ManyToOne
 	@JoinColumn(name = "id_student")
 	private Student student;
 	
-	@ManyToOne(cascade = {CascadeType.DETACH})
+	@ManyToOne
 	@JoinColumn(name = "id_car")
 	private Car car;
 	
-	@Column
+	@Column(name = "carMark")
 	private int carMark;
 	
-	@Column
+	@Column(name = "carOpinion")
 	private int carOpinion;
 	
-	@Column
+	@Column(name = "deleted")
 	private int deleted;
 
 	public CarOpinion() {}
@@ -41,7 +41,7 @@ public class CarOpinion {
 	public CarOpinion(Student id_student, Car id_car, int carMark, int carOpinion, int deleted) {
 		super();
 		this.student = id_student;
-		this.car =id_car;
+		this.car = id_car;
 		this.carMark = carMark;
 		this.carOpinion = carOpinion;
 		this.deleted = deleted;
@@ -94,6 +94,6 @@ public class CarOpinion {
 	public void setDeleted(int deleted) {
 		this.deleted = deleted;
 	}
-	
+
 	
 }
