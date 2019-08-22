@@ -14,17 +14,18 @@ import javax.persistence.Table;
 public class InstructorOpinion{
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_instructorOpinion")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_instructorOpinion")
 	private int id;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_student")
+	@JoinColumn(name = "id_student")
 	private Student student;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_instructor")
+	@JoinColumn(name = "id_instructor")
 	private Instructor instructor;
+
 	
 	@Column(name = "instructorMark")
 	private int instructorMark;
@@ -37,6 +38,7 @@ public class InstructorOpinion{
 
 	public InstructorOpinion () {}
 	public InstructorOpinion(Student id_student, Instructor instructor, int instructorMark, String instructorOpinion, String deleted) {
+
 		super();
 		this.student = id_student;
 		this.instructor = instructor;
@@ -45,44 +47,29 @@ public class InstructorOpinion{
 		this.status = deleted;
 	}
 
-	
-	
 	public int getInstructorMark() {
 		return instructorMark;
 	}
-
-
 
 	public void setInstructorMark(int instructorMark) {
 		this.instructorMark = instructorMark;
 	}
 
-
-
 	public String getInstructorOpinion() {
 		return instructorOpinion;
 	}
-
-
 
 	public void setInstructorOpinion(String instructorOpinion) {
 		this.instructorOpinion = instructorOpinion;
 	}
 
-
-
-
 	public Instructor getInstructor() {
 		return instructor;
 	}
 
-
-
 	public void setInstructor(Instructor instructor) {
 		this.instructor = instructor;
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -92,7 +79,6 @@ public class InstructorOpinion{
 		this.id = id;
 	}
 
-	
 	public Student getStudent() {
 		return student;
 	}
@@ -100,16 +86,13 @@ public class InstructorOpinion{
 	public void setStudent(Student student) {
 		this.student = student;
 	}
+
 	public String getStatus() {
 		return status;
+
 	}
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	
-	
-	
-	
-	
+
 }

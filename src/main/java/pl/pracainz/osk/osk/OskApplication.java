@@ -1,13 +1,15 @@
 package pl.pracainz.osk.osk;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 
-@SpringBootApplication   //(scanBasePackages= {"pl.praca.inz.osk"})
+  
+@SpringBootApplication
 public class OskApplication {
 	public static void main(String[] args) {
+		
 		SpringApplication.run(OskApplication.class, args);
 	}
 

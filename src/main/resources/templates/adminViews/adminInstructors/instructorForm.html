@@ -4,16 +4,18 @@
 <title>Instruktorzy</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}"  type="text/css"/>
+
 </head>
 <body>
 
-Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/instructors/list}"><-wroc</a>  </a> 
+Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>   <a th:href="@{/instructors/list}"><-wroc</a>  </a> 
 <br/> <br/>
 
 
 
 <body>
-
+<div class="page">
 	<div class="container">
 	
 		<h3>INSTRUKTOR</h3>
@@ -46,6 +48,7 @@ Zalogowany użytkownik: administrator <a href="">WYLOGUJ</a> <a th:href="@{/inst
 		</form>
 	
 		
+	</div>
 	</div>
 </body>
 
