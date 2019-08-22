@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Admin Car Opinions</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+
+</head>
+<body>
+
+	Zalogowany użytkownik: administrator
+	<a href="">WYLOGUJ</a>
+	<br />
+	<br />
+
+	<h3>OPINIE - SAMOCHODY</h3>
+
+	<br>
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr class="table-primary">
+					<td>Id opinii</td>
+					<td>Kursant</td>
+					<td>Samochód</td>
+					<td>Ocena</td>
+					<td>Opinia</td>
+					<td>Status</td>
+				</tr>
+			</thead>
+			<tbody id="myTable">
+				 <tr th:each="caropinion:${caropinions}">
+					<td th:text="${caropinion.id}" />
+					<td th:text="${caropinion.carMark}" />
+					<td th:text="${caropinion.carMark}" />
+					<td th:text="${caropinion.carOpinion}" />
+					<td th:text="${caropinion.deleted}"  />
+					<td th:text="${caropinion.deleted}" />
+
+				</tr>
+			</tbody>
+
+
+		</table>
+	</div>
+
+</body>
+
+
+</HTML>
