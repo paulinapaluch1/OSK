@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Admin Exam Form</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}"  type="text/css"/>
+
+</head>
+<body>
+<div class="page">
+Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a> <a th:href="@{/courses/list}"><-wroc</a>  </a> 
+<br/> <br/>
+
+	<div class="container">
+	
+
+		<h3>WYKŁAD</h3>
+
+		<form action="#" th:action="@{/exams/save}"
+						 th:object="${internalexam}" method="POST">
+		
+     		<input type="hidden" th:field="*{id}" /> 
+ 			 
+ 			
+ 			 Instruktor:
+				<select th:field="*{instructor}" class="form-control mb-4 col-4" >
+   			 <option 
+   			 	 th:each="instructor: ${instructors}" 
+   				 th:value="${instructor.id}"
+   				 th:text="${instructor.name} + ' ' + ${instructor.surname}"
+   			 	 
+   			 />
+ 			 </select>
+
+ 			Kursant:
+ 			
+ 			 <select th:field="*{student}" class="form-control mb-4 col-4" >
+   			 <option 
+   			 	 th:each="student: ${students}" 
+   				 th:value="${student.id}"
+   				 th:text="${student.name} + ' ' + ${student.surname}"
+   			 	 
+   			 />
+ 			 </select>
+ 			 </select>
+ 			
+			Data:
+			<input type="date" th:field="*{dateHour}" th:value="${date}"
+					class="form-control mb-4 col-4">
+			
+			Wynik:
+			<input type="text" th:field="*{result}"
+					class="form-control mb-4 col-4">
+			
+			Typ:
+			<input type="text" th:field="*{type}"
+					class="form-control mb-4 col-4">
+					
+			Status:
+			<input type="text" th:field="*{deleted}"
+					class="form-control mb-4 col-4">
+						
+		
+			<button type="submit" class="btn btn-info col-2">Zapisz</button>
+						
+		</form>
+	
+		
+	</div>
+	</div>
+</body>
+
+
+</HTML>

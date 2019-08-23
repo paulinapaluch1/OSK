@@ -34,7 +34,7 @@ Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="but
       <td th:text="${course.id}"/>
     <td th:text="${course.category.categoryName}"/>
     <td th:text="${course.instructor.name}+' ' +${course.instructor.surname} "/>
-    <td th:text="${course.startDate}"/>
+    <td th:text="${#dates.format(course.startDate, 'dd-MM-yyyy')}" />
     <td th:text="${course.finished}"/>
      <td><a th:href="@{/courses/showFormForUpdate(id_course=${course.id})}" class="btn btn-primary">EDYTUJ</a> </td> 
  </tr>

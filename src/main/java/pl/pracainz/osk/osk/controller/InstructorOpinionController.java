@@ -1,4 +1,4 @@
-package pl.pracainz.osk.osk.controller;
+/*package pl.pracainz.osk.osk.controller;
 
 import java.util.List;
 
@@ -65,6 +65,6 @@ public class InstructorOpinionController {
 
 		return "redirect:/opinions/instructors";
 	}
-	*/
+	
 }
-
+*/
