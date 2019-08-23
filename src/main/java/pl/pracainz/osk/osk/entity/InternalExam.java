@@ -10,7 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 
 @Entity
@@ -31,6 +33,8 @@ public class InternalExam {
 	private Student student;
 
 	@Column
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	@NotNull
 	private Date dateHour;
 
 	@Column
@@ -47,7 +51,7 @@ public class InternalExam {
 	}
 
 	public InternalExam(Instructor instructor, Student student, Date dateHour, int result, String type, int deleted) {
-
+		super();
 		this.instructor = instructor;
 		this.student = student;
 		this.dateHour = dateHour;
@@ -112,11 +116,5 @@ public class InternalExam {
 		this.deleted = deleted;
 	}
 
-	@Override
-	public String toString() {
-		return "InternalExam [id=" + id + ", id_instructor=" + instructor.getName() + ", id_student="
-				+ student.getName() + ", dateHour=" + dateHour + ", result=" + result + ", type=" + type + ", deleted="
-				+ deleted + "]";
-	}
 
 }

@@ -30,18 +30,24 @@ public class Car {
 	@Column(name = "id_car")
 	private int id;
 
+	
 	@Column(name = "registration_number")
 	private String registrationNumber;
-
-	@Column
+	
+	@Column(name = "brand")
 	private String brand;
-
-	@Column
+	
+	@Column(name = "model")
 	private String model;
+	
+	@Column(name = "deleted")
+
+
 
 	@Nullable
 	@Column
 	private Integer deleted;
+
 
 	@OneToMany(mappedBy = "id")
 	List<CarOpinion> carOpinions;
@@ -99,6 +105,7 @@ public class Car {
 	public void setDeleted(Integer deleted) {
 		this.deleted = deleted;
 	}
+
 	@Override
 	public String toString() {
 		return "Car [id=" + id + ", registration_number=" + registrationNumber + ", brand=" + brand + ", model=" + model

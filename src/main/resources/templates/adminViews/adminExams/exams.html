@@ -12,6 +12,9 @@ Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="but
 <br/> <br/>
 
 <h3>EGZAMINY</h3>
+<br><br>
+<a th:href="@{/exams/showFormForAdd}" class="btn btn-primary">DODAJ</a> <br><br>
+
 <input class="form-control" id="myInput" type="text" placeholder="Szukaj...">
 
   <br>
@@ -23,6 +26,7 @@ Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="but
    <td>Instruktor</td>
    <td>Kursant</td>
    <td>Data</td>
+   <td>Godzina</td>
    <td>Wynik</td>
    <td>Typ</td> 
    <td>Stan</td> 
@@ -34,11 +38,16 @@ Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="but
 					<td th:text="${exam.id}" />
 					<td th:text="${exam.instructor.name} + ' ' + ${exam.instructor.surname}" />
 					<td th:text="${exam.student.name} + ' ' + ${exam.student.surname}" />
-					<td th:text="${exam.dateHour}" />
+					<td th:text="${#dates.format(exam.dateHour, 'dd-MM-yyyy')}" />
+					<td th:text="${#dates.format(exam.dateHour, 'HH:mm')}" />
 					<td th:text="${exam.result}" />
 					<td th:text="${exam.type}" />
 					<td th:text="${exam.deleted}" />
-
+					
+					
+					<td><a
+						th:href="@{/exams/showFormForUpdate(id_internalExam=${exam.id})}"
+						class="btn btn-primary">EDYTUJ</a></td>
 				</tr>
 			</tbody>
 
