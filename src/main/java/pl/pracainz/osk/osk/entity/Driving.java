@@ -46,7 +46,7 @@ public class Driving {
 	private int done;
 
 	@Column
-	private int cancelled;
+	private Integer cancelled;
 
 	@OneToMany(mappedBy = "id")
 	private List<Timetable> timetables;
@@ -112,11 +112,13 @@ public class Driving {
 		this.done = done;
 	}
 
-	public int getCancelled() {
+
+
+	public Integer getCancelled() {
 		return cancelled;
 	}
 
-	public void setCancelled(int cancelled) {
+	public void setCancelled(Integer cancelled) {
 		this.cancelled = cancelled;
 	}
 
