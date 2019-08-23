@@ -15,51 +15,47 @@
 	<a href="">WYLOGUJ</a>
 	<br />
 	<br />
-
-	<h3>OPINIE - SAMOCHODY</h3>
+<center>
+		<h2>
+			<strong>Opinie</strong>
+		</h2>
+	</center>
 
 	<br>
-	<div class="table-responsive">
-		<table class="table table-bordered table-hover">
-			<thead>
-				<tr class="table-primary">
-					<td>Id opinii</td>
-					<td>Kursant</td>
-					<td>Samochód</td>
-					<td>Ocena</td>
-					<td>Opinia</td>
-					<td>Status</td>
-				</tr>
-			</thead>
-			<tbody id="myTable">
-				 <tr th:each="caropinion:${caropinions}">
-					<td th:text="${caropinion.id}" />
-					<td th:text="${caropinion.student.name + ' ' + caropinion.student.surname}" />
-					<td th:text="${caropinion.car.registrationNumber}" />
-					<td th:text="${caropinion.carMark}" />
-					<td th:text="${caropinion.carOpinion}"  />
-					<td th:text="${caropinion.deleted}" />
+	<br>
+	<br>
+	<div class="d-flex justify-content-center">
+		<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+			<div class="card-body text-center mt-4">
+				<a style="text-decoration: none"
+					th:href="@{cars/newOpinions}"> </br> </br>
+					<p class="card-text">Nowe</p>
+				</a>
+			</div>
+		</div>
 
-				</tr>
-			</tbody>
+		<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+			<div class="card-body text-center mt-4">
+				<a style="text-decoration: none"
+					th:href="@{cars/checkedOpinions}"> </br> </br>
+					<p class="card-text"><h2>Zatwierdzone</h2></p>
+				</a>
+			</div>
+		</div>
 
 
-		</table>
+
+		<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+			<div class="card-body text-center mt-4">
+				<a style="text-decoration: none"
+					th:href="@{cars/rejectedOpinions}"> </br> </br>
+					<p class="card-text">Odrzuone</p>
+				</a>
+			</div>
+		</div>
+
 	</div>
-<script>
-var $rows = $('#tabela tr'); //pobranie wierszy z tabeli
-$('#szukaj_osoby').keyup(function() { //funkcja keyup jest wywolywana kiedy uzytkownik nacisnie klawisz
- 
-        var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
-            reg = RegExp(val, 'i'),
-            text; // uzycie wyrazenia regularnego do sprawdzenia elementu
- 
-        $rows.show().filter(function() { // najpierw pokazujemy wszystkie wiersze, a potem stosujemy funkcje filter()
-            text = 'nowa');
-            return !reg.test(text); //sprawdzamy czy wiersz pasuje doelementu szukanego, jeśli nie to chowamy ten wiersz 
-        }).hide();
-    });
-</script>
+	
 </body>
 
 
