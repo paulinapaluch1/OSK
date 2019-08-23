@@ -9,7 +9,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style>
-
 .accordion {
   background-color: #eee;
   color: #444;
@@ -34,8 +33,6 @@
   background-color: white;
   overflow: hidden;
 }
-
-
 </style>
 
 </head>
@@ -55,7 +52,7 @@ Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="but
   <li class="page-item"><a class="page-link" href="#">&#62;</a></li>
 </ul>   
    
-   
+ 
 <for:each th:each="car:${cars}">
  <button class="accordion" th:text="${car.id}+'. '+${car.brand}+' '+${car.model}+' '+${car.registrationNumber}"></button>
  <div class="panel">
@@ -66,27 +63,26 @@ Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="but
 <thead >
  <tr class="table-primary">
    <td>Id</td>
+ 
    <td>Poczatek</td>
    <td>Koniec</td>
- 
+
  </tr>
 </thead>
 <tbody id="myTable">
-				<tr th:each="timetable:${car.timetables}">
+				<tr th:each="timetable:${timetablesToday}">
+				<span th:if=${car.id}==${timetable.car.id}>
 					<td th:text="${timetable.id}" />
 					<td th:text="${#dates.format(timetable.begin,'dd.MM.yyyy HH:mm')}" />
 					<td th:text="${#dates.format(timetable.end,'dd.MM.yyyy HH:mm')}" />
+					</span>
 				</tr>
-			</tbody>
+</tbody>
 </table>
 </div>
-  <p>Wtorek</p>
-  <p>Środa</p>
-  <p>Czwartek</p>
-  <p>Piątek</p>
-  <p>Sobota</p>
+ 
 </div>
- </for:each>
+</for:each>
 
 </div>
 <script>
@@ -95,7 +91,9 @@ var i;
 
 for (i = 0; i < acc.length; i++) {
   acc[i].addEventListener("click", function() {
+   
     this.classList.toggle("active");
+
     var panel = this.nextElementSibling;
     if (panel.style.display === "block") {
       panel.style.display = "none";
@@ -105,7 +103,6 @@ for (i = 0; i < acc.length; i++) {
   });
 }
 </script>
-
 </body>
 
-</HTML>
+</html>

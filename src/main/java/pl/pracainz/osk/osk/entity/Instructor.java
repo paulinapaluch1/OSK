@@ -2,12 +2,15 @@ package pl.pracainz.osk.osk.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -52,6 +55,9 @@ public class Instructor {
 	@OneToMany(mappedBy = "instructor")
 	List<Timetable> timetables;
 
+	//@OneToOne(mappedBy = "instructor", cascade = CascadeType.ALL)
+	//User user;
+	
 	public Instructor() {
 	}
 
@@ -163,5 +169,16 @@ public class Instructor {
 	public void setTimetables(List<Timetable> timetables) {
 		this.timetables = timetables;
 	}
+/*
+	public User getUser() {
+		return user;
+	}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	
+	
+	*/
 }

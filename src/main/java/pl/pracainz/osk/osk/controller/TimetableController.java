@@ -1,7 +1,9 @@
 package pl.pracainz.osk.osk.controller;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,12 +33,12 @@ private InstructorRepository instructorRepository;
 	@GetMapping("/list")
 	public String showTimetable( Model theModel) {
 		List<Timetable> theTimetable= timetableRepository.findAll();
-		
-		theModel.addAttribute("timetables",timetableRepository.findByBegin(new Date(2019,1,3)));
+		theModel.addAttribute("timetables",theTimetable);
 		theModel.addAttribute("cars",carRepository.findAll());
+	
+		theModel.addAttribute("timetablesToday",timetableRepository.queryByDayAndMonthAndYear(LocalDateTime.now().getDayOfMonth(),LocalDateTime.now().getMonth().getValue(),LocalDateTime.now().getYear()));//Calendar.getInstance().get(Calendar.MONTH),2019));//date.get(Calendar.MONTH),date.get(Calendar.YEAR)));
 		return "adminViews/adminTimetable/timetable";
 	}
-	
-	
+
 	
 }
