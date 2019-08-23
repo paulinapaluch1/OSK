@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Admin Instructor Opinions</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<nav
+		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
+		<div class=" flex-fill">
+			<img
+				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
+				width="70px" />
+		</div>
+		<div class="  flex-fill">
+			<h2>Ośrodek Szkolenia Kierowców</h2>
+		</div>
+		<div class=" flex-fill">
+			<strong>Zalogowany użytkownik: administrator</strong>
+		</div>
+
+	</nav>
+	<br />
+	<br />
+
+	<h3>OPINIE - INSTRUKTORZY</h3>
+	<br>
+
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr class="table-primary">
+					<td>Id opinii</td>
+					<td>Instruktor</td>
+					<td>Kursant</td>
+					<td>Ocena</td>
+					<td>Opinia</td>
+					<td>Status</td>
+				</tr>
+			</thead>
+			<tbody id="myTable">
+				<tr th:each="instructoropinion:${instructoropinions}">
+					<td th:text="${instructoropinion.id}" />
+					<td
+						th:text="${instructoropinion.student.name} + ' ' + ${instructoropinion.student.surname}" />
+					<td
+						th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname}" />
+					<td th:text="${instructoropinion.instructorMark}" />
+					<td th:text="${instructoropinion.instructorOpinion}" />
+					<td th:text="${instructoropinion.status}" />
+					<td><button type="button" class="btn btn-success">Zatwierdz</button></td>
+					<td><button type="button" class="btn btn-danger">Odrzuc</button></td>
+				</tr>
+			</tbody>
+
+		</table>
+	</div>
+	<script>
+		$("td").filter(function() {
+			return $(this).text().indexOf("nowa") !== -1;
+		}).parent().hide();
+
+		$("td").filter(function() {
+			return $(this).text().indexOf("odrzucona") !== -1;
+		}).parent().hide();
+	</script>
+
+	<br>
+
+</body>
+
+
+</HTML>
