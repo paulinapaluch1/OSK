@@ -1,4 +1,4 @@
-package pl.pracainz.osk.osk.controller;
+/*package pl.pracainz.osk.osk.controller;
 
 import java.util.List;
 
@@ -31,17 +31,17 @@ public class CarOpinionController {
 	}
 	
 	
-	@GetMapping("/list")
+	@GetMapping("/cars")
 	public String listOpinions(Model theModel) {
-		List<CarOpinion> theOpinions = carOpinionRepository.findAll();
-//		List<Car> theCars = carRepository.findAll();
-//		List<Student> theStudents = studentRepository.findAll();
-//		
-		theModel.addAttribute("caropinions", theOpinions);
-//		theModel.addAttribute("cars", theCars);
-//		theModel.addAttribute("students", theStudents);
-//		
+		List<CarOpinion> theCarOpinions = carOpinionRepository.findAll();
+		List<Car> theCars = carRepository.findAll();
+		List<Student> theStudents = studentRepository.findAll();
+		
+		theModel.addAttribute("caropinions", theCarOpinions);
+		theModel.addAttribute("cars", theCars);
+		theModel.addAttribute("students", theStudents);
+		
 		return "adminViews/adminOpinions/caropinions";
 	}
 
-}
+}*/

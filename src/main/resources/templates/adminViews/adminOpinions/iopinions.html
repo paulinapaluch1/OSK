@@ -7,55 +7,75 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-
+<link rel="stylesheet" th:href="@{/css/style.css}"  type="text/css"/>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+	<nav
+		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
+		<div class=" flex-fill">
+			<img
+				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
+				width="70px" />
+		</div>
+		<div class="  flex-fill">
+			<h2>Ośrodek Szkolenia Kierowców</h2>
+		</div>
+		<div class=" flex-fill">
+			<strong>Zalogowany użytkownik: administrator</strong>
+		</div>
 
-	Zalogowany użytkownik: administrator
-	<a href="">WYLOGUJ</a>
+	</nav>
 	<br />
 	<br />
 
-	<h3>OPINIE - INSTRUKTORZY</h3>
+	<center>
+		<h2>
+			<strong>Opinie</strong>
+		</h2>
+	</center>
 
 	<br>
 	<br>
-	<div class="table-responsive">
-		<table class="table table-bordered table-hover">
-			<thead>
-				<tr class="table-primary">
-					<td>Id opinii</td>
-					<td>Instruktor</td>
-					<td>Kursant</td>
-					<td>Ocena</td>
-					<td>Opinia</td>
-					<td>Status</td>
-				</tr>
-			</thead>
-			<tbody id="myTable">
-				<tr th:each="instructoropinion:${instructoropinions}">
-					<td th:text="${instructoropinion.id}" />
-					<td	th:text="${instructoropinion.student.name} + ' ' + ${instructoropinion.student.surname}" />
-					<td th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname}" />
-					<td th:text="${instructoropinion.instructorMark}" />
-					<td th:text="${instructoropinion.instructorOpinion}" />
-					<td th:text="${instructoropinion.status}" />
-					<!-- <td
-						th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname}" />
-					 <td
-						th:text="${instructoropinion.student.name} + ' ' + ${instructoropinion.student.surname}" />
-					
-					<td
-						th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname}" />
-					<td th:text="${instructoropinion.instructorMark}" />
-					<td th:text="${instructoropinion.instructorOpinion}" />
-					<td th:text="${instructoropinion.deleted}" />
-					-->
-				</tr>
-			</tbody>
+	<br>
+	<div class="d-flex justify-content-center">
+		<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+			<div class="card-body text-center mt-4">
+				<a style="text-decoration: none"
+					th:href="@{instructors/newOpinions}"> </br> </br>
+					<p class="card-text">Nowe</p>
+				</a>
+			</div>
+		</div>
 
-		</table>
+		<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+			<div class="card-body text-center mt-4">
+				<a style="text-decoration: none"
+					th:href="@{instructors/checkedOpinions}"> </br> </br>
+					<p class="card-text"><h2>Zatwierdzone</h2></p>
+				</a>
+			</div>
+		</div>
+
+
+
+		<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+			<div class="card-body text-center mt-4">
+				<a style="text-decoration: none"
+					th:href="@{instructors/rejectedOpinions}"> </br> </br>
+					<p class="card-text">Odrzuone</p>
+				</a>
+			</div>
+		</div>
+
 	</div>
+
+
+
+	<br>
 
 </body>
 

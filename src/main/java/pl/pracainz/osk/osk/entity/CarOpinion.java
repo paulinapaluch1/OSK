@@ -31,14 +31,14 @@ public class CarOpinion {
 	private int carMark;
 	
 	@Column(name = "carOpinion")
-	private int carOpinion;
+	private String carOpinion;
 	
 	@Column(name = "deleted")
 	private int deleted;
 
 	public CarOpinion() {}
 	
-	public CarOpinion(Student id_student, Car id_car, int carMark, int carOpinion, int deleted) {
+	public CarOpinion(Student id_student, Car id_car, int carMark, String carOpinion, int deleted) {
 		super();
 		this.student = id_student;
 		this.car = id_car;
@@ -79,11 +79,12 @@ public class CarOpinion {
 		this.carMark = carMark;
 	}
 
-	public int getCarOpinion() {
+
+	public String getCarOpinion() {
 		return carOpinion;
 	}
 
-	public void setCarOpinion(int carOpinion) {
+	public void setCarOpinion(String carOpinion) {
 		this.carOpinion = carOpinion;
 	}
 
