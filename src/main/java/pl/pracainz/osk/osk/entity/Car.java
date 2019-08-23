@@ -43,7 +43,11 @@ public class Car {
 	@Column(name = "deleted")
 
 
-	private int deleted;
+
+	@Nullable
+	@Column
+	private Integer deleted;
+
 
 	@OneToMany(mappedBy = "id")
 	List<CarOpinion> carOpinions;
@@ -94,14 +98,13 @@ public class Car {
 		this.model = model;
 	}
 
-	public int getDeleted() {
+	public Integer getDeleted() {
 		return deleted;
 	}
 
-	public void setDeleted(int deleted) {
+	public void setDeleted(Integer deleted) {
 		this.deleted = deleted;
 	}
-
 
 	@Override
 	public String toString() {

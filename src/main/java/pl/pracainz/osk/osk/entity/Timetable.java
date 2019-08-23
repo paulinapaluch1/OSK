@@ -52,7 +52,7 @@ public class Timetable {
 	}
 
 	public Timetable(Instructor instructor, Date begin, Date end, Car car, Driving driving, int archived) {
-		super();
+	
 		this.instructor = instructor;
 		this.begin = begin;
 		this.end = end;
