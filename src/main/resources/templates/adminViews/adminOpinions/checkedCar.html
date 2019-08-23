@@ -30,53 +30,43 @@
 
 	</nav>
 	<br />
-	<br />
 
-	<h3>OPINIE - INSTRUKTORZY</h3>
-	<br>
-
+<br>
 	<div class="table-responsive">
 		<table class="table table-bordered table-hover">
 			<thead>
 				<tr class="table-primary">
 					<td>Id opinii</td>
-					<td>Instruktor</td>
 					<td>Kursant</td>
+					<td>Samochód</td>
 					<td>Ocena</td>
 					<td>Opinia</td>
 					<td>Status</td>
 				</tr>
 			</thead>
 			<tbody id="myTable">
-				<tr th:each="instructoropinion:${instructoropinions}">
-					<td th:text="${instructoropinion.id}" />
-					<td
-						th:text="${instructoropinion.student.name} + ' ' + ${instructoropinion.student.surname}" />
-					<td
-						th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname}" />
-					<td th:text="${instructoropinion.instructorMark}" />
-					<td th:text="${instructoropinion.instructorOpinion}" />
-					<td th:text="${instructoropinion.status}" />
-					<td><button type="button" class="btn btn-success">Zatwierdz</button></td>
+				 <tr th:each="caropinion:${caropinions}">
+					<td th:text="${caropinion.id}" />
+					<td th:text="${caropinion.student.name + ' ' + caropinion.student.surname}" />
+					<td th:text="${caropinion.car.registrationNumber}" />
+					<td th:text="${caropinion.carMark}" />
+					<td th:text="${caropinion.carOpinion}"  />
+					<td th:text="${caropinion.deleted}" />
 					<td><button type="button" class="btn btn-danger">Odrzuc</button></td>
+
 				</tr>
 			</tbody>
 
+
 		</table>
 	</div>
+	
 	<script>
-		$("status").filter(function() {
-			return $(this).text().indexOf("zatwierdzona") !== -1;
+		$("td").filter(function() {
+			return $(this).text().indexOf("0") !== -1;
 		}).parent().hide();
 
-		$("status").filter(function() {
-			return $(this).text().indexOf("nowa") !== -1;
-		}).parent().hide();
 	</script>
-
-	<br>
-
+	
 </body>
-
-
-</HTML>
+</html>

@@ -81,10 +81,56 @@ public class OpinionController {
 		return "adminViews/adminOpinions/rejectedInstructor";
 	}
 	
+	@GetMapping("/cars/newOpinions")
+	public String listNewCarOpinions(Model theModel) {
+		
+		List<CarOpinion> theCarOpinions = carOpinionRepository.findAll();
+		List<Car> theCars = carRepository.findAll();
+		List<Student> theStudents = studentRepository.findAll();
+		
+		theModel.addAttribute("caropinions", theCarOpinions);
+		theModel.addAttribute("cars", theCars);
+		theModel.addAttribute("students", theStudents);
+				
+		
+		return "adminViews/adminOpinions/newCar";
+	}
+	
+	@GetMapping("/cars/checkedOpinions")
+	public String listCheckedCarOpinions(Model theModel) {
+		
+		List<CarOpinion> theCarOpinions = carOpinionRepository.findAll();
+		List<Car> theCars = carRepository.findAll();
+		List<Student> theStudents = studentRepository.findAll();
+		
+		theModel.addAttribute("caropinions", theCarOpinions);
+		theModel.addAttribute("cars", theCars);
+		theModel.addAttribute("students", theStudents);
+				
+		
+		return "adminViews/adminOpinions/checkedCar";
+	}
+	
+	@GetMapping("/cars/rejectedOpinions")
+	public String listRejectedCarOpinions(Model theModel) {
+		
+		List<CarOpinion> theCarOpinions = carOpinionRepository.findAll();
+		List<Car> theCars = carRepository.findAll();
+		List<Student> theStudents = studentRepository.findAll();
+		
+		theModel.addAttribute("caropinions", theCarOpinions);
+		theModel.addAttribute("cars", theCars);
+		theModel.addAttribute("students", theStudents);
+				
+		
+		return "adminViews/adminOpinions/rejectedCar";
+	}
+	
 	@GetMapping("/allOpinions")
 	public String listOpinions(Model theModel) {
 		return "adminViews/adminOpinions/opinions";
 	}
+	
 	@GetMapping("/instructors")
 	public String listInstructorOpinions(Model theModel) {
 
