@@ -5,12 +5,13 @@ body{
 .page{
 padding: 10px !important;
 
+
 }
 
 
 #card{
-	width: 255px;
-	height: 250px;
+	width: 285px;
+	height: 150px;
 	float: left;
 	box-sizing: border-box;
 	text-align: center;

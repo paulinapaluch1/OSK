@@ -3,8 +3,11 @@
 <head>
 <title>Admin Cars</title>
 <meta charset="utf-8">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" th:href="@{/css/style.css}"  type="text/css"/>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 
 </head>
 <body>
@@ -19,74 +22,77 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong>
-			<a href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-			   <a th:href="@{/}"><-wroc</a> 
+			<strong>Zalogowany użytkownik: administrator</strong> <a
+				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+			<a th:href="@{/}"><-wroc</a>
 		</div>
 
 	</nav>
-<div class="page">
+	<div class="page">
 
 
 
-<h3>SAMOCHODY</h3>
+		<h3>SAMOCHODY</h3>
 
-<a th:href="@{/cars/showFormForAdd}" class="btn btn-primary">DODAJ</a> <br><br>
-<input class="form-control" id="myInput" type="text" placeholder="Szukaj...">
-  <br>
-<div class="table-responsive">
-<table class="table table-bordered table-hover">
-<thead >
- <tr class="table-primary">
-   <td>Id</td>
-   <td>Numer rejestracyjny</td>
-   <td>Marka</td>
-   <td>Model</td> 
-   <td>Usunięty</td>  
- </tr>
-</thead>
-<tbody id="myTable">
-  <tr th:each="car:${cars}">
-      <td th:text="${car.id}"/>
-    <td th:text="${car.registrationNumber}"/>
-    <td th:text="${car.brand}"/>
-      <td th:text="${car.model}"/>
-    <td th:text="${car.deleted}"/>
-     <td><a th:href="@{/cars/showFormForUpdate(id_car=${car.id})}" class="btn btn-primary">EDYTUJ</a> </td> 
- </tr>
+		<a th:href="@{/cars/showFormForAdd}" class="btn btn-primary">DODAJ</a>
+		<br>
+		<br> <input class="form-control" id="myInput" type="text"
+			placeholder="Szukaj..."> <br>
+		<div class="table-responsive">
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr class="table-primary">
+						<td>Id</td>
+						<td>Numer rejestracyjny</td>
+						<td>Marka</td>
+						<td>Model</td>
+						<td>Usunięty</td>
+					</tr>
+				</thead>
+				<tbody id="myTable">
+					<tr th:each="car:${cars}">
+						<td th:text="${car.id}" />
+						<td th:text="${car.registrationNumber}" />
+						<td th:text="${car.brand}" />
+						<td th:text="${car.model}" />
+						<td th:text="${car.deleted}" />
+						<td><a th:href="@{/cars/showFormForUpdate(id_car=${car.id})}"
+							class="btn btn-primary">EDYTUJ</a></td>
+					</tr>
 
-</tbody>
-
-
-</table>
-</div>
-
-</div>
-<script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-</script>
+				</tbody>
 
 
+			</table>
+		</div>
 
-
-
-
-
-
-
-
-
-
+	</div>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$("#myInput")
+									.on(
+											"keyup",
+											function() {
+												var value = $(this).val()
+														.toLowerCase();
+												$("#myTable tr")
+														.filter(
+																function() {
+																	$(this)
+																			.toggle(
+																					$(
+																							this)
+																							.text()
+																							.toLowerCase()
+																							.indexOf(
+																									value) > -1)
+																});
+											});
+						});
+	</script>
 
 
 </body>
-
-
 </HTML>

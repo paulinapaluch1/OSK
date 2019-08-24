@@ -7,7 +7,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-	<link rel="stylesheet" th:href="@{/css/style.css}"  type="text/css"/>
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -26,53 +26,51 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong>
-			<a href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-			   <a th:href="@{/}"><-wroc</a> 
+			<strong>Zalogowany użytkownik: administrator</strong> <a
+				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+			<a th:href="@{/}"><-wroc</a>
 		</div>
 
 	</nav>
 	<div class="page">
-	
-	<br />
 
-<br>
-	<div class="table-responsive">
-		<table class="table table-bordered table-hover">
-			<thead>
-				<tr class="table-primary">
-					<td>Id opinii</td>
-					<td>Kursant</td>
-					<td>Samochód</td>
-					<td>Ocena</td>
-					<td>Opinia</td>
-					<td>Status</td>
-				</tr>
-			</thead>
-			<tbody id="myTable">
-				 <tr th:each="caropinion:${caropinions}">
-					<td th:text="${caropinion.id}" />
-					<td th:text="${caropinion.student.name + ' ' + caropinion.student.surname}" />
-					<td th:text="${caropinion.car.registrationNumber}" />
-					<td th:text="${caropinion.carMark}" />
-					<td th:text="${caropinion.carOpinion}"  />
-					<td th:text="${caropinion.deleted}" />
-					<td><button type="button" class="btn btn-success">Zatwierdz</button></td>
-					<td><button type="button" class="btn btn-danger">Odrzuc</button></td>
+		<br /> <br>
+		<div class="table-responsive">
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr class="table-primary">
+						<td>Id opinii</td>
+						<td>Kursant</td>
+						<td>Samochód</td>
+						<td>Ocena</td>
+						<td>Opinia</td>
+						<td>Status</td>
+					</tr>
+				</thead>
+				<tbody id="myTable">
+					<tr th:each="caropinion:${caropinions}">
+						<td th:text="${caropinion.id}" />
+						<td
+							th:text="${caropinion.student.name + ' ' + caropinion.student.surname}" />
+						<td th:text="${caropinion.car.registrationNumber}" />
+						<td th:text="${caropinion.carMark}" />
+						<td th:text="${caropinion.carOpinion}" />
+						<td th:text="${caropinion.deleted}" />
+						<td><button type="button" class="btn btn-success">Zatwierdz</button></td>
+						<td><button type="button" class="btn btn-danger">Odrzuc</button></td>
 
-				</tr>
-			</tbody>
+					</tr>
+				</tbody>
 
 
-		</table>
-	</div>
-	
-	<script>
-		$("td").filter(function() {
-			return $(this).text().indexOf("0") !== -1;
-		}).parent().hide();
+			</table>
+		</div>
 
-	</script>
+		<script>
+			$("td").filter(function() {
+				return $(this).text().indexOf("0") !== -1;
+			}).parent().hide();
+		</script>
 	</div>
 </body>
 </html>

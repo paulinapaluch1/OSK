@@ -11,7 +11,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" th:href="@{/css/style.css}"  type="text/css"/>
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 
 </head>
 <body>
@@ -26,15 +26,13 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong>
-			<a href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-			   <a th:href="@{/}"><-wroc</a> 
+			<strong>Zalogowany użytkownik: administrator</strong> <a
+				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+			<a th:href="@{/}"><-wroc</a>
 		</div>
 
 	</nav>
 	<div class="page">
-		
-
 		<h3>Instruktorzy</h3>
 		<a th:href="@{/instructors/showFormForAdd}" class="btn btn-primary">DODAJ</a>
 		<br> <br> <input class="form-control" id="myInput"
@@ -105,15 +103,5 @@
 						});
 	</script>
 
-
-
-
-
-
-
-
-
 </body>
-
-
 </HTML>

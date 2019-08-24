@@ -7,7 +7,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-	<link rel="stylesheet" th:href="@{/css/style.css}"  type="text/css"/>
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -26,63 +26,56 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong>
-			<a href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-			   <a th:href="@{/}"><-wroc</a> 
+			<strong>Zalogowany użytkownik: administrator</strong> <a
+				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+			<a th:href="@{/}"><-wroc</a>
 		</div>
 
 	</nav>
 	<div class="page">
-	
-	<br />
-	<br />
+		<br /> <br />
+		<h3>OPINIE - INSTRUKTORZY</h3>
+		<br>
 
-	<h3>OPINIE - INSTRUKTORZY</h3>
-	<br>
+		<div class="table-responsive">
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr class="table-primary">
+						<td>Id opinii</td>
+						<td>Instruktor</td>
+						<td>Kursant</td>
+						<td>Ocena</td>
+						<td>Opinia</td>
+						<td>Status</td>
+					</tr>
+				</thead>
+				<tbody id="myTable">
+					<tr th:each="instructoropinion:${instructoropinions}">
+						<td th:text="${instructoropinion.id}" />
+						<td
+							th:text="${instructoropinion.student.name} + ' ' + ${instructoropinion.student.surname}" />
+						<td
+							th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname}" />
+						<td th:text="${instructoropinion.instructorMark}" />
+						<td th:text="${instructoropinion.instructorOpinion}" />
+						<td th:text="${instructoropinion.status}" />
+						<td><button type="button" class="btn btn-success">Zatwierdz</button></td>
+						<td><button type="button" class="btn btn-danger">Odrzuc</button></td>
+					</tr>
+				</tbody>
 
-	<div class="table-responsive">
-		<table class="table table-bordered table-hover">
-			<thead>
-				<tr class="table-primary">
-					<td>Id opinii</td>
-					<td>Instruktor</td>
-					<td>Kursant</td>
-					<td>Ocena</td>
-					<td>Opinia</td>
-					<td>Status</td>
-				</tr>
-			</thead>
-			<tbody id="myTable">
-				<tr th:each="instructoropinion:${instructoropinions}">
-					<td th:text="${instructoropinion.id}" />
-					<td
-						th:text="${instructoropinion.student.name} + ' ' + ${instructoropinion.student.surname}" />
-					<td
-						th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname}" />
-					<td th:text="${instructoropinion.instructorMark}" />
-					<td th:text="${instructoropinion.instructorOpinion}" />
-					<td th:text="${instructoropinion.status}" />
-					<td><button type="button" class="btn btn-success">Zatwierdz</button></td>
-					<td><button type="button" class="btn btn-danger">Odrzuc</button></td>
-				</tr>
-			</tbody>
+			</table>
+		</div>
+		<script>
+			$("status").filter(function() {
+				return $(this).text().indexOf("zatwierdzona") !== -1;
+			}).parent().hide();
 
-		</table>
+			$("status").filter(function() {
+				return $(this).text().indexOf("nowa") !== -1;
+			}).parent().hide();
+		</script>
+		<br>
 	</div>
-	<script>
-		$("status").filter(function() {
-			return $(this).text().indexOf("zatwierdzona") !== -1;
-		}).parent().hide();
-
-		$("status").filter(function() {
-			return $(this).text().indexOf("nowa") !== -1;
-		}).parent().hide();
-	</script>
-
-	<br>
-</div>
-
 </body>
-
-
 </HTML>

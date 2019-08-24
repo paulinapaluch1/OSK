@@ -4,34 +4,36 @@
 <title>Admin Grafik</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
-<link rel="stylesheet" th:href="@{/css/style.css}"  type="text/css"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style>
 .accordion {
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-  transition: 0.4s;
+	background-color: #eee;
+	color: #444;
+	cursor: pointer;
+	padding: 18px;
+	width: 100%;
+	border: none;
+	text-align: left;
+	outline: none;
+	font-size: 15px;
+	transition: 0.4s;
 }
 
-
 .active, .accordion:hover {
-  background-color: #ccc; 
+	background-color: #ccc;
 }
 
 .panel {
-  padding: 0 18px;
-  display: none;
-  background-color: white;
-  overflow: hidden;
+	padding: 0 18px;
+	display: none;
+	background-color: white;
+	overflow: hidden;
 }
 </style>
 
@@ -49,75 +51,70 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong>
-			<a href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-			   <a th:href="@{/}"><-wroc</a> 
+			<strong>Zalogowany użytkownik: administrator</strong> <a
+				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+			<a th:href="@{/}"><-wroc</a>
 		</div>
-
 	</nav>
-<div class="page">
+	<div class="page">
+		<h3>GRAFIK</h3>
+		<ul class="pagination">
+			<li class="page-item"><a class="page-link" href="#">&#60;</a></li>
+			<li class="page-item"><a class="page-link" href="#">1</a></li>
+			<li class="page-item"><a class="page-link" href="#">2</a></li>
+			<li class="page-item"><a class="page-link" href="#">3</a></li>
+			<li class="page-item"><a class="page-link" href="#">&#62;</a></li>
+		</ul>
+		<for:each th:each="car:${cars}">
+			<button class="accordion"
+				th:text="${car.id}+'. '+${car.brand}+' '+${car.model}+' '+${car.registrationNumber}"></button>
+			<div class="panel">
+				<p>Poniedziałek</p>
 
-<h3>GRAFIK</h3>
-   
-<ul class="pagination">
-  <li class="page-item"><a class="page-link" href="#">&#60;</a></li>
-  <li class="page-item"><a class="page-link" href="#">1</a></li>
-  <li class="page-item"><a class="page-link" href="#">2</a></li>
-  <li class="page-item"><a class="page-link" href="#">3</a></li>
-  <li class="page-item"><a class="page-link" href="#">&#62;</a></li>
-</ul>   
-   
- 
-<for:each th:each="car:${cars}">
- <button class="accordion" th:text="${car.id}+'. '+${car.brand}+' '+${car.model}+' '+${car.registrationNumber}"></button>
- <div class="panel">
-  <p>Poniedziałek</p>
-   
- <div class="table-responsive">
-<table class="table table-bordered table-hover table-sm">
-<thead >
- <tr class="table-primary">
-   <td>Id</td>
- 
-   <td>Poczatek</td>
-   <td>Koniec</td>
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover table-sm">
+						<thead>
+							<tr class="table-primary">
+								<td>Id</td>
+								<td>Poczatek</td>
+								<td>Koniec</td>
+							</tr>
+						</thead>
+						<tbody id="myTable">
+							<tr th:each="timetable:${timetablesToday}">
+								<span th:if=${car.id}==${timetable.car.id}>
+								<td th:text="${timetable.id}" />
+								<td
+									th:text="${#dates.format(timetable.begin,'dd.MM.yyyy HH:mm')}" />
+								<td th:text="${#dates.format(timetable.end,'dd.MM.yyyy HH:mm')}" />
+								</span>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 
- </tr>
-</thead>
-<tbody id="myTable">
-				<tr th:each="timetable:${timetablesToday}">
-				<span th:if=${car.id}==${timetable.car.id}>
-					<td th:text="${timetable.id}" />
-					<td th:text="${#dates.format(timetable.begin,'dd.MM.yyyy HH:mm')}" />
-					<td th:text="${#dates.format(timetable.end,'dd.MM.yyyy HH:mm')}" />
-					</span>
-				</tr>
-</tbody>
-</table>
-</div>
- 
-</div>
-</for:each>
+			</div>
+		</for:each>
 
-</div>
-<script>
-var acc = document.getElementsByClassName("accordion");
-var i;
+	</div>
+	<script>
+		var acc = document.getElementsByClassName("accordion");
+		var i;
 
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-   
-    this.classList.toggle("active");
+		for (i = 0; i < acc.length; i++) {
+			acc[i].addEventListener("click", function() {
 
-    var panel = this.nextElementSibling;
-    if (panel.style.display === "block") {
-      panel.style.display = "none";
-    } else {
-      panel.style.display = "block";
-    }
-  });
-}
-</script>
+				this.classList.toggle("active");
+
+				var panel = this.nextElementSibling;
+				if (panel.style.display === "block") {
+					panel.style.display = "none";
+				} else {
+					panel.style.display = "block";
+				}
+			});
+		}
+	</script>
 </body>
 
 </html>
