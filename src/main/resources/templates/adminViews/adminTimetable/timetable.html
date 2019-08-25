@@ -72,13 +72,13 @@
 				th:href="@{/timetable/nextDate(date=${today})}">&#62;</a></li>
 		</ul>
 
-<form th:action="@{/timetable/changeDate}" method="GET">
-		<input type="date" name=date th:value="${date}" 
-			class="form-control mb-4 col-4"> 
-			
-		<button type="submit" class="btn btn-info col-2">ZMIEŃ</button>
-			
-</form>
+		<form th:action="@{/timetable/changeDate}" method="GET">
+			<input type="date" name=date th:value="${date}"
+				class="form-control mb-4 col-4">
+
+			<button type="submit" class="btn btn-info col-2">ZMIEŃ</button>
+
+		</form>
 
 		<br>
 
@@ -94,6 +94,7 @@
 								<td>Id</td>
 								<td>Początek</td>
 								<td>Koniec</td>
+								<td></td>
 							</tr>
 						</thead>
 						<tbody id="myTable">
@@ -104,6 +105,10 @@
 									th:text="${#temporals.format(timetable.begin,'dd.MM.yyyy HH:mm')}" />
 									<td
 									th:text="${#dates.format(timetable.end,'dd.MM.yyyy HH:mm')}" />
+
+									<td><a
+										th:href="@{/timetable/edit(id_timetable=${timetable.id})}"><button
+												type="button" class="btn btn-primary">EDYTUJ</button></a></td>
 								</span>
 							</tr>
 						</tbody>
