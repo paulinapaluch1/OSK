@@ -1,6 +1,5 @@
 package pl.pracainz.osk.osk.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,17 +32,21 @@ public class CarOpinion {
 	@Column(name = "carOpinion")
 	private String carOpinion;
 	
+	@Column(name = "status")
+	private String status;
+	
 	@Column(name = "deleted")
 	private int deleted;
 
 	public CarOpinion() {}
 	
-	public CarOpinion(Student id_student, Car id_car, int carMark, String carOpinion, int deleted) {
+	public CarOpinion(Student id_student, Car id_car, int carMark, String carOpinion, String status, int deleted) {
 		super();
 		this.student = id_student;
 		this.car = id_car;
 		this.carMark = carMark;
 		this.carOpinion = carOpinion;
+		this.status = status;
 		this.deleted = deleted;
 	}
 
@@ -94,6 +97,14 @@ public class CarOpinion {
 
 	public void setDeleted(int deleted) {
 		this.deleted = deleted;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	

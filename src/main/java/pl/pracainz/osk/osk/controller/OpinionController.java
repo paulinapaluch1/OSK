@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pracainz.osk.osk.dao.CarOpinionRepository;
 import pl.pracainz.osk.osk.dao.CarRepository;
@@ -160,6 +161,68 @@ public class OpinionController {
 		
 		return "adminViews/adminOpinions/caropinions";
 	}
+	
+	@GetMapping("/confirmInstructor")
+	public String confirmInstructorOpinion(@RequestParam("id_instructorOpinion") int id, Model theModel) {
+
+		InstructorOpinion theInstructorOpinion = instructorOpinionRepository.getOne(id);
+		theInstructorOpinion.setStatus("zatwierdzona");
+		instructorOpinionRepository.save(theInstructorOpinion);
+	
+		return "redirect:/opinions/instructors";
+	}
+	
+	@GetMapping("/rejectInstructor")
+	public String rejectInstructorOpinion(@RequestParam("id_instructorOpinion") int id, Model theModel) {
+
+		InstructorOpinion theInstructorOpinion = instructorOpinionRepository.getOne(id);
+		theInstructorOpinion.setStatus("odrzucona");
+		instructorOpinionRepository.save(theInstructorOpinion);
+	
+		return "redirect:/opinions/instructors";
+	}
+	
+	@GetMapping("/cancelInstructor")
+	public String cancelInstructorOpinion(@RequestParam("id_instructorOpinion") int id, Model theModel) {
+
+		InstructorOpinion theInstructorOpinion = instructorOpinionRepository.getOne(id);
+		theInstructorOpinion.setStatus("nowa");
+		instructorOpinionRepository.save(theInstructorOpinion);
+	
+		return "redirect:/opinions/instructors";
+	}
+	
+	@GetMapping("/confirmCar")
+	public String confirmCarOpinion(@RequestParam("id_carOpinion") int id, Model theModel) {
+
+		CarOpinion theCarOpinion = carOpinionRepository.getOne(id);
+		theCarOpinion.setStatus("zatwierdzona");
+		carOpinionRepository.save(theCarOpinion);
+	
+		return "redirect:/opinions/cars";
+	}
+	
+	@GetMapping("/rejectCar")
+	public String rejectCarOpinion(@RequestParam("id_carOpinion") int id, Model theModel) {
+
+		CarOpinion theCarOpinion = carOpinionRepository.getOne(id);
+		theCarOpinion.setStatus("odrzucona");
+		carOpinionRepository.save(theCarOpinion);
+	
+		return "redirect:/opinions/cars";
+	}
+	
+	@GetMapping("/cancelCar")
+	public String cancelCarOpinion(@RequestParam("id_carOpinion") int id, Model theModel) {
+
+		CarOpinion theCarOpinion = carOpinionRepository.getOne(id);
+		theCarOpinion.setStatus("nowa");
+		carOpinionRepository.save(theCarOpinion);
+	
+		return "redirect:/opinions/cars";
+	}
+	
+	
 	
 	
 }
