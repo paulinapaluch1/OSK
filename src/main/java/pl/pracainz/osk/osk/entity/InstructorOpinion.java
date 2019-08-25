@@ -34,16 +34,20 @@ public class InstructorOpinion{
 	
 	@Column(name = "status")
 	private String status;
+	
+	@Column(name = "deleted")
+	private int deleted;
 
 	public InstructorOpinion () {}
-	public InstructorOpinion(Student id_student, Instructor instructor, int instructorMark, String instructorOpinion, String deleted) {
+	public InstructorOpinion(Student id_student, Instructor instructor, int instructorMark, String instructorOpinion, String status, int deleted) {
 
 		super();
 		this.student = id_student;
 		this.instructor = instructor;
 		this.instructorMark = instructorMark;
 		this.instructorOpinion = instructorOpinion;
-		this.status = deleted;
+		this.status = status;
+		this.deleted = deleted;
 	}
 
 	public int getInstructorMark() {
@@ -77,23 +81,26 @@ public class InstructorOpinion{
 	public void setId(int id) {
 		this.id = id;
 	}
-
 	public Student getStudent() {
 		return student;
 	}
-
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-
-
 	public String getStatus() {
 		return status;
-
 	}
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public int getDeleted() {
+		return deleted;
+	}
+	public void setDeleted(int deleted) {
+		this.deleted = deleted;
+	}
+
+
 
 	}
 

@@ -34,7 +34,7 @@
 	</nav>
 	<div class="page">
 		<br /> <br />
-		<h3>OPINIE - INSTRUKTORZY</h3>
+		<h3>INSTRUKTORZY - ODRZUCONE OPINIE</h3>
 		<br>
 
 		<div class="table-responsive">
@@ -47,6 +47,7 @@
 						<td>Ocena</td>
 						<td>Opinia</td>
 						<td>Status</td>
+						<td>Usunięte</td>
 					</tr>
 				</thead>
 				<tbody id="myTable">
@@ -59,20 +60,22 @@
 						<td th:text="${instructoropinion.instructorMark}" />
 						<td th:text="${instructoropinion.instructorOpinion}" />
 						<td th:text="${instructoropinion.status}" />
-						<td><button type="button" class="btn btn-success">Zatwierdz</button></td>
-						<td><button type="button" class="btn btn-danger">Odrzuc</button></td>
+						<td th:text="${instructoropinion.deleted}" />
+						<td><a
+							th:href="@{/opinions/cancelInstructor(id_instructorOpinion=${instructoropinion.id})}"
+							class="btn btn-info">Przywróć</a></td>
 					</tr>
 				</tbody>
 
 			</table>
 		</div>
 		<script>
-			$("status").filter(function() {
-				return $(this).text().indexOf("zatwierdzona") !== -1;
-			}).parent().hide();
-
-			$("status").filter(function() {
+			$("td").filter(function() {
 				return $(this).text().indexOf("nowa") !== -1;
+			}).parent().hide();
+			
+			$("td").filter(function() {
+				return $(this).text().indexOf("zatwierdzona") !== -1;
 			}).parent().hide();
 		</script>
 		<br>
