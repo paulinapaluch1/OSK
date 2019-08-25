@@ -59,25 +59,29 @@
 	<div class="page">
 		<h3>GRAFIK</h3>
 		<div th:if="${timetablesToday.isEmpty()}">
-		<p th:text= "'Brak grafiku na dzień: '+${dayName}+' '+${today} "></p>
+			<p th:text="'Brak grafiku na dzień: '+${dayName}+' '+${today} "></p>
 		</div>
 		<div th:unless="${timetablesToday.isEmpty()}">
-		<p th:text="${dayName}+' '+${today}"/> 
+			<p th:text="${dayName}+' '+${today}" />
 		</div>
-		
+
 		<ul class="pagination">
-			<li class="page-item"><a class="page-link" th:href="@{/timetable/earlierDate(date=${today})}">&#60;</a></li>
-			<li class="page-item"><a class="page-link" th:href="@{/timetable/nextDate(date=${today})}">&#62;</a></li>
+			<li class="page-item"><a class="page-link"
+				th:href="@{/timetable/earlierDate(date=${today})}">&#60;</a></li>
+			<li class="page-item"><a class="page-link"
+				th:href="@{/timetable/nextDate(date=${today})}">&#62;</a></li>
 		</ul>
-		
-	
-		<input type="date" id="datka" name="datka" class="form-control mb-4 col-4"> 	
-		<a href="" 
-		class="btn btn-primary inlineButton">ZMIEŃ</a>
-		<br><br>
-	
-		
-		
+
+<form th:action="@{/timetable/changeDate}" method="GET">
+		<input type="date" name=date th:value="${date}" 
+			class="form-control mb-4 col-4"> 
+			
+		<button type="submit" class="btn btn-info col-2">ZMIEŃ</button>
+			
+</form>
+
+		<br>
+
 		<for:each th:each="car:${cars}">
 			<button class="accordion"
 				th:text="${car.id}+'. '+${car.brand}+' '+${car.model}+' '+${car.registrationNumber}"></button>
@@ -95,9 +99,11 @@
 						<tbody id="myTable">
 							<tr th:each="timetable:${timetablesToday}">
 								<span th:if=${car.id}==${timetable.car.id}>
-								<td th:text="${timetable.id}" />
-								<td	th:text="${#temporals.format(timetable.begin,'dd.MM.yyyy HH:mm')}" />
-								<td th:text="${#dates.format(timetable.end,'dd.MM.yyyy HH:mm')}" />
+									<td th:text="${timetable.id}" />
+									<td
+									th:text="${#temporals.format(timetable.begin,'dd.MM.yyyy HH:mm')}" />
+									<td
+									th:text="${#dates.format(timetable.end,'dd.MM.yyyy HH:mm')}" />
 								</span>
 							</tr>
 						</tbody>

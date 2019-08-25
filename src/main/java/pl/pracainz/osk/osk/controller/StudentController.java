@@ -31,7 +31,7 @@ public class StudentController {
 		return "adminViews/adminStudents/students";
 	}
 	
-	
+
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
 		Student theStudent = new Student();

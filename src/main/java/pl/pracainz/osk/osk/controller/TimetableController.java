@@ -6,8 +6,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pracainz.osk.osk.dao.CarRepository;
@@ -69,6 +72,25 @@ public class TimetableController {
 	
 	    return "adminViews/adminTimetable/timetable";
 	}
+	
+	
+	
+	
+	@RequestMapping(value="/changeDate", method = RequestMethod.GET)
+	public String changeDate( 
+			@ModelAttribute("date") @DateTimeFormat(iso = ISO.DATE_TIME) String date,BindingResult result,
+			Model theModel) {
+		theModel.addAttribute("timetables", timetableRepository.findAll());
+		theModel.addAttribute("cars", carRepository.findAll());
+		LocalDate yesterday = LocalDate.parse(date);
+		theModel.addAttribute("today", yesterday);
+	    theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(
+					yesterday.getDayOfMonth(), yesterday.getMonthValue(), yesterday.getYear()));
+	    theModel.addAttribute("dayName",getDayName(yesterday));
+	
+	    return "adminViews/adminTimetable/timetable";
+	}
+	
 	
 	
 	
