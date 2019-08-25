@@ -3,94 +3,108 @@
 <head>
 <title>Admin Students</title>
 <meta charset="utf-8">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" th:href="@{/css/style.css}"  type="text/css"/>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 
 </head>
 <body>
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
-			<img
+			<a href="/"><img
 				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
-				width="70px" />
+				width="70px" /></a>
 		</div>
 		<div class="flex-fill">
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong>
-			<a href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-			   <a th:href="@{/}"><-wroc</a> 
+			<strong>Zalogowany użytkownik: administrator</strong> <a
+				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+			<a th:href="@{/}"><-wroc</a>
 		</div>
-
 	</nav>
-<div class="page">
-
-
-<h3>KURSANCI</h3>
-<a th:href="@{/students/showFormForAdd}" class="btn btn-primary">DODAJ</a> <br><br>
-
- <input class="form-control" id="myInput" type="text" placeholder="Szukaj...">
-
-  <br>
-<div class="table-responsive">
-<table class="table table-bordered table-hover  table-sm">
-<thead>
- <tr class="table-primary">
-   <td>Id</td>
-   <td>Imię </td>
-   <td>Nazwisko</td>
-   <td>Login</td>
-   <td>Hasło</td>
-   <td>Data ur.</td>
-   <td>Adres</td>
-   <td>Telefon</td>
-   <td>Email</td>
-   <td>PKK</td>
-   <td>Godz. przejechane</td>
-   <td>Godz. opłacone</td>
-   <td>Archiwizowany</td>
-   
- </tr>
-</thead>
-<tbody id="myTable">
- <tr th:each="tempStudent:${students}">
-    <td th:text="${tempStudent.id}"/>
-    <td th:text="${tempStudent.name}"/>
-    <td th:text="${tempStudent.surname}"/>
-    <td th:text="${tempStudent.login}"/>
-    <td><button name="sendPassword">Wyslij haslo</button> </td> 
-    <td th:text="${#dates.format(tempStudent.birthdate,'dd.MM.yyyy')} "/>
-    <td th:text="'ul. '+${tempStudent.street}+ ' ' +${tempStudent.buildingNumber}+ '/ ' +${tempStudent.apartmentNumber}+ ' ' +${tempStudent.postCode}+ ' ' +${tempStudent.city}"/>
-     <td th:text="${tempStudent.phoneNumber}"/> 
-     <td th:text="${tempStudent.email}"/>
-     <td th:text="${tempStudent.PKK}"/>
-     <td></td>
-     <td>30</td>
-     <td th:text="${tempStudent.deleted}"/>
-     <td><a th:href="@{/students/showFormForUpdate(id_student=${tempStudent.id})}" class="btn btn-primary">EDYTUJ</a> </td> 
-    
- </tr>
-</tbody>
-</table>
-</div>
-</div>
-<script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-</script>
-
-
+	<div class="page">
+		<h3>KURSANCI</h3>
+		<a th:href="@{/students/showFormForAdd}" class="btn btn-primary">DODAJ</a>
+		<br>
+		<br> <input class="form-control" id="myInput" type="text"
+			placeholder="Szukaj..."> <br>
+		<div class="table-responsive">
+			<table class="table table-bordered table-hover  table-sm">
+				<thead>
+					<tr class="table-primary">
+						<td>Id</td>
+						<td>Imię</td>
+						<td>Nazwisko</td>
+						<td>Login</td>
+						<td>Hasło</td>
+						<td>Data ur.</td>
+						<td>Adres</td>
+						<td>Telefon</td>
+						<td>Email</td>
+						<td>PKK</td>
+						<td>Godz. przejechane</td>
+						<td>Godz. opłacone</td>
+						<td>Archiwizowany</td>
+					</tr>
+				</thead>
+				<tbody id="myTable">
+					<tr th:each="tempStudent:${students}">
+						<td th:text="${tempStudent.id}" />
+						<td th:text="${tempStudent.name}" />
+						<td th:text="${tempStudent.surname}" />
+						<td th:text="${tempStudent.login}" />
+						<td><button name="sendPassword">Wyslij haslo</button></td>
+						<td
+							th:text="${#dates.format(tempStudent.birthdate,'dd.MM.yyyy')} " />
+						<td
+							th:text="'ul. '+${tempStudent.street}+ ' ' +${tempStudent.buildingNumber}+ '/ ' +${tempStudent.apartmentNumber}+ ' ' +${tempStudent.postCode}+ ' ' +${tempStudent.city}" />
+						<td th:text="${tempStudent.phoneNumber}" />
+						<td th:text="${tempStudent.email}" />
+						<td th:text="${tempStudent.PKK}" />
+						<td></td>
+						<td>30</td>
+						<td th:text="${tempStudent.deleted}" />
+						<td><a
+							th:href="@{/students/showFormForUpdate(id_student=${tempStudent.id})}"
+							class="btn btn-primary">EDYTUJ</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$("#myInput")
+									.on(
+											"keyup",
+											function() {
+												var value = $(this).val()
+														.toLowerCase();
+												$("#myTable tr")
+														.filter(
+																function() {
+																	$(this)
+																			.toggle(
+																					$(
+																							this)
+																							.text()
+																							.toLowerCase()
+																							.indexOf(
+																									value) > -1)
+																});
+											});
+						});
+	</script>
 </body>
-
-
 </HTML>

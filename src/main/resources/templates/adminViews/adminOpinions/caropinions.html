@@ -7,57 +7,64 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-<link rel="stylesheet" th:href="@{/css/style.css}"  type="text/css"/>
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 
 </head>
 <body>
-<div class="page">
-	Zalogowany użytkownik: administrator
-	<a href="">WYLOGUJ</a>
-	<br />
-	<br />
-<center>
-		<h2>
-			<strong>Opinie</strong>
-		</h2>
-	</center>
-
-	<br>
-	<br>
-	<br>
-	<div class="d-flex justify-content-center">
-		<div id="card" class="card bg-light mb-4 ml-4 mr-4">
-			<div class="card-body text-center mt-4">
-				<a style="text-decoration: none"
-					th:href="@{cars/newOpinions}"> </br> </br>
-					<p class="card-text">Nowe</p>
-				</a>
-			</div>
+	<nav
+		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
+		<div class=" flex-fill">
+			<a href="/"><img
+				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
+				width="70px" /></a>
+		</div>
+		<div class="flex-fill">
+			<h2>Ośrodek Szkolenia Kierowców</h2>
+		</div>
+		<div class="flex-fill">
+			<strong>Zalogowany użytkownik: administrator</strong> <a
+				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+			<a th:href="@{/}"><-wroc</a>
 		</div>
 
-		<div id="card" class="card bg-light mb-4 ml-4 mr-4">
-			<div class="card-body text-center mt-4">
-				<a style="text-decoration: none"
-					th:href="@{cars/checkedOpinions}"> </br> </br>
-					<p class="card-text"><h2>Zatwierdzone</h2></p>
-				</a>
+	</nav>
+	<div class="page">
+
+		<center>
+			<h2>
+				<strong>Opinie</strong>
+			</h2>
+		</center>
+
+		<br> <br> <br>
+		<div class="d-flex justify-content-center">
+			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+				<div class="card-body text-center mt-4">
+					<a style="text-decoration: none" th:href="@{cars/newOpinions}">
+						<p class="card-text">Nowe</p>
+					</a>
+				</div>
 			</div>
-		</div>
 
-
-
-		<div id="card" class="card bg-light mb-4 ml-4 mr-4">
-			<div class="card-body text-center mt-4">
-				<a style="text-decoration: none"
-					th:href="@{cars/rejectedOpinions}"> </br> </br>
-					<p class="card-text">Odrzuone</p>
-				</a>
+			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+				<div class="card-body text-center mt-4">
+					<a style="text-decoration: none" th:href="@{cars/checkedOpinions}">
+						<p class="card-text">Zatwierdzone</p>
+					</a>
+				</div>
 			</div>
-		</div>
 
-	</div>
+
+
+			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+				<div class="card-body text-center mt-4">
+					<a style="text-decoration: none" th:href="@{cars/rejectedOpinions}">
+						<p class="card-text">Odrzucone</p>
+					</a>
+				</div>
+			</div>
+
+		</div>
 	</div>
 </body>
-
-
 </HTML>

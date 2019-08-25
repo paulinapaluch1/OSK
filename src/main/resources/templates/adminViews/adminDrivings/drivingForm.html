@@ -3,77 +3,60 @@
 <head>
 <title>Jazdy</title>
 <meta charset="utf-8">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" th:href="@{/css/style.css}"  type="text/css"/>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 </head>
 <body>
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
-			<img
+			<a href="/"><img
 				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
-				width="70px" />
+				width="70px" /><a href="/">
 		</div>
 		<div class="flex-fill">
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong>
-			<a href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-			   <a th:href="@{/}"><-wroc</a> 
+			<strong>Zalogowany użytkownik: administrator</strong> <a
+				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+			<a th:href="@{/}"><-wroc</a>
 		</div>
 
 	</nav>
-<div class="page">
+	<div class="page">
 
-	<div class="container">
-	
-		<h3>JAZDA</h3>
+		<div class="container">
 
-		<form action="#" th:action="@{/drivings/save}"
-						 th:object="${driving}" method="POST">
-		
-     		<input type="hidden" th:field="*{id}" />
+			<h3>JAZDA</h3>
 
-			Typ:
-			<select th:field="*{drivingType}" class="form-control" >
-   			 <option 
-   			 	 th:each="type: ${drivingTypes}" 
-   				 th:value="${type.id}"
-   			 	 th:text="${type.type}" 
-   			 />
- 			 </select>
- 			 
- 			 Kursant:
-			<select th:field="*{student}" class="form-control" >
-   			 <option 
-   			 	 th:each="student: ${students}" 
-   				 th:value="${student.id}"
-   			 	 th:text="${student.name}+' '+${student.surname}" 
-   			 />
- 			 </select>
- 			 
- 			Początek:
-		 	<input type="datetime"  th:field="*{startHour}" th:value="${startHour}"
-					class="form-control mb-4 col-4">
-					
-			
- 			Koniec:
- 		
-		 	<input type="datetime"  th:field="*{finishHour}" th:value="${finishHour}"
-					class="form-control mb-4 col-4">
- 
-			
-			<button type="submit" class="btn btn-info col-2">Zapisz</button>
-						
-		</form>
-	
-		
-	</div>
+			<form action="#" th:action="@{/drivings/save}" th:object="${driving}"
+				method="POST">
+
+				<input type="hidden" th:field="*{id}" /> Typ: <select
+					th:field="*{drivingType}" class="form-control">
+					<option th:each="type: ${drivingTypes}" th:value="${type.id}"
+						th:text="${type.type}" />
+				</select> Kursant: <select th:field="*{student}" class="form-control">
+					<option th:each="student: ${students}" th:value="${student.id}"
+						th:text="${student.name}+' '+${student.surname}" />
+				</select> Początek: <input type="datetime" th:field="*{startHour}"
+					th:value="${startHour}" class="form-control mb-4 col-4">
+
+
+				Koniec: <input type="datetime" th:field="*{finishHour}"
+					th:value="${finishHour}" class="form-control mb-4 col-4">
+
+
+				<button type="submit" class="btn btn-info col-2">Zapisz</button>
+
+			</form>
+
+
+		</div>
 	</div>
 </body>
-
-
-
-
 </HTML>

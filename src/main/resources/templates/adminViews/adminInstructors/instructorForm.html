@@ -3,67 +3,51 @@
 <head>
 <title>Instruktorzy</title>
 <meta charset="utf-8">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" th:href="@{/css/style.css}"  type="text/css"/>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 
 </head>
 <body>
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
-			<img
+			<a href="/"><img
 				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
-				width="70px" />
+				width="70px" /></a>
 		</div>
 		<div class="flex-fill">
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong>
-			<a href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-			   <a th:href="@{/}"><-wroc</a> 
+			<strong>Zalogowany użytkownik: administrator</strong> <a
+				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+			<a th:href="@{/}"><-wroc</a>
 		</div>
-
 	</nav>
 <body>
-<div class="page">
-	<div class="container">
-	
-		<h3>INSTRUKTOR</h3>
+	<div class="page">
+		<div class="container">
 
-		<form action="#" th:action="@{/instructors/save}"
-						 th:object="${instructor}" method="POST">
-		
-     		<input type="hidden" th:field="*{id}" />
+			<h3>INSTRUKTOR</h3>
 
-			Imię:
-			<input type="text" th:field="*{name}"
-					class="form-control mb-4 col-4" >
-			Nazwisko:
-			<input type="text" th:field="*{surname}"
-					class="form-control mb-4 col-4">
+			<form action="#" th:action="@{/instructors/save}"
+				th:object="${instructor}" method="POST">
 
-			Login:
-			<input type="text" th:field="*{login}"
-					class="form-control mb-4 col-4" >
-		 	
-			 Numer telefonu:
-			<input type="text" th:field="*{phoneNumber}"
-					class="form-control mb-4 col-4">
-			Email:
-			<input type="text" th:field="*{email}"
-					class="form-control mb-4 col-4" >
-				
-			<button type="submit" class="btn btn-info col-2">Zapisz</button>
-						
-		</form>
-	
-		
-	</div>
+				<input type="hidden" th:field="*{id}" /> Imię: <input type="text"
+					th:field="*{name}" class="form-control mb-4 col-4">
+				Nazwisko: <input type="text" th:field="*{surname}"
+					class="form-control mb-4 col-4"> Login: <input type="text"
+					th:field="*{login}" class="form-control mb-4 col-4"> Numer
+				telefonu: <input type="text" th:field="*{phoneNumber}"
+					class="form-control mb-4 col-4"> Email: <input type="text"
+					th:field="*{email}" class="form-control mb-4 col-4">
+
+				<button type="submit" class="btn btn-info col-2">Zapisz</button>
+			</form>
+		</div>
 	</div>
 </body>
-
-
-
-
 </HTML>
