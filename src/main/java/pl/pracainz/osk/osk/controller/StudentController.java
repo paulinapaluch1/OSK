@@ -26,20 +26,15 @@ public class StudentController {
 	
 	@GetMapping("/list")
 	public String listStudents(Model theModel) {
-		
 		List<Student> theStudents=studentRepository.findAll();
-		
 		theModel.addAttribute("students", theStudents);
-		
 		return "adminViews/adminStudents/students";
 	}
 	
-	
+
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
-		
 		Student theStudent = new Student();
-		
 		theModel.addAttribute("student", theStudent);
 		return "adminViews/adminStudents/addStudent";
 	}
@@ -47,10 +42,8 @@ public class StudentController {
 	@GetMapping("/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("id_student") int id,
 									Model theModel) {
-		
 		Optional<Student> theStudent = studentRepository.findById(id);
 		theModel.addAttribute("student", theStudent);
-		
 		return "adminViews/adminStudents/addStudent";			
 	}
 	
