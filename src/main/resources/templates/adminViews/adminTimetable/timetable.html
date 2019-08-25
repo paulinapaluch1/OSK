@@ -48,12 +48,16 @@
 				width="70px" /></a>
 		</div>
 		<div class="flex-fill">
+			<a th:href="@{/}">
+				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
+			</a>
+		</div>
+		<div class="flex-fill">
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
 			<strong>Zalogowany użytkownik: administrator</strong> <a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-			<a th:href="@{/}"><-wroc</a>
 		</div>
 	</nav>
 	<div class="page">
@@ -83,10 +87,11 @@
 						<tbody id="myTable">
 							<tr th:each="timetable:${timetablesToday}">
 								<span th:if=${car.id}==${timetable.car.id}>
-								<td th:text="${timetable.id}" />
-								<td
+									<td th:text="${timetable.id}" />
+									<td
 									th:text="${#dates.format(timetable.begin,'dd.MM.yyyy HH:mm')}" />
-								<td th:text="${#dates.format(timetable.end,'dd.MM.yyyy HH:mm')}" />
+									<td
+									th:text="${#dates.format(timetable.end,'dd.MM.yyyy HH:mm')}" />
 								</span>
 							</tr>
 						</tbody>
