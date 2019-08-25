@@ -34,16 +34,28 @@
 	</nav>
 	<div class="page">
 
-		<br />
-		<h3>SAMOCHODY - NOWE OPINIE</h3>
+	<br />
+		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
+			<div class="flex-fill">
+				<h3>INSTRUKTORZY - NOWE OPINIE</h3>
+			</div>
+			<div class="flex-fill">
+				<a th:href="@{/opinions/instructors/checkedOpinions}"><button type="button"
+						class="btn btn-outline-secondary">Zatwierdzone opinie</button></a> <a
+					th:href="@{/opinions/instructors/rejectedOpinions}"><button
+						type="button" class="btn btn-outline-secondary">Odrzucone
+						opinie</button></a>
+			</div>
+		</nav>
 		<br>
+
 		<div class="table-responsive">
 			<table class="table table-bordered table-hover">
 				<thead>
 					<tr class="table-primary">
 						<td>Id opinii</td>
+						<td>Instruktor</td>
 						<td>Kursant</td>
-						<td>Samochód</td>
 						<td>Ocena</td>
 						<td>Opinia</td>
 						<td>Status</td>
@@ -51,29 +63,27 @@
 					</tr>
 				</thead>
 				<tbody id="myTable">
-					<tr th:each="caropinion:${caropinions}">
-						<td th:text="${caropinion.id}" />
+					<tr th:each="instructoropinion:${instructoropinions}">
+						<td th:text="${instructoropinion.id}" />
 						<td
-							th:text="${caropinion.student.name + ' ' + caropinion.student.surname}" />
-						<td th:text="${caropinion.car.registrationNumber}" />
-						<td th:text="${caropinion.carMark}" />
-						<td th:text="${caropinion.carOpinion}" />
-						<td th:text="${caropinion.status}" />
-						<td th:text="${caropinion.deleted}" />
+							th:text="${instructoropinion.student.name} + ' ' + ${instructoropinion.student.surname}" />
+						<td
+							th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname}" />
+						<td th:text="${instructoropinion.instructorMark}" />
+						<td th:text="${instructoropinion.instructorOpinion}" />
+						<td th:text="${instructoropinion.status}" />
+						<td th:text="${instructoropinion.deleted}" />
 						<td><a
-							th:href="@{/opinions/confirmCar(id_carOpinion=${caropinion.id})}"
+							th:href="@{/opinions/confirmInstructor(id_instructorOpinion=${instructoropinion.id})}"
 							class="btn btn-success">Zatwierdź</a></td>
 						<td><a
-							th:href="@{/opinions/rejectCar(id_carOpinion=${caropinion.id})}"
+							th:href="@{/opinions/rejectInstructor(id_instructorOpinion=${instructoropinion.id})}"
 							class="btn btn-danger">Odrzuć</a></td>
-
 					</tr>
 				</tbody>
 
-
 			</table>
 		</div>
-
 		<script>
 			$("td").filter(function() {
 				return $(this).text().indexOf("zatwierdzona") !== -1;
@@ -83,6 +93,10 @@
 				return $(this).text().indexOf("odrzucona") !== -1;
 			}).parent().hide();
 		</script>
+
+		<br>
 	</div>
 </body>
-</html>
+
+
+</HTML>
