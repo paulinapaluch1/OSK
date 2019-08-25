@@ -9,13 +9,29 @@
 </head>
 
 <body>
+	<nav
+		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
+		<div class=" flex-fill">
+			<a href="/"><img
+				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
+				width="70px" /></a>
+		</div>
+		<div class="flex-fill">
+			<h2>Ośrodek Szkolenia Kierowców</h2>
+		</div>
+		<div class="flex-fill">
+			<strong>Zalogowany użytkownik: administrator</strong>
+			<a href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+			   <a th:href="@{/}"><-wroc</a> 
+		</div>
+
+	</nav>
 <div class="page">
-
-Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a><br/> <br/>
-
+<div class="container justify-content-center offset-1">
+<br>
 <div id="card" class="card bg-light mb-4 ml-4 mr-4">
 		<div class="card-body text-center mt-4" >
-			<a style="text-decoration: none" th:href="@{/courses/list}"> </br> </br>
+			<a style="text-decoration: none" th:href="@{/courses/list}">
 				<p class="card-text">Kursy</p>
 			</a>
 		</div>
@@ -25,7 +41,7 @@ Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="but
 
 	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 		<div class="card-body text-center mt-4">
-			<a style="text-decoration: none" th:href="@{/students/list}"> </br> </br>
+			<a style="text-decoration: none" th:href="@{/students/list}">
 				<p class="card-text">Kursanci</p>
 			</a>
 		</div>
@@ -33,7 +49,7 @@ Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="but
 
 	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 		<div class="card-body text-center mt-4">
-			<a style="text-decoration: none" th:href="@{/instructors/list}"> </br> </br>
+			<a style="text-decoration: none" th:href="@{/instructors/list}"> 
 				<p class="card-text">Instruktorzy</p>
 			</a>
 		</div>
@@ -41,7 +57,7 @@ Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="but
 
 	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 		<div class="card-body text-center mt-4">
-			<a style="text-decoration: none" th:href="@{/cars/list}"> </br> </br>
+			<a style="text-decoration: none" th:href="@{/cars/list}">
 
 				<p class="card-text">Samochody</p>
 			</a>
@@ -50,7 +66,7 @@ Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="but
 
 	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 		<div class="card-body text-center mt-4">
-			<a style="text-decoration: none" th:href="@{/exams/list}"> </br> </br>
+			<a style="text-decoration: none" th:href="@{/exams/list}"> 
 				<p class="card-text">Egzaminy</p>
 			</a>
 		</div>
@@ -58,7 +74,7 @@ Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="but
 
 	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 		<div class="card-body text-center mt-4">
-			<a style="text-decoration: none" th:href="@{/timetable/list}"> </br> </br>
+			<a style="text-decoration: none" th:href="@{/timetable/list}"> 
 				<p class="card-text">Grafik</p>
 			</a>
 		</div>
@@ -67,7 +83,7 @@ Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="but
 
 	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 		<div class="card-body text-center mt-4">
-			<a style="text-decoration: none" th:href="@{/opinions/allOpinions}"> </br> </br>
+			<a style="text-decoration: none" th:href="@{/opinions/allOpinions}"> 
 				<p class="card-text">Opinie</p>
 			</a>
 		</div>
@@ -77,7 +93,7 @@ Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="but
 
 	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 		<div class="card-body text-center mt-4">
-			<a style="text-decoration: none" th:href="@{/drivings/list}"> </br> </br>
+			<a style="text-decoration: none" th:href="@{/drivings/list}">
 				<p class="card-text">Jazdy</p>
 			</a>
 		</div>
@@ -87,13 +103,14 @@ Zalogowany użytkownik: <b>administrator</b> <a href="/logout"><button type="but
 
 	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 		<div class="card-body text-center mt-4">
-			<a style="text-decoration: none" th:href="@{/lectures/list}"> </br> </br>
+			<a style="text-decoration: none" th:href="@{/lectures/list}"> 
 				<p class="card-text">Wykłady</p>
 			</a>
 		</div>
 	</div>
 	
 	
+</div>
 </div>
 </body>
 

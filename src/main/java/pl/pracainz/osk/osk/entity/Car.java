@@ -40,10 +40,6 @@ public class Car {
 	@Column(name = "model")
 	private String model;
 	
-	@Column(name = "deleted")
-
-
-
 	@Nullable
 	@Column
 	private Integer deleted;
