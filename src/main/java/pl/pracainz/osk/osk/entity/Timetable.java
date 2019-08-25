@@ -1,5 +1,6 @@
 package pl.pracainz.osk.osk.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -31,7 +32,7 @@ public class Timetable {
 
 	@Column
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-	private Date begin;
+	private LocalDate begin;
 
 	@Column
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -51,7 +52,7 @@ public class Timetable {
 	public Timetable() {
 	}
 
-	public Timetable(Instructor instructor, Date begin, Date end, Car car, Driving driving, int archived) {
+	public Timetable(Instructor instructor, LocalDate begin, Date end, Car car, Driving driving, int archived) {
 	
 		this.instructor = instructor;
 		this.begin = begin;
@@ -77,11 +78,11 @@ public class Timetable {
 		this.instructor = instructor;
 	}
 
-	public Date getBegin() {
+	public LocalDate getBegin() {
 		return begin;
 	}
 
-	public void setBegin(Date begin) {
+	public void setBegin(LocalDate begin) {
 		this.begin = begin;
 	}
 
@@ -116,5 +117,6 @@ public class Timetable {
 	public void setArchived(int archived) {
 		this.archived = archived;
 	}
-
+	
+	
 }
