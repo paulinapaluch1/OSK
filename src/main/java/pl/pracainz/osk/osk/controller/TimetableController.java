@@ -51,7 +51,8 @@ public class TimetableController {
 	    theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(
 					yesterday.getDayOfMonth(), yesterday.getMonthValue(), yesterday.getYear()));
 	    theModel.addAttribute("dayName",getDayName(yesterday));
-		return "adminViews/adminTimetable/timetable";
+		
+	    return "adminViews/adminTimetable/timetable";
 	}
 	
 	@RequestMapping("/nextDate")
@@ -65,7 +66,8 @@ public class TimetableController {
 	    theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(
 					yesterday.getDayOfMonth(), yesterday.getMonthValue(), yesterday.getYear()));
 	    theModel.addAttribute("dayName",getDayName(yesterday));
-		return "adminViews/adminTimetable/timetable";
+	
+	    return "adminViews/adminTimetable/timetable";
 	}
 	
 	
