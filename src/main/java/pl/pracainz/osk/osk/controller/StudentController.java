@@ -44,6 +44,7 @@ public class StudentController {
 									Model theModel) {
 		Optional<Student> theStudent = studentRepository.findById(id);
 		theModel.addAttribute("student", theStudent);
+		
 		return "adminViews/adminStudents/addStudent";			
 	}
 	

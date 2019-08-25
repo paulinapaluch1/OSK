@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Admin Timetable</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
+
+</head>
+<body>
+	<div class="page">
+		<nav
+			class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
+			<div class=" flex-fill">
+				<a href="/"><img
+					src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
+					width="70px" /></a>
+			</div>
+			<div class="flex-fill">
+				<h2>Ośrodek Szkolenia Kierowców</h2>
+			</div>
+			<div class="flex-fill">
+				<strong>Zalogowany użytkownik: administrator</strong> <a
+					href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+				<a th:href="@{/}"><-wroc</a>
+			</div>
+
+		</nav>
+
+		<div class="container">
+
+			<h3>GRAFIK</h3>
+
+			<form action="#" th:action="@{/timetable/save}" th:object="${timetable}"
+				method="POST">
+
+				<input type="hidden" th:field="*{id}" /> 
+				Data: <input type="date"
+					 name="date" th:value="${date}"
+					class="form-control mb-4 col-4">	
+					
+
+				<button type="submit" class="btn btn-info col-2">Zapisz</button>
+
+			</form>
+
+		</div>
+	</div>
+</body>
+</HTML>
