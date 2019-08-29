@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Admin Profile</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
+</head>
+
+<body>
+
+	<nav
+		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
+		<div class=" flex-fill">
+			<a href="/"><img
+				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
+				width="70px" /></a>
+		</div>
+		<div class="flex-fill">
+			<h2>Ośrodek Szkolenia Kierowców</h2>
+		</div>
+		<div class="flex-fill">
+			<strong>Zalogowany użytkownik: student</strong> <a href="/logout"><button
+					type="button" class="btn btn-primary">WYLOGUJ</button></a>
+		</div>
+
+	</nav>
+	<div class="page">
+		<div class="row px-md-5">
+			<div class="col-3 justify-content-center ">
+				<br> <br>
+				<p th:text="'Login: ' + ${student.login}" />
+				<p th:text="'Data urodzenia: ' + ${#dates.format(student.birthdate, 'dd.MM.yyyy')}" />
+				<p
+					th:text="'Adres: ul. ' + ${student.street + ' ' + student.buildingNumber + ', ' + student.postCode + ' ' + student.city}" />
+				<p th:text="'Telefon: ' + ${student.phoneNumber}" />
+				<p th:text="'E-mail: ' + ${student.email}" />
+				<p th:text="'PKK: ' + ${student.PKK}" />
+				<a th:href="@{/students/updateDataStudent(id_student=${student.id})}"><button type="submit" class="btn btn-info">Edytuj</button></a>
+
+			</div>
+			<div class="col-9 align-items-center align-self-center">
+
+				<br>
+				<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+					<div class="card-body text-center mt-4">
+						<a style="text-decoration: none" th:href="@{/courses/list}">
+							<p class="card-text">Moje kursy</p>
+						</a>
+					</div>
+				</div>
+
+				<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+					<div class="card-body text-center mt-4">
+						<a style="text-decoration: none" th:href="@{/timetable/list}">
+							<p class="card-text">Grafik</p>
+						</a>
+					</div>
+				</div>
+
+				<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+					<div class="card-body text-center mt-4">
+						<a style="text-decoration: none" th:href="@{/exams/list}">
+							<p class="card-text">Egzaminy</p>
+						</a>
+					</div>
+				</div>
+
+
+				<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+					<div class="card-body text-center mt-4">
+						<a style="text-decoration: none" th:href="@{/students/showInstructors}">
+							<p class="card-text">Instruktorzy</p>
+						</a>
+					</div>
+				</div>
+
+				<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+					<div class="card-body text-center mt-4">
+						<a style="text-decoration: none" th:href="@{/cars/list}">
+
+							<p class="card-text">Samochody</p>
+						</a>
+					</div>
+				</div>
+
+
+
+
+
+
+
+
+				<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+					<div class="card-body text-center mt-4">
+						<a style="text-decoration: none" th:href="@{/drivings/list}">
+							<p class="card-text">Jazdy</p>
+						</a>
+					</div>
+				</div>
+
+
+
+				<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+					<div class="card-body text-center mt-4">
+						<a style="text-decoration: none" th:href="@{/lectures/list}">
+							<p class="card-text">Wykłady</p>
+						</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+
+
+</HTML>

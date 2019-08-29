@@ -6,6 +6,6 @@ import pl.pracainz.osk.osk.entity.Instructor;
 
 public interface InstructorRepository extends JpaRepository<Instructor, Integer>{
 	
-	
-	
+
+
 }

@@ -1,15 +1,12 @@
-body{
+body {
 	
 }
 
-.page{
-padding: 10px !important;
-
-
+.page {
+	padding: 10px !important;
 }
 
-
-#card{
+#card {
 	width: 285px;
 	height: 150px;
 	float: left;
@@ -21,13 +18,9 @@ padding: 10px !important;
 .card-text {
 	font-size: 40px;
 	vertical-align: center;
-	text-align: center;	
+	text-align: center;
 }
 
-
 a {
-     text-decoration: none;
-    }
-
-
-   
+	text-decoration: none;
+}
