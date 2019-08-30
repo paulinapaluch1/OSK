@@ -62,7 +62,7 @@
 						<th>Numer rejestracyjny</th>
 						<th>Marka</th>
 						<th>Model</th>
-						<th>Usunięty</th>
+						
 					</tr>
 				</thead>
 				<tbody id="myTable">
@@ -71,7 +71,6 @@
 						<td th:text="${car.registrationNumber}" />
 						<td th:text="${car.brand}" />
 						<td th:text="${car.model}" />
-						<td th:text="${car.deleted}" />
 						<td><a th:href="@{/cars/showFormForUpdate(id_car=${car.id})}"
 							class="btn btn-primary">EDYTUJ</a></td>
 						<td><a th:href="@{/cars/archiveCar(id_car=${car.id})}"

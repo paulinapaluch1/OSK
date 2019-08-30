@@ -64,7 +64,7 @@
 						<th>Koniec</th>
 						<th>Zrealizowana</th>
 						<th>Odwołana</th>
-						<th>Usunięta</th>
+						
 
 					</tr>
 				</thead>
@@ -80,7 +80,6 @@
 							th:text="${#dates.format(driving.finishHour,'dd.MM.yyyy HH:mm')}" />
 						<td th:text="${driving.done}" />
 						<td th:text="${driving.cancelled}" />
-						<td th:text="${driving.deleted}" />
 						
 						<td><a
 							th:href="@{/drivings/unarchiveDriving(id_driving=${driving.id})}"

@@ -67,7 +67,6 @@
 						<th>Kursant</th>
 						<th>Ocena</th>
 						<th>Opinia</th>
-						<th>Status</th>
 						<th>Usunięte</th>
 					</tr>
 				</thead>
@@ -80,7 +79,6 @@
 							th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname}" />
 						<td th:text="${instructoropinion.instructorMark}" />
 						<td th:text="${instructoropinion.instructorOpinion}" />
-						<td th:text="${instructoropinion.status}" />
 						<td th:text="${instructoropinion.deleted}" />
 						<td><a
 							th:href="@{/opinions/confirmInstructor(id_instructorOpinion=${instructoropinion.id})}"

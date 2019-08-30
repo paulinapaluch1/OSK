@@ -76,7 +76,7 @@
 						<th>Godzina</th>
 						<th>Wynik</th>
 						<th>Typ</th>
-						<th>Usunięty</th>
+						
 					</tr>
 				</thead>
 				<tbody id="myTable">
@@ -89,7 +89,7 @@
 						<td th:text="${#dates.format(exam.dateHour, 'HH:mm')}" />
 						<td th:text="${exam.result}" />
 						<td th:text="${exam.type}" />
-						<td th:text="${exam.deleted}" />
+						
 						<td><a
 							th:href="@{/exams/unarchiveExam(id_internalExam=${exam.id})}"
 							class="btn btn-danger">COFNIJ ARCHIWIZACJĘ</a></td>
