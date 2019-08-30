@@ -71,7 +71,7 @@
 						<th>PKK</th>
 						<th>Godz. przejechane</th>
 						<th>Godz. opłacone</th>
-						<th>Archiwizowany</th>
+						
 					</tr>
 				</thead>
 				<tbody id="myTable">
@@ -90,7 +90,7 @@
 						<td th:text="${tempStudent.PKK}" />
 						<td></td>
 						<td>30</td>
-						<td th:text="${tempStudent.deleted}" />
+						
 						<td><a th:href="@{/students/showFormForUpdate(id_student=${tempStudent.id})}"
 							class="btn btn-primary">EDYTUJ</a></td>
 							<td><a
