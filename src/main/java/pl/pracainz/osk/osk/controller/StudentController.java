@@ -36,6 +36,7 @@ public class StudentController {
 	@GetMapping("/list")
 	public String listStudents(Model theModel) {
 
+
 		List<Student> theStudents = studentRepository.findByDeleted(0);
 
 		theModel.addAttribute("students", theStudents);
@@ -63,7 +64,9 @@ public class StudentController {
 	}
 
 	@GetMapping("/showFormForUpdate")
+
 	public String showFormForUpdate(@RequestParam("id_student") int id, Model theModel) {
+
 
 		Optional<Student> theStudent = studentRepository.findById(id);
 		theModel.addAttribute("student", theStudent);

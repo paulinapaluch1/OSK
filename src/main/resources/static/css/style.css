@@ -22,5 +22,13 @@ body {
 }
 
 a {
+
 	text-decoration: none;
 }
+
+
+inlineButton{
+	float:left !important;
+}
+   
+
