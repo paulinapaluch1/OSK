@@ -44,14 +44,12 @@ public class StudentController {
 									Model theModel) {
 		Optional<Student> theStudent = studentRepository.findById(id);
 		theModel.addAttribute("student", theStudent);
-		
 		return "adminViews/adminStudents/addStudent";			
 	}
 	
 	@PostMapping("save")
 	public String saveStudent(@ModelAttribute("student") Student theStudent) {
 		studentRepository.save(theStudent);
-		
 		return "redirect:/students/list";
 	}
 	

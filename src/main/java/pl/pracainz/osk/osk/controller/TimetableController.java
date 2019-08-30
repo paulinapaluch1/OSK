@@ -2,7 +2,10 @@ package pl.pracainz.osk.osk.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -11,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -78,43 +80,59 @@ public class TimetableController {
 
 		return "adminViews/adminTimetable/timetable";
 	}
-	
+
 	@RequestMapping(value = "/changeDate", method = RequestMethod.GET)
 	public String changeDate(@ModelAttribute("date") @DateTimeFormat(iso = ISO.DATE_TIME) String date,
 			BindingResult result, Model theModel) {
+		
 		theModel.addAttribute("timetables", timetableRepository.findAll());
 		theModel.addAttribute("cars", carRepository.findAll());
-		
-			LocalDate yesterday = LocalDate.parse(date);
-			theModel.addAttribute("today", yesterday);
-			theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(
-					yesterday.getDayOfMonth(), yesterday.getMonthValue(), yesterday.getYear()));
-			theModel.addAttribute("dayName", getDayName(yesterday));
-		
-		
-
+		LocalDate yesterday = LocalDate.parse(date);
+		theModel.addAttribute("today", yesterday);
+		theModel.addAttribute("timetablesToday", timetableRepository
+				.queryByDayAndMonthAndYear(yesterday.getDayOfMonth(), yesterday.getMonthValue(), yesterday.getYear()));
+		theModel.addAttribute("dayName", getDayName(yesterday));
 		return "adminViews/adminTimetable/timetable";
 	}
-	
+
 	@GetMapping("/edit")
-	public String showFormForUpdate(@RequestParam("id_timetable") int id,
-									Model theModel) {
-		
+	public String showFormForUpdate(@RequestParam("id_timetable") int id, Model theModel) {
 		Optional<Timetable> theTimetable = timetableRepository.findById(id);
+		Timetable thisTimetable = timetableRepository.getOne(id);
+
+		String editTitle = "EDYTUJ ZAPLANOWANĄ JAZDĘ";
 		theModel.addAttribute("timetable", theTimetable);
-		
-		return "adminViews/adminTimetable/timetableForm";			
+		theModel.addAttribute("title", editTitle);
+		theModel.addAttribute("this", thisTimetable);
+		theModel.addAttribute("instructors", instructorRepository.findAll());
+		return "adminViews/adminTimetable/timetableForm";
 	}
 	
+	@RequestMapping(value = "/save", method = RequestMethod.GET)
+	public String saveTimetable( @ModelAttribute("hourBegin") String hourBegin, BindingResult result,
+			@ModelAttribute("timetable") Timetable theTimetable
+		) 
+			{
+		LocalDateTime begin = LocalDateTime.of(theTimetable.getBegin().getYear(),theTimetable.getBegin().getMonth(),
+			theTimetable.getBegin().getDayOfMonth(),10,1,1);
+		
+	//	LocalDateTime begin = LocalDateTime.of(2019, Month.AUGUST,26,15,30,30);
+
+		LocalDateTime end = LocalDateTime.of(2019, Month.AUGUST,26,15,30,30);
+
 	
-	@PostMapping("/save")
-	public String saveTimetable(@ModelAttribute("timetable") Timetable theTimetable) {
+	//	LocalDateTime end = LocalDateTime.of(theTimetable.getBegin().getYear(),theTimetable.getBegin().getMonth(),
+		//theTimetable.getBegin().getDayOfWeek().getValue(),	hourBegin+2,0,0);
+		theTimetable.setBegin(begin);
+		theTimetable.setEnd(end);
+		theTimetable.setCar(carRepository.getOne(1));
+		
 		timetableRepository.save(theTimetable);
+		
+		
 		return "redirect:/timetable/list";
 	}
-	
-	
-	
+
 	public String getDayName(LocalDate date) {
 		int dayNumber = date.getDayOfWeek().getValue();
 		switch (dayNumber) {
@@ -138,5 +156,17 @@ public class TimetableController {
 		}
 
 	}
+	
+	
+	@ModelAttribute("hours")
+	public String[] getHours() {
+	    return new String[] {
+	        "6:00-8:00", "8:00-10:00", "10:00-12:00"
+	        		, "12:00-14:00", 
+	        "14:00-16:00", "16:00-18:00", "18:00-20:00"
+	    };
+	}
+	
+	
 
 }
