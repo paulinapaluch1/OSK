@@ -43,7 +43,7 @@ public class Lecture {
 	}
 
 	public Lecture() {
-		
+
 	}
 
 	public int getId() {

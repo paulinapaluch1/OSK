@@ -51,11 +51,8 @@ public class CarController {
 
 	@GetMapping("/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("id_car") int id, Model theModel) {
-
 		Optional<Car> theCar = carRepository.findById(id);
-
 		theModel.addAttribute("car", theCar);
-
 		return "adminViews/adminCars/carForm";
 	}
 

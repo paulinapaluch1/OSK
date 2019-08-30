@@ -8,7 +8,6 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
-
 </head>
 <body>
 	<div class="page">
@@ -27,24 +26,44 @@
 					href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 				<a th:href="@{/}"><-wroc</a>
 			</div>
-
 		</nav>
-
 		<div class="container">
-
-			<h3>GRAFIK</h3>
-
-			<form action="#" th:action="@{/timetable/save}" th:object="${timetable}"
-				method="POST">
-
+			<br>
+			<h3 th:text="${title}"></h3>
+			<p
+				th:text="'dla samochodu '+ ${this.car.brand}+' '+${this.car.model}
+			+' '+${this.car.registrationNumber} + ' na dzień '+ ${#temporals.format(this.begin,'dd.MM.yyyy')}" />
+			
+			<form th:action="@{/timetable/save}"
+				th:object="${timetable}" method="GET">
+				
+				
 				<input type="hidden" th:field="*{id}" /> 
-				Data: <input type="date"
-					 name="date" th:value="${date}"
-					class="form-control mb-4 col-4">	
-					
-
+				   
+				 Instruktor: <select th:field="*{instructor}" class="form-control">
+					<option th:each="instructor: ${instructors}"
+						th:value="${instructor.id}"
+						th:text="${instructor.name}+' '+${instructor.surname}" />
+				</select>
+				
+				
+				<div th:object="${hourBegin}" >
+				Wybierz czas: <select
+					class="form-control mb-4 col-4" th:field="${hourBegin}">
+					<option th:each="hourBegin: ${hours}" th:value="${hourBegin}"
+						th:text="${hourBegin}"></option>
+						
+				 </select>
+				
+				</div>
+				
+				
+				
+				
+				
+				
+				 <br>
 				<button type="submit" class="btn btn-info col-2">Zapisz</button>
-
 			</form>
 
 		</div>

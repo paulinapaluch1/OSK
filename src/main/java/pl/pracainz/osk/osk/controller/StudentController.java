@@ -71,13 +71,13 @@ public class StudentController {
 		Optional<Student> theStudent = studentRepository.findById(id);
 		theModel.addAttribute("student", theStudent);
 
-		return "adminViews/adminStudents/addStudent";
+		return "adminViews/adminStudents/addStudent";			
+
 	}
 
 	@PostMapping("save")
 	public String saveStudent(@ModelAttribute("student") Student theStudent) {
 		studentRepository.save(theStudent);
-
 		return "redirect:/students/list";
 	}
 
@@ -87,7 +87,6 @@ public class StudentController {
 		Student theStudent = studentRepository.getOne(id);
 		theStudent.setDeleted(1);
 		studentRepository.save(theStudent);
-
 		return "redirect:/students/list";
 	}
 	
