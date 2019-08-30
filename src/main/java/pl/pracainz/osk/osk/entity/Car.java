@@ -12,7 +12,6 @@ import javax.persistence.Table;
 
 import org.springframework.lang.Nullable;
 
-
 @Entity
 @Table(name = "cars")
 public class Car {
@@ -30,20 +29,18 @@ public class Car {
 	@Column(name = "id_car")
 	private int id;
 
-	
 	@Column(name = "registration_number")
 	private String registrationNumber;
-	
+
 	@Column(name = "brand")
 	private String brand;
-	
+
 	@Column(name = "model")
 	private String model;
-	
+
 	@Nullable
 	@Column
 	private Integer deleted;
-
 
 	@OneToMany(mappedBy = "id")
 	List<CarOpinion> carOpinions;

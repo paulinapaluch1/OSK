@@ -36,11 +36,21 @@ private CategoryRepository categoryRepository;
 	@GetMapping("/list")
 	public String listCourses(Model theModel) {
 		
-		List<Course> theCourses= courseRepository.findAll();
+		List<Course> theCourses= courseRepository.findByFinished(0);
 		
 		theModel.addAttribute("courses", theCourses);
 		
 		return "adminViews/adminCourses/courses";
+	}
+	
+	@GetMapping("/listArchived")
+	public String listArchivedCourses(Model theModel) {
+		
+		List<Course> theCourses= courseRepository.findByFinished(1);
+		
+		theModel.addAttribute("courses", theCourses);
+		
+		return "adminViews/adminCourses/coursesArchived";
 	}
 	
 	
@@ -79,4 +89,23 @@ private CategoryRepository categoryRepository;
 		return "redirect:/courses/list";
 	}
 
+	@GetMapping("/archiveCourse")
+	public String archiveCourse(@RequestParam("id_course") int id, Model theModel) {
+
+		Course theCourse = courseRepository.getOne(id);
+		theCourse.setFinished(1);
+		courseRepository.save(theCourse);
+
+		return "redirect:/courses/list";
+	}
+	
+	@GetMapping("/unarchiveCourse")
+	public String unarchiveCourse(@RequestParam("id_course") int id, Model theModel) {
+
+		Course theCourse = courseRepository.getOne(id);
+		theCourse.setFinished(0);
+		courseRepository.save(theCourse);
+
+		return "redirect:/courses/listArchived";
+	}
 }

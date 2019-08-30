@@ -16,7 +16,6 @@ import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.StudentRepository;
 import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.InstructorOpinion;
-import pl.pracainz.osk.osk.entity.Lecture;
 import pl.pracainz.osk.osk.entity.Student;
 
 @Controller
@@ -27,7 +26,8 @@ public class StudentController {
 	private InstructorRepository instructorRepository;
 	private InstructorOpinionRepository instructorOpinionRepository;
 
-	public StudentController(StudentRepository repository, InstructorRepository instructor, InstructorOpinionRepository instructorOpinion) {
+	public StudentController(StudentRepository repository, InstructorRepository instructor,
+			InstructorOpinionRepository instructorOpinion) {
 		this.studentRepository = repository;
 		this.instructorRepository = instructor;
 		this.instructorOpinionRepository = instructorOpinion;
@@ -36,11 +36,21 @@ public class StudentController {
 	@GetMapping("/list")
 	public String listStudents(Model theModel) {
 
-		List<Student> theStudents = studentRepository.findAll();
+		List<Student> theStudents = studentRepository.findByDeleted(0);
 
 		theModel.addAttribute("students", theStudents);
 
 		return "adminViews/adminStudents/students";
+	}
+
+	@GetMapping("/listArchived")
+	public String listArchivedStudents(Model theModel) {
+
+		List<Student> theStudents = studentRepository.findByDeleted(1);
+
+		theModel.addAttribute("students", theStudents);
+
+		return "adminViews/adminStudents/studentsArchived";
 	}
 
 	@GetMapping("/showFormForAdd")
@@ -66,6 +76,26 @@ public class StudentController {
 		studentRepository.save(theStudent);
 
 		return "redirect:/students/list";
+	}
+
+	@GetMapping("/archiveStudent")
+	public String archiveStudent(@RequestParam("id_student") int id, Model theModel) {
+
+		Student theStudent = studentRepository.getOne(id);
+		theStudent.setDeleted(1);
+		studentRepository.save(theStudent);
+
+		return "redirect:/students/list";
+	}
+	
+	@GetMapping("/unarchiveStudent")
+	public String unarchiveStudent(@RequestParam("id_student") int id, Model theModel) {
+
+		Student theStudent = studentRepository.getOne(id);
+		theStudent.setDeleted(0);
+		studentRepository.save(theStudent);
+
+		return "redirect:/students/listArchived";
 	}
 
 	@GetMapping("/profile")
@@ -110,22 +140,21 @@ public class StudentController {
 
 		return "studentViews/studentInstructors/instructors";
 	}
-	
-	
+
 	@GetMapping("/rateInstructors")
 	public String rateInstructors(@RequestParam("id_instructor") int id, Model theModel) {
 
 		Instructor theInstructor = new Instructor();
 		theModel.addAttribute("instructor", theInstructor);
 		theModel.addAttribute("instructoropinions", instructorOpinionRepository.findAll());
-		
+
 //		Optional<InstructorOpinion> theInstructorOpinion = instructorOpinionRepository.findById(id);
 //		theModel.addAttribute("instructoropinion", theInstructorOpinion);
 //		theModel.addAttribute("instructors", instructorRepository.findAll());
-		
+
 		return "studentViews/studentInstructors/rateInstructors";
 	}
-	
+
 	@PostMapping("saveInstructorOpinion")
 	public String saveInstructorOpinion(@ModelAttribute("instructoropinion") InstructorOpinion theInstructorOpinion) {
 		instructorOpinionRepository.save(theInstructorOpinion);

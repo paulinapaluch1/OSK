@@ -26,11 +26,21 @@ public class InstructorController {
 	@GetMapping("/list")
 	public String listInstructors(Model theModel) {
 		
-		List<Instructor> theInstructors=instructorRepository.findAll();
+		List<Instructor> theInstructors=instructorRepository.findByDeleted(0);
 		
 		theModel.addAttribute("instructors", theInstructors);
 		
 		return "adminViews/adminInstructors/instructors";
+	}
+	
+	@GetMapping("/listArchived")
+	public String listArhivedInstructors(Model theModel) {
+		
+		List<Instructor> theInstructors=instructorRepository.findByDeleted(1);
+		
+		theModel.addAttribute("instructors", theInstructors);
+		
+		return "adminViews/adminInstructors/instructorsArchived";
 	}
 	
 	@GetMapping("/showFormForAdd")
@@ -58,5 +68,24 @@ public class InstructorController {
 		return "redirect:/instructors/list";
 	}
 	
+	@GetMapping("/archiveInstructor")
+	public String archiveInstructor(@RequestParam("id_instructor") int id, Model theModel) {
+
+		Instructor theInstructor = instructorRepository.getOne(id);
+		theInstructor.setDeleted(1);
+		instructorRepository.save(theInstructor);
+		
+		return "redirect:/instructors/list";
+	}
+
+	@GetMapping("/unarchiveInstructor")
+	public String unarchiveInstructor(@RequestParam("id_instructor") int id, Model theModel) {
+
+		Instructor theInstructor = instructorRepository.getOne(id);
+		theInstructor.setDeleted(0);
+		instructorRepository.save(theInstructor);
+		
+		return "redirect:/instructors/listArchived";
+	}
 
 }
