@@ -37,32 +37,38 @@
 
 	</nav>
 	<div class="page">
-		<br />
+
+		<br>
 		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
 			<div class="flex-fill">
 				<h3>SAMOCHODY - ZATWIERDZONE OPINIE</h3>
 			</div>
 			<div class="flex-fill">
 				<a th:href="@{/opinions/cars/newOpinions}"><button type="button"
-						class="btn btn-outline-secondary">Nowe opinie</button></a> <a
-					th:href="@{/opinions/cars/rejectedOpinions}"><button
+						class="btn btn-outline-secondary">Nowe opinie</button></a>
+			</div>
+			<div class="flex-fill">
+				<a th:href="@{/opinions/cars/rejectedOpinions}"><button
 						type="button" class="btn btn-outline-secondary">Odrzucone
 						opinie</button></a>
 			</div>
 		</nav>
+
+
 		<br>
 		<div class="table-responsive">
-			<table class="table table-bordered table-hover">
+			<table class="table table-hover">
 				<thead>
 					<tr class="table-primary">
-						<td>Id opinii</td>
-						<td>Kursant</td>
-						<td>Samochód</td>
-						<td>Ocena</td>
-						<td>Opinia</td>
-						<td>Status</td>
-						<td>Usunięte</td>
+						<th>Id opinii</th>
+						<th>Kursant</th>
+						<th>Samochód</th>
+						<th>Ocena</th>
+						<th>Opinia</th>
+						<th>Status</th>
+						<th>Usunięte</th>
 					</tr>
+
 				</thead>
 				<tbody id="myTable">
 					<tr th:each="caropinion:${caropinions}">
@@ -85,16 +91,6 @@
 
 			</table>
 		</div>
-
-		<script>
-			$("td").filter(function() {
-				return $(this).text().indexOf("nowa") !== -1;
-			}).parent().hide();
-
-			$("td").filter(function() {
-				return $(this).text().indexOf("odrzucona") !== -1;
-			}).parent().hide();
-		</script>
 	</div>
 </body>
 </html>
