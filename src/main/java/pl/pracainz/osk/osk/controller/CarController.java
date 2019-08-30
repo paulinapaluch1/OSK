@@ -25,9 +25,18 @@ public class CarController {
 
 	@GetMapping("/list")
 	public String listCars(Model theModel) {
-		List<Car> theCars = carRepository.findAll();
+		List<Car> theCars = carRepository.findByDeleted(0);
 		theModel.addAttribute("cars", theCars);
+
 		return "adminViews/adminCars/cars";
+	}
+
+	@GetMapping("/listArchived")
+	public String listArchivedCars(Model theModel) {
+		List<Car> theCars = carRepository.findByDeleted(1);
+		theModel.addAttribute("cars", theCars);
+
+		return "adminViews/adminCars/carsArchived";
 	}
 
 	@GetMapping("/showFormForAdd")
@@ -51,9 +60,29 @@ public class CarController {
 	}
 
 	@PostMapping("save")
-	public String saveCourse(@ModelAttribute("car") Car theCar) {
+	public String saveCar(@ModelAttribute("car") Car theCar) {
 		carRepository.save(theCar);
 
 		return "redirect:/cars/list";
+	}
+
+	@GetMapping("/archiveCar")
+	public String archiveCar(@RequestParam("id_car") int id, Model theModel) {
+
+		Car theCar = carRepository.getOne(id);
+		theCar.setDeleted(1);
+		carRepository.save(theCar);
+
+		return "redirect:/cars/list";
+	}
+
+	@GetMapping("/unarchiveCar")
+	public String unarchiveCar(@RequestParam("id_car") int id, Model theModel) {
+
+		Car theCar = carRepository.getOne(id);
+		theCar.setDeleted(0);
+		carRepository.save(theCar);
+
+		return "redirect:/cars/listArchived";
 	}
 }
