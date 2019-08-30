@@ -8,6 +8,8 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 </head>
 <body>
@@ -19,32 +21,47 @@
 				width="70px" /></a>
 		</div>
 		<div class="flex-fill">
+			<a th:href="@{/}">
+				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
+			</a>
+		</div>
+		<div class="flex-fill">
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
 			<strong>Zalogowany użytkownik: administrator</strong> <a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-			<a th:href="@{/}"><-wroc</a>
 		</div>
 
 	</nav>
 	<div class="page">
-		<h3>WYKŁADY</h3>
-		<a th:href="@{/lectures/showFormForAdd}" class="btn btn-primary">DODAJ</a>
-		<br>
-		<br> <br> <input class="form-control" id="myInput"
-			type="text" placeholder="Szukaj...">
 
+		<br>
+		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
+			<div class="flex-fill">
+				<h3>WYKŁADY</h3>
+			</div>
+			<div class="flex-fill">
+				<a th:href="@{/lectures/showFormForAdd}" class="btn btn-primary">DODAJ
+					WYKŁAD</a>
+
+			</div>
+			<div class="flex-fill"></div>
+		</nav>
+
+
+		<br> <input class="form-control" id="myInput" type="text"
+			placeholder="Szukaj..."> <br>
 		<div class="table-responsive">
-			<table class="table table-bordered table-hover">
+			<table class="table table-hover">
 				<thead>
 					<tr class="table-primary">
-						<td>Id wykładu</td>
-						<td>Id kursu</td>
-						<td>Kategoria</td>
-						<td>Instruktor</td>
-						<td>Numer sali</td>
-						<td>Data</td>
+						<th>Id wykładu</th>
+						<th>Id kursu</th>
+						<th>Kategoria</th>
+						<th>Instruktor</th>
+						<th>Numer sali</th>
+						<th>Data</th>
 					</tr>
 				</thead>
 				<tbody id="myTable">
@@ -65,5 +82,32 @@
 			</table>
 		</div>
 	</div>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$("#myInput")
+									.on(
+											"keyup",
+											function() {
+												var value = $(this).val()
+														.toLowerCase();
+												$("#myTable tr")
+														.filter(
+																function() {
+																	$(this)
+																			.toggle(
+																					$(
+																							this)
+																							.text()
+																							.toLowerCase()
+																							.indexOf(
+																									value) > -1)
+																});
+											});
+						});
+	</script>
+
+
 </body>
 </HTML>

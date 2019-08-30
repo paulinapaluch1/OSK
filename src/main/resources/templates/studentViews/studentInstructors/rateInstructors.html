@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Admin Cars</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+</head>
+<body>
+	<nav
+		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
+		<div class=" flex-fill">
+			<a href="/"><img
+				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
+				width="70px" /></a>
+		</div>
+		<div class="flex-fill">
+			<a th:href="@{/cars/list}">
+				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
+			</a>
+		</div>
+		<div class="flex-fill">
+			<h2>Ośrodek Szkolenia Kierowców</h2>
+		</div>
+		<div class="flex-fill">
+			<strong>Zalogowany użytkownik: kursant</strong> <a href="/logout"><button
+					type="button" class="btn btn-primary">WYLOGUJ</button></a>
+		</div>
+
+	</nav>
+	<div class="page">
+		<div class="container">
+			<!--  <p th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname" />
+-->
+
+			<form action="#" th:action="@{/students/saveInstructorOpinion}" th:object="${instructoropinion}" method="POST">
+
+				<strong>Oceń instruktora w skali 1-5 </strong> (1 - najniższa ocena,
+				5 - najwyższa ocena) <br> <label><input type="radio"
+					name="instructoropinion"> 1</label> <label><input
+					type="radio" name="instructoropinion"> 2</label> <label><input
+					type="radio" name="instructoropinion"> 3</label> <label><input
+					type="radio" name="instructoropinion"> 4</label> <label><input
+					type="radio" name="instructoropinion"> 5</label> <br> <br>
+				<label for="opinion"><strong>Opinia o instruktorze</strong>*</label>
+				<br>
+				<textarea id="opinion" rows="10" cols="70"
+					placeholder="Napisz opinię o instruktorze"></textarea>
+
+				<br>
+
+
+				<button type="submit" class="btn btn-info col-2">Zapisz</button>
+
+				<br> *Pole nieobowiązkowe
+
+			</form>
+
+		</div>
+
+	</div>
+
+</body>
+
+
+</HTML>

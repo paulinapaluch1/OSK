@@ -1,16 +1,20 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
-<title>Admin Opinions</title>
+<title>Admin Instructor Opinions</title>
 <meta charset="utf-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
-</head>
 
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
 <body>
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
@@ -20,44 +24,61 @@
 				width="70px" /></a>
 		</div>
 		<div class="flex-fill">
+			<a th:href="@{/opinions/allOpinions}">
+				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
+			</a>
+		</div>
+		<div class="flex-fill">
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
 			<strong>Zalogowany użytkownik: administrator</strong> <a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-			<a th:href="@{/}"><-wroc</a>
 		</div>
 
 	</nav>
 	<div class="page">
 
 
+
 		<center>
 			<h2>
-				<b>Opinie</b>
+				<strong>Opinie o instruktorach</strong>
 			</h2>
 		</center>
-		<br>
-		<br>
-		<br>
+
+		<br> <br> <br>
 		<div class="d-flex justify-content-center">
 			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 				<div class="card-body text-center mt-4">
-					<a style="text-decoration: none" th:href="@{/opinions/instructors}">
-						<p class="card-text">Instruktorzy</p>
+					<a style="text-decoration: none"
+						th:href="@{instructors/newOpinions}">
+						<p class="card-text">Nowe</p>
 					</a>
 				</div>
 			</div>
 
 			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 				<div class="card-body text-center mt-4">
-					<a style="text-decoration: none" th:href="@{/opinions/cars}">
-						<p class="card-text">Samochody</p>
+					<a style="text-decoration: none"
+						th:href="@{instructors/checkedOpinions}">
+						<p class="card-text">Zatwierdzone</p>
+					</a>
+				</div>
+			</div>
+
+			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+				<div class="card-body text-center mt-4">
+					<a style="text-decoration: none"
+						th:href="@{instructors/rejectedOpinions}">
+						<p class="card-text">Odrzucone</p>
 					</a>
 				</div>
 			</div>
 
 		</div>
+
+		<br>
 	</div>
 </body>
 </HTML>

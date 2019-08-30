@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Admin Instructor Opinions</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
+
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<nav
+		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
+		<div class=" flex-fill">
+			<a href="/"><img
+				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
+				width="70px" /></a>
+		</div>
+		<div class="flex-fill">
+			<a th:href="@{/opinions/instructors}">
+				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
+			</a>
+		</div>
+		<div class="flex-fill">
+			<h2>Ośrodek Szkolenia Kierowców</h2>
+		</div>
+		<div class="flex-fill">
+			<strong>Zalogowany użytkownik: administrator</strong> <a
+				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+		</div>
+
+	</nav>
+	<div class="page">
+
+		<br />
+		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
+			<div class="flex-fill">
+				<h3>INSTRUKTORZY - ZATWIERDZONE OPINIE</h3>
+			</div>
+			<div class="flex-fill">
+				<a th:href="@{/opinions/instructors/newOpinions}"><button
+						type="button" class="btn btn-outline-secondary">Nowe
+						opinie</button></a> <a th:href="@{/opinions/instructors/rejectedOpinions}"><button
+						type="button" class="btn btn-outline-secondary">Odrzucone
+						opinie</button></a>
+			</div>
+		</nav>
+		<br>
+
+		<div class="table-responsive">
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr class="table-primary">
+						<td>Id opinii</td>
+						<td>Instruktor</td>
+						<td>Kursant</td>
+						<td>Ocena</td>
+						<td>Opinia</td>
+						<td>Status</td>
+						<td>Usunięte</td>
+					</tr>
+				</thead>
+				<tbody id="myTable">
+					<tr th:each="instructoropinion:${instructoropinions}">
+						<td th:text="${instructoropinion.id}" />
+						<td
+							th:text="${instructoropinion.student.name} + ' ' + ${instructoropinion.student.surname}" />
+						<td
+							th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname}" />
+						<td th:text="${instructoropinion.instructorMark}" />
+						<td th:text="${instructoropinion.instructorOpinion}" />
+						<td th:text="${instructoropinion.status}" />
+						<td th:text="${instructoropinion.deleted}" />
+						<td><a
+							th:href="@{/opinions/cancelInstructor(id_instructorOpinion=${instructoropinion.id})}"
+							class="btn btn-warning">Cofnij zatwierdzenie</a></td>
+					</tr>
+				</tbody>
+
+			</table>
+		</div>
+		<script>
+			$("td").filter(function() {
+				return $(this).text().indexOf("nowa") !== -1;
+			}).parent().hide();
+
+			$("td").filter(function() {
+				return $(this).text().indexOf("odrzucona") !== -1;
+			}).parent().hide();
+		</script>
+
+		<br>
+	</div>
+</body>
+
+
+</HTML>
