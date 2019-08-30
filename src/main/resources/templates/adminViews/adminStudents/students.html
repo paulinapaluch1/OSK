@@ -36,28 +36,42 @@
 		</div>
 	</nav>
 	<div class="page">
-		<h3>KURSANCI</h3>
-		<a th:href="@{/students/showFormForAdd}" class="btn btn-primary">DODAJ</a>
-		<br>
+	
+	<br>
+		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
+			<div class="flex-fill">
+				<h3>AKTUALNA LISTA KURSANTÓW</h3>
+			</div>
+			<div class="flex-fill">
+				<a th:href="@{/students/showFormForAdd}"><button type="button"
+						class="btn btn btn-primary">DODAJ KURSANTA</button></a>
+			</div>
+			<div class="flex-fill">
+				<a th:href="@{/students/listArchived}"><button type="button"
+						class="btn btn-outline-secondary">Zarchiwizowani
+						kursanci</button></a>
+			</div>
+		</nav>
+
 		<br> <input class="form-control" id="myInput" type="text"
 			placeholder="Szukaj..."> <br>
 		<div class="table-responsive">
-			<table class="table table-bordered table-hover  table-sm">
+			<table class="table table-hover  table-sm">
 				<thead>
 					<tr class="table-primary">
-						<td>Id</td>
-						<td>Imię</td>
-						<td>Nazwisko</td>
-						<td>Login</td>
-						<td>Hasło</td>
-						<td>Data ur.</td>
-						<td>Adres</td>
-						<td>Telefon</td>
-						<td>Email</td>
-						<td>PKK</td>
-						<td>Godz. przejechane</td>
-						<td>Godz. opłacone</td>
-						<td>Archiwizowany</td>
+						<th>Id</th>
+						<th>Imię</th>
+						<th>Nazwisko</th>
+						<th>Login</th>
+						<th>Hasło</th>
+						<th>Data ur.</th>
+						<th>Adres</th>
+						<th>Telefon</th>
+						<th>Email</th>
+						<th>PKK</th>
+						<th>Godz. przejechane</th>
+						<th>Godz. opłacone</th>
+						<th>Archiwizowany</th>
 					</tr>
 				</thead>
 				<tbody id="myTable">
@@ -66,7 +80,7 @@
 						<td th:text="${tempStudent.name}" />
 						<td th:text="${tempStudent.surname}" />
 						<td th:text="${tempStudent.login}" />
-						<td><button name="sendPassword">Wyslij haslo</button></td>
+						<td><button name="sendPassword">Wyślij hasło</button></td>
 						<td
 							th:text="${#dates.format(tempStudent.birthdate,'dd.MM.yyyy')} " />
 						<td
@@ -79,6 +93,9 @@
 						<td th:text="${tempStudent.deleted}" />
 						<td><a th:href="@{/students/showFormForUpdate(id_student=${tempStudent.id})}"
 							class="btn btn-primary">EDYTUJ</a></td>
+							<td><a
+							th:href="@{/students/archiveStudent(id_student=${tempStudent.id})}"
+							class="btn btn-danger">ARCHIWIZUJ</a></td>
 					</tr>
 				</tbody>
 			</table>

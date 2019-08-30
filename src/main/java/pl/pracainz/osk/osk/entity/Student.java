@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name = "students")
@@ -64,6 +65,7 @@ public class Student {
 	private String email;
 
 	@Column
+	@Nullable
 	private String PKK;
 
 	@Column

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Admin Profile</title>
+<title>Admin Students</title>
 <meta charset="utf-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -36,55 +36,67 @@
 		</div>
 	</nav>
 	<div class="page">
-
-		<br>
+	
+	<br>
 		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
 			<div class="flex-fill">
-				<h3>AKTUALNA LISTA KURSÓW</h3>
+				<h3>ZARCHIWIZOWANI KURSANCI</h3>
 			</div>
 			<div class="flex-fill">
-				<a th:href="@{/courses/showFormForAdd}"><button type="button"
-						class="btn btn btn-primary">DODAJ KURS</button></a>
+				
 			</div>
 			<div class="flex-fill">
-				<a th:href="@{/courses/listArchived}"><button type="button"
-						class="btn btn-outline-secondary">Zarchiwizowane kursy</button></a>
+				<a th:href="@{/students/list}"><button type="button"
+						class="btn btn-outline-secondary">Aktualna lista kursantów</button></a>
 			</div>
 		</nav>
-
 
 		<br> <input class="form-control" id="myInput" type="text"
 			placeholder="Szukaj..."> <br>
 		<div class="table-responsive">
-			<table class="table table-hover">
+			<table class="table table-hover  table-sm">
 				<thead>
 					<tr class="table-primary">
 						<th>Id</th>
-						<th>Kategoria</th>
-						<th>Instruktor</th>
-						<th>Początek</th>
-						<th>Zakończony</th>
+						<th>Imię</th>
+						<th>Nazwisko</th>
+						<th>Login</th>
+						<th>Hasło</th>
+						<th>Data ur.</th>
+						<th>Adres</th>
+						<th>Telefon</th>
+						<th>Email</th>
+						<th>PKK</th>
+						<th>Godz. przejechane</th>
+						<th>Godz. opłacone</th>
+						<th>Archiwizowany</th>
 					</tr>
 				</thead>
 				<tbody id="myTable">
-					<tr th:each="course:${courses}">
-						<td th:text="${course.id}" />
-						<td th:text="${course.category.categoryName}" />
+					<tr th:each="tempStudent:${students}">
+						<td th:text="${tempStudent.id}" />
+						<td th:text="${tempStudent.name}" />
+						<td th:text="${tempStudent.surname}" />
+						<td th:text="${tempStudent.login}" />
+						<td><button name="sendPassword">Wyślij hasło</button></td>
 						<td
-							th:text="${course.instructor.name}+' ' +${course.instructor.surname} " />
-						<td th:text="${#dates.format(course.startDate, 'dd-MM-yyyy')}" />
-						<td th:text="${course.finished}" />
-						<td><a
-							th:href="@{/courses/showFormForUpdate(id_course=${course.id})}"
-							class="btn btn-primary">EDYTUJ</a></td>
-						<td><a
-							th:href="@{/courses/archiveCourse(id_course=${course.id})}"
-							class="btn btn-danger">ARCHIWIZUJ</a></td>
+							th:text="${#dates.format(tempStudent.birthdate,'dd.MM.yyyy')} " />
+						<td
+							th:text="'ul. '+${tempStudent.street}+ ' ' +${tempStudent.buildingNumber}+ '/ ' +${tempStudent.apartmentNumber}+ ' ' +${tempStudent.postCode}+ ' ' +${tempStudent.city}" />
+						<td th:text="${tempStudent.phoneNumber}" />
+						<td th:text="${tempStudent.email}" />
+						<td th:text="${tempStudent.PKK}" />
+						<td></td>
+						<td>30</td>
+						<td th:text="${tempStudent.deleted}" />
+						
+							<td><a
+							th:href="@{/students/unarchiveStudent(id_student=${tempStudent.id})}"
+							class="btn btn-danger">COFNIJ ARCHIWIZACJĘ</a></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-
 	</div>
 	<script>
 		$(document)
@@ -112,8 +124,4 @@
 						});
 	</script>
 </body>
-</html>
-
-
-
-
+</HTML>
