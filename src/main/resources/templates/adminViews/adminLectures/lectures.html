@@ -75,7 +75,8 @@
 						<td
 							th:text="${lecture.course.instructor.name} + ' ' + ${lecture.course.instructor.surname}" />
 						<td th:text="${lecture.roomNumber}" />
-						<td th:text="${#dates.format(lecture.date,'dd.MM.yyyy HH:mm')}" />
+						<td th:text="${#temporals.format(lecture.date,'dd.MM.yyyy HH:mm')}" />
+						
 
 						<td><a
 							th:href="@{/lectures/showFormForUpdate(id_lecture=${lecture.id})}"

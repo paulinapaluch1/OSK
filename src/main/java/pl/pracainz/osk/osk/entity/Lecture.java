@@ -1,5 +1,6 @@
 package pl.pracainz.osk.osk.entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -33,12 +34,12 @@ public class Lecture {
 	@Column
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	@NotNull
-	private Date date;
+	private LocalDateTime date;
 	
 	@Column
-	private int deleted;
+	private Integer deleted;
 
-	public Lecture(Course course, String roomNumber, Date date, int deleted) {
+	public Lecture(Course course, String roomNumber, LocalDateTime date, int deleted) {
 		super();
 		this.course = course;
 		this.roomNumber = roomNumber;
@@ -74,19 +75,19 @@ public class Lecture {
 		this.roomNumber = roomNumber;
 	}
 
-	public Date getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 
-	public int getDeleted() {
+	public Integer getDeleted() {
 		return deleted;
 	}
 
-	public void setDeleted(int deleted) {
+	public void setDeleted(Integer deleted) {
 		this.deleted = deleted;
 	}
 
