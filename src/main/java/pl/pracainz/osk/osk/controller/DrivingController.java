@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pracainz.osk.osk.dao.DrivingRepository;
 import pl.pracainz.osk.osk.dao.DrivingTypeRepository;
-import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.StudentRepository;
 import pl.pracainz.osk.osk.entity.Driving;
 
@@ -21,24 +20,26 @@ import pl.pracainz.osk.osk.entity.Driving;
 public class DrivingController {
 
 	private DrivingRepository drivingRepository;
-	private InstructorRepository instructorRepository;
 	private DrivingTypeRepository drivingTypeRepository;
 	private StudentRepository studentRepository;
 
-	public DrivingController(DrivingRepository repository, InstructorRepository instructorRepository
-					,DrivingTypeRepository drivingTypeRepository,
-					 StudentRepository studentRepository)
-	 {
+	public DrivingController(DrivingRepository repository, DrivingTypeRepository drivingTypeRepository,
+			StudentRepository studentRepository) {
 		this.drivingRepository = repository;
-		this.instructorRepository = instructorRepository;
-		 this.drivingTypeRepository = drivingTypeRepository;
-		 this.studentRepository = studentRepository;
+		this.drivingTypeRepository = drivingTypeRepository;
+		this.studentRepository = studentRepository;
 	}
 
 	@GetMapping("/list")
 	public String listDrivings(Model theModel) {
-		theModel.addAttribute("drivings", drivingRepository.findAll());
+		theModel.addAttribute("drivings", drivingRepository.findByDeleted(0));
 		return "adminViews/adminDrivings/drivings";
+	}
+
+	@GetMapping("/listArchived")
+	public String listArchivedDrivings(Model theModel) {
+		theModel.addAttribute("drivings", drivingRepository.findByDeleted(1));
+		return "adminViews/adminDrivings/drivingsArchived";
 	}
 
 	@GetMapping("/showFormForAdd")
@@ -68,6 +69,26 @@ public class DrivingController {
 		drivingRepository.save(theDriving);
 
 		return "redirect:/drivings/list";
+	}
+
+	@GetMapping("/archiveDriving")
+	public String archiveDriving(@RequestParam("id_driving") int id, Model theModel) {
+
+		Driving theDriving = drivingRepository.getOne(id);
+		theDriving.setDeleted(1);
+		drivingRepository.save(theDriving);
+
+		return "redirect:/drivings/list";
+	}
+
+	@GetMapping("/unarchiveDriving")
+	public String unarchiveDriving(@RequestParam("id_driving") int id, Model theModel) {
+
+		Driving theDriving = drivingRepository.getOne(id);
+		theDriving.setDeleted(0);
+		drivingRepository.save(theDriving);
+
+		return "redirect:/drivings/listArchived";
 	}
 
 }

@@ -15,6 +15,7 @@ import pl.pracainz.osk.osk.dao.CategoryRepository;
 import pl.pracainz.osk.osk.dao.CourseRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.LectureRepository;
+import pl.pracainz.osk.osk.entity.Car;
 import pl.pracainz.osk.osk.entity.Lecture;
 
 @Controller
@@ -36,11 +37,21 @@ public class LectureController {
 	@GetMapping("/list")
 	public String listLectures(Model theModel) {
 
-		List<Lecture> theLectures = lectureRepository.findAll();
+		List<Lecture> theLectures = lectureRepository.findByDeleted(0);
 
 		theModel.addAttribute("lectures", theLectures);
 
 		return "adminViews/adminLectures/lectures";
+	}
+	
+	@GetMapping("/listArchived")
+	public String listArchivedLectures(Model theModel) {
+
+		List<Lecture> theLectures = lectureRepository.findByDeleted(1);
+
+		theModel.addAttribute("lectures", theLectures);
+
+		return "adminViews/adminLectures/lecturesArchived";
 	}
 
 	@GetMapping("/showFormForAdd")
@@ -71,6 +82,26 @@ public class LectureController {
 		lectureRepository.save(theLecture);
 
 		return "redirect:/lectures/list";
+	}
+	
+	@GetMapping("/archiveLecture")
+	public String archiveLecture(@RequestParam("id_lecture") int id, Model theModel) {
+
+		Lecture theLecture = lectureRepository.getOne(id);
+		theLecture.setDeleted(1);
+		lectureRepository.save(theLecture);
+
+		return "redirect:/lectures/list";
+	}
+	
+	@GetMapping("/unarchiveLecture")
+	public String unarchiveLecture(@RequestParam("id_lecture") int id, Model theModel) {
+
+		Lecture theLecture = lectureRepository.getOne(id);
+		theLecture.setDeleted(0);
+		lectureRepository.save(theLecture);
+
+		return "redirect:/lectures/listArchived";
 	}
 
 }

@@ -34,12 +34,16 @@ public class Lecture {
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	@NotNull
 	private Date date;
+	
+	@Column
+	private int deleted;
 
-	public Lecture(Course course, String roomNumber, Date date) {
+	public Lecture(Course course, String roomNumber, Date date, int deleted) {
 		super();
 		this.course = course;
 		this.roomNumber = roomNumber;
 		this.date = date;
+		this.deleted = deleted;
 	}
 
 	public Lecture() {
@@ -76,6 +80,14 @@ public class Lecture {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public int getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(int deleted) {
+		this.deleted = deleted;
 	}
 
 }

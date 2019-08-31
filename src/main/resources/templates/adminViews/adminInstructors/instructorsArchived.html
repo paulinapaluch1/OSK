@@ -65,7 +65,7 @@
 						<th>Hasło</th>
 						<th>Telefon</th>
 						<th>Email</th>
-						<th>Archiwizowany</th>
+						
 
 					</tr>
 				</thead>
@@ -79,8 +79,7 @@
 						<td th:text="${instructor.phoneNumber}" />
 						<td th:text="${instructor.email}" />
 
-						<td th:text="${instructor.deleted}" />
-
+					
 						<td><a
 							th:href="@{/instructors/unarchiveInstructor(id_instructor=${instructor.id})}"
 							class="btn btn-danger">COFNIJ ARCHIWIZACJĘ</a></td>

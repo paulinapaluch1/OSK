@@ -36,18 +36,17 @@
 		</div>
 	</nav>
 	<div class="page">
-	
-	<br>
+
+		<br>
 		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
 			<div class="flex-fill">
 				<h3>ZARCHIWIZOWANI KURSANCI</h3>
 			</div>
-			<div class="flex-fill">
-				
-			</div>
+			<div class="flex-fill"></div>
 			<div class="flex-fill">
 				<a th:href="@{/students/list}"><button type="button"
-						class="btn btn-outline-secondary">Aktualna lista kursantów</button></a>
+						class="btn btn-outline-secondary">Aktualna lista
+						kursantów</button></a>
 			</div>
 		</nav>
 
@@ -69,7 +68,6 @@
 						<th>PKK</th>
 						<th>Godz. przejechane</th>
 						<th>Godz. opłacone</th>
-						<th>Archiwizowany</th>
 					</tr>
 				</thead>
 				<tbody id="myTable">
@@ -88,9 +86,9 @@
 						<td th:text="${tempStudent.PKK}" />
 						<td></td>
 						<td>30</td>
-						<td th:text="${tempStudent.deleted}" />
-						
-							<td><a
+
+
+						<td><a
 							th:href="@{/students/unarchiveStudent(id_student=${tempStudent.id})}"
 							class="btn btn-danger">COFNIJ ARCHIWIZACJĘ</a></td>
 					</tr>

@@ -37,32 +37,37 @@
 
 	</nav>
 	<div class="page">
-		<br />
+	
+	<br>
 		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
 			<div class="flex-fill">
 				<h3>INSTRUKTORZY - ODRZUCONE OPINIE</h3>
 			</div>
 			<div class="flex-fill">
-				<a th:href="@{/opinions/instructors/newOpinions}"><button type="button"
-						class="btn btn-outline-secondary">Nowe opinie</button></a> <a
-					th:href="@{/opinions/instructors/checkedOpinions}"><button
+				<a th:href="@{/opinions/instructors/newOpinions}"><button
+						type="button" class="btn btn-outline-secondary">Nowe
+						opinie</button></a>
+			</div>
+			<div class="flex-fill">
+				<a th:href="@{/opinions/instructors/checkedOpinions}"><button
 						type="button" class="btn btn-outline-secondary">Zatwierdzone
 						opinie</button></a>
 			</div>
 		</nav>
-		<br>
 
+
+		<br>
+		
 		<div class="table-responsive">
-			<table class="table table-bordered table-hover">
+			<table class="table table-hover">
 				<thead>
 					<tr class="table-primary">
-						<td>Id opinii</td>
-						<td>Instruktor</td>
-						<td>Kursant</td>
-						<td>Ocena</td>
-						<td>Opinia</td>
-						<td>Status</td>
-						<td>Usunięte</td>
+						<th>Id opinii</th>
+						<th>Instruktor</th>
+						<th>Kursant</th>
+						<th>Ocena</th>
+						<th>Opinia</th>
+						<th>Usunięte</th>
 					</tr>
 				</thead>
 				<tbody id="myTable">
@@ -74,7 +79,6 @@
 							th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname}" />
 						<td th:text="${instructoropinion.instructorMark}" />
 						<td th:text="${instructoropinion.instructorOpinion}" />
-						<td th:text="${instructoropinion.status}" />
 						<td th:text="${instructoropinion.deleted}" />
 						<td><a
 							th:href="@{/opinions/cancelInstructor(id_instructorOpinion=${instructoropinion.id})}"
@@ -84,16 +88,7 @@
 
 			</table>
 		</div>
-		<script>
-			$("td").filter(function() {
-				return $(this).text().indexOf("nowa") !== -1;
-			}).parent().hide();
-			
-			$("td").filter(function() {
-				return $(this).text().indexOf("zatwierdzona") !== -1;
-			}).parent().hide();
-		</script>
-		<br>
+
 	</div>
 </body>
 </HTML>

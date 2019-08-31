@@ -64,7 +64,7 @@ public class OpinionController {
 	@GetMapping("/instructors/newOpinions")
 	public String listNewOpinions(Model theModel) {
 
-		List<InstructorOpinion> theInstructorOpinions = instructorOpinionRepository.findAll();
+		List<InstructorOpinion> theInstructorOpinions = instructorOpinionRepository.findByStatus("nowa");
 		List<Instructor> theInstructors = instructorRepository.findAll();
 		List<Student> theStudents = studentRepository.findAll();
 
@@ -78,7 +78,7 @@ public class OpinionController {
 	@GetMapping("/instructors/checkedOpinions")
 	public String listCheckedOpinions(Model theModel) {
 
-		List<InstructorOpinion> theInstructorOpinions = instructorOpinionRepository.findAll();
+		List<InstructorOpinion> theInstructorOpinions = instructorOpinionRepository.findByStatus("zatwierdzona");
 		List<Instructor> theInstructors = instructorRepository.findAll();
 		List<Student> theStudents = studentRepository.findAll();
 
@@ -92,7 +92,7 @@ public class OpinionController {
 	@GetMapping("/instructors/rejectedOpinions")
 	public String listRejectedOpinions(Model theModel) {
 
-		List<InstructorOpinion> theInstructorOpinions = instructorOpinionRepository.findAll();
+		List<InstructorOpinion> theInstructorOpinions = instructorOpinionRepository.findByStatus("odrzucona");
 		List<Instructor> theInstructors = instructorRepository.findAll();
 		List<Student> theStudents = studentRepository.findAll();
 
@@ -139,21 +139,14 @@ public class OpinionController {
 
 	@GetMapping("/cars")
 	public String listCarOpinions(Model theModel) {
-		List<CarOpinion> theCarOpinions = carOpinionRepository.findAll();
-		List<Car> theCars = carRepository.findAll();
-		List<Student> theStudents = studentRepository.findAll();
-
-		theModel.addAttribute("caropinions", theCarOpinions);
-		theModel.addAttribute("cars", theCars);
-		theModel.addAttribute("students", theStudents);
-
+		
 		return "adminViews/adminOpinions/toOpinionsAboutCars";
 	}
 
 	@GetMapping("/cars/newOpinions")
 	public String listNewCarOpinions(Model theModel) {
 
-		List<CarOpinion> theCarOpinions = carOpinionRepository.findAll();
+		List<CarOpinion> theCarOpinions = carOpinionRepository.findByStatus("nowa");
 		List<Car> theCars = carRepository.findAll();
 		List<Student> theStudents = studentRepository.findAll();
 
@@ -167,7 +160,7 @@ public class OpinionController {
 	@GetMapping("/cars/checkedOpinions")
 	public String listCheckedCarOpinions(Model theModel) {
 
-		List<CarOpinion> theCarOpinions = carOpinionRepository.findAll();
+		List<CarOpinion> theCarOpinions = carOpinionRepository.findByStatus("zatwierdzona");
 		List<Car> theCars = carRepository.findAll();
 		List<Student> theStudents = studentRepository.findAll();
 
@@ -181,7 +174,7 @@ public class OpinionController {
 	@GetMapping("/cars/rejectedOpinions")
 	public String listRejectedCarOpinions(Model theModel) {
 
-		List<CarOpinion> theCarOpinions = carOpinionRepository.findAll();
+		List<CarOpinion> theCarOpinions = carOpinionRepository.findByStatus("odrzucona");
 		List<Car> theCars = carRepository.findAll();
 		List<Student> theStudents = studentRepository.findAll();
 

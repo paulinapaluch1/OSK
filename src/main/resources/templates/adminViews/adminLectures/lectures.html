@@ -46,7 +46,10 @@
 					WYKŁAD</a>
 
 			</div>
-			<div class="flex-fill"></div>
+			<div class="flex-fill">
+				<a th:href="@{/lectures/listArchived}"
+					class="btn btn-outline-secondary">Zarchiwizowane wykłady</a>
+			</div>
 		</nav>
 
 
@@ -73,9 +76,13 @@
 							th:text="${lecture.course.instructor.name} + ' ' + ${lecture.course.instructor.surname}" />
 						<td th:text="${lecture.roomNumber}" />
 						<td th:text="${#dates.format(lecture.date,'dd.MM.yyyy HH:mm')}" />
+
 						<td><a
 							th:href="@{/lectures/showFormForUpdate(id_lecture=${lecture.id})}"
 							class="btn btn-primary">EDYTUJ</a></td>
+						<td><a
+							th:href="@{/lectures/archiveLecture(id_lecture=${lecture.id})}"
+							class="btn btn-danger">ARCHIWIZUJ</a></td>
 
 					</tr>
 				</tbody>

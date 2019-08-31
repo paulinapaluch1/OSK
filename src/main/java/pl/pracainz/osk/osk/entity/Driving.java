@@ -20,6 +20,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "drivings")
 public class Driving {
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_driving")
@@ -47,6 +48,9 @@ public class Driving {
 
 	@Column
 	private Integer cancelled;
+	
+	@Column
+	private int deleted;
 
 	@OneToMany(mappedBy = "id")
 	private List<Timetable> timetables;
@@ -54,7 +58,7 @@ public class Driving {
 	public Driving() {
 	}
 
-	public Driving(DrivingType type, Student student, Date startHour, Date finishHour, int done, int cancelled) {
+	public Driving(DrivingType type, Student student, Date startHour, Date finishHour, int done, int cancelled, int deleted) {
 		super();
 		this.drivingType = type;
 		this.student = student;
@@ -62,6 +66,7 @@ public class Driving {
 		this.finishHour = finishHour;
 		this.done = done;
 		this.cancelled = cancelled;
+		this.deleted = deleted;
 	}
 
 	public int getId() {
@@ -129,5 +134,14 @@ public class Driving {
 	public void setTimetables(List<Timetable> timetables) {
 		this.timetables = timetables;
 	}
+	
+	public int getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(int deleted) {
+		this.deleted = deleted;
+	}
+
 
 }
