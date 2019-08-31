@@ -77,7 +77,6 @@ public class TimetableController {
 		theModel.addAttribute("timetablesToday", timetableRepository
 				.queryByDayAndMonthAndYear(yesterday.getDayOfMonth(), yesterday.getMonthValue(), yesterday.getYear()));
 		theModel.addAttribute("dayName", getDayName(yesterday));
-
 		return "adminViews/adminTimetable/timetable";
 	}
 
@@ -109,10 +108,8 @@ public class TimetableController {
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.GET)
-	public String saveTimetable( @ModelAttribute("hourBegin") String hourBegin, BindingResult result,
-			@ModelAttribute("timetable") Timetable theTimetable
-		) 
-			{
+	public String saveTimetable(@ModelAttribute("timetable") Timetable theTimetable) 
+	{
 		LocalDateTime begin = LocalDateTime.of(theTimetable.getBegin().getYear(),theTimetable.getBegin().getMonth(),
 			theTimetable.getBegin().getDayOfMonth(),10,1,1);
 		
@@ -156,7 +153,6 @@ public class TimetableController {
 		}
 
 	}
-	
 	
 	@ModelAttribute("hours")
 	public String[] getHours() {

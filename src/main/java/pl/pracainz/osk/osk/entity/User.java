@@ -25,18 +25,8 @@ public class User {
 	@Column
 	private String password;
 
-//	@Nullable
-	// @OneToOne
-	// @MapsId
-	// private Instructor instructor;
 
-	@Column(nullable = true)
-	@Nullable
-	private Integer id_instructor;
 
-	@Column(nullable = true)
-	@Nullable
-	private Integer id_student;
 /*
 	@ManyToOne(cascade = { CascadeType.DETACH })
 	@JoinColumn(name = "id_role")
@@ -46,11 +36,9 @@ public class User {
 	
 	private int id_role;
 	
-	public User(String login, String password, int role, int instructor, int id_student) {
+	public User(String login, String password, int role) {
 		this.username = login;
 		this.password = password;
-		this.id_instructor = instructor;
-		this.id_student = id_student;
 		this.id_role = role;
 	}
 
@@ -89,13 +77,7 @@ public class User {
 	 * instructor; }
 	 */
 
-	public Integer getId_student() {
-		return id_student;
-	}
-
-	public void setId_student(Integer id_student) {
-		this.id_student = id_student;
-	}
+	
 /*
 	public Role getRole() {
 		return role;
@@ -106,13 +88,6 @@ public class User {
 	}
 */
 
-	public Integer getId_instructor() {
-		return id_instructor;
-	}
-
-	public void setId_instructor(Integer id_instructor) {
-		this.id_instructor = id_instructor;
-	}
 
 	public int getId_role() {
 		return id_role;

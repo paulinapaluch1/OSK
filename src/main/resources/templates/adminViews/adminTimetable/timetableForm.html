@@ -37,7 +37,6 @@
 			<form th:action="@{/timetable/save}"
 				th:object="${timetable}" method="GET">
 				
-				
 				<input type="hidden" th:field="*{id}" /> 
 				   
 				 Instruktor: <select th:field="*{instructor}" class="form-control">
@@ -47,23 +46,11 @@
 				</select>
 				
 				
-				<div th:object="${hourBegin}" >
-				Wybierz czas: <select
-					class="form-control mb-4 col-4" th:field="${hourBegin}">
-					<option th:each="hourBegin: ${hours}" th:value="${hourBegin}"
-						th:text="${hourBegin}"></option>
-						
-				 </select>
-				
-				</div>
-				
-				
-				
-				
-				
 				
 				 <br>
-				<button type="submit" class="btn btn-info col-2">Zapisz</button>
+				<button type="submit" class="btn btn-info col-2">ZAPISZ</button>
+				<a th:href="@{/timetable/list}" class="btn btn-danger">ANULUJ</a>
+				
 			</form>
 
 		</div>
