@@ -54,7 +54,7 @@ public class Timetable {
 	}
 
 	public Timetable(Instructor instructor, LocalDateTime begin, LocalDateTime end, Car car, Driving driving, int archived) {
-	
+
 		this.instructor = instructor;
 		this.begin = begin;
 		this.end = end;

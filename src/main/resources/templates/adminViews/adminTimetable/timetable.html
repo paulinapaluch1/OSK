@@ -73,7 +73,6 @@
 			<li class="page-item"><a class="page-link"
 				th:href="@{/timetable/nextDate(date=${today})}">&#62;</a></li>
 		</ul>
-
 		<form th:action="@{/timetable/changeDate}" method="GET">
 			<input style="float: left;" type="date" name="date"
 				th:value="${date}" class="form-control mb-4 col-4">
@@ -112,11 +111,17 @@
 												type="button" class="btn btn-primary">EDYTUJ</button></a></td>
 
 								</span>
+								
 							</tr>
 						</tbody>
+						
 					</table>
+				<a th:href="@{/timetable/editDayForCar(date=${today},id=${car.id})}"
+												type="button" class="btn btn-primary mb-1">EDYTUJ CAŁY DZIEŃ</a>
+			
 				</div>
 			</div>
+			
 		</for:each>
 
 	</div>
