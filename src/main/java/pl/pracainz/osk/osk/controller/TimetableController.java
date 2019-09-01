@@ -45,9 +45,6 @@ public class TimetableController {
 		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(26, 8, 2019));
 		theModel.addAttribute("today", LocalDate.now());
 		theModel.addAttribute("dayName", getDayName(LocalDate.now()));
-
-		// timetableRepository.queryByDayAndMonthAndYear(LocalDate.now().getDayOfMonth(),
-		// LocalDate.now().getMonth().getValue(), LocalDate.now().getYear()));
 		return "adminViews/adminTimetable/timetable";
 	}
 
@@ -108,19 +105,15 @@ public class TimetableController {
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.GET)
-	
-	public String changeInstructor(@ModelAttribute("timetable") Timetable theTimetable) 
-	{	//LocalDateTime begin = LocalDateTime.of(theTimetable.getBegin().getYear(),theTimetable.getBegin().getMonth(),
-		//	theTimetable.getBegin().getDayOfMonth(),10,1,1);
-		
-	//	LocalDateTime begin = LocalDateTime.of(2019, Month.AUGUST,26,15,30,30);
-
-		//LocalDateTime end = LocalDateTime.of(2019, Month.AUGUST,26,15,30,30);
-	//	LocalDateTime end = LocalDateTime.of(theTimetable.getBegin().getYear(),theTimetable.getBegin().getMonth(),
-		//theTimetable.getBegin().getDayOfWeek().getValue(),	hourBegin+2,0,0);
-		Timetable timetable = timetableRepository.getOne(theTimetable.getId());
+	public String changeInstructor(@ModelAttribute("timetable") Timetable theTimetable,Model theModel) 
+	{	Timetable timetable = timetableRepository.getOne(theTimetable.getId());
 		timetable.setInstructor(theTimetable.getInstructor());
 		timetableRepository.save(timetable);
+		String editTitle = "EDYTUJ ZAPLANOWANĄ JAZDĘ";
+		theModel.addAttribute("timetable", theTimetable);
+		theModel.addAttribute("title", editTitle);
+		theModel.addAttribute("this", timetable);
+		theModel.addAttribute("instructors", instructorRepository.findAll());		
 		return "adminViews/adminTimetable/timetableForm";
 	}
 
@@ -128,17 +121,24 @@ public class TimetableController {
 	@RequestMapping(value = "/changeHours", method = RequestMethod.GET)
 	public String changeHours(@RequestParam(value = "hour", required = false) String hour,
 			@RequestParam(value = "hourBegin", required = false) String hourBegin,
-			@ModelAttribute("timetable") Timetable theTimetable, BindingResult result) 
+			@ModelAttribute("timetable") Timetable theTimetable, BindingResult result, Model theModel) 
 	{	
 		Timetable timetable = timetableRepository.getOne(theTimetable.getId());
 		int begin = Integer.parseInt(hour);
-		
-		LocalDateTime beginn = LocalDateTime.of(timetable.getBegin().getYear(),timetable.getBegin().getMonth(),
-		timetable.getBegin().getDayOfMonth(),10,1,1);
-		
-		//timetable.setBegin(beginn);
-		//timetableRepository.save(timetable);
-		return "redirect:/timetable/list";
+		int end = begin+2;
+		LocalDateTime beginOfPlannedDriving = LocalDateTime.of(timetable.getBegin().getYear(),timetable.getBegin().getMonth(),
+		timetable.getBegin().getDayOfMonth(),begin,0,0);
+		LocalDateTime endOfPlannedDriving = LocalDateTime.of(timetable.getEnd().getYear(),timetable.getEnd().getMonth(),
+		timetable.getEnd().getDayOfMonth(),end,0,0);
+		timetable.setBegin(beginOfPlannedDriving);
+		timetable.setEnd(endOfPlannedDriving);
+		timetableRepository.save(timetable);
+		String editTitle = "EDYTUJ ZAPLANOWANĄ JAZDĘ";
+		theModel.addAttribute("timetable", theTimetable);
+		theModel.addAttribute("title", editTitle);
+		theModel.addAttribute("this", timetable);
+		theModel.addAttribute("instructors", instructorRepository.findAll());		
+		return "adminViews/adminTimetable/timetableForm";
 	}
 
 	
