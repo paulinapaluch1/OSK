@@ -29,8 +29,8 @@
 		</nav>
 		<div class="container">
 			<br>
-			<h3 th:text="${title}"></h3> <a th:href="@{/timetable/list}"><button type="button"
-						class="btn btn-outline-secondary">GRAFIK</button></a>
+			<h3 style="float:left;" th:text="${title}"></h3> <a  th:href="@{/timetable/list}"  style="float:right;" class=" btn btn-outline-secondary">GRAFIK</a>
+			<br><br>
 			<p
 				th:text="'dla samochodu '+ ${this.car.brand}+' '+${this.car.model}
 			+' '+${this.car.registrationNumber} + ' na dzień '+ ${#temporals.format(this.begin,'dd.MM.yyyy')}" />
