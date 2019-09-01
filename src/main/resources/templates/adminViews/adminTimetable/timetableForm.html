@@ -33,25 +33,43 @@
 			<p
 				th:text="'dla samochodu '+ ${this.car.brand}+' '+${this.car.model}
 			+' '+${this.car.registrationNumber} + ' na dzień '+ ${#temporals.format(this.begin,'dd.MM.yyyy')}" />
+
+			<br> <b>Obecne dane:</b> <br> Instruktor: <span
+				th:text="${this.instructor.name}+' '+${this.instructor.surname}" />
+			<br> Czas jazdy: <span
+				th:text="${#temporals.format(this.begin,'HH:mm')}+' - '+ ${#temporals.format(this.end,'HH:mm')}" />
+
+
+			<br>
+			<br>
 			
-			<form th:action="@{/timetable/save}"
-				th:object="${timetable}" method="GET">
-				
-				<input type="hidden" th:field="*{id}" /> 
-				   
-				 Instruktor: <select th:field="*{instructor}" class="form-control">
+			<form th:action="@{/timetable/save}" th:object="${timetable}"
+				method="GET">
+				<input type="hidden" th:field="*{id}" /> Instruktor: <select
+					th:field="*{instructor}" class="form-control">
 					<option th:each="instructor: ${instructors}"
 						th:value="${instructor.id}"
 						th:text="${instructor.name}+' '+${instructor.surname}" />
-				</select>
-				
-				
-				
-				 <br>
-				<button type="submit" class="btn btn-info col-2">ZAPISZ</button>
-				<a th:href="@{/timetable/list}" class="btn btn-danger">ANULUJ</a>
-				
+				</select> <br>
+				<button type="submit" class="btn btn-info col-2">ZMIEŃ</button>
 			</form>
+			<br>
+
+			<form th:action="@{/timetable/changeHours}" th:object="${hourBegin}"
+				method="GET">
+				<input type="hidden" th:field="${this.id}" /> 
+				
+				<input type="text" th:name="hourBegin" /> 
+				<select th:name="hour">
+					<option th:value="6">6:00-8:00</option>
+					<option th:value="8">8:00-10:00</option>
+					<option th:value="10">10:00-12:00</option>
+				</select>
+
+				<button style="float: left;" type="submit"
+					class="btn btn-info col-2">ZMIEŃ</button>
+			</form>
+
 
 		</div>
 	</div>
