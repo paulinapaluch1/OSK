@@ -29,44 +29,72 @@
 		</nav>
 		<div class="container">
 			<br>
-			<h3 th:text="${title}"></h3>
+			<h3 th:text="${title}"></h3> <a th:href="@{/timetable/list}"><button type="button"
+						class="btn btn-outline-secondary">GRAFIK</button></a>
 			<p
 				th:text="'dla samochodu '+ ${this.car.brand}+' '+${this.car.model}
 			+' '+${this.car.registrationNumber} + ' na dzień '+ ${#temporals.format(this.begin,'dd.MM.yyyy')}" />
 
-			<br> <b>Obecne dane:</b> <br> Instruktor: <span
-				th:text="${this.instructor.name}+' '+${this.instructor.surname}" />
-			<br> Czas jazdy: <span
-				th:text="${#temporals.format(this.begin,'HH:mm')}+' - '+ ${#temporals.format(this.end,'HH:mm')}" />
-
-
-			<br>
-			<br>
+			<br> <b>Obecne dane:</b> 
+	
+			<div class="table-responsive">
+					<table class="table table-bordered table-hover table-sm">
+						<thead>
+							<tr class="table-primary">
+								<td>Id</td>
+								<td>Początek</td>
+								<td>Koniec</td>
+								<td>Instruktor</td>
+							</tr>
+						</thead>
+						<tbody id="myTable">
+						<tr>
+									<td th:text="${this.id}" />
+									<td th:text="${#temporals.format(this.begin,'HH:mm')}" />
+									<td th:text="${#temporals.format(this.end,'HH:mm')}" />
+									<td	th:text="${this.instructor.name}+' ' +${this.instructor.surname} " />
+						
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			
+			
+			
+			
+			
+			
+			
+			
+			
+
 			<form th:action="@{/timetable/save}" th:object="${timetable}"
-				method="GET">
-				<input type="hidden" th:field="*{id}" /> Instruktor: <select
-					th:field="*{instructor}" class="form-control">
+				method="GET" >
+				
+				<input style="float: left;" type="hidden" th:field="*{id}" /> Instruktor: <select
+					th:field="*{instructor}" class="form-control col-4">
 					<option th:each="instructor: ${instructors}"
 						th:value="${instructor.id}"
 						th:text="${instructor.name}+' '+${instructor.surname}" />
-				</select> <br>
-				<button type="submit" class="btn btn-info col-2">ZMIEŃ</button>
+				</select> 
+				<button type="submit" style="float: left;"  class="btn btn-info col-2">ZMIEŃ</button>
+			
 			</form>
+			
+			
 			<br>
-
+<br>
 			<form th:action="@{/timetable/changeHours}" th:object="${hourBegin}"
 				method="GET">
 				<input type="hidden" th:field="${this.id}" /> 
 				
-				<input type="text" th:name="hourBegin" /> 
-				<select th:name="hour">
+				<select th:name="hour" class="form-control col-4">
 					<option th:value="6">6:00-8:00</option>
 					<option th:value="8">8:00-10:00</option>
 					<option th:value="10">10:00-12:00</option>
 				</select>
 
-				<button style="float: left;" type="submit"
+				<button type="submit"
 					class="btn btn-info col-2">ZMIEŃ</button>
 			</form>
 
