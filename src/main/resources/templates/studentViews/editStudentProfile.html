@@ -40,7 +40,12 @@
 			<form action="#" th:action="@{/students/data/save}"
 				th:object="${student}" method="POST">
 
-				<input type="hidden" th:field="*{id}" /> Data urodzenia: <input
+				<input type="hidden" th:field="*{id}" /> 
+				<input type="hidden" th:field="*{login}" /> 
+				<input type="hidden" th:field="*{name}" /> 
+				<input type="hidden" th:field="*{surname}" /> 
+				
+				Data urodzenia: <input
 					type="date" th:field="*{birthdate}" th:value="${birthdate}"
 					class="form-control mb-4 col-4"> Ulica: <input type="text"
 					th:field="*{street}" class="form-control mb-4 col-4"> Numer

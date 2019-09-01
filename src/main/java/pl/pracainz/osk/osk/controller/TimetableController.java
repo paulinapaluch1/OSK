@@ -108,28 +108,59 @@ public class TimetableController {
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.GET)
-	public String saveTimetable(@ModelAttribute("timetable") Timetable theTimetable) 
-	{
-		LocalDateTime begin = LocalDateTime.of(theTimetable.getBegin().getYear(),theTimetable.getBegin().getMonth(),
-			theTimetable.getBegin().getDayOfMonth(),10,1,1);
+	
+	public String changeInstructor(@ModelAttribute("timetable") Timetable theTimetable) 
+	{	//LocalDateTime begin = LocalDateTime.of(theTimetable.getBegin().getYear(),theTimetable.getBegin().getMonth(),
+		//	theTimetable.getBegin().getDayOfMonth(),10,1,1);
 		
 	//	LocalDateTime begin = LocalDateTime.of(2019, Month.AUGUST,26,15,30,30);
 
-		LocalDateTime end = LocalDateTime.of(2019, Month.AUGUST,26,15,30,30);
-
-	
+		//LocalDateTime end = LocalDateTime.of(2019, Month.AUGUST,26,15,30,30);
 	//	LocalDateTime end = LocalDateTime.of(theTimetable.getBegin().getYear(),theTimetable.getBegin().getMonth(),
 		//theTimetable.getBegin().getDayOfWeek().getValue(),	hourBegin+2,0,0);
-		theTimetable.setBegin(begin);
-		theTimetable.setEnd(end);
-		theTimetable.setCar(carRepository.getOne(1));
+		Timetable timetable = timetableRepository.getOne(theTimetable.getId());
+		timetable.setInstructor(theTimetable.getInstructor());
+		timetableRepository.save(timetable);
+		return "adminViews/adminTimetable/timetableForm";
+	}
+
+	
+	@RequestMapping(value = "/changeHours", method = RequestMethod.GET)
+	public String changeHours(@RequestParam(value = "hour", required = false) String hour,
+			@RequestParam(value = "hourBegin", required = false) String hourBegin,
+			@ModelAttribute("timetable") Timetable theTimetable, BindingResult result) 
+	{	
+		Timetable timetable = timetableRepository.getOne(theTimetable.getId());
+		int begin = Integer.parseInt(hour);
 		
-		timetableRepository.save(theTimetable);
+		LocalDateTime beginn = LocalDateTime.of(timetable.getBegin().getYear(),timetable.getBegin().getMonth(),
+		timetable.getBegin().getDayOfMonth(),10,1,1);
 		
-		
+		//timetable.setBegin(beginn);
+		//timetableRepository.save(timetable);
 		return "redirect:/timetable/list";
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public String getDayName(LocalDate date) {
 		int dayNumber = date.getDayOfWeek().getValue();
 		switch (dayNumber) {
@@ -159,7 +190,8 @@ public class TimetableController {
 	    return new String[] {
 	        "6:00-8:00", "8:00-10:00", "10:00-12:00"
 	        		, "12:00-14:00", 
-	        "14:00-16:00", "16:00-18:00", "18:00-20:00"
+	        "14:00-16:00", "16:00-18:00", "18:00-20:00",
+	        "18:00-22:00"
 	    };
 	}
 	

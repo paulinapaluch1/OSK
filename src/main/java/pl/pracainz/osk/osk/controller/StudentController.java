@@ -35,42 +35,29 @@ public class StudentController {
 
 	@GetMapping("/list")
 	public String listStudents(Model theModel) {
-
-
 		List<Student> theStudents = studentRepository.findByDeleted(0);
-
 		theModel.addAttribute("students", theStudents);
-
 		return "adminViews/adminStudents/students";
 	}
 
 	@GetMapping("/listArchived")
 	public String listArchivedStudents(Model theModel) {
-
 		List<Student> theStudents = studentRepository.findByDeleted(1);
-
 		theModel.addAttribute("students", theStudents);
-
 		return "adminViews/adminStudents/studentsArchived";
 	}
 
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
-
 		Student theStudent = new Student();
-
 		theModel.addAttribute("student", theStudent);
 		return "adminViews/adminStudents/addStudent";
 	}
 
 	@GetMapping("/showFormForUpdate")
-
 	public String showFormForUpdate(@RequestParam("id_student") int id, Model theModel) {
-
-
 		Optional<Student> theStudent = studentRepository.findById(id);
 		theModel.addAttribute("student", theStudent);
-
 		return "adminViews/adminStudents/addStudent";			
 
 	}
@@ -96,7 +83,6 @@ public class StudentController {
 		Student theStudent = studentRepository.getOne(id);
 		theStudent.setDeleted(0);
 		studentRepository.save(theStudent);
-
 		return "redirect:/students/listArchived";
 	}
 
@@ -111,41 +97,32 @@ public class StudentController {
 
 	@GetMapping("/updateDataStudent")
 	public String studentDataUpdate(@RequestParam("id_student") int id, Model theModel) {
-
 		Optional<Student> theStudent = studentRepository.findById(id);
 		theModel.addAttribute("student", theStudent);
-
 		return "studentViews/editStudentProfile";
 	}
 
 	@PostMapping("/data/save")
 	public String saveDataStudent(@ModelAttribute("student") Student theStudent) {
-
-		Student student = studentRepository.getOne(theStudent.getId());
-		student.setLogin(theStudent.getLogin());
-		student.setName(theStudent.getName());
-		student.setSurname(theStudent.getSurname());
-		student.setPKK(theStudent.getPKK());
-		student.setDeleted(theStudent.getDeleted());
-
-		studentRepository.save(student);
-
+	
+		//Student student = studentRepository.getOne(theStudent.getId());
+		//student.setName(theStudent.getName());
+		//student.setSurname(theStudent.getSurname());
+		//student.setPKK(theStudent.getPKK());
+		//student.setDeleted(theStudent.getDeleted());
+		studentRepository.save(theStudent);
 		return "redirect:/students/profile";
 	}
 
 	@GetMapping("/showInstructors")
 	public String listInstructors(Model theModel) {
-
 		List<Instructor> theInstructors = instructorRepository.findAll();
-
 		theModel.addAttribute("instructors", theInstructors);
-
 		return "studentViews/studentInstructors/instructors";
 	}
 
 	@GetMapping("/rateInstructors")
 	public String rateInstructors(@RequestParam("id_instructor") int id, Model theModel) {
-
 		Instructor theInstructor = new Instructor();
 		theModel.addAttribute("instructor", theInstructor);
 		theModel.addAttribute("instructoropinions", instructorOpinionRepository.findAll());
@@ -160,7 +137,6 @@ public class StudentController {
 	@PostMapping("saveInstructorOpinion")
 	public String saveInstructorOpinion(@ModelAttribute("instructoropinion") InstructorOpinion theInstructorOpinion) {
 		instructorOpinionRepository.save(theInstructorOpinion);
-
 		return "redirect:/students/showInstructors";
 	}
 
