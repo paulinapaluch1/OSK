@@ -35,48 +35,35 @@ private CategoryRepository categoryRepository;
 	
 	@GetMapping("/list")
 	public String listCourses(Model theModel) {
-		
 		List<Course> theCourses= courseRepository.findByFinished(0);
-		
 		theModel.addAttribute("courses", theCourses);
-		
 		return "adminViews/adminCourses/courses";
 	}
 	
 	@GetMapping("/listArchived")
 	public String listArchivedCourses(Model theModel) {
-		
 		List<Course> theCourses= courseRepository.findByFinished(1);
-		
 		theModel.addAttribute("courses", theCourses);
-		
 		return "adminViews/adminCourses/coursesArchived";
 	}
 	
 	
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
-		
 		Course theCourse = new Course();
-		
 		theModel.addAttribute("course", theCourse);
 		theModel.addAttribute("instructors",instructorRepository.findAll() );
 		theModel.addAttribute("categories",categoryRepository.findAll() );
-
 		return "adminViews/adminCourses/courseForm";
 	}
 
 	@GetMapping("/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("id_course") int id,
 									Model theModel) {
-		
 		Optional<Course> theCourse = courseRepository.findById(id);
-		
 		theModel.addAttribute("course", theCourse);
-		
 		theModel.addAttribute("instructors",instructorRepository.findAll() );
 		theModel.addAttribute("categories",categoryRepository.findAll() );
-
 		return "adminViews/adminCourses/courseForm";		
 	}
 	
@@ -84,28 +71,22 @@ private CategoryRepository categoryRepository;
 	@PostMapping("save")
 	public String saveCourse(@ModelAttribute("course") Course theCourse) {
 		courseRepository.save(theCourse);
-		
-		
 		return "redirect:/courses/list";
 	}
 
 	@GetMapping("/archiveCourse")
 	public String archiveCourse(@RequestParam("id_course") int id, Model theModel) {
-
 		Course theCourse = courseRepository.getOne(id);
 		theCourse.setFinished(1);
 		courseRepository.save(theCourse);
-
 		return "redirect:/courses/list";
 	}
 	
 	@GetMapping("/unarchiveCourse")
 	public String unarchiveCourse(@RequestParam("id_course") int id, Model theModel) {
-
 		Course theCourse = courseRepository.getOne(id);
 		theCourse.setFinished(0);
 		courseRepository.save(theCourse);
-
 		return "redirect:/courses/listArchived";
 	}
 }

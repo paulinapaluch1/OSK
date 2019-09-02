@@ -161,9 +161,6 @@ public class TimetableController {
 	}
 	
 	
-	
-	
-	
 	public String getDayName(LocalDate date) {
 		int dayNumber = date.getDayOfWeek().getValue();
 		switch (dayNumber) {
@@ -197,7 +194,6 @@ public class TimetableController {
 		int begin = Integer.parseInt(hour);
 		int end = begin+2;
 		LocalDate day=date;
-		int day1=date.getDayOfMonth();
 		//timetable.setBegin(LocalDateTime.of(date.getDayOfMonth(),date.getMonth(),date.getYear(),begin,0,0));
 		//timetable.setEnd(LocalDateTime.of(date.getDayOfMonth(),date.getMonth(),date.getYear(),end,0,0));
 //timetableRepository.save(timetable);

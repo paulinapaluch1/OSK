@@ -67,27 +67,22 @@ public class DrivingController {
 	@PostMapping("save")
 	public String saveDriving(@ModelAttribute("driving") Driving theDriving) {
 		drivingRepository.save(theDriving);
-
 		return "redirect:/drivings/list";
 	}
 
 	@GetMapping("/archiveDriving")
 	public String archiveDriving(@RequestParam("id_driving") int id, Model theModel) {
-
 		Driving theDriving = drivingRepository.getOne(id);
 		theDriving.setDeleted(1);
 		drivingRepository.save(theDriving);
-
 		return "redirect:/drivings/list";
 	}
 
 	@GetMapping("/unarchiveDriving")
 	public String unarchiveDriving(@RequestParam("id_driving") int id, Model theModel) {
-
 		Driving theDriving = drivingRepository.getOne(id);
 		theDriving.setDeleted(0);
 		drivingRepository.save(theDriving);
-
 		return "redirect:/drivings/listArchived";
 	}
 
