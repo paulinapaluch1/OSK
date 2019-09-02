@@ -32,101 +32,78 @@ public class InternalExamController {
 	
 	@GetMapping("/list")
 	public String listInternalExams(Model theModel) {
-		
 		List<InternalExam> theInternalExams = internalExamRepository.findByDeleted(0);
-		
 		theModel.addAttribute("internalexams", theInternalExams);
 		theModel.addAttribute("instructors", instructorRepository.findAll() );
 		theModel.addAttribute("students", studentRepository.findAll() );
-		
 		return "adminViews/adminExams/exams";
 	}
 	
 	@GetMapping("/listArchived")
 	public String listArchivedInternalExams(Model theModel) {
-		
 		List<InternalExam> theInternalExams = internalExamRepository.findByDeleted(1);
-		
 		theModel.addAttribute("internalexams", theInternalExams);
 		theModel.addAttribute("instructors", instructorRepository.findAll() );
 		theModel.addAttribute("students", studentRepository.findAll() );
-		
 		return "adminViews/adminExams/examsArchived";
 	}
 
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
 		InternalExam theInternalExam = new InternalExam();
-
 		theModel.addAttribute("internalexam", theInternalExam);
 		theModel.addAttribute("instructors", instructorRepository.findAll());
 		theModel.addAttribute("students", studentRepository.findAll());
-
-
 		return "adminViews/adminExams/examForm";
 	}
 
 	@GetMapping("/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("id_internalExam") int id, Model theModel) {
-
 		Optional<InternalExam> theInternalExam = internalExamRepository.findById(id);
 		theModel.addAttribute("internalexam", theInternalExam);
 		theModel.addAttribute("instructors", instructorRepository.findAll());
 		theModel.addAttribute("students", studentRepository.findAll());
-
-		
 		return "adminViews/adminExams/examForm";
 	}
 
 	@PostMapping("save")
 	public String saveLecture(@ModelAttribute("internalexam") InternalExam theInternalExam) {
 		internalExamRepository.save(theInternalExam);
-
 		return "redirect:/exams/list";
 	}
 	
 	@GetMapping("/archiveExam")
 	public String archiveExam(@RequestParam("id_internalExam") int id, Model theModel) {
-
 		InternalExam theInternalExam = internalExamRepository.getOne(id);
 		theInternalExam.setDeleted(1);
 		internalExamRepository.save(theInternalExam);
-
 		return "redirect:/exams/list";
 	}
 	
 	@GetMapping("/unarchiveExam")
 	public String unarchiveExam(@RequestParam("id_internalExam") int id, Model theModel) {
-
 		InternalExam theInternalExam = internalExamRepository.getOne(id);
 		theInternalExam.setDeleted(0);
 		internalExamRepository.save(theInternalExam);
-
 		return "redirect:/exams/listArchived";
 	}
 	
 
 	@GetMapping("/listPassed")
 	public String passedExams(Model theModel) {
-		
 		List<InternalExam> theInternalExams = internalExamRepository.findByResult(1);
-		
 		theModel.addAttribute("internalexams", theInternalExams);
 		theModel.addAttribute("instructors", instructorRepository.findAll() );
 		theModel.addAttribute("students", studentRepository.findAll() );
-		
 		return "adminViews/adminExams/exams";
 	}
 	
 	@GetMapping("/listFailed")
 	public String failedExams(Model theModel) {
-		
 		List<InternalExam> theInternalExams = internalExamRepository.findByResult(0);
-		
 		theModel.addAttribute("internalexams", theInternalExams);
 		theModel.addAttribute("instructors", instructorRepository.findAll() );
 		theModel.addAttribute("students", studentRepository.findAll() );
-		
 		return "adminViews/adminExams/exams";
 	}
 

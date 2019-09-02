@@ -20,63 +20,46 @@ public class AdminController {
 
 	private UserRepository userRepository;
 	PasswordEncoder encoder;
-	
+
 	public AdminController(UserRepository userRepository, PasswordEncoder encoder) {
-		this.encoder=encoder;
-		this.userRepository=userRepository;
+		this.encoder = encoder;
+		this.userRepository = userRepository;
 	}
-	
+
 	@GetMapping("/")
 	public String showAdminProfile() {
-
 		return "adminViews/adminProfile";
 	}
 
 	@GetMapping("/users")
 	public String showUsers(Model theModel) {
-List<User> theUsers=userRepository.findAll();
-		
+		List<User> theUsers = userRepository.findAll();
 		theModel.addAttribute("users", theUsers);
-		
 		return "users";
 	}
-	
 
 	@GetMapping("/usersForm")
 	public String showFormForUpdate(Model theModel) {
-		
 		User theStudent = new User();
-		
 		theModel.addAttribute("user", theStudent);
-		
-		return "usersForm";			
+		return "usersForm";
 	}
-	
+
 	@PostMapping("save")
 	public String saveStudent(@ModelAttribute("user") User theStudent) {
-		
 		theStudent.setPassword(encoder.encode("paulis"));
 		userRepository.save(theStudent);
-		
 		return "redirect:users/list";
 	}
-	
-	
-	
+
 	@GetMapping("/cars")
 	public String showCars() {
-		
 		return "adminViews/adminCars/cars";
 	}
-	
+
 	@GetMapping("/exams")
 	public String showExams() {
-		
 		return "adminViews/adminExams/exams";
 	}
-	
-
-	
-	
 
 }

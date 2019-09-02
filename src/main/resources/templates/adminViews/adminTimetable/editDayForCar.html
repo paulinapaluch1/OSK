@@ -61,10 +61,11 @@
 				</div>
 			
 			
-			<form th:action="@{/timetable/saveNewTimetable}" th:object="${timetable}"
+			<form th:action="@{/timetable/saveNewTimetable(today=${today})}" th:object="${timetable}"
 				method="GET" >
 			
 				<input type="hidden" th:field="*{id}" /> 
+				
 				
 				<select	th:field="*{car}" class="form-control col-sm-4 col-md-4">	
 					<option th:each="car: *{car}"
@@ -73,10 +74,6 @@
 				</select> 
 				<br>
 				<input type="hidden" th:field="*{driving}" /> 
-				
-			<input type="hidden" th:field="*{begin}" /> 
-			<input type="hidden" th:field="*{end}" /> 
-				
 				
 					Instruktor: <select
 					th:field="*{instructor}" class="form-control col-sm-4 col-md-4">

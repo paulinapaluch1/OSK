@@ -25,28 +25,21 @@ public class InstructorController {
 	
 	@GetMapping("/list")
 	public String listInstructors(Model theModel) {
-		
 		List<Instructor> theInstructors=instructorRepository.findByDeleted(0);
-		
 		theModel.addAttribute("instructors", theInstructors);
-		
 		return "adminViews/adminInstructors/instructors";
 	}
 	
 	@GetMapping("/listArchived")
 	public String listArhivedInstructors(Model theModel) {
-		
 		List<Instructor> theInstructors=instructorRepository.findByDeleted(1);
-		
 		theModel.addAttribute("instructors", theInstructors);
-		
 		return "adminViews/adminInstructors/instructorsArchived";
 	}
 	
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
 		Instructor theInstructor = new Instructor();
-		
 		theModel.addAttribute("instructor", theInstructor);
 		return "adminViews//adminInstructors/instructorForm";
 	}
@@ -54,23 +47,20 @@ public class InstructorController {
 	@GetMapping("/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("id_instructor") int id,
 									Model theModel) {
-		
 		Optional<Instructor> theInstructor = instructorRepository.findById(id);
 		theModel.addAttribute("instructor", theInstructor);
-		
 		return "adminViews/adminInstructors/instructorForm";			
 	}
 	
 	@PostMapping("save")
 	public String saveInstructor(@ModelAttribute("instructor") Instructor theInstructor) {
 		instructorRepository.save(theInstructor);
-		
 		return "redirect:/instructors/list";
 	}
 	
 	@GetMapping("/archiveInstructor")
-	public String archiveInstructor(@RequestParam("id_instructor") int id, Model theModel) {
-
+	public String archiveInstructor(@RequestParam("id_instructor") int id, Model theModel) 
+	{
 		Instructor theInstructor = instructorRepository.getOne(id);
 		theInstructor.setDeleted(1);
 		instructorRepository.save(theInstructor);
@@ -80,11 +70,9 @@ public class InstructorController {
 
 	@GetMapping("/unarchiveInstructor")
 	public String unarchiveInstructor(@RequestParam("id_instructor") int id, Model theModel) {
-
 		Instructor theInstructor = instructorRepository.getOne(id);
 		theInstructor.setDeleted(0);
 		instructorRepository.save(theInstructor);
-		
 		return "redirect:/instructors/listArchived";
 	}
 
