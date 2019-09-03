@@ -100,8 +100,6 @@ public class InstructorOpinion{
 		this.deleted = deleted;
 	}
 
-
-
-	}
+}
 
 

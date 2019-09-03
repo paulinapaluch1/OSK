@@ -104,12 +104,6 @@ public class StudentController {
 
 	@PostMapping("/data/save")
 	public String saveDataStudent(@ModelAttribute("student") Student theStudent) {
-	
-		//Student student = studentRepository.getOne(theStudent.getId());
-		//student.setName(theStudent.getName());
-		//student.setSurname(theStudent.getSurname());
-		//student.setPKK(theStudent.getPKK());
-		//student.setDeleted(theStudent.getDeleted());
 		studentRepository.save(theStudent);
 		return "redirect:/students/profile";
 	}

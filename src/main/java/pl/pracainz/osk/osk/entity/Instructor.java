@@ -52,8 +52,6 @@ public class Instructor {
 	@OneToMany(mappedBy = "instructor")
 	List<Timetable> timetables;
 
-	//@OneToOne(mappedBy = "instructor", cascade = CascadeType.ALL)
-	//User user;
 	
 	public Instructor() {
 	}
