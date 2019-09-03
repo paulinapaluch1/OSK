@@ -38,6 +38,9 @@ public class Student {
 	private String login;
 
 	@Column
+	private String password;
+	
+	@Column
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	@NotNull
 	@Past
@@ -287,6 +290,16 @@ public class Student {
 
 	public void setParticipants(Set<Participant> participants) {
 		this.participants = participants;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	
