@@ -116,5 +116,4 @@ public class InternalExam {
 		this.deleted = deleted;
 	}
 
-
 }

@@ -52,14 +52,5 @@ public class AdminController {
 		return "redirect:users/list";
 	}
 
-	@GetMapping("/cars")
-	public String showCars() {
-		return "adminViews/adminCars/cars";
-	}
-
-	@GetMapping("/exams")
-	public String showExams() {
-		return "adminViews/adminExams/exams";
-	}
 
 }
