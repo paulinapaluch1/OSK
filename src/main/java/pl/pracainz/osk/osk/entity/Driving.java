@@ -35,8 +35,7 @@ public class Driving {
 	private Student student;
 
 	@Column
-	@DateTimeFormat(pattern="dd.MM.yyy HH:mm")
-	//@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private Date startHour;
 
 	@Column

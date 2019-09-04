@@ -80,8 +80,22 @@
 							th:text="${#dates.format(driving.startHour,'dd.MM.yyyy HH:mm')}" />
 						<td
 							th:text="${#dates.format(driving.finishHour,'dd.MM.yyyy HH:mm')}" />
-						<td th:text="${driving.done}" />
-						<td th:text="${driving.cancelled}" />
+						
+						<div th:if="${driving.done} eq 0">
+						<td th:text="NIE" />
+						</div>
+						<div th:unless="${driving.done} eq 0">
+						<td th:text="TAK" />
+						</div>
+						
+						
+						<div th:if="${driving.cancelled} eq 0">
+						<td th:text="NIE" />
+						</div>
+						<div th:unless="${driving.cancelled} eq 0">
+						<td th:text="TAK" />
+						</div>
+						
 						
 						<td><a
 							th:href="@{/drivings/showFormForUpdate(id_driving=${driving.id})}"
