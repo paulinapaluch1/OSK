@@ -67,7 +67,6 @@
 						<th>Kursant</th>
 						<th>Ocena</th>
 						<th>Opinia</th>
-						<th>Usunięte</th>
 					</tr>
 				</thead>
 				<tbody id="myTable">
@@ -79,7 +78,6 @@
 							th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname}" />
 						<td th:text="${instructoropinion.instructorMark}" />
 						<td th:text="${instructoropinion.instructorOpinion}" />
-						<td th:text="${instructoropinion.deleted}" />
 						<td><a
 							th:href="@{/opinions/confirmInstructor(id_instructorOpinion=${instructoropinion.id})}"
 							class="btn btn-success">Zatwierdź</a></td>
