@@ -88,7 +88,14 @@
 						<td th:text="${exam.student.name} + ' ' + ${exam.student.surname}" />
 						<td th:text="${#dates.format(exam.dateHour, 'dd-MM-yyyy')}" />
 						<td th:text="${#dates.format(exam.dateHour, 'HH:mm')}" />
-						<td th:text="${exam.result}" />
+						
+						<div th:switch="${exam.result}" >
+						<div th:case=0> <td th:text="niezdany"/>
+						</div>
+						<div th:case=1> <td th:text="zdany"/>
+						</div>
+						
+						</div>
 						<td th:text="${exam.type}" />
 						<td><a
 							th:href="@{/exams/showFormForUpdate(id_internalExam=${exam.id})}"

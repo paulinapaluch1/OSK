@@ -38,7 +38,7 @@
 		<div class="container">
 
 
-			<h3>WYKŁAD</h3>
+			<h3>EGZAMIN</h3>
 
 			<form action="#" th:action="@{/exams/save}"
 				th:object="${internalexam}" method="POST">
@@ -48,18 +48,34 @@
 					<option th:each="instructor: ${instructors}"
 						th:value="${instructor.id}"
 						th:text="${instructor.name} + ' ' + ${instructor.surname}" />
-				</select> Kursant: <select th:field="*{student}"
+				</select> Kursant: 
+					
+					<select th:field="*{student}"
 					class="form-control mb-4 col-4">
 					<option th:each="student: ${students}" th:value="${student.id}"
 						th:text="${student.name} + ' ' + ${student.surname}" />
-				</select> </select> Data: <input type="date" th:field="*{dateHour}" th:value="${date}"
-					class="form-control mb-4 col-4"> Wynik: <input type="text"
-					th:field="*{result}" class="form-control mb-4 col-4"> Typ:
-				<input type="text" th:field="*{type}"
-					class="form-control mb-4 col-4"> Status: <input type="text"
-					th:field="*{deleted}" class="form-control mb-4 col-4">
-
-
+				</select> 
+				
+				
+				Data: <input type="date" th:field="*{dateHour}" th:value="${date}"
+					class="form-control mb-4 col-4"> 
+				
+				Wynik: 
+					
+					<select th:field="*{result}"
+					class="form-control mb-4 col-4">
+					<option th:text="nowy" th:value="2" />	
+					<option th:text="zdany" th:value="1" />
+					<option th:text="niezdany" th:value="0" />
+					</select>
+				Typ:
+					<select th:field="*{type}"
+					class="form-control mb-4 col-4">
+					<option th:text="teoretyczny" th:value="teoretyczny" />
+					<option th:text="praktyczny" th:value="praktyczny" />
+					</select>
+					
+					
 				<button type="submit" class="btn btn-info col-2">ZAPISZ</button>
 				<a th:href="@{/exams/list}" class="btn btn-danger">ANULUJ</a>
 

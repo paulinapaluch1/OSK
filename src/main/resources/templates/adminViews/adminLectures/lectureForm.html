@@ -44,16 +44,23 @@
 					th:field="*{course}" class="form-control mb-4 col-4">
 					<option th:each="course: ${courses}" th:value="${course.id}"
 						th:text="${course.id} +'. START: '+${course.startDate}" />
-				</select> Kategoria: <select th:field="*{course.category}"
+				</select> 
+				
+				Kategoria: 
+					<select th:field="*{course.category}"
 					class="form-control mb-4 col-4">
 					<option th:each="category: ${categories}" th:value="${category.id}"
 						th:text="${category.categoryName}" />
-				</select> Instruktor: <select th:field="*{course.instructor}"
+					</select> 
+				
+					Instruktor: <select th:field="*{course.instructor}"
 					class="form-control mb-4 col-4">
 					<option th:each="instructor: ${instructors}"
 						th:value="${instructor.id}"
 						th:text="${instructor.name} + ' ' + ${instructor.surname}" />
-				</select> Numer sali: <input type="text" th:field="*{roomNumber}"
+					</select> 
+					
+					Numer sali: <input type="text" th:field="*{roomNumber}"
 					class="form-control mb-4 col-4"> Data: <input type="datetime-local"
 					th:field="*{date}" th:value="${date}"
 					class="form-control mb-4 col-4">
