@@ -16,13 +16,12 @@ import org.springframework.lang.Nullable;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY
-	)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@Column(name = "login")
+	@Column(name = "login",nullable=false)
 	private String username;
-	@Column
+	@Column(nullable=false)
 	private String password;
 
 
