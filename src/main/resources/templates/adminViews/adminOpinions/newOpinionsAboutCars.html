@@ -66,7 +66,6 @@
 						<th>Samochód</th>
 						<th>Ocena</th>
 						<th>Opinia</th>
-						<th>Usunięte</th>
 					</tr>
 				</thead>
 				<tbody id="myTable">
@@ -77,7 +76,6 @@
 						<td th:text="${caropinion.car.registrationNumber}" />
 						<td th:text="${caropinion.carMark}" />
 						<td th:text="${caropinion.carOpinion}" />
-						<td th:text="${caropinion.deleted}" />
 						<td><a
 							th:href="@{/opinions/confirmCar(id_carOpinion=${caropinion.id})}"
 							class="btn btn-success">Zatwierdź</a></td>
