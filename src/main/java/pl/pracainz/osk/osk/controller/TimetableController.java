@@ -197,12 +197,12 @@ public class TimetableController {
 		timetableRepository.save(theTimetable);
 		String editTitle = "EDYTUJ ZAPLANOWANE JAZDY";
 		theModel.addAttribute("timetablesToday", 	
-		timetableRepository.queryByDayAndMonthAndYearAndCar(theTimetable.getBegin().getDayOfMonth(),theTimetable.getBegin().getMonthValue(),theTimetable.getBegin().getYear(),1));
+		timetableRepository.queryByDayAndMonthAndYearAndCar(theTimetable.getBegin().getDayOfMonth(),theTimetable.getBegin().getMonthValue(),theTimetable.getBegin().getYear(),theTimetable.getCar().getId()));
 		theModel.addAttribute("title", editTitle);
 		theModel.addAttribute("car",theTimetable.getCar());
 		theModel.addAttribute("today",date);
 		Timetable timetable1=new Timetable();
-		timetable1.setCar(carRepository.getOne(1));
+		timetable1.setCar(theTimetable.getCar());
 		theModel.addAttribute("timetable",timetable);
 		theModel.addAttribute("timetableToAdd",new Timetable());
 
@@ -213,9 +213,10 @@ public class TimetableController {
 	@RequestMapping(value = "/saveNew", method = RequestMethod.POST)
 	public String saveNew(@RequestParam(value = "hour", required = false) String hour,
 			@ModelAttribute("newTimetable") Timetable timetable, BindingResult result, Model theModel,
-			@RequestParam(name = "today", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date) 
+			@RequestParam(name = "today", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date,
+			@RequestParam(name = "id_car", required = false) Integer id_car
+			) 
 	{	
-		
 		Timetable newTimetable = timetable;
 		int begin = Integer.parseInt(hour);
 		int end = begin+2;
@@ -223,11 +224,11 @@ public class TimetableController {
 		newTimetable.setBegin(LocalDateTime.of(date.getYear(),date.getMonth(),date.getDayOfMonth(),begin,0,0));
 		newTimetable.setEnd(LocalDateTime.of(date.getYear(),date.getMonth(),date.getDayOfMonth(),end,0,0));
 		newTimetable.setInstructor(timetable.getInstructor());
-		newTimetable.setCar(carRepository.getOne(1));
+		newTimetable.setCar(carRepository.getOne(id_car));
 		timetableRepository.save(newTimetable);
 		String editTitle = "EDYTUJ ZAPLANOWANE JAZDY";
-		theModel.addAttribute("timetablesToday", //timetableRepository.findAll());		
-		timetableRepository.queryByDayAndMonthAndYearAndCar(date.getDayOfMonth(),date.getMonthValue(),date.getYear(),1));
+		theModel.addAttribute("timetablesToday",		
+		timetableRepository.queryByDayAndMonthAndYearAndCar(date.getDayOfMonth(),date.getMonthValue(),date.getYear(),id_car));
 		theModel.addAttribute("title", editTitle);
 		theModel.addAttribute("car",timetable.getCar());
 		theModel.addAttribute("today",date);
@@ -250,14 +251,12 @@ public class TimetableController {
 		List<Timetable> timetablesToday = timetableRepository.queryByDayAndMonthAndYearAndCar(timetable.getBegin().getDayOfMonth(),
 				timetable.getBegin().getMonth().getValue(),timetable.getBegin().getYear(),
 				timetable.getCar().getId());
-		
 		timetablesToday.remove(timetableRepository.getOne(id));
 		String editTitle = "EDYTUJ ZAPLANOWANE JAZDY";
 		theModel.addAttribute("timetablesToday", timetablesToday);
 		theModel.addAttribute("title", editTitle);
 		theModel.addAttribute("car",timetable.getCar());
 		theModel.addAttribute("today",LocalDate.of(timetable.getBegin().getYear(),timetable.getBegin().getMonth(),timetable.getBegin().getDayOfMonth()));
-		
 		Timetable editedTimetable = new Timetable();
 		timetable.setCar(timetableRepository.getOne(id).getCar());
 		theModel.addAttribute("timetable",editedTimetable);

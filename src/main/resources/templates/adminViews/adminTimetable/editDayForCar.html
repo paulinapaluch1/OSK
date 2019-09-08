@@ -65,7 +65,8 @@
 					</tbody>
 				</table>
 			</div>
-<div class="card mb-5" style="width: 30rem; float:left">
+			<br>
+<div class="card mb-5 mr-5" style="width: 30rem; float:left">
  <div class="card-header">
     <b>Zmień dane</b>
   
@@ -109,13 +110,13 @@
 			</div>
 		
 
-<div class="card mb-5" style="width: 30rem; float:right">
+<div class="card mb-5 " style="width: 30rem; float:left">
  <div class="card-header">
     <b>Dodaj jazdę</b>
   
   </div>			
  <div class="card-body" >
-  <form th:action="@{/timetable/saveNew(today=${today})}"
+  <form th:action="@{/timetable/saveNew(today=${today},id_car=${car.id})}"
 				th:object="${timetableToAdd}" method="POST">
 			
 				 <input type="hidden" th:field="*{id}"/>
