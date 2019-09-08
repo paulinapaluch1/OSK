@@ -266,10 +266,4 @@ public class TimetableController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
 }
