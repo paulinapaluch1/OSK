@@ -29,77 +29,132 @@
 		</nav>
 		<div class="container">
 			<br>
-			<h3 style="float:left;" th:text="${title}"></h3> <a  th:href="@{/timetable/list}"  style="float:right;" class=" btn btn-outline-secondary">GRAFIK</a>
-			<br><br>
+			<h3 style="float: left;" th:text="${title}"></h3>
+			<a th:href="@{/timetable/list}" style="float: right;"
+				class=" btn btn-outline-secondary">GRAFIK</a> <br>
+			<br>
 			<p
 				th:text="'dla samochodu '+ ${car.brand}+' '+${car.model}
 			+' '+${car.registrationNumber} + ' na dzień '+ ${#temporals.format(today,'dd.MM.yyyy')}" />
 
-			<br> <b>Obecne dane:</b> 
-	
+			<br> <b>Obecne dane:</b>
+
 			<div class="table-responsive">
-					<table class="table table-bordered table-hover table-sm">
-						<thead>
-							<tr class="table-primary">
-								<td>Id</td>
-								<td>Początek</td>
-								<td>Koniec</td>
-								<td>Instruktor</td>
-							</tr>
-						</thead>
-						<tbody id="myTable">
+				<table class="table table-bordered table-hover table-sm">
+					<thead>
+						<tr class="table-primary">
+							<td>Id</td>
+							<td>Początek</td>
+							<td>Koniec</td>
+							<td>Instruktor</td>
+						</tr>
+					</thead>
+					<tbody id="myTable">
 						<tr>
 						<tr th:each="timetable:${timetablesToday}">
-									<td th:text="${timetable.id}" />
-									<td th:text="${#temporals.format(timetable.begin,'HH:mm')}" />
-									<td th:text="${#temporals.format(timetable.end,'HH:mm')}" />
-									<td	th:text="${timetable.instructor.name}+' ' +${timetable.instructor.surname} " />
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			
-			
-			<form th:action="@{/timetable/saveNewTimetable(today=${today})}" th:object="${timetable}"
-				method="GET" >
-			<br>
-				<input type="number" th:field="*{id}" class="form-control col-sm-4 col-md-4"/> 
-				<br>
-			
-			
-				<input type="hidden" th:field="*{driving}" /> 
-								<input type="hidden" th:field="*{car}" /> 
-				
-				
-					Instruktor: <select
-					th:field="*{instructor}" class="form-control col-sm-4 col-md-4">
-						
+							<td th:text="${timetable.id}" />
+							<td th:text="${#temporals.format(timetable.begin,'HH:mm')}" />
+							<td th:text="${#temporals.format(timetable.end,'HH:mm')}" />
+							<td
+								th:text="${timetable.instructor.name}+' ' +${timetable.instructor.surname} " />
+						</tr>
+					</tbody>
+				</table>
+			</div>
+<div class="card mb-5" style="width: 30rem; float:left">
+ <div class="card-header">
+    <b>Zmień dane</b>
+  
+  </div>			
+
+  <div class="card-body" ><form th:action="@{/timetable/saveNewTimetableForDay(today=${today})}"
+				th:object="${timetable}" method="GET">
+				Id
+				 <input type="number" th:field="*{id}"
+					class="form-control " /> <br> <input
+					type="hidden" th:field="*{driving}" /> <input type="hidden"
+					th:field="*{car}" />
+					
+				Instruktor<select th:field="*{instructor}"
+					class="form-control ">
+
 					<option th:each="instructor: ${instructors}"
 						th:value="${instructor.id}"
-						th:text="${instructor.name}+' '+${instructor.surname} "/>
-				</select> 
-				<br>
-				
+						th:text="${instructor.name}+' '+${instructor.surname} " />
+				</select> <br>
+				Godzina
 				<div th:object=${hour}>
-				<select th:name="hour" class="form-control col-4">
-					<option th:value="6">6:00-8:00</option>
-					<option th:value="8">8:00-10:00</option>
-					<option th:value="10">10:00-12:00</option>
-					<option th:value="12">12:00-14:00</option>
-					<option th:value="12">14:00-16:00</option>
-					<option th:value="12">16:00-18:00</option>
-					<option th:value="12">18:00-20:00</option>
-					<option th:value="12">20:00-22:00</option>
-				</select>
-				
+					<select th:name="hour" class="form-control ">
+						<option th:value="6">6:00-8:00</option>
+						<option th:value="8">8:00-10:00</option>
+						<option th:value="10">10:00-12:00</option>
+						<option th:value="12">12:00-14:00</option>
+						<option th:value="12">14:00-16:00</option>
+						<option th:value="12">16:00-18:00</option>
+						<option th:value="12">18:00-20:00</option>
+						<option th:value="12">20:00-22:00</option>
+					</select>
+
 				</div>
 				<br>
-				
-				<button type="submit"  class="btn btn-info col-2">ZMIEŃ</button>
-			
-			</form>
-			<br>
 
+				<button type="submit" class="btn btn-info ">ZMIEŃ</button>
+
+			</form>
+			</div>
+			</div>
+		
+
+<div class="card mb-5" style="width: 30rem; float:right">
+ <div class="card-header">
+    <b>Dodaj jazdę</b>
+  
+  </div>			
+ <div class="card-body" >
+  <form th:action="@{/timetable/saveNew(today=${today})}"
+				th:object="${timetableToAdd}" method="POST">
+			
+				 <input type="hidden" th:field="*{id}"/>
+				 
+					<input
+					type="hidden" th:field="*{driving}" /> 
+					<input type="hidden"
+					th:field="*{car}" />
+					
+				Instruktor<select th:field="*{instructor}"
+					class="form-control ">
+
+					<option th:each="instructor: ${instructors}"
+						th:value="${instructor.id}"
+						th:text="${instructor.name}+' '+${instructor.surname} " />
+				</select> <br>
+				Godzina
+				<div th:object=${hour}>
+					<select th:name="hour" class="form-control ">
+						<option th:value="6">6:00-8:00</option>
+						<option th:value="8">8:00-10:00</option>
+						<option th:value="10">10:00-12:00</option>
+						<option th:value="12">12:00-14:00</option>
+						<option th:value="12">14:00-16:00</option>
+						<option th:value="12">16:00-18:00</option>
+						<option th:value="12">18:00-20:00</option>
+						<option th:value="12">20:00-22:00</option>
+					</select>
+
+				</div>
+				<br>
+
+				<button type="submit" class="btn btn-info ">DODAJ</button>
+
+			</form>
+			</div>
+			</div>
+
+
+
+
+
+ 
 		</div>
 	</div>
 </body>
