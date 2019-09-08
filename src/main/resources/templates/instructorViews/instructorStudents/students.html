@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Drivings</title>
+<title>Admin Students</title>
 <meta charset="utf-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -22,7 +22,7 @@
 				width="70px" /></a>
 		</div>
 		<div class="flex-fill">
-			<a th:href="@{/}">
+			<a th:href="@{/instructors/profile}">
 				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
 			</a>
 		</div>
@@ -30,84 +30,54 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong> <a
-				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-
+			<strong>Zalogowany użytkownik: instruktor</strong> <a href="/logout"><button
+					type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
-
 	</nav>
 	<div class="page">
+
 		<br>
 		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
 			<div class="flex-fill">
-				<h3>JAZDY</h3>
-			</div>
-			<div class="flex-fill">
-				<a th:href="@{/drivings/showFormForAdd}"><button type="button"
-						class="btn btn btn-primary">DODAJ JAZDĘ</button></a>
-			</div>
-			<div class="flex-fill">
-				<a th:href="@{/drivings/listArchived}"><button type="button"
-						class="btn btn-outline-secondary">Zarchiwizowane jazdy</button></a>
+				<h3>LISTA KURSANTÓW</h3>
 			</div>
 		</nav>
 
-
 		<br> <input class="form-control" id="myInput" type="text"
-			placeholder="Szukaj..."> <br> <br>
+			placeholder="Szukaj..."> <br>
 		<div class="table-responsive">
-			<table class="table table-hover">
+			<table class="table table-hover  table-sm">
 				<thead>
 					<tr class="table-primary">
-						<th>Id</th>
-						<th>Typ</th>
+						<th>Nr</th>
+						<th>Kategoria</th>
 						<th>Kursant</th>
 						<th>Początek</th>
-						<th>Koniec</th>
-						<th>Zrealizowana</th>
-						<th>Odwołana</th>
-						
+						<th>Telefon</th>
+						<th>Email</th>
+						<th>Godziny opłacone</th>
+						<th>Godziny wykorzystane</th>
+						<th>Zakończony</th>
 
 					</tr>
 				</thead>
 				<tbody id="myTable">
-					<tr th:each="driving:${drivings}">
-						<td th:text="${driving.id}" />
-						<td th:text="${driving.drivingType.type}" />
-						<td
-							th:text="${driving.student.name}+' '+${driving.student.surname} " />
-						<td
-							th:text="${#dates.format(driving.startHour,'dd.MM.yyyy HH:mm')}" />
-						<td
-							th:text="${#dates.format(driving.finishHour,'dd.MM.yyyy HH:mm')}" />
-						
-						<div th:if="${driving.done} eq 0">
-						<td th:text="NIE" />
-						</div>
-						<div th:unless="${driving.done} eq 0">
-						<td th:text="TAK" />
-						</div>
+					<tr th:each="student:${students}">
+						<td th:text="${student.id}" />
+						<td></td>
+						<td th:text="${student.name} + ' ' + ${student.surname}" />
+						<td></td>
+						<td th:text="${student.phoneNumber}" />
+						<td th:text="${student.email}" />
+						<td>30</td>
+						<td></td>
+						<td th:text="${student.deleted}" />
 						
 						
-						<div th:if="${driving.cancelled} eq 0">
-						<td th:text="NIE" />
-						</div>
-						<div th:unless="${driving.cancelled} eq 0">
-						<td th:text="TAK" />
-						</div>
-						
-						
-						<td><a
-							th:href="@{/drivings/showFormForUpdate(id_driving=${driving.id})}"
-							class="btn btn-primary">EDYTUJ</a></td>
-						<td><a
-							th:href="@{/drivings/archiveDriving(id_driving=${driving.id})}"
-							class="btn btn-danger">ARCHIWIZUJ</a></td>
+
 
 					</tr>
 				</tbody>
-
-
 			</table>
 		</div>
 	</div>
@@ -136,7 +106,5 @@
 											});
 						});
 	</script>
-
 </body>
-
 </HTML>

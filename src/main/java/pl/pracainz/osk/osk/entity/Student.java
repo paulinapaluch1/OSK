@@ -13,7 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Past;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -42,7 +42,6 @@ public class Student {
 	
 	@Column
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	@NotNull
 	@Past
 	private Date birthdate;
 
@@ -64,7 +63,9 @@ public class Student {
 	@Column
 	private String phoneNumber;
 
+	
 	@Column
+	//@Email(message = "Niepoprawny email")
 	private String email;
 
 	@Column

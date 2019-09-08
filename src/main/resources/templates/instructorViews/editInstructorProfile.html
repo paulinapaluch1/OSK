@@ -19,7 +19,7 @@
 				width="70px" /></a>
 		</div>
 		<div class="flex-fill">
-			<a th:href="@{/cars/list}">
+			<a th:href="@{/instructors/profile}">
 				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
 			</a>
 		</div>
@@ -27,28 +27,28 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong> <a
-				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+			<strong>Zalogowany użytkownik: instruktor</strong> <a href="/logout"><button
+					type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 
 	</nav>
 	<div class="page">
 		<div class="container">
 
-			<h3>POJAZD</h3>
+			<h3>INSTRUKTOR</h3>
 
-			<form action="#" th:action="@{/cars/save}" th:object="${car}"
-				method="POST">
+			<form action="#" th:action="@{/instructors/data/save}"
+				th:object="${instructor}" method="POST">
 
-				<input type="hidden" th:field="*{id}" /> Numer rejestracyjny: <input
-					type="text" th:field="*{registrationNumber}"
-					class="form-control mb-4 col-4"> Marka: <input type="text"
-					th:field="*{brand}" class="form-control mb-4 col-4"> Model:
-				<input type="text" th:field="*{model}"
-					class="form-control mb-4 col-4"> 
-				<button type="submit" class="btn btn-info col-2">ZAPISZ</button>
-				<a th:href="@{/cars/list}" class="btn btn-danger">ANULUJ</a>
+				<input type="hidden" th:field="*{id}" /> <input type="hidden"
+					th:field="*{login}" /> <input type="hidden" th:field="*{name}" />
+				<input type="hidden" th:field="*{surname}" />Telefon: <input
+					type="text" th:field="*{phoneNumber}"
+					class="form-control mb-4 col-4"> E-mail: <input type="text"
+					th:field="*{email}" class="form-control mb-4 col-4"> 
 
+				<button type="submit" class="btn btn-info col-2">Zapisz</button>
+				<a th:href="@{/instructors/profile}" class="btn btn-danger">ANULUJ</a>
 			</form>
 		</div>
 	</div>

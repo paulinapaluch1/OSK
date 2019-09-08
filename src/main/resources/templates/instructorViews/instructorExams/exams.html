@@ -1,17 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Drivings</title>
+<title>Admin Exams</title>
 <meta charset="utf-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 </head>
 <body>
 	<nav
@@ -22,7 +20,7 @@
 				width="70px" /></a>
 		</div>
 		<div class="flex-fill">
-			<a th:href="@{/}">
+			<a th:href="@{/instructors/profile}">
 				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
 			</a>
 		</div>
@@ -32,7 +30,6 @@
 		<div class="flex-fill">
 			<strong>Zalogowany użytkownik: administrator</strong> <a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-
 		</div>
 
 	</nav>
@@ -40,70 +37,55 @@
 		<br>
 		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
 			<div class="flex-fill">
-				<h3>JAZDY</h3>
+				<h3>LISTA EGZAMINÓW</h3>
 			</div>
 			<div class="flex-fill">
-				<a th:href="@{/drivings/showFormForAdd}"><button type="button"
-						class="btn btn btn-primary">DODAJ JAZDĘ</button></a>
+				<a th:href="@{/}"><button type="button"
+						class="btn btn btn-primary">DODAJ EGZAMIN</button></a>
 			</div>
 			<div class="flex-fill">
-				<a th:href="@{/drivings/listArchived}"><button type="button"
-						class="btn btn-outline-secondary">Zarchiwizowane jazdy</button></a>
+				<a th:href="@{/}"><button type="button"
+						class="btn btn-outline-secondary">Zarchiwizowane egzaminy</button></a>
 			</div>
 		</nav>
 
 
 		<br> <input class="form-control" id="myInput" type="text"
-			placeholder="Szukaj..."> <br> <br>
+			placeholder="Szukaj..."> <br>
+		
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>
 					<tr class="table-primary">
-						<th>Id</th>
-						<th>Typ</th>
+						<th>Id egzaminu</th>
+						<th>Instruktor</th>
 						<th>Kursant</th>
-						<th>Początek</th>
-						<th>Koniec</th>
-						<th>Zrealizowana</th>
-						<th>Odwołana</th>
-						
-
+						<th>Data</th>
+						<th>Godzina</th>
+						<th>Wynik</th>
+						<th>Typ</th>
 					</tr>
 				</thead>
 				<tbody id="myTable">
-					<tr th:each="driving:${drivings}">
-						<td th:text="${driving.id}" />
-						<td th:text="${driving.drivingType.type}" />
+					<tr th:each="exam:${internalexams}">
+						<td th:text="${exam.id}" />
 						<td
-							th:text="${driving.student.name}+' '+${driving.student.surname} " />
-						<td
-							th:text="${#dates.format(driving.startHour,'dd.MM.yyyy HH:mm')}" />
-						<td
-							th:text="${#dates.format(driving.finishHour,'dd.MM.yyyy HH:mm')}" />
+							th:text="${exam.instructor.name} + ' ' + ${exam.instructor.surname}" />
+						<td th:text="${exam.student.name} + ' ' + ${exam.student.surname}" />
+						<td th:text="${#dates.format(exam.dateHour, 'dd-MM-yyyy')}" />
+						<td th:text="${#dates.format(exam.dateHour, 'HH:mm')}" />
 						
-						<div th:if="${driving.done} eq 0">
-						<td th:text="NIE" />
+						<div th:switch="${exam.result}" >
+						<div th:case=0> <td th:text="negatywny"/>
 						</div>
-						<div th:unless="${driving.done} eq 0">
-						<td th:text="TAK" />
+						<div th:case=1> <td th:text="pozytywny"/>
 						</div>
 						
-						
-						<div th:if="${driving.cancelled} eq 0">
-						<td th:text="NIE" />
 						</div>
-						<div th:unless="${driving.cancelled} eq 0">
-						<td th:text="TAK" />
-						</div>
-						
-						
+						<td th:text="${exam.type}" />
 						<td><a
-							th:href="@{/drivings/showFormForUpdate(id_driving=${driving.id})}"
+							th:href="@{/exams/showFormForUpdate(id_internalExam=${exam.id})}"
 							class="btn btn-primary">EDYTUJ</a></td>
-						<td><a
-							th:href="@{/drivings/archiveDriving(id_driving=${driving.id})}"
-							class="btn btn-danger">ARCHIWIZUJ</a></td>
-
 					</tr>
 				</tbody>
 
@@ -111,6 +93,7 @@
 			</table>
 		</div>
 	</div>
+
 	<script>
 		$(document)
 				.ready(
@@ -138,5 +121,4 @@
 	</script>
 
 </body>
-
 </HTML>

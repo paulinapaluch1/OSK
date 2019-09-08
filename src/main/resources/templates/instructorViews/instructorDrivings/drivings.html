@@ -22,7 +22,7 @@
 				width="70px" /></a>
 		</div>
 		<div class="flex-fill">
-			<a th:href="@{/}">
+			<a th:href="@{/instructors/profile}">
 				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
 			</a>
 		</div>
@@ -30,7 +30,7 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong> <a
+			<strong>Zalogowany użytkownik: instruktor</strong> <a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 
 		</div>
@@ -42,12 +42,9 @@
 			<div class="flex-fill">
 				<h3>JAZDY</h3>
 			</div>
+
 			<div class="flex-fill">
-				<a th:href="@{/drivings/showFormForAdd}"><button type="button"
-						class="btn btn btn-primary">DODAJ JAZDĘ</button></a>
-			</div>
-			<div class="flex-fill">
-				<a th:href="@{/drivings/listArchived}"><button type="button"
+				<a th:href="@{/}"><button type="button"
 						class="btn btn-outline-secondary">Zarchiwizowane jazdy</button></a>
 			</div>
 		</nav>
@@ -59,51 +56,35 @@
 			<table class="table table-hover">
 				<thead>
 					<tr class="table-primary">
-						<th>Id</th>
-						<th>Typ</th>
+						<th>Nr</th>
+						<th>Kategoria</th>
 						<th>Kursant</th>
+						<th>Samochód</th>
+						<th>Typ</th>
 						<th>Początek</th>
 						<th>Koniec</th>
-						<th>Zrealizowana</th>
-						<th>Odwołana</th>
-						
-
+						<th>Odbyła się</th>
 					</tr>
 				</thead>
 				<tbody id="myTable">
 					<tr th:each="driving:${drivings}">
 						<td th:text="${driving.id}" />
-						<td th:text="${driving.drivingType.type}" />
+						<td></td>
 						<td
 							th:text="${driving.student.name}+' '+${driving.student.surname} " />
+						<td
+							th:text="${driving.timetable.car.name} " />
+						<td th:text="${driving.drivingType.type}" />
+						
 						<td
 							th:text="${#dates.format(driving.startHour,'dd.MM.yyyy HH:mm')}" />
 						<td
 							th:text="${#dates.format(driving.finishHour,'dd.MM.yyyy HH:mm')}" />
 						
-						<div th:if="${driving.done} eq 0">
-						<td th:text="NIE" />
-						</div>
-						<div th:unless="${driving.done} eq 0">
-						<td th:text="TAK" />
-						</div>
-						
-						
-						<div th:if="${driving.cancelled} eq 0">
-						<td th:text="NIE" />
-						</div>
-						<div th:unless="${driving.cancelled} eq 0">
-						<td th:text="TAK" />
-						</div>
-						
 						
 						<td><a
 							th:href="@{/drivings/showFormForUpdate(id_driving=${driving.id})}"
-							class="btn btn-primary">EDYTUJ</a></td>
-						<td><a
-							th:href="@{/drivings/archiveDriving(id_driving=${driving.id})}"
-							class="btn btn-danger">ARCHIWIZUJ</a></td>
-
+							class="btn btn-primary">ODBYŁA SIĘ</a></td>
 					</tr>
 				</tbody>
 

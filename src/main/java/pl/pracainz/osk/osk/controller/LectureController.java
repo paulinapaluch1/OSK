@@ -1,5 +1,6 @@
 package pl.pracainz.osk.osk.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +16,6 @@ import pl.pracainz.osk.osk.dao.CategoryRepository;
 import pl.pracainz.osk.osk.dao.CourseRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.LectureRepository;
-import pl.pracainz.osk.osk.entity.Car;
 import pl.pracainz.osk.osk.entity.Lecture;
 
 @Controller
@@ -51,10 +51,12 @@ public class LectureController {
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
 		Lecture theLecture = new Lecture();
+		//theLecture.setDate(LocalDateTime.now());
 		theModel.addAttribute("lecture", theLecture);
 		theModel.addAttribute("courses", courseRepository.findAll());
 		theModel.addAttribute("instructors", instructorRepository.findAll());
 		theModel.addAttribute("categories", categoryRepository.findAll());
+	//	theModel.addAttribute("date",LocalDateTime.now());
 		return "adminViews/adminLectures/lectureForm";
 	}
 
@@ -65,12 +67,14 @@ public class LectureController {
 		theModel.addAttribute("courses", courseRepository.findAll());
 		theModel.addAttribute("instructors", instructorRepository.findAll());
 		theModel.addAttribute("categories", categoryRepository.findAll());
+		//theModel.addAttribute("date",theLecture.get().getDate());
 		return "adminViews/adminLectures/lectureForm";
 	}
 
 	@PostMapping("save")
 	public String saveLecture(@ModelAttribute("lecture") Lecture theLecture) {
 		lectureRepository.save(theLecture);
+		
 		return "redirect:/lectures/list";
 	}
 	

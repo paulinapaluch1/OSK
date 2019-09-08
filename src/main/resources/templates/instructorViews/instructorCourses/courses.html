@@ -1,18 +1,18 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Admin Instructor Opinions</title>
+<title>Admin Profile</title>
 <meta charset="utf-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
-
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
+
 </head>
 <body>
 	<nav
@@ -23,7 +23,7 @@
 				width="70px" /></a>
 		</div>
 		<div class="flex-fill">
-			<a th:href="@{/opinions/cars}">
+			<a th:href="@{/instructors/profile}">
 				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
 			</a>
 		</div>
@@ -34,63 +34,71 @@
 			<strong>Zalogowany użytkownik: administrator</strong> <a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
-
 	</nav>
 	<div class="page">
+
 		<br>
 		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
 			<div class="flex-fill">
-				<h3>SAMOCHODY - NOWE OPINIE</h3>
-			</div>
-			<div class="flex-fill">
-				<a th:href="@{/opinions/cars/checkedOpinions}"><button
-						type="button" class="btn btn-outline-secondary">Zatwierdzone
-						opinie</button></a>
-			</div>
-			<div class="flex-fill">
-				<a th:href="@{/opinions/cars/rejectedOpinions}"><button
-						type="button" class="btn btn-outline-secondary">Odrzucone
-						opinie</button></a>
+				<h3>TWOJE KURSY</h3>
 			</div>
 		</nav>
 
 
-		<br>
-
+		<br> <input class="form-control" id="myInput" type="text"
+			placeholder="Szukaj..."> <br>
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>
 					<tr class="table-primary">
-						<th>Id opinii</th>
-						<th>Kursant</th>
-						<th>Samochód</th>
-						<th>Ocena</th>
-						<th>Opinia</th>
+						<th>Id</th>
+						<th>Kategoria</th>
+						<th>Instruktor</th>
+						<th>Początek</th>
+
 					</tr>
 				</thead>
 				<tbody id="myTable">
-					<tr th:each="caropinion:${caropinions}">
-						<td th:text="${caropinion.id}" />
+					<tr th:each="course:${courses}">
+						<td th:text="${course.id}" />
+						<td th:text="${course.category.categoryName}" />
 						<td
-							th:text="${caropinion.student.name + ' ' + caropinion.student.surname}" />
-						<td th:text="${caropinion.car.registrationNumber}" />
-						<td th:text="${caropinion.carMark}" />
-						<td th:text="${caropinion.carOpinion}" />
-						<td><a
-							th:href="@{/opinions/confirmCar(id_carOpinion=${caropinion.id})}"
-							class="btn btn-success">Zatwierdź</a></td>
-						<td><a
-							th:href="@{/opinions/rejectCar(id_carOpinion=${caropinion.id})}"
-							class="btn btn-danger">Odrzuć</a></td>
-
+							th:text="${course.instructor.name}+' ' +${course.instructor.surname} " />
+						<td th:text="${#dates.format(course.startDate, 'dd-MM-yyyy')}" />
 					</tr>
 				</tbody>
-
-
 			</table>
 		</div>
 
-
 	</div>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$("#myInput")
+									.on(
+											"keyup",
+											function() {
+												var value = $(this).val()
+														.toLowerCase();
+												$("#myTable tr")
+														.filter(
+																function() {
+																	$(this)
+																			.toggle(
+																					$(
+																							this)
+																							.text()
+																							.toLowerCase()
+																							.indexOf(
+																									value) > -1)
+																});
+											});
+						});
+	</script>
 </body>
 </html>
+
+
+
+
