@@ -30,7 +30,7 @@
 		<div class="container">
 			<br>
 			<h3 style="float: left;" th:text="${title}"></h3>
-			<a th:href="@{/timetable/list}" style="float: right;"
+			<a th:href="@{/timetable/changeDate(date=${today})}" style="float: right;"
 				class=" btn btn-outline-secondary">GRAFIK</a> <br>
 			<br>
 			<p
@@ -57,6 +57,10 @@
 							<td th:text="${#temporals.format(timetable.end,'HH:mm')}" />
 							<td
 								th:text="${timetable.instructor.name}+' ' +${timetable.instructor.surname} " />
+						<td><a th:href="@{/timetable/delete(id_timetable=${timetable.id})}"><button
+												type="button" class="btn btn-danger">USUŃ</button></a></td>
+						
+						
 						</tr>
 					</tbody>
 				</table>
