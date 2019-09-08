@@ -1,18 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Instruktorzy</title>
+<title>Admin Cars</title>
 <meta charset="utf-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
-
 </head>
 <body>
 	<nav
@@ -33,35 +30,72 @@
 		<div class="flex-fill">
 			<strong>Zalogowany użytkownik: kursant</strong> <a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+
 		</div>
 
 	</nav>
 	<div class="page">
-		<h3>Instruktorzy</h3>
+		<br>
+		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
+			<div class="flex-fill">
+				<h3>LISTA SAMOCHODÓW</h3>
+			</div>
+		</nav>
 
+
+		<br> <input class="form-control" id="myInput" type="text"
+			placeholder="Szukaj..."> <br>
 		<div class="table-responsive">
-			<table class="table table-hover  table-sm">
+			<table class="table table-hover">
 				<thead>
 					<tr class="table-primary">
-						<th>Imię</th>
-						<th>Nazwisko</th>
+						<th>Numer rejestracyjny</th>
+						<th>Marka</th>
+						<th>Model</th>
+						
 					</tr>
 				</thead>
 				<tbody id="myTable">
-					<tr th:each="instructor:${instructors}">
-						<td th:text="${instructor.name}" />
-						<td th:text="${instructor.surname}" />
-						<td><a
-							th:href="@{/students/rateInstructors(id_instructor=${instructor.id})}"
+					<tr th:each="car:${cars}">
+						<td th:text="${car.registrationNumber}" />
+						<td th:text="${car.brand}" />
+						<td th:text="${car.model}" />
+						<td><a th:href="@{/}"
 							class="btn btn-primary">OCEŃ</a></td>
-
 					</tr>
+
 				</tbody>
+
 
 			</table>
 		</div>
 
 	</div>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$("#myInput")
+									.on(
+											"keyup",
+											function() {
+												var value = $(this).val()
+														.toLowerCase();
+												$("#myTable tr")
+														.filter(
+																function() {
+																	$(this)
+																			.toggle(
+																					$(
+																							this)
+																							.text()
+																							.toLowerCase()
+																							.indexOf(
+																									value) > -1)
+																});
+											});
+						});
+	</script>
 
 
 </body>
