@@ -2,7 +2,6 @@ package pl.pracainz.osk.osk.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.pracainz.osk.osk.dao.CarRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.TimetableRepository;
-import pl.pracainz.osk.osk.entity.Car;
 import pl.pracainz.osk.osk.entity.Timetable;
 
 @Controller
@@ -41,7 +39,7 @@ public class TimetableController {
 	public String showTimetable(Model theModel) {
 		theModel.addAttribute("timetables", timetableRepository.findAll());
 		theModel.addAttribute("cars", carRepository.findAll());
-		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(26, 8, 2019));
+		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
 		theModel.addAttribute("today", LocalDate.now());
 		theModel.addAttribute("dayName", getDayName(LocalDate.now()));
 		return "adminViews/adminTimetable/timetable";
@@ -143,12 +141,11 @@ public class TimetableController {
 	
 	@GetMapping("/editDayForCar")
 	public String editDayForCar(@RequestParam(name = "date", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date,
-			@RequestParam("id") int id_car,
-			Model theModel) {
+			@RequestParam("id") int id_car,			Model theModel) {
 
-		List<Timetable> theTimetable = timetableRepository.queryByDayAndMonthAndYearAndCar(date.getDayOfMonth(),date.getMonth().getValue(),date.getYear(),id_car);
 		String editTitle = "EDYTUJ ZAPLANOWANE JAZDY";
-		theModel.addAttribute("timetablesToday", theTimetable);
+		theModel.addAttribute("timetablesToday", 
+				timetableRepository.queryByDayAndMonthAndYearAndCar(date.getDayOfMonth(),date.getMonth().getValue(),date.getYear(),id_car));	
 		theModel.addAttribute("title", editTitle);
 		theModel.addAttribute("instructors", instructorRepository.findAll());
 		theModel.addAttribute("car",carRepository.getOne(id_car));
@@ -190,16 +187,21 @@ public class TimetableController {
 	public String saveNewTimetable(@RequestParam(value = "hour", required = false) String hour,
 			@ModelAttribute("timetable") Timetable timetable, BindingResult result, Model theModel,
 			@RequestParam(name = "today", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date) 
-	{	
+	{		
+		Timetable theTimetable = timetableRepository.getOne(timetable.getId());
 		int begin = Integer.parseInt(hour);
 		int end = begin+2;
 		LocalDate day=date;
-		//timetable.setBegin(LocalDateTime.of(date.getDayOfMonth(),date.getMonth(),date.getYear(),begin,0,0));
-		//timetable.setEnd(LocalDateTime.of(date.getDayOfMonth(),date.getMonth(),date.getYear(),end,0,0));
-//timetableRepository.save(timetable);
+		theTimetable.setBegin(LocalDateTime.of(theTimetable.getBegin().getYear(),theTimetable.getBegin().getMonth(),theTimetable.getBegin().getDayOfMonth(),begin,0,0));
+		theTimetable.setEnd(LocalDateTime.of(theTimetable.getBegin().getYear(),theTimetable.getBegin().getMonth(),theTimetable.getBegin().getDayOfMonth(),end,0,0));
+		theTimetable.setInstructor(timetable.getInstructor());
 		
+		timetableRepository.save(theTimetable);
+	
 		String editTitle = "EDYTUJ ZAPLANOWANE JAZDY";
-		theModel.addAttribute("timetablesToday", timetable);
+		theModel.addAttribute("timetablesToday", //timetableRepository.findAll());
+				
+			timetableRepository.queryByDayAndMonthAndYearAndCar(theTimetable.getBegin().getDayOfMonth(),theTimetable.getBegin().getMonthValue(),theTimetable.getBegin().getYear(),1));
 		theModel.addAttribute("title", editTitle);
 		theModel.addAttribute("instructors", instructorRepository.findAll());
 		theModel.addAttribute("car",carRepository.getOne(1));
