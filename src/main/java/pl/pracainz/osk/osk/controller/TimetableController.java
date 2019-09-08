@@ -153,6 +153,9 @@ public class TimetableController {
 		Timetable timetable=new Timetable();
 		timetable.setCar(carRepository.getOne(id_car));
 		theModel.addAttribute("timetable",timetable);
+		theModel.addAttribute("timetableToAdd",new Timetable());
+		
+		
 		
 		return "adminViews/adminTimetable/editDayForCar";
 	}
@@ -183,34 +186,63 @@ public class TimetableController {
 	}
 	
 
-	@RequestMapping(value = "/saveNewTimetable", method = RequestMethod.GET)
+	@RequestMapping(value = "/saveNewTimetableForDay", method = RequestMethod.GET)
 	public String saveNewTimetable(@RequestParam(value = "hour", required = false) String hour,
 			@ModelAttribute("timetable") Timetable timetable, BindingResult result, Model theModel,
 			@RequestParam(name = "today", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date) 
-	{		
-		Timetable theTimetable = timetableRepository.getOne(timetable.getId());
+	{	Timetable theTimetable = timetableRepository.getOne(timetable.getId());
 		int begin = Integer.parseInt(hour);
 		int end = begin+2;
 		LocalDate day=date;
 		theTimetable.setBegin(LocalDateTime.of(theTimetable.getBegin().getYear(),theTimetable.getBegin().getMonth(),theTimetable.getBegin().getDayOfMonth(),begin,0,0));
 		theTimetable.setEnd(LocalDateTime.of(theTimetable.getBegin().getYear(),theTimetable.getBegin().getMonth(),theTimetable.getBegin().getDayOfMonth(),end,0,0));
 		theTimetable.setInstructor(timetable.getInstructor());
-		
 		timetableRepository.save(theTimetable);
-	
 		String editTitle = "EDYTUJ ZAPLANOWANE JAZDY";
-		theModel.addAttribute("timetablesToday", //timetableRepository.findAll());
-				
-			timetableRepository.queryByDayAndMonthAndYearAndCar(theTimetable.getBegin().getDayOfMonth(),theTimetable.getBegin().getMonthValue(),theTimetable.getBegin().getYear(),1));
+		theModel.addAttribute("timetablesToday", //timetableRepository.findAll());		
+		timetableRepository.queryByDayAndMonthAndYearAndCar(theTimetable.getBegin().getDayOfMonth(),theTimetable.getBegin().getMonthValue(),theTimetable.getBegin().getYear(),1));
 		theModel.addAttribute("title", editTitle);
 		theModel.addAttribute("instructors", instructorRepository.findAll());
 		theModel.addAttribute("car",carRepository.getOne(1));
 		theModel.addAttribute("today",LocalDate.now());
+		Timetable timetable1=new Timetable();
+		timetable1.setCar(carRepository.getOne(1));
+		theModel.addAttribute("timetable",timetable);
+		theModel.addAttribute("timetableToAdd",new Timetable());
+
 		return "adminViews/adminTimetable/editDayForCar";
 	}
 
 	
-	
+	@RequestMapping(value = "/saveNew", method = RequestMethod.POST)
+	public String saveNew(@RequestParam(value = "hour", required = false) String hour,
+			@ModelAttribute("newTimetable") Timetable timetable, BindingResult result, Model theModel,
+			@RequestParam(name = "today", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date) 
+	{	
+		
+		Timetable newTimetable = timetable;
+		int begin = Integer.parseInt(hour);
+		int end = begin+2;
+		LocalDate day=date;
+		newTimetable.setBegin(LocalDateTime.of(date.getYear(),date.getMonth(),date.getDayOfMonth(),begin,0,0));
+		newTimetable.setEnd(LocalDateTime.of(date.getYear(),date.getMonth(),date.getDayOfMonth(),end,0,0));
+		newTimetable.setInstructor(timetable.getInstructor());
+		newTimetable.setCar(carRepository.getOne(1));
+		timetableRepository.save(newTimetable);
+		String editTitle = "EDYTUJ ZAPLANOWANE JAZDY";
+		theModel.addAttribute("timetablesToday", //timetableRepository.findAll());		
+		timetableRepository.queryByDayAndMonthAndYearAndCar(date.getDayOfMonth(),date.getMonthValue(),date.getYear(),1));
+		theModel.addAttribute("title", editTitle);
+		theModel.addAttribute("instructors", instructorRepository.findAll());
+		theModel.addAttribute("car",carRepository.getOne(1));
+		theModel.addAttribute("today",LocalDate.now());
+		theModel.addAttribute("timetableToAdd",new Timetable());
+		Timetable timetable1=new Timetable();
+		timetable1.setCar(carRepository.getOne(1));
+		theModel.addAttribute("timetable",timetable);
+		
+		return "adminViews/adminTimetable/editDayForCar";
+	}
 	
 	
 	
