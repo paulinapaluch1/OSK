@@ -23,7 +23,7 @@
 				width="70px" /></a>
 		</div>
 		<div class="flex-fill">
-			<a th:href="@{/}">
+			<a th:href="@{/students/profile}">
 				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
 			</a>
 		</div>
@@ -31,7 +31,7 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong> <a
+			<strong>Zalogowany użytkownik: kursant</strong> <a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 
@@ -40,11 +40,11 @@
 		<h3>Instruktorzy</h3>
 
 		<div class="table-responsive">
-			<table class="table table-bordered table-hover  table-sm">
+			<table class="table table-hover  table-sm">
 				<thead>
 					<tr class="table-primary">
-						<td>Imię</td>
-						<td>Nazwisko</td>
+						<th>Imię</th>
+						<th>Nazwisko</th>
 					</tr>
 				</thead>
 				<tbody id="myTable">

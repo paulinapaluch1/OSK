@@ -27,7 +27,6 @@ public class CarController {
 	public String listCars(Model theModel) {
 		List<Car> theCars = carRepository.findByDeleted(0);
 		theModel.addAttribute("cars", theCars);
-
 		return "adminViews/adminCars/cars";
 	}
 
@@ -35,54 +34,42 @@ public class CarController {
 	public String listArchivedCars(Model theModel) {
 		List<Car> theCars = carRepository.findByDeleted(1);
 		theModel.addAttribute("cars", theCars);
-
 		return "adminViews/adminCars/carsArchived";
 	}
 
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
-
 		Car theCar = new Car();
-
 		theModel.addAttribute("car", theCar);
-
 		return "adminViews/adminCars/carForm";
 	}
 
 	@GetMapping("/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("id_car") int id, Model theModel) {
-
 		Optional<Car> theCar = carRepository.findById(id);
-
 		theModel.addAttribute("car", theCar);
-
 		return "adminViews/adminCars/carForm";
 	}
 
 	@PostMapping("save")
 	public String saveCar(@ModelAttribute("car") Car theCar) {
 		carRepository.save(theCar);
-
 		return "redirect:/cars/list";
 	}
 
 	@GetMapping("/archiveCar")
 	public String archiveCar(@RequestParam("id_car") int id, Model theModel) {
-
 		Car theCar = carRepository.getOne(id);
 		theCar.setDeleted(1);
 		carRepository.save(theCar);
-
 		return "redirect:/cars/list";
 	}
 
 	@GetMapping("/unarchiveCar")
 	public String unarchiveCar(@RequestParam("id_car") int id, Model theModel) {
-
 		Car theCar = carRepository.getOne(id);
 		theCar.setDeleted(0);
 		carRepository.save(theCar);
-
 		return "redirect:/cars/listArchived";
 	}
 }

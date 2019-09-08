@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Admin Students</title>
+<title>Admin Profile</title>
 <meta charset="utf-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -12,6 +12,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
+
 </head>
 <body>
 	<nav
@@ -35,70 +36,40 @@
 		</div>
 	</nav>
 	<div class="page">
-	
-	<br>
+
+		<br>
 		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
 			<div class="flex-fill">
-				<h3>AKTUALNA LISTA KURSANTÓW</h3>
-			</div>
-			<div class="flex-fill">
-				<a th:href="@{/students/showFormForAdd}"><button type="button"
-						class="btn btn btn-primary">DODAJ KURSANTA</button></a>
-			</div>
-			<div class="flex-fill">
-				<a th:href="@{/students/listArchived}"><button type="button"
-						class="btn btn-outline-secondary">Zarchiwizowani
-						kursanci</button></a>
+				<h3>LISTA KURSÓW</h3>
 			</div>
 		</nav>
+
 
 		<br> <input class="form-control" id="myInput" type="text"
 			placeholder="Szukaj..."> <br>
 		<div class="table-responsive">
-			<table class="table table-hover  table-sm">
+			<table class="table table-hover">
 				<thead>
 					<tr class="table-primary">
 						<th>Id</th>
-						<th>Imię</th>
-						<th>Nazwisko</th>
-						<th>Login</th>
-						<th>Hasło</th>
-						<th>Data ur.</th>
-						<th>Adres</th>
-						<th>Telefon</th>
-						<th>Email</th>
-						<th>PKK</th>
-						<th>Godz. przejechane</th>
-						<th>Godz. opłacone</th>
-						
+						<th>Kategoria</th>
+						<th>Instruktor</th>
+						<th>Początek</th>
+
 					</tr>
 				</thead>
 				<tbody id="myTable">
-					<tr th:each="tempStudent:${students}">
-						<td th:text="${tempStudent.id}" />
-						<td th:text="${tempStudent.name}" />
-						<td th:text="${tempStudent.surname}" />
-						<td th:text="${tempStudent.login}" />
-						<td><button name="sendPassword">Wyślij hasło</button></td>
+					<tr th:each="course:${courses}">
+						<td th:text="${course.id}" />
+						<td th:text="${course.category.categoryName}" />
 						<td
-							th:text="${#dates.format(tempStudent.birthdate,'dd.MM.yyyy')} " />
-						<td
-							th:text="'ul. '+${tempStudent.street}+ ' ' +${tempStudent.buildingNumber}+ '/ ' +${tempStudent.apartmentNumber}+ ' ' +${tempStudent.postCode}+ ' ' +${tempStudent.city}" />
-						<td th:text="${tempStudent.phoneNumber}" />
-						<td th:text="${tempStudent.email}" />
-						<td th:text="${tempStudent.PKK}" />
-						<td></td>
-						<td>30</td>
-						
-						<td><a th:href="@{/students/showFormForUpdate(id_student=${tempStudent.id})}"
-							class="btn btn-primary">EDYTUJ</a></td>
-							<td><a
-							th:href="@{/students/archiveStudent(id_student=${tempStudent.id})}"
-							class="btn btn-danger">ARCHIWIZUJ</a></td>
+							th:text="${course.instructor.name}+' ' +${course.instructor.surname} " />
+						<td th:text="${#dates.format(course.startDate, 'dd-MM-yyyy')}" />
 					</tr>
 				</tbody>
 			</table>
 		</div>
+
 	</div>
 	<script>
 		$(document)
@@ -126,4 +97,8 @@
 						});
 	</script>
 </body>
-</HTML>
+</html>
+
+
+
+

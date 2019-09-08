@@ -35,16 +35,15 @@
 		</nav>
 
 		<div class="container">
-
-			<h3>WYKŁAD</h3>
+		<h3>WYKŁAD</h3>
 
 			<form action="#" th:action="@{/lectures/save}" th:object="${lecture}"
 				method="POST">
 
-				<input type="hidden" th:field="*{id}" /> Id kursu: <select
+				<input type="hidden" th:field="*{id}" /> Kurs: <select
 					th:field="*{course}" class="form-control mb-4 col-4">
 					<option th:each="course: ${courses}" th:value="${course.id}"
-						th:text="${course.id}" />
+						th:text="${course.id} +'. START: '+${course.startDate}" />
 				</select> Kategoria: <select th:field="*{course.category}"
 					class="form-control mb-4 col-4">
 					<option th:each="category: ${categories}" th:value="${category.id}"
@@ -55,11 +54,11 @@
 						th:value="${instructor.id}"
 						th:text="${instructor.name} + ' ' + ${instructor.surname}" />
 				</select> Numer sali: <input type="text" th:field="*{roomNumber}"
-					class="form-control mb-4 col-4"> Data: <input type="date"
+					class="form-control mb-4 col-4"> Data: <input type="datetime-local"
 					th:field="*{date}" th:value="${date}"
 					class="form-control mb-4 col-4">
 
-				<button type="submit" class="btn btn-info col-2">Zapisz</button>
+				<button type="submit" class="btn btn-info col-2">ZAPISZ</button>
 				
 				<a th:href="@{/lectures/list}" class="btn btn-danger">ANULUJ</a>
 

@@ -46,7 +46,7 @@
 				width="70px" /></a>
 		</div>
 		<div class="flex-fill">
-			<a th:href="@{/}">
+			<a th:href="@{/students/profile}">
 				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
 			</a>
 		</div>
@@ -54,32 +54,12 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong> <a
-				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+			<strong>Zalogowany użytkownik: kursant</strong> <a href="/logout"><button
+					type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 	</nav>
 	<div class="page">
 		<h3>GRAFIK</h3>
-
-		<div th:if="${timetablesToday.isEmpty()}">
-			<p th:text="'Brak grafiku na dzień: '+${dayName}+' '+${today}"></p>
-		</div>
-		<div th:unless="${timetablesToday.isEmpty()}">
-			<p class="inline" th:text="${dayName}+' '+${today}" />
-		</div>
-		<ul class="pagination inline">
-			<li class="page-item"><a class="page-link"
-				th:href="@{/timetable/earlierDate(date=${today})}">&#60;</a></li>
-			<li class="page-item"><a class="page-link"
-				th:href="@{/timetable/nextDate(date=${today})}">&#62;</a></li>
-		</ul>
-		<form th:action="@{/timetable/changeDate}" method="GET">
-			<input style="float: left;" type="date" name="date"
-				th:value="${date}" class="form-control mb-4 col-4">
-			<button style="float: left;" type="submit"
-				class="btn btn-info col-1">ZMIEŃ</button>
-		</form>
-		<a th:href="@{/timetable/list}"><button	style="margin-left:5px" type="button" class="btn btn-primary ">DODAJ</button></a>
 		<br>
 
 		<for:each th:each="car:${cars}">
@@ -91,7 +71,6 @@
 					<table class="table table-bordered table-hover table-sm">
 						<thead>
 							<tr class="table-primary">
-								<td>Id</td>
 								<td>Początek</td>
 								<td>Koniec</td>
 								<td>Instruktor</td>
@@ -100,28 +79,23 @@
 						<tbody id="myTable">
 							<tr th:each="timetable:${timetablesToday}">
 								<span th:if=${car.id}==${timetable.car.id}>
-									<td th:text="${timetable.id}" />
-
 									<td th:text="${#temporals.format(timetable.begin,'HH:mm')}" />
 									<td th:text="${#temporals.format(timetable.end,'HH:mm')}" />
-									<td	th:text="${timetable.instructor.name}+' ' +${timetable.instructor.surname} " />
+									<td
+									th:text="${timetable.instructor.name}+' ' +${timetable.instructor.surname} " />
 
-									<td><a
-										th:href="@{/timetable/edit(id_timetable=${timetable.id})}"><button
-												type="button" class="btn btn-primary">EDYTUJ</button></a></td>
 
 								</span>
-								
+
 							</tr>
 						</tbody>
-						
+
 					</table>
-				<a th:href="@{/timetable/editDayForCar(date=${today},id=${car.id})}"
-												type="button" class="btn btn-primary mb-1">EDYTUJ CAŁY DZIEŃ</a>
-			
+
+
 				</div>
 			</div>
-			
+
 		</for:each>
 
 	</div>
