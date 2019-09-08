@@ -33,7 +33,6 @@ public class Lecture {
 
 	@Column
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	@NotNull
 	private LocalDateTime date;
 	
 	@Column
