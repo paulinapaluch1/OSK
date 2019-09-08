@@ -40,12 +40,9 @@
 			<form action="#" th:action="@{/students/data/save}"
 				th:object="${student}" method="POST">
 
-				<input type="hidden" th:field="*{id}" /> 
-				<input type="hidden" th:field="*{login}" /> 
-				<input type="hidden" th:field="*{name}" /> 
-				<input type="hidden" th:field="*{surname}" /> 
-				
-				Data urodzenia: <input
+				<input type="hidden" th:field="*{id}" /> <input type="hidden"
+					th:field="*{login}" /> <input type="hidden" th:field="*{name}" />
+				<input type="hidden" th:field="*{surname}" /> Data urodzenia: <input
 					type="date" th:field="*{birthdate}" th:value="${birthdate}"
 					class="form-control mb-4 col-4"> Ulica: <input type="text"
 					th:field="*{street}" class="form-control mb-4 col-4"> Numer
@@ -58,9 +55,8 @@
 					class="form-control mb-4 col-4"> Telefon: <input
 					type="text" th:field="*{phoneNumber}"
 					class="form-control mb-4 col-4"> E-mail: <input type="text"
-					th:field="*{email}" class="form-control mb-4 col-4">
-					PKK: <input type="text"
-					th:field="*{PKK}" class="form-control mb-4 col-4">
+					th:field="*{email}" class="form-control mb-4 col-4"> <input
+					type="hidden" th:field="*{PKK}" />
 
 				<button type="submit" class="btn btn-info col-2">Zapisz</button>
 			</form>
