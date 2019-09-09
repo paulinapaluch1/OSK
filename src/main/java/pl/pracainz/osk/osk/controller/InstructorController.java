@@ -44,20 +44,22 @@ public class InstructorController {
 
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
-		Instructor theInstructor = new Instructor();
-		theModel.addAttribute("instructor", theInstructor);
+		theModel.addAttribute("instructor", new Instructor());
 		return "adminViews//adminInstructors/instructorForm";
 	}
 
 	@GetMapping("/showFormForUpdate")
-	public String showFormForUpdate(@RequestParam("id_instructor") int id, Model theModel) {
-		Optional<Instructor> theInstructor = instructorRepository.findById(id);
-		theModel.addAttribute("instructor", theInstructor);
-		return "adminViews/adminInstructors/instructorForm";
+
+	public String showFormForUpdate(@RequestParam("id_instructor") int id,
+									Model theModel) {
+		theModel.addAttribute("instructor", instructorRepository.findById(id));
+		return "adminViews/adminInstructors/instructorForm";			
+
 	}
 
 	@PostMapping("save")
 	public String saveInstructor(@ModelAttribute("instructor") Instructor theInstructor) {
+		theInstructor.setDeleted(0);
 		instructorRepository.save(theInstructor);
 		return "redirect:/instructors/list";
 	}

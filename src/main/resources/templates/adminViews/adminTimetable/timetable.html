@@ -77,7 +77,7 @@
 			<input style="float: left;" type="date" name="date"
 				th:value="${date}" class="form-control mb-4 col-4">
 			<button style="float: left;" type="submit"
-				class="btn btn-info col-1">ZMIEŃ</button>
+				class="btn btn-info ">ZMIEŃ</button>
 		</form>
 		<a th:href="@{/timetable/list}"><button	style="margin-left:5px" type="button" class="btn btn-primary ">DODAJ</button></a>
 		<br>
@@ -88,13 +88,13 @@
 			<div class="panel">
 
 				<div class="table-responsive">
-					<table class="table table-bordered table-hover table-sm">
+					<table class="table  table-hover table-sm">
 						<thead>
 							<tr class="table-primary">
-								<td>Id</td>
-								<td>Początek</td>
-								<td>Koniec</td>
-								<td>Instruktor</td>
+								<th>Id</th>
+								<th>Początek</th>
+								<th>Koniec</th>
+								<th>Instruktor</th>
 							</tr>
 						</thead>
 						<tbody id="myTable">

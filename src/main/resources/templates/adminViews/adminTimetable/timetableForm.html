@@ -29,7 +29,9 @@
 		</nav>
 		<div class="container">
 			<br>
-			<h3 style="float:left;" th:text="${title}"></h3> <a  th:href="@{/timetable/list}"  style="float:right;" class=" btn btn-outline-secondary">GRAFIK</a>
+			<h3 style="float:left;" th:text="${title}"></h3> 
+			
+			<a  th:href="@{/timetable/changeDate(date=${today})}"  style="float:right;" class=" btn btn-outline-secondary">GRAFIK</a>
 			<br><br>
 			<p
 				th:text="'dla samochodu '+ ${this.car.brand}+' '+${this.car.model}
@@ -41,10 +43,10 @@
 					<table class="table table-bordered table-hover table-sm">
 						<thead>
 							<tr class="table-primary">
-								<td>Id</td>
-								<td>Początek</td>
-								<td>Koniec</td>
-								<td>Instruktor</td>
+								<th>Id</th>
+								<th>Początek</th>
+								<th>Koniec</th>
+								<th>Instruktor</th>
 							</tr>
 						</thead>
 						<tbody id="myTable">
