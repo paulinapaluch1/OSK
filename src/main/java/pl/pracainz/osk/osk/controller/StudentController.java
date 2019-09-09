@@ -70,6 +70,7 @@ public class StudentController {
 
 	@PostMapping("save")
 	public String saveStudent(@ModelAttribute("student") Student theStudent) {
+		theStudent.setDeleted(0);
 		studentRepository.save(theStudent);
 		return "redirect:/students/list";
 	}

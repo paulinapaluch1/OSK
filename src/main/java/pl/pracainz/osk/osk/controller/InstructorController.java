@@ -54,6 +54,7 @@ public class InstructorController {
 	
 	@PostMapping("save")
 	public String saveInstructor(@ModelAttribute("instructor") Instructor theInstructor) {
+		theInstructor.setDeleted(0);
 		instructorRepository.save(theInstructor);
 		return "redirect:/instructors/list";
 	}
