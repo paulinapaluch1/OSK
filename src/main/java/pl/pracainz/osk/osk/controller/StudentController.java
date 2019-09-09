@@ -14,9 +14,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.pracainz.osk.osk.dao.InstructorOpinionRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.StudentRepository;
+import pl.pracainz.osk.osk.entity.Car;
+import pl.pracainz.osk.osk.entity.Course;
+import pl.pracainz.osk.osk.entity.Driving;
 import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.InstructorOpinion;
+import pl.pracainz.osk.osk.entity.InternalExam;
+import pl.pracainz.osk.osk.entity.Participant;
 import pl.pracainz.osk.osk.entity.Student;
+import pl.pracainz.osk.osk.entity.Timetable;
 
 @Controller
 @RequestMapping("/students")
@@ -110,11 +116,53 @@ public class StudentController {
 
 	@GetMapping("/showInstructors")
 	public String listInstructors(Model theModel) {
-		List<Instructor> theInstructors = instructorRepository.findAll();
+		//List<Instructor> theInstructors = instructorRepository.findAll();
+		//theModel.addAttribute("instructors", theInstructors);
+		List<Instructor> theInstructors = studentRepository.queryFindInstructors(2);
+		//theModel.addAttribute("instructors", theInstructors);4
+		//List<Participant> theInstructors = studentRepository.queryFindCourses();
 		theModel.addAttribute("instructors", theInstructors);
 		return "studentViews/studentInstructors/instructors";
 	}
-
+	
+	@GetMapping("/showCars")
+	public String listCars(Model theModel) {
+		List<Car> theCars = studentRepository.queryFindCars(2);
+		theModel.addAttribute("cars", theCars);
+		return "studentViews/studentCars/cars";
+	}
+	
+	@GetMapping("/showDrivings")
+	public String listDrivings(Model theModel) {
+		List<Driving> theDrivings = studentRepository.queryFindDrivings(1);
+		theModel.addAttribute("drivings", theDrivings);
+		return "studentViews/studentDrivings/drivings";
+	}
+	
+	@GetMapping("/showTimetable")
+	public String Timetable(Model theModel) {
+		List<Timetable> theTimetable = studentRepository.queryFindTimetable(1);
+		theModel.addAttribute("timetable", theTimetable);
+		return "studentViews/studentTimetable/timetable";
+	}
+	
+	
+	/*
+	@GetMapping("/showCourses")
+	public String listCourses(Model theModel) {
+		List<Course> theCourses = studentRepository.queryFindCourses(1);
+		theModel.addAttribute("courses", theCourses);
+		return "studentViews/studentCourses/courses";
+	}
+*/
+	
+	@GetMapping("/showExams")
+	public String listExams(Model theModel) {
+		List<InternalExam> theExams = studentRepository.queryFindExams(2);
+		theModel.addAttribute("internalexams", theExams);
+		
+		return"studentViews/studentExams/exams";
+	}
 	@GetMapping("/rateInstructors")
 	public String rateInstructors(@RequestParam("id_instructor") int id, Model theModel) {
 		Instructor theInstructor = new Instructor();
