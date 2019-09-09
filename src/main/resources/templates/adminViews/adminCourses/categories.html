@@ -92,8 +92,8 @@
 					  <form th:action="@{/courses/saveNewCategory}"
 									th:object="${categoryToAdd}" method="POST">
 									 <input type="hidden" th:field="*{id}"/>
-									 <input type="text" th:field="*{categoryName}"/>
-									<br> <br>
+									 <input type="text" class="form-control" th:field="*{categoryName}"/>
+									<br> 
 									<button type="submit" class="btn btn-info ">DODAJ</button>
 								</form>
 								</div>
