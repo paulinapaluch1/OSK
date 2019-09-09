@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.pracainz.osk.osk.dao.CarRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.TimetableRepository;
-import pl.pracainz.osk.osk.entity.Car;
+import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.Timetable;
 
 @Controller
@@ -41,11 +41,13 @@ public class TimetableController {
 	public String showTimetable(Model theModel) {
 		theModel.addAttribute("timetables", timetableRepository.findAll());
 		theModel.addAttribute("cars", carRepository.findAll());
-		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(26, 8, 2019));
+		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
 		theModel.addAttribute("today", LocalDate.now());
 		theModel.addAttribute("dayName", getDayName(LocalDate.now()));
 		return "adminViews/adminTimetable/timetable";
 	}
+		
+	
 
 	@RequestMapping("/earlierDate")
 	public String changeDateForEarlier(
@@ -63,8 +65,7 @@ public class TimetableController {
 	}
 
 	@RequestMapping("/nextDate")
-	public String changeDateForLater(
-			@RequestParam(name = "date", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date,
+	public String changeDateForLater(@RequestParam(name = "date", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date,
 			Model theModel) {
 		theModel.addAttribute("timetables", timetableRepository.findAll());
 		theModel.addAttribute("cars", carRepository.findAll());
@@ -95,11 +96,12 @@ public class TimetableController {
 		Optional<Timetable> theTimetable = timetableRepository.findById(id);
 		Timetable thisTimetable = timetableRepository.getOne(id);
 
+		LocalDate today=LocalDate.of(thisTimetable.getBegin().getYear(), thisTimetable.getBegin().getMonth(), thisTimetable.getBegin().getDayOfMonth());
 		String editTitle = "EDYTUJ ZAPLANOWANĄ JAZDĘ";
 		theModel.addAttribute("timetable", theTimetable);
 		theModel.addAttribute("title", editTitle);
 		theModel.addAttribute("this", thisTimetable);
-		theModel.addAttribute("instructors", instructorRepository.findAll());
+		theModel.addAttribute("today",today);
 		return "adminViews/adminTimetable/timetableForm";
 	}
 	
@@ -112,7 +114,6 @@ public class TimetableController {
 		theModel.addAttribute("timetable", theTimetable);
 		theModel.addAttribute("title", editTitle);
 		theModel.addAttribute("this", timetable);
-		theModel.addAttribute("instructors", instructorRepository.findAll());		
 		return "adminViews/adminTimetable/timetableForm";
 	}
 
@@ -136,26 +137,22 @@ public class TimetableController {
 		theModel.addAttribute("timetable", theTimetable);
 		theModel.addAttribute("title", editTitle);
 		theModel.addAttribute("this", timetable);
-		theModel.addAttribute("instructors", instructorRepository.findAll());		
 		return "adminViews/adminTimetable/timetableForm";
 	}
 
-	
 	@GetMapping("/editDayForCar")
 	public String editDayForCar(@RequestParam(name = "date", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date,
-			@RequestParam("id") int id_car,
-			Model theModel) {
-
-		List<Timetable> theTimetable = timetableRepository.queryByDayAndMonthAndYearAndCar(date.getDayOfMonth(),date.getMonth().getValue(),date.getYear(),id_car);
+			@RequestParam("id") int id_car,	Model theModel) {
 		String editTitle = "EDYTUJ ZAPLANOWANE JAZDY";
-		theModel.addAttribute("timetablesToday", theTimetable);
+		theModel.addAttribute("timetablesToday", 
+				timetableRepository.queryByDayAndMonthAndYearAndCar(date.getDayOfMonth(),date.getMonth().getValue(),date.getYear(),id_car));	
 		theModel.addAttribute("title", editTitle);
-		theModel.addAttribute("instructors", instructorRepository.findAll());
 		theModel.addAttribute("car",carRepository.getOne(id_car));
 		theModel.addAttribute("today",date);
 		Timetable timetable=new Timetable();
 		timetable.setCar(carRepository.getOne(id_car));
 		theModel.addAttribute("timetable",timetable);
+		theModel.addAttribute("timetableToAdd",new Timetable());
 		
 		return "adminViews/adminTimetable/editDayForCar";
 	}
@@ -185,32 +182,88 @@ public class TimetableController {
 
 	}
 	
-
-	@RequestMapping(value = "/saveNewTimetable", method = RequestMethod.GET)
+	@RequestMapping(value = "/saveNewTimetableForDay", method = RequestMethod.GET)
 	public String saveNewTimetable(@RequestParam(value = "hour", required = false) String hour,
 			@ModelAttribute("timetable") Timetable timetable, BindingResult result, Model theModel,
 			@RequestParam(name = "today", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date) 
 	{	
+		Timetable theTimetable = timetableRepository.getOne(timetable.getId());
 		int begin = Integer.parseInt(hour);
 		int end = begin+2;
 		LocalDate day=date;
-		//timetable.setBegin(LocalDateTime.of(date.getDayOfMonth(),date.getMonth(),date.getYear(),begin,0,0));
-		//timetable.setEnd(LocalDateTime.of(date.getDayOfMonth(),date.getMonth(),date.getYear(),end,0,0));
-//timetableRepository.save(timetable);
-		
+		theTimetable.setBegin(LocalDateTime.of(theTimetable.getBegin().getYear(),theTimetable.getBegin().getMonth(),theTimetable.getBegin().getDayOfMonth(),begin,0,0));
+		theTimetable.setEnd(LocalDateTime.of(theTimetable.getBegin().getYear(),theTimetable.getBegin().getMonth(),theTimetable.getBegin().getDayOfMonth(),end,0,0));
+		theTimetable.setInstructor(timetable.getInstructor());
+		timetableRepository.save(theTimetable);
 		String editTitle = "EDYTUJ ZAPLANOWANE JAZDY";
-		theModel.addAttribute("timetablesToday", timetable);
+		theModel.addAttribute("timetablesToday", 	
+		timetableRepository.queryByDayAndMonthAndYearAndCar(theTimetable.getBegin().getDayOfMonth(),theTimetable.getBegin().getMonthValue(),theTimetable.getBegin().getYear(),theTimetable.getCar().getId()));
 		theModel.addAttribute("title", editTitle);
-		theModel.addAttribute("instructors", instructorRepository.findAll());
-		theModel.addAttribute("car",carRepository.getOne(1));
-		theModel.addAttribute("today",LocalDate.now());
+		theModel.addAttribute("car",theTimetable.getCar());
+		theModel.addAttribute("today",date);
+		Timetable timetable1=new Timetable();
+		timetable1.setCar(theTimetable.getCar());
+		theModel.addAttribute("timetable",timetable);
+		theModel.addAttribute("timetableToAdd",new Timetable());
+
 		return "adminViews/adminTimetable/editDayForCar";
 	}
 
 	
+	@RequestMapping(value = "/saveNew", method = RequestMethod.POST)
+	public String saveNew(@RequestParam(value = "hour", required = false) String hour,
+			@ModelAttribute("newTimetable") Timetable timetable, BindingResult result, Model theModel,
+			@RequestParam(name = "today", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date,
+			@RequestParam(name = "id_car", required = false) Integer id_car
+			) 
+	{	
+		Timetable newTimetable = timetable;
+		int begin = Integer.parseInt(hour);
+		int end = begin+2;
+		LocalDate day=date;
+		newTimetable.setBegin(LocalDateTime.of(date.getYear(),date.getMonth(),date.getDayOfMonth(),begin,0,0));
+		newTimetable.setEnd(LocalDateTime.of(date.getYear(),date.getMonth(),date.getDayOfMonth(),end,0,0));
+		newTimetable.setInstructor(timetable.getInstructor());
+		newTimetable.setCar(carRepository.getOne(id_car));
+		timetableRepository.save(newTimetable);
+		String editTitle = "EDYTUJ ZAPLANOWANE JAZDY";
+		theModel.addAttribute("timetablesToday",		
+		timetableRepository.queryByDayAndMonthAndYearAndCar(date.getDayOfMonth(),date.getMonthValue(),date.getYear(),id_car));
+		theModel.addAttribute("title", editTitle);
+		theModel.addAttribute("car",timetable.getCar());
+		theModel.addAttribute("today",date);
+		theModel.addAttribute("timetableToAdd",new Timetable());
+		Timetable timetable1=new Timetable();
+		timetable1.setCar(carRepository.getOne(1));
+		theModel.addAttribute("timetable",timetable);
+		return "adminViews/adminTimetable/editDayForCar";
+	}
 	
-	
-	
+	@ModelAttribute("instructors")
+	public List<Instructor> instructors() {
+	    return instructorRepository.findAll();
+	}
 	
 
+	@GetMapping("/delete")
+	public String delete(@RequestParam("id_timetable") int id, Model theModel) {
+		Timetable timetable = timetableRepository.getOne(id);
+		List<Timetable> timetablesToday = timetableRepository.queryByDayAndMonthAndYearAndCar(timetable.getBegin().getDayOfMonth(),
+				timetable.getBegin().getMonth().getValue(),timetable.getBegin().getYear(),
+				timetable.getCar().getId());
+		timetablesToday.remove(timetableRepository.getOne(id));
+		String editTitle = "EDYTUJ ZAPLANOWANE JAZDY";
+		theModel.addAttribute("timetablesToday", timetablesToday);
+		theModel.addAttribute("title", editTitle);
+		theModel.addAttribute("car",timetable.getCar());
+		theModel.addAttribute("today",LocalDate.of(timetable.getBegin().getYear(),timetable.getBegin().getMonth(),timetable.getBegin().getDayOfMonth()));
+		Timetable editedTimetable = new Timetable();
+		timetable.setCar(timetableRepository.getOne(id).getCar());
+		theModel.addAttribute("timetable",editedTimetable);
+		theModel.addAttribute("timetableToAdd",new Timetable());
+		timetableRepository.deleteById(id);
+		return "adminViews/adminTimetable/editDayForCar";
+	}
+	
+	
 }

@@ -29,7 +29,9 @@
 		</nav>
 		<div class="container">
 			<br>
-			<h3 style="float:left;" th:text="${title}"></h3> <a  th:href="@{/timetable/list}"  style="float:right;" class=" btn btn-outline-secondary">GRAFIK</a>
+			<h3 style="float:left;" th:text="${title}"></h3> 
+			
+			<a  th:href="@{/timetable/changeDate(date=${today})}"  style="float:right;" class=" btn btn-outline-secondary">GRAFIK</a>
 			<br><br>
 			<p
 				th:text="'dla samochodu '+ ${this.car.brand}+' '+${this.car.model}
@@ -45,6 +47,7 @@
 								<td>Początek</td>
 								<td>Koniec</td>
 								<td>Instruktor</td>
+								<td></td>
 							</tr>
 						</thead>
 						<tbody id="myTable">
@@ -90,6 +93,12 @@
 					<option th:value="6">6:00-8:00</option>
 					<option th:value="8">8:00-10:00</option>
 					<option th:value="10">10:00-12:00</option>
+					<option th:value="12">12:00-14:00</option>
+					<option th:value="12">14:00-16:00</option>
+					<option th:value="12">16:00-18:00</option>
+					<option th:value="12">18:00-20:00</option>
+					<option th:value="12">20:00-22:00</option>
+					
 				</select>
 
 				<button type="submit"
