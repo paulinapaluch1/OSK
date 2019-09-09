@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.pracainz.osk.osk.dao.CategoryRepository;
 import pl.pracainz.osk.osk.dao.CourseRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
+import pl.pracainz.osk.osk.entity.Category;
 import pl.pracainz.osk.osk.entity.Course;
 
 
@@ -89,4 +90,39 @@ private CategoryRepository categoryRepository;
 		courseRepository.save(theCourse);
 		return "redirect:/courses/listArchived";
 	}
+	
+	
+	@GetMapping("/categories")
+	public String listCategories(Model theModel) {
+		List<Category> theCategories= categoryRepository.findAll();
+		theModel.addAttribute("category", new Category());
+		theModel.addAttribute("categories", theCategories);
+		theModel.addAttribute("categoryToAdd", new Category());		
+		return "adminViews/adminCourses/categories";
+	}
+	
+	@PostMapping("saveEditedCategory")
+	public String saveEditedCategory(@ModelAttribute("category") Category theCategory, Model theModel) {
+		Category category = categoryRepository.getOne(theCategory.getId());
+		category.setCategoryName(theCategory.getCategoryName());
+		categoryRepository.save(category);
+		theModel.addAttribute("category", new Category());
+		theModel.addAttribute("categories", categoryRepository.findAll());
+		theModel.addAttribute("categoryToAdd", new Category());			
+		return "redirect:/courses/categories";
+	}
+	
+	@PostMapping("saveNewCategory")
+	public String saveNewCategory(@ModelAttribute("categoryToAdd") Category theCategory, Model theModel) {
+		categoryRepository.save(theCategory);
+		theModel.addAttribute("category", new Category());
+		theModel.addAttribute("categories", categoryRepository.findAll());
+		theModel.addAttribute("categoryToAdd", new Category());		
+		return "redirect:/courses/categories";
+	}
+	
+	
+	
+	
+	
 }
