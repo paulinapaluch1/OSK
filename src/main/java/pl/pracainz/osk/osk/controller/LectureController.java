@@ -1,8 +1,6 @@
 package pl.pracainz.osk.osk.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +18,6 @@ import pl.pracainz.osk.osk.entity.Category;
 import pl.pracainz.osk.osk.entity.Course;
 import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.Lecture;
-import pl.pracainz.osk.osk.entity.Student;
 
 @Controller
 @RequestMapping("/lectures")
