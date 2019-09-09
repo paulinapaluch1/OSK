@@ -16,7 +16,11 @@ import pl.pracainz.osk.osk.dao.CategoryRepository;
 import pl.pracainz.osk.osk.dao.CourseRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.LectureRepository;
+import pl.pracainz.osk.osk.entity.Category;
+import pl.pracainz.osk.osk.entity.Course;
+import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.Lecture;
+import pl.pracainz.osk.osk.entity.Student;
 
 @Controller
 @RequestMapping("/lectures")
@@ -36,45 +40,31 @@ public class LectureController {
 
 	@GetMapping("/list")
 	public String listLectures(Model theModel) {
-		List<Lecture> theLectures = lectureRepository.findByDeleted(0);
-		theModel.addAttribute("lectures", theLectures);
+		theModel.addAttribute("lectures", lectureRepository.findByDeleted(0));
 		return "adminViews/adminLectures/lectures";
 	}
 	
 	@GetMapping("/listArchived")
 	public String listArchivedLectures(Model theModel) {
-		List<Lecture> theLectures = lectureRepository.findByDeleted(1);
-		theModel.addAttribute("lectures", theLectures);
+		theModel.addAttribute("lectures", lectureRepository.findByDeleted(1));
 		return "adminViews/adminLectures/lecturesArchived";
 	}
 
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
-		Lecture theLecture = new Lecture();
-		//theLecture.setDate(LocalDateTime.now());
-		theModel.addAttribute("lecture", theLecture);
-		theModel.addAttribute("courses", courseRepository.findAll());
-		theModel.addAttribute("instructors", instructorRepository.findAll());
-		theModel.addAttribute("categories", categoryRepository.findAll());
-	//	theModel.addAttribute("date",LocalDateTime.now());
+		theModel.addAttribute("lecture", new Lecture());
 		return "adminViews/adminLectures/lectureForm";
 	}
 
 	@GetMapping("/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("id_lecture") int id, Model theModel) {
-		Optional<Lecture> theLecture = lectureRepository.findById(id);
-		theModel.addAttribute("lecture", theLecture);
-		theModel.addAttribute("courses", courseRepository.findAll());
-		theModel.addAttribute("instructors", instructorRepository.findAll());
-		theModel.addAttribute("categories", categoryRepository.findAll());
-		//theModel.addAttribute("date",theLecture.get().getDate());
+		theModel.addAttribute("lecture", lectureRepository.findById(id));
 		return "adminViews/adminLectures/lectureForm";
 	}
 
 	@PostMapping("save")
 	public String saveLecture(@ModelAttribute("lecture") Lecture theLecture) {
 		lectureRepository.save(theLecture);
-		
 		return "redirect:/lectures/list";
 	}
 	
@@ -94,4 +84,20 @@ public class LectureController {
 		return "redirect:/lectures/listArchived";
 	}
 
+	@ModelAttribute("categories")
+	public List<Category> categories() {
+	    return categoryRepository.findAll();
+	}
+	
+	@ModelAttribute("courses")
+	public List<Course> courses() {
+	    return courseRepository.findByFinished(0);
+	}
+	
+	@ModelAttribute("instructors")
+	public List<Instructor> instructors() {
+	    return instructorRepository.findByDeleted(0);
+	}
+	
+	
 }
