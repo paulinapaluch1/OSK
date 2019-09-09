@@ -64,9 +64,7 @@
 		<div class="card " style="width: 15rem; float:left">
 		 <div class="card-header">
 		    <b>Zmień dane</b>
-		  
 		  </div>			
-
 		  <div class="card-body" >
 		  <form th:action="@{/courses/saveEditedCategory}"
 						th:object="${category}" method="POST">
@@ -76,24 +74,21 @@
 						Kategoria
 						 <input type="text" th:field="*{categoryName}"
 							class="form-control " /> <br> 
-						
 						<button type="submit" class="btn btn-info">ZMIEŃ</button>
 </div>
 					</form>
 					</div>
 				
-				
-				
 					<div class="card ml-5 " style="width: 15rem; float:left">
 					 <div class="card-header">
 					    <b>Dodaj kategorię</b>
 					  </div>			
-					 <div class="card-body" >
+					 <div class="card-body">
 					  <form th:action="@{/courses/saveNewCategory}"
 									th:object="${categoryToAdd}" method="POST">
 									 <input type="hidden" th:field="*{id}"/>
 									 <input type="text" class="form-control" th:field="*{categoryName}"/>
-									<br> 
+									<br>
 									<button type="submit" class="btn btn-info ">DODAJ</button>
 								</form>
 								</div>

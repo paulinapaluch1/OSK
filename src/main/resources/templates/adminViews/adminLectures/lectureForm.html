@@ -43,7 +43,7 @@
 				<input type="hidden" th:field="*{id}" /> Kurs: <select
 					th:field="*{course}" class="form-control mb-4 col-4">
 					<option th:each="course: ${courses}" th:value="${course.id}"
-						th:text="${course.id} +'. START: '+${course.startDate}" />
+						th:text="${course.id} +'. Kategoria: '+${course.category.categoryName}+' START: '+${#temporals.format(course.startDate,'dd.MM.yyyy')}"/>
 				</select> 
 				
 				Kategoria: 
