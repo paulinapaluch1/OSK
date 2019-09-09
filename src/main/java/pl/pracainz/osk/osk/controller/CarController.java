@@ -53,6 +53,7 @@ public class CarController {
 
 	@PostMapping("save")
 	public String saveCar(@ModelAttribute("car") Car theCar) {
+		theCar.setDeleted(0);
 		carRepository.save(theCar);
 		return "redirect:/cars/list";
 	}
