@@ -20,7 +20,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	public List<Student> findByDeleted(Integer deleted);
 
 	// lista instruktorów
-	@Query("SELECT i FROM Instructor i " + "JOIN Timetable t ON t.instructor = i.id "
+	@Query("SELECT distinct i FROM Instructor i " + "JOIN Timetable t ON t.instructor = i.id "
 			+ "JOIN Driving d ON d.id = t.driving " + "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id")
 	List<Instructor> queryFindInstructors(@Param("id") int id);
 

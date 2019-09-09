@@ -30,7 +30,7 @@
 		<div class="container">
 			<br>
 			<h3 style="float: left;" th:text="${title}"></h3>
-			<a th:href="@{/timetable/list}" style="float: right;"
+			<a th:href="@{/timetable/changeDate(date=${today})}" style="float: right;"
 				class=" btn btn-outline-secondary">GRAFIK</a> <br>
 			<br>
 			<p
@@ -57,11 +57,16 @@
 							<td th:text="${#temporals.format(timetable.end,'HH:mm')}" />
 							<td
 								th:text="${timetable.instructor.name}+' ' +${timetable.instructor.surname} " />
+						<td><a th:href="@{/timetable/delete(id_timetable=${timetable.id})}"><button
+												type="button" class="btn btn-danger">USUŃ</button></a></td>
+						
+						
 						</tr>
 					</tbody>
 				</table>
 			</div>
-<div class="card mb-5" style="width: 30rem; float:left">
+			<br>
+<div class="card mb-5 mr-5" style="width: 30rem; float:left">
  <div class="card-header">
     <b>Zmień dane</b>
   
@@ -105,13 +110,13 @@
 			</div>
 		
 
-<div class="card mb-5" style="width: 30rem; float:right">
+<div class="card mb-5 " style="width: 30rem; float:left">
  <div class="card-header">
     <b>Dodaj jazdę</b>
   
   </div>			
  <div class="card-body" >
-  <form th:action="@{/timetable/saveNew(today=${today})}"
+  <form th:action="@{/timetable/saveNew(today=${today},id_car=${car.id})}"
 				th:object="${timetableToAdd}" method="POST">
 			
 				 <input type="hidden" th:field="*{id}"/>

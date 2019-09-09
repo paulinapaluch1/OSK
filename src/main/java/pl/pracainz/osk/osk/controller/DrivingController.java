@@ -1,5 +1,6 @@
 package pl.pracainz.osk.osk.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.pracainz.osk.osk.dao.DrivingRepository;
 import pl.pracainz.osk.osk.dao.DrivingTypeRepository;
 import pl.pracainz.osk.osk.dao.StudentRepository;
+import pl.pracainz.osk.osk.entity.Category;
 import pl.pracainz.osk.osk.entity.Driving;
+import pl.pracainz.osk.osk.entity.DrivingType;
+import pl.pracainz.osk.osk.entity.Student;
 
 @Controller
 @RequestMapping("/drivings")
@@ -44,23 +48,13 @@ public class DrivingController {
 
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
-
-		Driving theDriving = new Driving();
-		theModel.addAttribute("driving", theDriving);
-		theModel.addAttribute("drivingTypes", drivingTypeRepository.findAll());
-		theModel.addAttribute("students", studentRepository.findAll());
-
+		theModel.addAttribute("driving", new Driving());
 		return "adminViews/adminDrivings/drivingForm";
 	}
 
 	@GetMapping("/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("id_driving") int id, Model theModel) {
-
-		Optional<Driving> theDriving = drivingRepository.findById(id);
-		theModel.addAttribute("driving", theDriving);
-		theModel.addAttribute("drivingTypes", drivingTypeRepository.findAll());
-		theModel.addAttribute("students", studentRepository.findAll());
-
+		theModel.addAttribute("driving", drivingRepository.findById(id));
 		return "adminViews/adminDrivings/drivingForm";
 	}
 
@@ -84,6 +78,17 @@ public class DrivingController {
 		theDriving.setDeleted(0);
 		drivingRepository.save(theDriving);
 		return "redirect:/drivings/listArchived";
+	}
+	
+	
+	@ModelAttribute("students")
+	public List<Student> students() {
+	    return studentRepository.findByDeleted(0);
+	}
+	
+	@ModelAttribute("drivingTypes")
+	public List<DrivingType> drivingTypes() {
+	    return drivingTypeRepository.findAll();
 	}
 
 }
