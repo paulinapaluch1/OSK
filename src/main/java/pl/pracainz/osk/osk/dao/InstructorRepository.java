@@ -32,7 +32,7 @@ public interface InstructorRepository extends JpaRepository<Instructor, Integer>
 	List<Student> queryFindStudents(@Param("id") int id);
 	
 	// lista opinii
-	@Query("SELECT io FROM InstructorOpinion io " + "JOIN Instructor i ON i.id = io.instructor " + "WHERE i.id = :id")
+	@Query("SELECT io FROM InstructorOpinion io " + "JOIN Instructor i ON i.id = io.instructor " + "WHERE i.id = :id AND io.status='zatwierdzona'")
 	List<InstructorOpinion> queryFindOpinions(@Param("id") int id);
 /*
 	// lista jazd

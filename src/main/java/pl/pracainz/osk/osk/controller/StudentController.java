@@ -41,35 +41,33 @@ public class StudentController {
 
 	@GetMapping("/list")
 	public String listStudents(Model theModel) {
-		List<Student> theStudents = studentRepository.findByDeleted(0);
-		theModel.addAttribute("students", theStudents);
+		theModel.addAttribute("students", studentRepository.findByDeleted(0));
 		return "adminViews/adminStudents/students";
 	}
 
 	@GetMapping("/listArchived")
 	public String listArchivedStudents(Model theModel) {
-		List<Student> theStudents = studentRepository.findByDeleted(1);
-		theModel.addAttribute("students", theStudents);
+		theModel.addAttribute("students", studentRepository.findByDeleted(1));
 		return "adminViews/adminStudents/studentsArchived";
 	}
 
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
 		Student theStudent = new Student();
-		theModel.addAttribute("student", theStudent);
+		theModel.addAttribute("student", new Student());
 		return "adminViews/adminStudents/addStudent";
 	}
 
 	@GetMapping("/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("id_student") int id, Model theModel) {
-		Optional<Student> theStudent = studentRepository.findById(id);
-		theModel.addAttribute("student", theStudent);
+		theModel.addAttribute("student", studentRepository.findById(id));
 		return "adminViews/adminStudents/addStudent";			
 
 	}
 
 	@PostMapping("save")
 	public String saveStudent(@ModelAttribute("student") Student theStudent) {
+		theStudent.setDeleted(0);
 		studentRepository.save(theStudent);
 		return "redirect:/students/list";
 	}
@@ -182,4 +180,5 @@ public class StudentController {
 		return "redirect:/students/showInstructors";
 	}
 
+	
 }
