@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.InternalExamRepository;
 import pl.pracainz.osk.osk.dao.StudentRepository;
+import pl.pracainz.osk.osk.entity.Category;
+import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.InternalExam;
+import pl.pracainz.osk.osk.entity.Student;
 
 @Controller
 @RequestMapping("/exams")
@@ -32,19 +35,13 @@ public class InternalExamController {
 	
 	@GetMapping("/list")
 	public String listInternalExams(Model theModel) {
-		List<InternalExam> theInternalExams = internalExamRepository.findByDeleted(0);
-		theModel.addAttribute("internalexams", theInternalExams);
-		theModel.addAttribute("instructors", instructorRepository.findAll() );
-		theModel.addAttribute("students", studentRepository.findAll() );
+		theModel.addAttribute("internalexams", internalExamRepository.findByDeleted(0));
 		return "adminViews/adminExams/exams";
 	}
 	
 	@GetMapping("/listArchived")
 	public String listArchivedInternalExams(Model theModel) {
-		List<InternalExam> theInternalExams = internalExamRepository.findByDeleted(1);
-		theModel.addAttribute("internalexams", theInternalExams);
-		theModel.addAttribute("instructors", instructorRepository.findAll() );
-		theModel.addAttribute("students", studentRepository.findAll() );
+		theModel.addAttribute("internalexams", internalExamRepository.findByDeleted(1));
 		return "adminViews/adminExams/examsArchived";
 	}
 
@@ -52,8 +49,6 @@ public class InternalExamController {
 	public String showFormForAdd(Model theModel) {
 		InternalExam theInternalExam = new InternalExam();
 		theModel.addAttribute("internalexam", theInternalExam);
-		theModel.addAttribute("instructors", instructorRepository.findAll());
-		theModel.addAttribute("students", studentRepository.findAll());
 		return "adminViews/adminExams/examForm";
 	}
 
@@ -61,8 +56,6 @@ public class InternalExamController {
 	public String showFormForUpdate(@RequestParam("id_internalExam") int id, Model theModel) {
 		Optional<InternalExam> theInternalExam = internalExamRepository.findById(id);
 		theModel.addAttribute("internalexam", theInternalExam);
-		theModel.addAttribute("instructors", instructorRepository.findAll());
-		theModel.addAttribute("students", studentRepository.findAll());
 		return "adminViews/adminExams/examForm";
 	}
 
@@ -88,24 +81,28 @@ public class InternalExamController {
 		return "redirect:/exams/listArchived";
 	}
 	
-
 	@GetMapping("/listPassed")
 	public String passedExams(Model theModel) {
-		List<InternalExam> theInternalExams = internalExamRepository.findByResult(1);
-		theModel.addAttribute("internalexams", theInternalExams);
-		theModel.addAttribute("instructors", instructorRepository.findAll() );
-		theModel.addAttribute("students", studentRepository.findAll() );
+		theModel.addAttribute("internalexams", internalExamRepository.findByResult(1));
 		return "adminViews/adminExams/exams";
 	}
 	
 	@GetMapping("/listFailed")
 	public String failedExams(Model theModel) {
-		List<InternalExam> theInternalExams = internalExamRepository.findByResult(0);
-		theModel.addAttribute("internalexams", theInternalExams);
-		theModel.addAttribute("instructors", instructorRepository.findAll() );
-		theModel.addAttribute("students", studentRepository.findAll() );
+		theModel.addAttribute("internalexams", internalExamRepository.findByResult(0));
 		return "adminViews/adminExams/exams";
 	}
 
+	@ModelAttribute("students")
+	public List<Student> students() {
+	    return studentRepository.findByDeleted(0);
+	}
+	
+	@ModelAttribute("instructors")
+	public List<Instructor> instructors() {
+	    return instructorRepository.findByDeleted(0);
+	
+}
+	
 	
 }
