@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.entity.Course;
-import pl.pracainz.osk.osk.entity.Driving;
 import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.InstructorOpinion;
 import pl.pracainz.osk.osk.entity.InternalExam;
@@ -124,8 +123,8 @@ public class InstructorController {
 	
 	@GetMapping("/showOpinions")
 	public String listOpinions(Model theModel) {
-		List<InstructorOpinion> theOpinions = instructorRepository.queryFindOpinions(2);
-		theModel.addAttribute("instructors", theOpinions);
+		List<InstructorOpinion> theOpinions = instructorRepository.queryFindOpinions(1);
+		theModel.addAttribute("instructoropinions", theOpinions);
 		return "instructorViews/instructorOpinions/opinionsAboutInstructor";
 	}
 	/*
