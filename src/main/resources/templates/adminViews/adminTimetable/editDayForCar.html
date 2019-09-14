@@ -43,10 +43,12 @@
 				<table class="table table-bordered table-hover table-sm">
 					<thead>
 						<tr class="table-primary">
-							<td>Id</td>
-							<td>Początek</td>
-							<td>Koniec</td>
-							<td>Instruktor</td>
+							<th>Id</th>
+							<th>Początek</th>
+							<th>Koniec</th>
+							<th>Instruktor</th>
+							<th>Typ</th>
+							
 						</tr>
 					</thead>
 					<tbody id="myTable">
@@ -57,7 +59,12 @@
 							<td th:text="${#temporals.format(timetable.end,'HH:mm')}" />
 							<td
 								th:text="${timetable.instructor.name}+' ' +${timetable.instructor.surname} " />
-						<td><a th:href="@{/timetable/delete(id_timetable=${timetable.id})}"><button
+					
+						<td th:text="${timetable.drivingType.type}" />
+						
+						<td>
+						<a th:href="@{/timetable/delete(id_timetable=${timetable.id})}">
+						<button
 												type="button" class="btn btn-danger">USUŃ</button></a></td>
 						
 						
@@ -76,8 +83,8 @@
 				th:object="${timetable}" method="GET">
 				Id
 				 <input type="number" th:field="*{id}"
-					class="form-control " /> <br> <input
-					type="hidden" th:field="*{driving}" /> <input type="hidden"
+					class="form-control " /> <br> 
+					 <input type="hidden"
 					th:field="*{car}" />
 					
 				Instruktor<select th:field="*{instructor}"
@@ -102,7 +109,14 @@
 
 				</div>
 				<br>
-
+Typ<select th:field="*{drivingType}"
+					class="form-control ">
+					<option th:each="drivingType : ${drivingTypes}"
+						th:value="${drivingType.id}"
+						th:text="${drivingType.type} " />
+						
+					
+				</select> <br>
 				<button type="submit" class="btn btn-info ">ZMIEŃ</button>
 
 			</form>
@@ -121,8 +135,7 @@
 			
 				 <input type="hidden" th:field="*{id}"/>
 				 
-					<input
-					type="hidden" th:field="*{driving}" /> 
+				
 					<input type="hidden"
 					th:field="*{car}" />
 					
@@ -148,7 +161,14 @@
 
 				</div>
 				<br>
-
+Typ<select th:field="*{drivingType}"
+					class="form-control ">
+					<option th:each="drivingType : ${drivingTypes}"
+						th:value="${drivingType.id}"
+						th:text="${drivingType.type} " />
+						
+					
+				</select> <br>
 				<button type="submit" class="btn btn-info ">DODAJ</button>
 
 			</form>

@@ -41,20 +41,8 @@
 				method="POST">
 
 				<input type="hidden" th:field="*{id}" /> 
+		
 				
-				Typ: <select
-					th:field="*{drivingType}" class="form-control">
-					<option th:each="type: ${drivingTypes}" th:value="${type.id}"
-						th:text="${type.type}" />
-				</select> Kursant: <select th:field="*{student}" class="form-control">
-					<option th:each="student: ${students}" th:value="${student.id}"
-						th:text="${student.name}+' '+${student.surname}" />
-				
-				</select> Początek: <input type="datetime" th:field="*{startHour}"
-					th:value="${startHour}" class="form-control mb-4 col-4">
-
-				Koniec: <input type="datetime" th:field="*{finishHour}"
-					th:value="${finishHour}" class="form-control mb-4 col-4">
 
 				<button type="submit" class="btn btn-info col-2">ZAPISZ</button>
 
