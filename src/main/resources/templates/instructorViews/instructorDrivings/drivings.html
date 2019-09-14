@@ -1,27 +1,28 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Admin Lectures</title>
+<title>Drivings</title>
 <meta charset="utf-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 </head>
 <body>
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
-			<a href="/"> <img
+			<a href="/"><img
 				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
 				width="70px" /></a>
 		</div>
 		<div class="flex-fill">
-			<a th:href="@{/}">
+			<a th:href="@{/instructors/profile}">
 				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
 			</a>
 		</div>
@@ -29,61 +30,65 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong> <a
+			<strong>Zalogowany użytkownik: instruktor</strong> <a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+
 		</div>
 
 	</nav>
 	<div class="page">
-
 		<br>
 		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
 			<div class="flex-fill">
-				<h3>WYKŁADY</h3>
+				<h3>JAZDY</h3>
 			</div>
-			<div class="flex-fill">
-				<a th:href="@{/lectures/showFormForAdd}" class="btn btn-primary">DODAJ
-					WYKŁAD</a>
 
-			</div>
 			<div class="flex-fill">
-				<a th:href="@{/lectures/listArchived}"
-					class="btn btn-outline-secondary">Zarchiwizowane wykłady</a>
+				<a th:href="@{/}"><button type="button"
+						class="btn btn-outline-secondary">Zarchiwizowane jazdy</button></a>
 			</div>
 		</nav>
+
+
 		<br> <input class="form-control" id="myInput" type="text"
-			placeholder="Szukaj..."> <br>
+			placeholder="Szukaj..."> <br> <br>
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>
 					<tr class="table-primary">
-						<th>Id wykładu</th>
-						<th>Id kursu</th>
+						<th>Nr</th>
 						<th>Kategoria</th>
-						<th>Instruktor</th>
-						<th>Numer sali</th>
-						<th>Data</th>
+						<th>Kursant</th>
+						<th>Samochód</th>
+						<th>Typ</th>
+						<th>Początek</th>
+						<th>Koniec</th>
+						<th>Odbyła się</th>
 					</tr>
 				</thead>
 				<tbody id="myTable">
-					<tr th:each="lecture:${lectures}">
-						<td th:text="${lecture.id}" />
-						<td th:text="${lecture.course.id}" />
-						<td th:text="${lecture.course.category.categoryName}" />
+					<tr th:each="driving:${drivings}">
+						<td th:text="${driving.id}" />
+						<td></td>
 						<td
-							th:text="${lecture.course.instructor.name} + ' ' + ${lecture.course.instructor.surname}" />
-						<td th:text="${lecture.roomNumber}" />
-						<td th:text="${#temporals.format(lecture.date,'dd.MM.yyyy HH:mm')}" />
+							th:text="${driving.student.name}+' '+${driving.student.surname} " />
+						<td
+							th:text="${driving.timetable.car.name} " />
+						<td th:text="${driving.drivingType.type}" />
 						
-
+						<td
+							th:text="${#dates.format(driving.startHour,'dd.MM.yyyy HH:mm')}" />
+						<td
+							th:text="${#dates.format(driving.finishHour,'dd.MM.yyyy HH:mm')}" />
+						
+						
 						<td><a
-							th:href="@{/lectures/showFormForUpdate(id_lecture=${lecture.id})}"
-							class="btn btn-primary">EDYTUJ</a></td>
-						<td><a
-							th:href="@{/lectures/archiveLecture(id_lecture=${lecture.id})}"
-							class="btn btn-danger">ARCHIWIZUJ</a></td>
+							th:href="@{/drivings/showFormForUpdate(id_driving=${driving.id})}"
+							class="btn btn-primary">ODBYŁA SIĘ</a></td>
 					</tr>
 				</tbody>
+
+
 			</table>
 		</div>
 	</div>
@@ -113,6 +118,6 @@
 						});
 	</script>
 
-
 </body>
+
 </HTML>

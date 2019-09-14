@@ -15,7 +15,6 @@ import javax.persistence.Table;
 @Table(name = "drivings")
 public class Driving {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_driving")

@@ -39,7 +39,8 @@
 			<!--  <p th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname" />
 -->
 
-			<form action="#" th:action="@{/students/saveInstructorOpinion}" th:object="${instructoropinion}" method="POST">
+			<form action="#" th:action="@{/students/saveInstructorOpinion}"
+				th:object="${instructoropinion}" method="POST">
 
 				<strong>Oceń instruktora w skali 1-5 </strong> (1 - najniższa ocena,
 				5 - najwyższa ocena) <br> <label><input type="radio"
@@ -54,6 +55,8 @@
 					placeholder="Napisz opinię o instruktorze"></textarea>
 
 				<br>
+
+			
 
 
 				<button type="submit" class="btn btn-info col-2">Zapisz</button>

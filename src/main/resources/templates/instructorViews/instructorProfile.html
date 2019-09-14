@@ -22,7 +22,7 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: student</strong> <a href="/logout"><button
+			<strong>Zalogowany użytkownik: instruktor</strong> <a href="/logout"><button
 					type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 
@@ -31,13 +31,10 @@
 		<div class="row px-md-5">
 			<div class="col-3 justify-content-center ">
 				<br> <br>
-				<p th:text="'Login: ' + ${student.login}" />
-				<p th:text="'Data urodzenia: ' + ${#dates.format(student.birthdate, 'dd.MM.yyyy')}" />
-				<p
-					th:text="'Adres: ul. ' + ${student.street + ' ' + student.buildingNumber + ', ' + student.postCode + ' ' + student.city}" />
-				<p th:text="'Telefon: ' + ${student.phoneNumber}" />
-				<p th:text="'E-mail: ' + ${student.email}" />
-				<a th:href="@{/students/updateDataStudent(id_student=${student.id})}"><button type="submit" class="btn btn-info">Edytuj</button></a>
+				<p th:text="'Login: ' + ${instructor.login}" />
+				<p th:text="'Telefon: ' + ${instructor.phoneNumber}" />
+				<p th:text="'E-mail: ' + ${instructor.email}" />
+				<a th:href="@{/instructors/updateDataInstructor(id_instructor=${instructor.id})}"><button type="submit" class="btn btn-info">Edytuj</button></a>
 
 			</div>
 			<div class="col-9 align-items-center align-self-center">
@@ -45,15 +42,15 @@
 				<br>
 				<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 					<div class="card-body text-center mt-4">
-						<a style="text-decoration: none" th:href="@{/students/showCourses}">
-							<p class="card-text">Moje kursy</p>
+						<a style="text-decoration: none" th:href="@{/instructors/showCourses}">
+							<p class="card-text">Kursy</p>
 						</a>
 					</div>
 				</div>
 
 				<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 					<div class="card-body text-center mt-4">
-						<a style="text-decoration: none" th:href="@{/students/showTimetable}">
+						<a style="text-decoration: none" th:href="@{/instructors/showTimetable}">
 							<p class="card-text">Grafik</p>
 						</a>
 					</div>
@@ -61,7 +58,7 @@
 
 				<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 					<div class="card-body text-center mt-4">
-						<a style="text-decoration: none" th:href="@{/students/showExams}">
+						<a style="text-decoration: none" th:href="@{/instructors/showExams}">
 							<p class="card-text">Egzaminy</p>
 						</a>
 					</div>
@@ -70,38 +67,29 @@
 
 				<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 					<div class="card-body text-center mt-4">
-						<a style="text-decoration: none" th:href="@{/students/showInstructors}">
-							<p class="card-text">Instruktorzy</p>
+						<a style="text-decoration: none" th:href="@{/instructors/showStudents}">
+							<p class="card-text">Kursanci</p>
 						</a>
 					</div>
 				</div>
 
 				<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 					<div class="card-body text-center mt-4">
-						<a style="text-decoration: none" th:href="@{/students/showCars}">
+						<a style="text-decoration: none" th:href="@{/instructors/showOpinions}">
 
-							<p class="card-text">Samochody</p>
+							<p class="card-text">Opinie</p>
 						</a>
 					</div>
 				</div>
 
 				<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 					<div class="card-body text-center mt-4">
-						<a style="text-decoration: none" th:href="@{/students/showDrivings}">
+						<a style="text-decoration: none" th:href="@{/instructors/showDrivings}">
 							<p class="card-text">Jazdy</p>
 						</a>
 					</div>
 				</div>
 
-
-
-				<div id="card" class="card bg-light mb-4 ml-4 mr-4">
-					<div class="card-body text-center mt-4">
-						<a style="text-decoration: none" th:href="@{/lectures/list}">
-							<p class="card-text">Wykłady</p>
-						</a>
-					</div>
-				</div>
 			</div>
 
 		</div>

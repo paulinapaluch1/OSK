@@ -9,4 +9,6 @@ import pl.pracainz.osk.osk.entity.Driving;
 public interface DrivingRepository extends JpaRepository<Driving, Integer>{
 
 	public List<Driving> findByDeleted(int deleted);
+	public List<Driving> findByCancelled(int cancelled);
+
 }

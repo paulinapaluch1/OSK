@@ -21,6 +21,7 @@ import pl.pracainz.osk.osk.dao.DrivingTypeRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.TimetableRepository;
 import pl.pracainz.osk.osk.entity.DrivingType;
+import pl.pracainz.osk.osk.entity.Car;
 import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.Timetable;
 
@@ -44,9 +45,11 @@ public class TimetableController {
 	@GetMapping("/list")
 	public String showTimetable(Model theModel) {
 		theModel.addAttribute("timetables", timetableRepository.findAll());
+
 		theModel.addAttribute("cars", carRepository.findAll());
 		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(
 				LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
+
 		theModel.addAttribute("today", LocalDate.now());
 		theModel.addAttribute("dayName", getDayName(LocalDate.now()));
 		return "adminViews/adminTimetable/timetable";
@@ -57,7 +60,6 @@ public class TimetableController {
 			@RequestParam(name = "date", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date,
 			Model theModel) {
 		theModel.addAttribute("timetables", timetableRepository.findAll());
-		theModel.addAttribute("cars", carRepository.findAll());
 		LocalDate yesterday = date.minusDays(1);
 		theModel.addAttribute("today", yesterday);
 		theModel.addAttribute("timetablesToday", timetableRepository
@@ -72,7 +74,6 @@ public class TimetableController {
 			@RequestParam(name = "date", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date,
 			Model theModel) {
 		theModel.addAttribute("timetables", timetableRepository.findAll());
-		theModel.addAttribute("cars", carRepository.findAll());
 		LocalDate yesterday = date.plusDays(1);
 		theModel.addAttribute("today", yesterday);
 		theModel.addAttribute("timetablesToday", timetableRepository
@@ -86,7 +87,6 @@ public class TimetableController {
 			BindingResult result, Model theModel) {
 
 		theModel.addAttribute("timetables", timetableRepository.findAll());
-		theModel.addAttribute("cars", carRepository.findAll());
 		LocalDate yesterday = LocalDate.parse(date);
 		theModel.addAttribute("today", yesterday);
 		theModel.addAttribute("timetablesToday", timetableRepository
@@ -277,6 +277,13 @@ public class TimetableController {
 		return drivingTypeRepository.findAll();
 	}
 
+	
+	@ModelAttribute("cars")
+	public List<Car> cars() {
+	    return carRepository.findAll();
+	
+}
+	
 	
 	
 }

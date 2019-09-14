@@ -72,14 +72,27 @@
 							th:text="${#temporals.format(driving.timetable.begin,'dd.MM.yyyy')}" />
 						<td
 							th:text="${#temporals.format(driving.timetable.begin,'HH.mm')}" />
-						<td
-							th:text="${#temporals.format(driving.timetable.end,'HH.mm')}" />
-						<td th:text="${driving.done}" />
-						<td th:text="${driving.cancelled}" />
 
-						<td><a th:href="@{/}" class="btn btn-danger">ODWOŁAJ
-								JAZDĘ</a></td>
+							th:text="${#dates.format(driving.finishHour,'dd.MM.yyyy HH:mm')}" />
+						<div th:if="${driving.done} eq 0">
+							<td th:text="NIE" />
+						</div>
+						<div th:unless="${driving.done} eq 0">
+							<td th:text="TAK" />
+						</div>
+						
+						<div th:if="${driving.cancelled} eq 0">
+							<td th:text="NIE" />
+						</div>
+						<div th:unless="${driving.cancelled} eq 0">
+							<td th:text="TAK" />
+						</div>
+      
 
+						<td><span th:if="${driving.cancelled} eq 0"> <a
+								th:href="@{/drivings/cancelDriving(id_driving=${driving.id})}"
+								class="btn btn-danger">ODWOŁAJ JAZDĘ</a>
+						</span></td>
 					</tr>
 				</tbody>
 
