@@ -27,7 +27,7 @@ public interface InstructorRepository extends JpaRepository<Instructor, Integer>
 	List<InternalExam> queryFindExams(@Param("id") int id);
 
 	// lista instruktorów
-	@Query("SELECT s FROM Student s " + "JOIN Driving d ON d.student = s.id " + "JOIN Timetable t ON t.driving = d.id "
+	@Query("SELECT s FROM Student s " + "JOIN Driving d ON d.student = s.id " + "JOIN Timetable t ON d.timetable = t.id "
 			+ "JOIN Instructor i ON i.id = t.instructor " + "WHERE i.id = :id")
 	List<Student> queryFindStudents(@Param("id") int id);
 	
