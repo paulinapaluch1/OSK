@@ -92,9 +92,13 @@
 						<thead>
 							<tr class="table-primary">
 								<th>Id</th>
-								<th>Początek</th>
+
+								<th>Początek</td>
 								<th>Koniec</th>
 								<th>Instruktor</th>
+								<th>Typ</th>
+								
+
 							</tr>
 						</thead>
 						<tbody id="myTable">
@@ -105,7 +109,7 @@
 									<td th:text="${#temporals.format(timetable.begin,'HH:mm')}" />
 									<td th:text="${#temporals.format(timetable.end,'HH:mm')}" />
 									<td	th:text="${timetable.instructor.name}+' ' +${timetable.instructor.surname} " />
-
+									<td th:text="${timetable.drivingType.type}"></td>
 									<td><a
 										th:href="@{/timetable/edit(id_timetable=${timetable.id})}"><button
 												type="button" class="btn btn-primary">EDYTUJ</button></a></td>
@@ -118,10 +122,8 @@
 					</table>
 				<a th:href="@{/timetable/editDayForCar(date=${today},id=${car.id})}"
 												type="button" class="btn btn-primary mb-1">EDYTUJ CAŁY DZIEŃ</a>
-			
 				</div>
 			</div>
-			
 		</for:each>
 
 	</div>

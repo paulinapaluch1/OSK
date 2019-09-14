@@ -23,7 +23,7 @@ public class DrivingType {
 	private String type;
 
 	@OneToMany(mappedBy = "drivingType")
-	List<Driving> drivings;
+	List<Timetable> timetables;
 
 	public DrivingType() {
 	}
@@ -49,12 +49,14 @@ public class DrivingType {
 		this.type = type;
 	}
 
-	public List<Driving> getDrivings() {
-		return drivings;
+	public List<Timetable> getTimetables() {
+		return timetables;
 	}
 
-	public void setDrivings(List<Driving> drivings) {
-		this.drivings = drivings;
+	public void setTimetables(List<Timetable> timetables) {
+		this.timetables = timetables;
 	}
+
+	
 
 }

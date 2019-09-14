@@ -32,8 +32,7 @@ public class User {
 	@JoinColumn(name = "id_role")
 	private Role role;
 */
-	
-	
+
 	private int id_role;
 	
 	public User(String login, String password, int role) {
