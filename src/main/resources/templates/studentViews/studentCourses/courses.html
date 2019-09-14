@@ -51,7 +51,6 @@
 			<table class="table table-hover">
 				<thead>
 					<tr class="table-primary">
-						<th>Id</th>
 						<th>Kategoria</th>
 						<th>Instruktor</th>
 						<th>Początek</th>
@@ -60,11 +59,12 @@
 				</thead>
 				<tbody id="myTable">
 					<tr th:each="course:${courses}">
-						<td th:text="${course.id}" />
 						<td th:text="${course.category.categoryName}" />
 						<td
 							th:text="${course.instructor.name}+' ' +${course.instructor.surname} " />
-						<td th:text="${#dates.format(course.startDate, 'dd-MM-yyyy')}" />
+						<td
+							th:text="${#temporals.format(course.startDate,'dd.MM.yyyy')}" />
+						<td></td>
 					</tr>
 				</tbody>
 			</table>

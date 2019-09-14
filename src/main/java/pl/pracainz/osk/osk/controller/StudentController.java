@@ -18,6 +18,7 @@ import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.StudentRepository;
 import pl.pracainz.osk.osk.dao.TimetableRepository;
 import pl.pracainz.osk.osk.entity.Car;
+import pl.pracainz.osk.osk.entity.Course;
 import pl.pracainz.osk.osk.entity.Driving;
 import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.InstructorOpinion;
@@ -150,15 +151,13 @@ public class StudentController {
 		return "studentViews/studentTimetable/timetable";
 	}
 	
-	
-	/*
 	@GetMapping("/showCourses")
 	public String listCourses(Model theModel) {
 		List<Course> theCourses = studentRepository.queryFindCourses(1);
 		theModel.addAttribute("courses", theCourses);
 		return "studentViews/studentCourses/courses";
 	}
-*/
+
 	
 	@GetMapping("/showExams")
 	public String listExams(Model theModel) {

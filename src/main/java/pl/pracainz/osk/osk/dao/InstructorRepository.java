@@ -34,10 +34,14 @@ public interface InstructorRepository extends JpaRepository<Instructor, Integer>
 	// lista opinii
 	@Query("SELECT io FROM InstructorOpinion io " + "JOIN Instructor i ON i.id = io.instructor " + "WHERE i.id = :id AND io.status='zatwierdzona'")
 	List<InstructorOpinion> queryFindOpinions(@Param("id") int id);
-/*
+
 	// lista jazd
-	@Query("SELECT d FROM Driving d " + "JOIN Timetable t ON t.driving = d.id "
+	@Query("SELECT d FROM Driving d " + "JOIN Timetable t ON t.id = d.timetable "
 			+ "JOIN Instructor i ON i.id = t.instructor " + "WHERE i.id = :id")
 	List<Driving> queryFindDrivings(@Param("id") int id);
-	*/
+	
+	// grafik
+	@Query("SELECT t FROM timetable t " + "JOIN Instructor i on i.id = t.instructor " + "WHERE i.id= :id")
+	List<Timetable> queryFindTimetable(@Param("id") int id);
+	
 }
