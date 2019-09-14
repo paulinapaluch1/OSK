@@ -35,7 +35,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	List<Timetable> queryFindTimetable(@Param("id") int id);
 
 	// lista jazd
-	@Query("SELECT d FROM Driving d " + "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id")
+	@Query("SELECT d FROM Driving d " + "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id") // AND d.cancelled = 0")
 	List<Driving> queryFindDrivings(@Param("id") int id);
 
 	// lista egzaminow

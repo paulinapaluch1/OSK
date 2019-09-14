@@ -80,6 +80,18 @@ public class DrivingController {
 		return "redirect:/drivings/listArchived";
 	}
 	
+	// dla kursanta
+	@GetMapping("/cancelDriving")
+	public String cancelDriving(@RequestParam("id_driving") int id, Model theModel) {
+		Driving theDriving = drivingRepository.getOne(id);
+		theDriving.setCancelled(1);
+		theDriving.setDone(0);
+		// tutaj pewnie trzeba zwolnić miejsce w grafiku
+		drivingRepository.save(theDriving);
+		
+		return "redirect:/students/showDrivings";
+	}
+	
 	
 	@ModelAttribute("students")
 	public List<Student> students() {

@@ -127,6 +127,7 @@ public class StudentController {
 	public String listCars(Model theModel) {
 		List<Car> theCars = studentRepository.queryFindCars(2);
 		theModel.addAttribute("cars", theCars);
+		
 		return "studentViews/studentCars/cars";
 	}
 	
@@ -156,7 +157,7 @@ public class StudentController {
 	
 	@GetMapping("/showExams")
 	public String listExams(Model theModel) {
-		List<InternalExam> theExams = studentRepository.queryFindExams(2);
+		List<InternalExam> theExams = studentRepository.queryFindExams(1);
 		theModel.addAttribute("internalexams", theExams);
 		
 		return"studentViews/studentExams/exams";
