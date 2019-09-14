@@ -3,6 +3,7 @@ package pl.pracainz.osk.osk.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pl.pracainz.osk.osk.dao.CarOpinionRepository;
 import pl.pracainz.osk.osk.dao.CarRepository;
 import pl.pracainz.osk.osk.dao.DrivingRepository;
 import pl.pracainz.osk.osk.dao.InstructorOpinionRepository;
@@ -18,6 +20,7 @@ import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.StudentRepository;
 import pl.pracainz.osk.osk.dao.TimetableRepository;
 import pl.pracainz.osk.osk.entity.Car;
+import pl.pracainz.osk.osk.entity.CarOpinion;
 import pl.pracainz.osk.osk.entity.Course;
 import pl.pracainz.osk.osk.entity.Driving;
 import pl.pracainz.osk.osk.entity.Instructor;
@@ -33,19 +36,21 @@ public class StudentController {
 	private StudentRepository studentRepository;
 	private InstructorRepository instructorRepository;
 	private InstructorOpinionRepository instructorOpinionRepository;
+	private CarOpinionRepository carOpinionRepository;
 	DrivingRepository drivingRepository;
 	TimetableRepository timetableRepository;
 	CarRepository carRepository;
 
 	public StudentController(StudentRepository repository, InstructorRepository instructor,
 			InstructorOpinionRepository instructorOpinion,DrivingRepository drivingRepository,
-			TimetableRepository timetableRepository,CarRepository carRepository) {
+			TimetableRepository timetableRepository,CarRepository carRepository, CarOpinionRepository carOpinion) {
 		this.studentRepository = repository;
 		this.instructorRepository = instructor;
 		this.instructorOpinionRepository = instructorOpinion;
 		this.drivingRepository=drivingRepository;
 		this.timetableRepository=timetableRepository;
 		this.carRepository=carRepository;
+		this.carOpinionRepository = carOpinion;
 		
 	}
 
@@ -169,20 +174,33 @@ public class StudentController {
 	@GetMapping("/rateInstructors")
 	public String rateInstructors(@RequestParam("id_instructor") int id, Model theModel) {
 		Instructor theInstructor = new Instructor();
-		theModel.addAttribute("instructor", theInstructor);
+		theModel.addAttribute("instructors", theInstructor);
 		theModel.addAttribute("instructoropinions", instructorOpinionRepository.findAll());
-
-//		Optional<InstructorOpinion> theInstructorOpinion = instructorOpinionRepository.findById(id);
-//		theModel.addAttribute("instructoropinion", theInstructorOpinion);
-//		theModel.addAttribute("instructors", instructorRepository.findAll());
-
+		
 		return "studentViews/studentInstructors/rateInstructors";
 	}
-
-	@PostMapping("saveInstructorOpinion")
+	
+	
+	@PostMapping("/saveInstructorOpinion")
 	public String saveInstructorOpinion(@ModelAttribute("instructoropinion") InstructorOpinion theInstructorOpinion) {
 		instructorOpinionRepository.save(theInstructorOpinion);
 		return "redirect:/students/showInstructors";
+	}
+	
+	@GetMapping("/rateCars")
+	public String rateCars(@RequestParam("id_car") int id, Model theModel) {
+		CarOpinion theCarOpinion = new CarOpinion();
+		theCarOpinion.setCar(carRepository.getOne(id));
+		theModel.addAttribute("caropinions", theCarOpinion);
+		theModel.addAttribute("caropinions", carOpinionRepository.findAll());
+		
+		return "studentViews/studentCars/rateCars";
+	}
+	
+	@PostMapping("/saveCarOpinion")
+	public String saveCarOpinion(@ModelAttribute("caropinion") CarOpinion theCarOpinion) {
+		carOpinionRepository.save(theCarOpinion);
+		return "redirect:/students/showCars";
 	}
 
 	

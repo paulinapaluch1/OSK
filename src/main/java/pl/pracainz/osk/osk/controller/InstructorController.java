@@ -139,11 +139,11 @@ public class InstructorController {
 		return "instructorViews/instructorDrivings/drivings";
 	}
 	
-	@GetMapping("/showTimetable")
-	public String listTimetable(Model theModel) {
-		List<Timetable> theTimetable = instructorRepository.queryFindTimetable(1);
-		theModel.addAttribute("timetable", theTimetable);
-		return "instructorViews/instructorTimetable/timetable";
-	}
+//	@GetMapping("/showTimetable")
+//	public String listTimetable(Model theModel) {
+//		List<Timetable> theTimetable = instructorRepository.queryFindTimetable(1);
+//		theModel.addAttribute("timetable", theTimetable);
+//		return "instructorViews/instructorTimetable/timetable";
+//	}
 
 }

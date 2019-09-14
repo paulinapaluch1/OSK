@@ -40,8 +40,8 @@ public interface InstructorRepository extends JpaRepository<Instructor, Integer>
 			+ "JOIN Instructor i ON i.id = t.instructor " + "WHERE i.id = :id")
 	List<Driving> queryFindDrivings(@Param("id") int id);
 	
-	// grafik
-	@Query("SELECT t FROM timetable t " + "JOIN Instructor i on i.id = t.instructor " + "WHERE i.id= :id")
-	List<Timetable> queryFindTimetable(@Param("id") int id);
-	
+//	// grafik
+//	@Query("SELECT t FROM timetable t " + "JOIN Instructor i on i.id = t.instructor " + "WHERE i.id= :id")
+//	List<Timetable> queryFindTimetable(@Param("id") int id);
+//	
 }
