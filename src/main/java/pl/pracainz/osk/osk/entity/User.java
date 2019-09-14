@@ -1,15 +1,15 @@
 package pl.pracainz.osk.osk.entity;
 
-import javax.persistence.CascadeType;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import javax.persistence.Table;
-
-import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name = "users")
@@ -20,83 +20,70 @@ public class User {
 	@Column(name="id_user")
 	private int id;
 
-	@Column(name = "login",nullable=false)
+	@Column(nullable=false)
 	private String username;
+	
 	@Column(nullable=false)
 	private String password;
 
+	 private int active;
 
+	    private String roles = "";
 
-/*
-	@ManyToOne(cascade = { CascadeType.DETACH })
-	@JoinColumn(name = "id_role")
-	private Role role;
-*/
+	    private String permissions = "";
 
-	private int id_role;
-	
-	public User(String login, String password, int role) {
-		this.username = login;
-		this.password = password;
-		this.id_role = role;
-	}
+	 public User(String username, String password, String roles, String permissions){
+	        this.username = username;
+	        this.password = password;
+	        this.roles = roles;
+	        this.permissions = permissions;
+	        this.active = 1;
+	    }
+	 
+	 
+	 protected User(){}
 
-	public User() {
+	    public int getId() {
+	        return id;
+	    }
 
-	}
+	    public String getUsername() {
+	        return username;
+	    }
 
-	public int getId() {
-		return id;
-	}
+	    public String getPassword() {
+	        return password;
+	    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+	    public int getActive() {
+	        return active;
+	    }
 
-	public String getUsername() {
-		return username;
-	}
+	    public String getRoles() {
+	        return roles;
+	    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+	    public String getPermissions() {
+	        return permissions;
+	    }
 
-	public String getPassword() {
-		return password;
-	}
+	    public List<String> getRoleList(){
+	        if(this.roles.length() > 0){
+	            return Arrays.asList(this.roles.split(","));
+	        }
+	        return new ArrayList<>();
+	    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	/*
-	 * public Instructor getInstructor() { return id_instructor; }
-	 * 
-	 * public void setInstructor(Instructor instructor) { this.id_instructor =
-	 * instructor; }
-	 */
-
-	
-/*
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-*/
-
-
-	public int getId_role() {
-		return id_role;
-	}
-
-	public void setId_role(int id_role) {
-		this.id_role = id_role;
+	    public List<String> getPermissionList(){
+	        if(this.permissions.length() > 0){
+	            return Arrays.asList(this.permissions.split(","));
+	        }
+	        return new ArrayList<>();
+	    }
+	    
 	}
 	
 	
 	
 	
-}
+

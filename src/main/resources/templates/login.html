@@ -1,53 +1,71 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:insert="fragments.html :: headerfiles">
-    <title>Log in</title>
+<head>
+<title>Log in</title>
+<meta charset="utf-8">
+ <link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+ 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	
+	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 </head>
 <body>
-<div class="container">
-    <div style="width:600px;margin-left: auto;margin-right: auto;margin-top:24px;padding: 24px;">
-        <div class="card">
-            <div class="card-header">
-                <i class="fa fa-user"></i> Please Login
-            </div>
-            <div class="card-block" style="padding: 24px;">
-                <form name="f" th:action="@{/signin}" method="post">
-                    <fieldset>
-                        <!-- Thymeleaf + Spring Security error display -->
-                        <div th:if="${param.error}" class="alert alert-danger">
-                            Invalid username and password.
-                        </div>
 
-                        <div th:if="${param.logout}" class="alert alert-success">
-                            You have been logged out.
-                        </div>
+	<nav
+		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
+		<div class=" flex-fill"></div>
+		<div class="flex-fill">
+			<h2>Ośrodek Szkolenia Kierowców</h2>
+		</div>
+	</nav>
+	<div class="container">
+		<div
+			style="width: 600px; margin-left: auto; margin-right: auto; margin-top: 24px; padding: 24px;">
+			<div class="card">
+				<div class="card-header">
+					<i class="fa fa-user"></i><b> ZALOGUJ SIĘ</b>
+				</div>
+				<div class="card-block" style="padding: 24px;">
+					<form name="f" th:action="@{/signin}" method="post">
+						<fieldset>
 
-                        <!-- Login Controls -->
-                        <div class="form-group">
-                            <label for="txtUsername">Username</label>
-                            <input type="text" class="form-control" id="txtUsername" name="txtUsername"
-                                   placeholder="Username">
-                        </div>
+							<div th:if="${param.error!=null}" class="alert alert-danger">
+								Niepoprawny login lub hasło</div>
 
-                        <div class="form-group">
-                            <label for="txtPassword">Password</label>
-                            <input type="password" class="form-control" id="txtPassword" name="txtPassword"
-                                   placeholder="Password">
-                        </div>
+							<div th:if="${param.logout}" class="alert alert-success">
+								Zostałeś wylogowany</div>
 
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="checkRememberMe" name="checkRememberMe">
-                            <label class="form-check-label" for="checkRememberMe">Remember me?</label>
-                        </div>
+							<div class="form-group">
+								<label for="txtUsername">Login</label> <input type="text"
+									class="form-control" id="txtUsername" name="txtUsername"
+									placeholder="Username">
+							</div>
 
-                        <!-- Login Button -->
-                        <div class="form-actions" style="margin-top: 12px;">
-                            <button type="submit" class="btn btn-success">Log in</button>
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+
+							<div class="form-group">
+								<label for="txtPassword">Hasło</label> <input type="password"
+									class="form-control" id="txtPassword" name="txtPassword"
+									placeholder="Password">
+							</div>
+
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input"
+									id="checkRememberMe" name="checkRememberMe"> <label
+									class="form-check-label" for="checkRememberMe">Pamiętaj
+									mnie</label>
+							</div>
+
+							<div class="form-actions" style="margin-top: 12px;">
+								<button type="submit" class="btn btn-success">ZALOGUJ</button>
+							</div>
+							
+							
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

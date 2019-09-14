@@ -7,12 +7,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import pl.pracainz.osk.osk.dao.UserPrincipalDetailsService;
-import pl.pracainz.osk.osk.dao.UserRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -33,12 +32,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception{
 		http
 		.authorizeRequests()
-        .antMatchers("/students/list").authenticated()
+        .antMatchers("/").authenticated()
 		.and()
-		.formLogin()
-		.loginPage("/login").permitAll()
-		.usernameParameter("txtUsername")
-        .passwordParameter("txtPassword");
+        .formLogin()
+        .loginProcessingUrl("/signin")
+        .loginPage("/login").permitAll()
+        .usernameParameter("txtUsername")
+        .passwordParameter("txtPassword")
+        .and()
+        .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
+		;
 	}
 	
 
@@ -50,7 +53,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 		return daoAuthenticationProvider;
 	}
-	
 	
 	@Bean
 	PasswordEncoder passwordEncoder() {
