@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.entity.Course;
+import pl.pracainz.osk.osk.entity.Driving;
 import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.InstructorOpinion;
 import pl.pracainz.osk.osk.entity.InternalExam;
 import pl.pracainz.osk.osk.entity.Student;
+import pl.pracainz.osk.osk.entity.Timetable;
 
 @Controller
 @RequestMapping("/instructors")
@@ -129,12 +131,19 @@ public class InstructorController {
 		theModel.addAttribute("instructoropinions", theOpinions);
 		return "instructorViews/instructorOpinions/opinionsAboutInstructor";
 	}
-	/*
+	
 	@GetMapping("/showDrivings")
 	public String listDrivings(Model theModel) {
 		List<Driving> theDrivings = instructorRepository.queryFindDrivings(1);
 		theModel.addAttribute("drivings", theDrivings);
 		return "instructorViews/instructorDrivings/drivings";
 	}
-*/
+	
+	@GetMapping("/showTimetable")
+	public String listTimetable(Model theModel) {
+		List<Timetable> theTimetable = instructorRepository.queryFindTimetable(1);
+		theModel.addAttribute("timetable", theTimetable);
+		return "instructorViews/instructorTimetable/timetable";
+	}
+
 }

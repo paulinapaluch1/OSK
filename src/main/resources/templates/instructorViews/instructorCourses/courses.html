@@ -31,7 +31,7 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong> <a
+			<strong>Zalogowany użytkownik: instruktor</strong> <a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 	</nav>
@@ -53,7 +53,6 @@
 					<tr class="table-primary">
 						<th>Id</th>
 						<th>Kategoria</th>
-						<th>Instruktor</th>
 						<th>Początek</th>
 
 					</tr>
@@ -62,9 +61,7 @@
 					<tr th:each="course:${courses}">
 						<td th:text="${course.id}" />
 						<td th:text="${course.category.categoryName}" />
-						<td
-							th:text="${course.instructor.name}+' ' +${course.instructor.surname} " />
-						<td th:text="${#dates.format(course.startDate, 'dd-MM-yyyy')}" />
+						<td th:text="${#temporals.format(course.startDate,'dd.MM.yyyy')}" />
 					</tr>
 				</tbody>
 			</table>

@@ -11,7 +11,6 @@ import pl.pracainz.osk.osk.entity.Course;
 import pl.pracainz.osk.osk.entity.Driving;
 import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.InternalExam;
-import pl.pracainz.osk.osk.entity.Participant;
 import pl.pracainz.osk.osk.entity.Student;
 import pl.pracainz.osk.osk.entity.Timetable;
 
@@ -44,16 +43,11 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 
 	// lista wykładów
 
-	// ------------------------TU JEST PROBLEM--------------------------------
-	/*
-	 * // lista kursów
-	 * 
-	 * @Query("SELECT c FROM Course c " +
-	 * "JOIN ParticipantId pid ON pid.course = c.id " +
-	 * "JOIN Participant p ON p.primaryKey = pid " +
-	 * "JOIN Student s ON s.id = pid.student " + "WHERE s.id = :id") List<Course>
-	 * queryFindCourses(@Param("id") int id);
-	 */
-//	@Query("SELECT i FROM Instructor i WHERE i.id = :id")
-//	List<Instructor> queryFindInstructors(@Param("id") int id);
+	 // lista kursów
+	  
+	  @Query("SELECT DISTINCT c FROM Course c " +
+	  "JOIN Participant p ON p.primaryKey.course = c.id " +
+	  "JOIN Student s ON s.id = p.primaryKey.student " + "WHERE s.id = :id") List<Course>
+	  queryFindCourses(@Param("id") int id);
+	 
 }
