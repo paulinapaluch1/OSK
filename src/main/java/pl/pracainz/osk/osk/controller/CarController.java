@@ -1,8 +1,5 @@
 package pl.pracainz.osk.osk.controller;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +16,7 @@ import pl.pracainz.osk.osk.entity.Car;
 public class CarController {
 	private CarRepository carRepository;
 
+	
 	public CarController(CarRepository repository) {
 		this.carRepository = repository;
 	}
