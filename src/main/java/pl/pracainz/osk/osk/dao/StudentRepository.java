@@ -20,24 +20,23 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	public List<Student> findByDeleted(Integer deleted);
 
 	// lista instruktorów
-	//@Query("SELECT distinct i FROM Instructor i " + "JOIN Timetable t ON t.instructor = i.id "
-		//	+ "JOIN Driving d ON d.id = t.driving " + "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id")
-//	@Query("Select i from instructor i")
-//	List<Instructor> queryFindInstructors(@Param("id") int id);
+	@Query("SELECT distinct i FROM Instructor i " + "JOIN Timetable t ON t.instructor = i.id "
+			+ "JOIN Driving d ON d.timetable = t.id " + "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id")
+	List<Instructor> queryFindInstructors(@Param("id") int id);
 
 	// lista samochodów
-	//@Query("SELECT c FROM Car c " + "JOIN Timetable t ON t.car = c.id " + "JOIN Driving d ON d.id = t.driving "
-	//		+ "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id")
-	//List<Car> queryFindCars(@Param("id") int id);
+	@Query("SELECT c FROM Car c " + "JOIN Timetable t ON t.car = c.id " + "JOIN Driving d ON d.timetable = t.id "
+			+ "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id")
+	List<Car> queryFindCars(@Param("id") int id);
 
 	// lista - grafik
-	//@Query("SELECT t FROM Timetable t " + "JOIN Driving d ON d.id = t.driving "
-	//		+ "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id")
-	//List<Timetable> queryFindTimetable(@Param("id") int id);
+	@Query("SELECT t FROM Timetable t " + "JOIN Driving d ON d.timetable = t.id "
+			+ "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id")
+	List<Timetable> queryFindTimetable(@Param("id") int id);
 
 	// lista jazd
-	//@Query("SELECT d FROM Driving d " + "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id")
-//	List<Driving> queryFindDrivings(@Param("id") int id);
+	@Query("SELECT d FROM Driving d " + "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id")
+	List<Driving> queryFindDrivings(@Param("id") int id);
 
 	// lista egzaminow
 	@Query("SELECT ie FROM InternalExam ie " + "JOIN Student s ON s.id = ie.student " + "WHERE s.id = :id")

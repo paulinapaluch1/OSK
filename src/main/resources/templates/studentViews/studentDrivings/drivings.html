@@ -30,8 +30,8 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: kursant</strong> <a
-				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+			<strong>Zalogowany użytkownik: kursant</strong> <a href="/logout"><button
+					type="button" class="btn btn-primary">WYLOGUJ</button></a>
 
 		</div>
 
@@ -56,27 +56,29 @@
 				<thead>
 					<tr class="table-primary">
 						<th>Typ</th>
+						<th>Data</th>
 						<th>Początek</th>
 						<th>Koniec</th>
 						<th>Zrealizowana</th>
 						<th>Odwołana</th>
-						
+
 
 					</tr>
 				</thead>
 				<tbody id="myTable">
 					<tr th:each="driving:${drivings}">
-						<td th:text="${driving.drivingType.type}" />
+						<td th:text="${driving.timetable.drivingType.type}" />
 						<td
-							th:text="${#dates.format(driving.startHour,'dd.MM.yyyy HH:mm')}" />
+							th:text="${#temporals.format(driving.timetable.begin,'dd.MM.yyyy')}" />
 						<td
-							th:text="${#dates.format(driving.finishHour,'dd.MM.yyyy HH:mm')}" />
+							th:text="${#temporals.format(driving.timetable.begin,'HH.mm')}" />
+						<td
+							th:text="${#temporals.format(driving.timetable.end,'HH.mm')}" />
 						<td th:text="${driving.done}" />
 						<td th:text="${driving.cancelled}" />
-						
-						<td><a
-							th:href="@{/}"
-							class="btn btn-danger">ODWOŁAJ JAZDĘ</a></td>
+
+						<td><a th:href="@{/}" class="btn btn-danger">ODWOŁAJ
+								JAZDĘ</a></td>
 
 					</tr>
 				</tbody>
