@@ -21,7 +21,7 @@
 				width="70px" /></a>
 		</div>
 		<div class="flex-fill">
-			<a th:href="@{/students/instructors}">
+			<a th:href="@{/cars/list}">
 				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
 			</a>
 		</div>
@@ -39,24 +39,17 @@
 			<!--  <p th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname" />
 -->
 
-			<form action="#" th:action="@{/students/saveInstructorOpinion}"
-				th:object="${instructoropinion}" method="POST">
+			<form action="#" th:action="@{/students/saveCarOpinion}"
+				th:object="${caropinion}" method="POST">
 
-				<strong>Oceń instruktora w skali 1-5 </strong> (1 - najniższa ocena,
-				5 - najwyższa ocena) <br> <label><input type="radio"
-					name="instructoropinion"> 1</label> <label><input
-					type="radio" name="instructoropinion"> 2</label> <label><input
-					type="radio" name="instructoropinion"> 3</label> <label><input
-					type="radio" name="instructoropinion"> 4</label> <label><input
-					type="radio" name="instructoropinion"> 5</label> <br> <br>
-				<label for="opinion"><strong>Opinia o instruktorze</strong>*</label>
-				<br>
+		 <br> <label
+					for="opinion"><strong>Opinia o samochodzie</strong>*</label> <br>
 				<textarea id="opinion" rows="10" cols="70"
-					placeholder="Napisz opinię o instruktorze"></textarea>
+					placeholder="Napisz opinię o samochodzie"></textarea>
 
 				<br>
 
-			
+
 
 
 				<button type="submit" class="btn btn-info col-2">Zapisz</button>

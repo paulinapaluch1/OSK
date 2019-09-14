@@ -24,7 +24,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	List<Instructor> queryFindInstructors(@Param("id") int id);
 
 	// lista samochodów
-	@Query("SELECT c FROM Car c " + "JOIN Timetable t ON t.car = c.id " + "JOIN Driving d ON d.timetable = t.id "
+	@Query("SELECT distinct c FROM Car c " + "JOIN Timetable t ON t.car = c.id " + "JOIN Driving d ON d.timetable = t.id "
 			+ "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id")
 	List<Car> queryFindCars(@Param("id") int id);
 
