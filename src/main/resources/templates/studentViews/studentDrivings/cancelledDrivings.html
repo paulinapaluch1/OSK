@@ -56,7 +56,6 @@
 				<thead>
 					<tr class="table-primary">
 						<th>Typ</th>
-						<th>Data</th>
 						<th>Początek</th>
 						<th>Koniec</th>
 						<th>Zrealizowana</th>
@@ -67,12 +66,10 @@
 				</thead>
 				<tbody id="myTable">
 					<tr th:each="driving:${drivings}">
-						<td th:text="${driving.timetable.drivingType.type}" />
+						<td th:text="${driving.drivingType.type}" />
 						<td
-							th:text="${#temporals.format(driving.timetable.begin,'dd.MM.yyyy')}" />
+							th:text="${#dates.format(driving.startHour,'dd.MM.yyyy HH:mm')}" />
 						<td
-							th:text="${#temporals.format(driving.timetable.begin,'HH.mm')}" />
-
 							th:text="${#dates.format(driving.finishHour,'dd.MM.yyyy HH:mm')}" />
 						<div th:if="${driving.done} eq 0">
 							<td th:text="NIE" />
@@ -87,7 +84,6 @@
 						<div th:unless="${driving.cancelled} eq 0">
 							<td th:text="TAK" />
 						</div>
-      
 
 						<td><span th:if="${driving.cancelled} eq 0"> <a
 								th:href="@{/drivings/cancelDriving(id_driving=${driving.id})}"

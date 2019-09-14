@@ -47,6 +47,8 @@
 								<th>Początek</th>
 								<th>Koniec</th>
 								<th>Instruktor</th>
+								<th>Typ</th>
+
 							</tr>
 						</thead>
 						<tbody id="myTable">
@@ -55,17 +57,11 @@
 									<td th:text="${#temporals.format(this.begin,'HH:mm')}" />
 									<td th:text="${#temporals.format(this.end,'HH:mm')}" />
 									<td	th:text="${this.instructor.name}+' ' +${this.instructor.surname} " />
-						
+									<td th:text="${this.drivingType.type}" />
 							</tr>
 						</tbody>
 					</table>
 				</div>
-			
-			
-			
-			
-			
-			
 			
 			
 			
@@ -96,8 +92,7 @@
 					<option th:value="12">14:00-16:00</option>
 					<option th:value="12">16:00-18:00</option>
 					<option th:value="12">18:00-20:00</option>
-					<option th:value="12">20:00-22:00</option>
-					
+					<option th:value="12">20:00-22:00</option>	
 				</select>
 
 				<button type="submit"

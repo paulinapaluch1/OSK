@@ -11,16 +11,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pl.pracainz.osk.osk.dao.CarRepository;
+import pl.pracainz.osk.osk.dao.DrivingRepository;
 import pl.pracainz.osk.osk.dao.InstructorOpinionRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.StudentRepository;
+import pl.pracainz.osk.osk.dao.TimetableRepository;
 import pl.pracainz.osk.osk.entity.Car;
-import pl.pracainz.osk.osk.entity.Course;
 import pl.pracainz.osk.osk.entity.Driving;
 import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.InstructorOpinion;
 import pl.pracainz.osk.osk.entity.InternalExam;
-import pl.pracainz.osk.osk.entity.Participant;
 import pl.pracainz.osk.osk.entity.Student;
 import pl.pracainz.osk.osk.entity.Timetable;
 
@@ -31,12 +32,20 @@ public class StudentController {
 	private StudentRepository studentRepository;
 	private InstructorRepository instructorRepository;
 	private InstructorOpinionRepository instructorOpinionRepository;
+	DrivingRepository drivingRepository;
+	TimetableRepository timetableRepository;
+	CarRepository carRepository;
 
 	public StudentController(StudentRepository repository, InstructorRepository instructor,
-			InstructorOpinionRepository instructorOpinion) {
+			InstructorOpinionRepository instructorOpinion,DrivingRepository drivingRepository,
+			TimetableRepository timetableRepository,CarRepository carRepository) {
 		this.studentRepository = repository;
 		this.instructorRepository = instructor;
 		this.instructorOpinionRepository = instructorOpinion;
+		this.drivingRepository=drivingRepository;
+		this.timetableRepository=timetableRepository;
+		this.carRepository=carRepository;
+		
 	}
 
 	@GetMapping("/list")
@@ -114,19 +123,16 @@ public class StudentController {
 
 	@GetMapping("/showInstructors")
 	public String listInstructors(Model theModel) {
-		//List<Instructor> theInstructors = instructorRepository.findAll();
-		//theModel.addAttribute("instructors", theInstructors);
-		List<Instructor> theInstructors = studentRepository.queryFindInstructors(2);
-		//theModel.addAttribute("instructors", theInstructors);4
-		//List<Participant> theInstructors = studentRepository.queryFindCourses();
+		List<Instructor> theInstructors = studentRepository.queryFindInstructors(1);
 		theModel.addAttribute("instructors", theInstructors);
 		return "studentViews/studentInstructors/instructors";
 	}
 	
 	@GetMapping("/showCars")
 	public String listCars(Model theModel) {
-		List<Car> theCars = studentRepository.queryFindCars(2);
+		List<Car> theCars =  studentRepository.queryFindCars(2);
 		theModel.addAttribute("cars", theCars);
+		
 		return "studentViews/studentCars/cars";
 	}
 	
@@ -156,7 +162,7 @@ public class StudentController {
 	
 	@GetMapping("/showExams")
 	public String listExams(Model theModel) {
-		List<InternalExam> theExams = studentRepository.queryFindExams(2);
+		List<InternalExam> theExams = studentRepository.queryFindExams(1);
 		theModel.addAttribute("internalexams", theExams);
 		
 		return"studentViews/studentExams/exams";

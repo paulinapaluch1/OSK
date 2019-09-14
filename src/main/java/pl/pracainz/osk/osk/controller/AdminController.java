@@ -48,9 +48,13 @@ public class AdminController {
 	@PostMapping("save")
 	public String saveStudent(@ModelAttribute("user") User theStudent) {
 		theStudent.setPassword(encoder.encode("paulis"));
+		theStudent.setId_role(1);
 		userRepository.save(theStudent);
 		return "redirect:users/list";
 	}
-
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
 
 }

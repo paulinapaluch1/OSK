@@ -33,14 +33,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception{
 		http
 		.authorizeRequests()
-        .antMatchers("/").permitAll()
+        .antMatchers("/students/list").authenticated()
 		.and()
-		.httpBasic();
+		.formLogin()
+		.loginPage("/login").permitAll()
+		.usernameParameter("txtUsername")
+        .passwordParameter("txtPassword");
 	}
 	
 
-
-	
 	@Bean
 	DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider daoAuthenticationProvider= new DaoAuthenticationProvider();

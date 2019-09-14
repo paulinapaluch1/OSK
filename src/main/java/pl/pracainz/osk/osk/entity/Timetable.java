@@ -1,8 +1,7 @@
 package pl.pracainz.osk.osk.entity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -43,23 +44,25 @@ public class Timetable {
 	@JoinColumn(name = "id_car")
 	private Car car;
 
-	@ManyToOne(cascade = { CascadeType.DETACH })
-	@JoinColumn(name = "id_driving")
-	private Driving driving;
-
+	@ManyToOne(optional=false)
+	@JoinColumn(name = "id_type")
+	private DrivingType drivingType;
+	
 	@Column
 	private int archived;
+	
+	@OneToMany(mappedBy = "timetable")
+	List<Driving> drivings;
 
 	public Timetable() {
 	}
 
-	public Timetable(Instructor instructor, LocalDateTime begin, LocalDateTime end, Car car, Driving driving, int archived) {
+	public Timetable(Instructor instructor, LocalDateTime begin, LocalDateTime end, Car car, int archived) {
 
 		this.instructor = instructor;
 		this.begin = begin;
 		this.end = end;
 		this.car = car;
-		this.driving = driving;
 		this.archived = archived;
 	}
 
@@ -103,13 +106,6 @@ public class Timetable {
 		this.car = car;
 	}
 
-	public Driving getDriving() {
-		return driving;
-	}
-
-	public void setDriving(Driving driving) {
-		this.driving = driving;
-	}
 
 	public int getArchived() {
 		return archived;
@@ -118,4 +114,22 @@ public class Timetable {
 	public void setArchived(int archived) {
 		this.archived = archived;
 	}
+
+	public DrivingType getDrivingType() {
+		return drivingType;
+	}
+
+	public void setDrivingType(DrivingType drivingType) {
+		this.drivingType = drivingType;
+	}
+
+	public List<Driving> getDrivings() {
+		return drivings;
+	}
+
+	public void setDrivings(List<Driving> drivings) {
+		this.drivings = drivings;
+	}
+	
+	
 }
