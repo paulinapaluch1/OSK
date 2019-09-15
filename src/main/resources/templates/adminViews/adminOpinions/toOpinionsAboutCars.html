@@ -33,44 +33,42 @@
 
 	</nav>
 	<div class="page">
-	<div class="container list">
 
-		<center>
-			<h2>
-				<strong>Opinie o samochodach</strong>
-			</h2>
-		</center>
-
-		<br> <br> <br>
-		<div class="d-flex justify-content-center">
+		<nav class=" list navbar navbar-expand-lg d-flex justify-content-end">
+			<div class="flex-fill">
+				<h3>OPINIE O SAMOCHODACH</h3>
+			</div>
+		</nav>
+<br>
+		
+		<div class=" container justify-content-center">
 			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 				<div class="card-body text-center mt-4">
-					<a style="text-decoration: none" th:href="@{cars/newOpinions}">
-						<p class="card-text">Nowe</p>
+					<a style="text-decoration: none" th:href="@{cars/newOpinions}"
+					 class="card-text">Nowe
 					</a>
 				</div>
 			</div>
 
 			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 				<div class="card-body text-center mt-4">
-					<a style="text-decoration: none" th:href="@{cars/checkedOpinions}">
-						<p class="card-text">Zatwierdzone</p>
+					<a style="text-decoration: none" th:href="@{cars/checkedOpinions}"
+					class="card-text">Zatwierdzone
 					</a>
 				</div>
 			</div>
 
-
-
 			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 				<div class="card-body text-center mt-4">
-					<a style="text-decoration: none" th:href="@{cars/rejectedOpinions}">
-						<p class="card-text">Odrzucone</p>
+					<a style="text-decoration: none" th:href="@{cars/rejectedOpinions}"
+					 class="card-text">Odrzucone
 					</a>
 				</div>
 			</div>
 
 		</div>
-		<br></div>
-	</div>
+		</div>
+		
+
 </body>
 </HTML>
