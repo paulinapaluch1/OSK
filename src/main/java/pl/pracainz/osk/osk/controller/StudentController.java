@@ -3,7 +3,6 @@ package pl.pracainz.osk.osk.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -173,16 +172,21 @@ public class StudentController {
 	}
 	@GetMapping("/rateInstructors")
 	public String rateInstructors(@RequestParam("id_instructor") int id, Model theModel) {
-		Instructor theInstructor = new Instructor();
-		theModel.addAttribute("instructors", theInstructor);
-		theModel.addAttribute("instructoropinions", instructorOpinionRepository.findAll());
+		InstructorOpinion theInstructorOpinion = new InstructorOpinion();
+		theInstructorOpinion.setInstructor(instructorRepository.getOne(id));
+		theModel.addAttribute("instructoropinion", theInstructorOpinion);
+		theModel.addAttribute("instructor", instructorRepository.getOne(id));
 		
 		return "studentViews/studentInstructors/rateInstructors";
 	}
 	
 	
 	@PostMapping("/saveInstructorOpinion")
-	public String saveInstructorOpinion(@ModelAttribute("instructoropinion") InstructorOpinion theInstructorOpinion) {
+	public String saveInstructorOpinion(@RequestParam("id_instructor") int id, @ModelAttribute("instructoropinion") InstructorOpinion theInstructorOpinion) {
+		theInstructorOpinion.setInstructor(instructorRepository.getOne(id));
+		theInstructorOpinion.setStatus("nowa");
+		theInstructorOpinion.setDeleted(0);
+		theInstructorOpinion.setStudent(studentRepository.getOne(1));
 		instructorOpinionRepository.save(theInstructorOpinion);
 		return "redirect:/students/showInstructors";
 	}
@@ -191,14 +195,18 @@ public class StudentController {
 	public String rateCars(@RequestParam("id_car") int id, Model theModel) {
 		CarOpinion theCarOpinion = new CarOpinion();
 		theCarOpinion.setCar(carRepository.getOne(id));
-		theModel.addAttribute("caropinions", theCarOpinion);
-		theModel.addAttribute("caropinions", carOpinionRepository.findAll());
-		
+		theModel.addAttribute("caropinion", theCarOpinion);
+		theModel.addAttribute("car", carRepository.getOne(id));
+				
 		return "studentViews/studentCars/rateCars";
 	}
 	
 	@PostMapping("/saveCarOpinion")
-	public String saveCarOpinion(@ModelAttribute("caropinion") CarOpinion theCarOpinion) {
+	public String saveCarOpinion(@RequestParam("id_car") int id, @ModelAttribute("caropinion") CarOpinion theCarOpinion) {
+		theCarOpinion.setCar(carRepository.getOne(id));
+		theCarOpinion.setStatus("nowa");
+		theCarOpinion.setDeleted(0);
+		theCarOpinion.setStudent(studentRepository.getOne(4));
 		carOpinionRepository.save(theCarOpinion);
 		return "redirect:/students/showCars";
 	}
