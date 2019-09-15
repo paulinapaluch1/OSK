@@ -39,25 +39,24 @@
 			<!--  <p th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname" />
 -->
 
-			<form action="#" th:action="@{/students/saveInstructorOpinion}"
+			<form action="#"
+				th:action="@{/students/saveInstructorOpinion(id_instructor=${instructoropinion.instructor.id})}"
 				th:object="${instructoropinion}" method="POST">
 
 				<strong>Oceń instruktora w skali 1-5 </strong> (1 - najniższa ocena,
-				5 - najwyższa ocena) <br> <label><input type="radio"
-					name="instructoropinion"> 1</label> <label><input
-					type="radio" name="instructoropinion"> 2</label> <label><input
-					type="radio" name="instructoropinion"> 3</label> <label><input
-					type="radio" name="instructoropinion"> 4</label> <label><input
-					type="radio" name="instructoropinion"> 5</label> <br> <br>
-				<label for="opinion"><strong>Opinia o instruktorze</strong>*</label>
-				<br>
-				<textarea id="opinion" rows="10" cols="70"
+				5 - najwyższa ocena) <br> <select th:field="*{instructorMark}"
+					class="form-control mb-4 col-4">
+					<option th:text="1" th:value="1" />
+					<option th:text="2" th:value="2" />
+					<option th:text="3" th:value="3" />
+					<option th:text="4" th:value="4" />
+					<option th:text="5" th:value="5" />
+				</select> <label for="opinion"> <strong>Opinia o
+						instruktorze</strong></label> <br>
+				<textarea th:field="*{instructorOpinion}" rows="10" cols="70"
 					placeholder="Napisz opinię o instruktorze"></textarea>
 
 				<br>
-
-			
-
 
 				<button type="submit" class="btn btn-info col-2">Zapisz</button>
 

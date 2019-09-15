@@ -127,7 +127,7 @@ public class InstructorController {
 	
 	@GetMapping("/showOpinions")
 	public String listOpinions(Model theModel) {
-		List<InstructorOpinion> theOpinions = instructorRepository.queryFindOpinions(1);
+		List<InstructorOpinion> theOpinions = instructorRepository.queryFindOpinions(5);
 		theModel.addAttribute("instructoropinions", theOpinions);
 		return "instructorViews/instructorOpinions/opinionsAboutInstructor";
 	}

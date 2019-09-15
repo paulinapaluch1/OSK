@@ -1,4 +1,5 @@
 <!DOCTYPE HTML>
+
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Admin Cars</title>
@@ -39,12 +40,37 @@
 			<!--  <p th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname" />
 -->
 
-			<form action="#" th:action="@{/students/saveCarOpinion}"
+			<form action="#"
+				th:action="@{/students/saveCarOpinion(id_car=${caropinion.car.id})}"
 				th:object="${caropinion}" method="POST">
 
-		 <br> <label
-					for="opinion"><strong>Opinia o samochodzie</strong>*</label> <br>
-				<textarea id="opinion" rows="10" cols="70"
+				<strong>Oceń samochód w skali 1-5 </strong> (1 - najniższa ocena,
+				5 - najwyższa ocena) <br>
+
+				<!--  <ul>
+					<li th:each="ty : ${allTypes}"><input type="radio"
+						th:field="*{carMark}" th:value="s${ty}" /> <label
+						th:for="${#ids.prev('type')}"
+						th:text="#{${'seedstarter.type.' + ty}}">Wireframe</label></li>
+				</ul>
+-->
+
+				<select th:field="*{carMark}" class="form-control mb-4 col-4">
+					<option th:text="1" th:value="1" />
+					<option th:text="2" th:value="2" />
+					<option th:text="3" th:value="3" />
+					<option th:text="4" th:value="4" />
+					<option th:text="5" th:value="5" />
+				</select>
+				<!-- 
+				<label><input type="radio" name="caropinion"> 1</label> <label><input
+					type="radio" name="caropinion"> 2</label> <label><input
+					type="radio" name="caropinion"> 3</label> <label><input
+					type="radio" name="caropinion"> 4</label> <label><input
+					type="radio" name="caropinion"> 5</label>  -->
+				<label for="opinion"> <strong>Opinia
+						o samochodzie</strong></label> <br>
+				<textarea th:field="*{carOpinion}" rows="10" cols="70"
 					placeholder="Napisz opinię o samochodzie"></textarea>
 
 				<br>
