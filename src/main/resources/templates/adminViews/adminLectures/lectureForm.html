@@ -10,7 +10,7 @@
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 
 </head>
-<body>
+<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
 	<div class="page">
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
@@ -34,7 +34,7 @@
 
 		</nav>
 
-		<div class="container">
+		<div class="container list">
 		<h3>WYKŁAD</h3>
 
 			<form action="#" th:action="@{/lectures/save}" th:object="${lecture}"
@@ -75,6 +75,7 @@
 				<a th:href="@{/lectures/list}" class="btn btn-danger">ANULUJ</a>
 
 			</form>
+			<br>
 
 
 		</div>

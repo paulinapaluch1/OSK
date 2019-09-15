@@ -29,3 +29,10 @@ a {
 inlineButton{
 	float:left !important;
 }
+
+
+.list{
+	background-color:white;
+	opacity:0.97;
+	max-width:200rem;
+}
