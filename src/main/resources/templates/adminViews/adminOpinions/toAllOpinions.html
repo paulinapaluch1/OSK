@@ -9,14 +9,10 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-
 </head>
 
-<body>	<nav
+<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
 			<a href="/"><img
@@ -38,63 +34,30 @@
 
 	</nav>
 	<div class="page">
-	<div class="container list">
 
-	
-		
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="instructors-tab" data-toggle="tab" href="#instructors" role="tab" aria-controls="instructors"
-      aria-selected="true">Home</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-      aria-selected="false">Profile</a>
-  </li>
- 
-</ul>
-<div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="instructors" role="tabpanel" aria-labelledby="instructors-tab">Raw denim you
-    probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master
-    cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro
-    keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip
-    placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi
-    qui.</div>
-  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">Food truck fixie
-    locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit,
-    blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee.
-    Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum
-    PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS
-    salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit,
-    sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester
-    stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</div>
-
-		
-		
-		
-		
-		
-	<div class="container justify-content-center offset-2">
-<br>
-<div id="card" class="card bg-light mb-4 ml-4 mr-4">
-		<div class="card-body text-center mt-4" >
-			<a style="text-decoration: none" 
-			th:href="@{/opinions/instructors}">
-				<p class="card-text">Instruktorzy</p>
-			</a>
-		</div>
-	</div>
-	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
-		<div class="card-body text-center mt-4">
-			<a style="text-decoration: none" 
-			th:href="@{/opinions/cars}">
-				<p class="card-text">Samochody</p>
-			</a>
-		</div>
-	</div></div>
-	
+		<nav class="list navbar navbar-expand-lg d-flex justify-content-end">
+			<div class="flex-fill">
+				<h3>OPINIE</h3>
+			</div>
+		</nav>
 		<br>
-		
+		<div class="container justify-content-center offset-3">
+			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+				<div class="card-body text-center mt-4">
+					<a style="text-decoration: none" th:href="@{/opinions/instructors}"
+					 class="card-text">Instruktorzy
+					</a>
+				</div>
+			</div>
+
+			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+				<div class="card-body text-center mt-4">
+					<a style="text-decoration: none" th:href="@{/opinions/cars}"
+					class="card-text">Samochody
+					</a>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </body>
