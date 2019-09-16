@@ -13,7 +13,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 </head>
-<body>
+<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
@@ -35,7 +35,7 @@
 		</div>
 	</nav>
 	<div class="page">
-
+<div class="container list">
 		<br>
 		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
 			<div class="flex-fill">
@@ -80,7 +80,7 @@
 				</tbody>
 			</table>
 		</div>
-	</div>
+	</div></div>
 	<script>
 		$(document)
 				.ready(
