@@ -1,15 +1,17 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Admin Exams</title>
+<title>Drivings</title>
 <meta charset="utf-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 </head>
 <body>
 	<nav
@@ -28,8 +30,9 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong> <a
-				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+			<strong>Zalogowany użytkownik: instruktor</strong> <a href="/logout"><button
+					type="button" class="btn btn-primary">WYLOGUJ</button></a>
+
 		</div>
 
 	</nav>
@@ -37,55 +40,59 @@
 		<br>
 		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
 			<div class="flex-fill">
-				<h3>LISTA EGZAMINÓW</h3>
+				<h3>ODBYTE JAZDY</h3>
 			</div>
+
 			<div class="flex-fill">
-				<a th:href="@{/}"><button type="button"
-						class="btn btn btn-primary">DODAJ EGZAMIN</button></a>
-			</div>
-			<div class="flex-fill">
-				<a th:href="@{/instructors/showArchivedExams}"><button type="button"
-						class="btn btn-outline-secondary">Zarchiwizowane egzaminy</button></a>
+				<a th:href="@{/instructors/showDrivings}"><button type="button"
+						class="btn btn-outline-secondary">Jazdy</button></a>
 			</div>
 		</nav>
 
 
 		<br> <input class="form-control" id="myInput" type="text"
-			placeholder="Szukaj..."> <br>
-		
+			placeholder="Szukaj..."> <br> <br>
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>
 					<tr class="table-primary">
-						<th>Id egzaminu</th>
-						<th>Instruktor</th>
+						<th>Nr</th>
+						<th>Kategoria</th>
 						<th>Kursant</th>
-						<th>Data</th>
-						<th>Godzina</th>
-						<th>Wynik</th>
+						<th>Samochód</th>
 						<th>Typ</th>
+						<th>Data</th>
+						<th>Początek</th>
+						<th>Koniec</th>
+						<th>Odbyła się</th>
 					</tr>
 				</thead>
 				<tbody id="myTable">
-					<tr th:each="exam:${internalexams}">
-						<td th:text="${exam.id}" />
+					<tr th:each="driving:${drivings}">
+						<td th:text="${driving.id}" />
+						<td></td>
 						<td
-							th:text="${exam.instructor.name} + ' ' + ${exam.instructor.surname}" />
-						<td th:text="${exam.student.name} + ' ' + ${exam.student.surname}" />
-						<td th:text="${#dates.format(exam.dateHour, 'dd-MM-yyyy')}" />
-						<td th:text="${#dates.format(exam.dateHour, 'HH:mm')}" />
+							th:text="${driving.student.name}+' '+${driving.student.surname} " />
+						<td
+							th:text="${driving.timetable.car.registrationNumber} + ' ' + ${driving.timetable.car.brand} + ' ' + ${driving.timetable.car.model}" />
+						<td th:text="${driving.timetable.drivingType.type}" />
+<td
+							th:text="${#temporals.format(driving.timetable.begin,'dd.MM.yyyy')}" />
+						<td
+							th:text="${#temporals.format(driving.timetable.begin,'HH.mm')}" />
+						<td th:text="${#temporals.format(driving.timetable.end,'HH.mm')}" />
+						<div th:switch="${driving.done}">
+							<div th:case=0>
+								<td th:text="NIE" />
+							</div>
+							<div th:case=1>
+								<td th:text="TAK" />
+							</div>
+						</div>
 						
-						<div th:switch="${exam.result}" >
-						<div th:case=0> <td th:text="negatywny"/>
-						</div>
-						<div th:case=1> <td th:text="pozytywny"/>
-						</div>
-						
-						</div>
-						<td th:text="${exam.type}" />
 						<td><a
-							th:href="@{/exams/showFormForUpdate(id_internalExam=${exam.id})}"
-							class="btn btn-primary">EDYTUJ</a></td>
+							th:href="@{/drivings/undoneDriving(id_driving=${driving.id})}"
+							class="btn btn-danger">COFNIJ</a></td>
 					</tr>
 				</tbody>
 
@@ -93,7 +100,6 @@
 			</table>
 		</div>
 	</div>
-
 	<script>
 		$(document)
 				.ready(
@@ -121,4 +127,5 @@
 	</script>
 
 </body>
+
 </HTML>

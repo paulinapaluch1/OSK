@@ -30,8 +30,8 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: instruktor</strong> <a
-				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+			<strong>Zalogowany użytkownik: instruktor</strong> <a href="/logout"><button
+					type="button" class="btn btn-primary">WYLOGUJ</button></a>
 
 		</div>
 
@@ -44,8 +44,8 @@
 			</div>
 
 			<div class="flex-fill">
-				<a th:href="@{/}"><button type="button"
-						class="btn btn-outline-secondary">Zarchiwizowane jazdy</button></a>
+				<a th:href="@{/instructors/showDoneDrivings}"><button type="button"
+						class="btn btn-outline-secondary">Odbyte jazdy</button></a>
 			</div>
 		</nav>
 
@@ -61,6 +61,7 @@
 						<th>Kursant</th>
 						<th>Samochód</th>
 						<th>Typ</th>
+						<th>Data</th>
 						<th>Początek</th>
 						<th>Koniec</th>
 						<th>Odbyła się</th>
@@ -75,15 +76,23 @@
 						<td
 							th:text="${driving.timetable.car.registrationNumber} + ' ' + ${driving.timetable.car.brand} + ' ' + ${driving.timetable.car.model}" />
 						<td th:text="${driving.timetable.drivingType.type}" />
-						
+<td
+							th:text="${#temporals.format(driving.timetable.begin,'dd.MM.yyyy')}" />
 						<td
 							th:text="${#temporals.format(driving.timetable.begin,'HH.mm')}" />
 						<td th:text="${#temporals.format(driving.timetable.end,'HH.mm')}" />
-						
-						
+						<div th:switch="${driving.done}">
+							<div th:case=0>
+								<td th:text="NIE" />
+							</div>
+							<div th:case=1>
+								<td th:text="TAK" />
+							</div>
+						</div>
 						<td><a
-							th:href="@{/drivings/showFormForUpdate(id_driving=${driving.id})}"
+							th:href="@{/drivings/doneDriving(id_driving=${driving.id})}"
 							class="btn btn-primary">ODBYŁA SIĘ</a></td>
+
 					</tr>
 				</tbody>
 
