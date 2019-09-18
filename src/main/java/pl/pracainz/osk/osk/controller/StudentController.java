@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pracainz.osk.osk.dao.CarOpinionRepository;
 import pl.pracainz.osk.osk.dao.CarRepository;
+import pl.pracainz.osk.osk.dao.CourseRepository;
 import pl.pracainz.osk.osk.dao.DrivingRepository;
 import pl.pracainz.osk.osk.dao.InstructorOpinionRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
@@ -36,21 +37,23 @@ public class StudentController {
 	private InstructorRepository instructorRepository;
 	private InstructorOpinionRepository instructorOpinionRepository;
 	private CarOpinionRepository carOpinionRepository;
+	private CourseRepository courseRepository;
 	DrivingRepository drivingRepository;
 	TimetableRepository timetableRepository;
 	CarRepository carRepository;
 
 	public StudentController(StudentRepository repository, InstructorRepository instructor,
-			InstructorOpinionRepository instructorOpinion,DrivingRepository drivingRepository,
-			TimetableRepository timetableRepository,CarRepository carRepository, CarOpinionRepository carOpinion) {
+			InstructorOpinionRepository instructorOpinion, DrivingRepository drivingRepository,
+			TimetableRepository timetableRepository, CarRepository carRepository, CarOpinionRepository carOpinion, CourseRepository courseRepository) {
 		this.studentRepository = repository;
 		this.instructorRepository = instructor;
 		this.instructorOpinionRepository = instructorOpinion;
-		this.drivingRepository=drivingRepository;
-		this.timetableRepository=timetableRepository;
-		this.carRepository=carRepository;
+		this.drivingRepository = drivingRepository;
+		this.timetableRepository = timetableRepository;
+		this.carRepository = carRepository;
 		this.carOpinionRepository = carOpinion;
-		
+		this.courseRepository = courseRepository;
+
 	}
 
 	@GetMapping("/list")
@@ -67,7 +70,7 @@ public class StudentController {
 
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
-		//Student theStudent = new Student();
+		// Student theStudent = new Student();
 		theModel.addAttribute("student", new Student());
 		return "adminViews/adminStudents/addStudent";
 	}
@@ -75,7 +78,7 @@ public class StudentController {
 	@GetMapping("/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("id_student") int id, Model theModel) {
 		theModel.addAttribute("student", studentRepository.findById(id));
-		return "adminViews/adminStudents/addStudent";			
+		return "adminViews/adminStudents/addStudent";
 
 	}
 
@@ -94,7 +97,7 @@ public class StudentController {
 		studentRepository.save(theStudent);
 		return "redirect:/students/list";
 	}
-	
+
 	@GetMapping("/unarchiveStudent")
 	public String unarchiveStudent(@RequestParam("id_student") int id, Model theModel) {
 
@@ -132,43 +135,43 @@ public class StudentController {
 		theModel.addAttribute("instructors", theInstructors);
 		return "studentViews/studentInstructors/instructors";
 	}
-	
+
 	@GetMapping("/showCars")
 	public String listCars(Model theModel) {
-		List<Car> theCars =  studentRepository.queryFindCars(2);
+		List<Car> theCars = studentRepository.queryFindCars(2);
 		theModel.addAttribute("cars", theCars);
-		
+
 		return "studentViews/studentCars/cars";
 	}
-	
+
 	@GetMapping("/showDrivings")
 	public String listDrivings(Model theModel) {
 		List<Driving> theDrivings = studentRepository.queryFindDrivings(1);
 		theModel.addAttribute("drivings", theDrivings);
 		return "studentViews/studentDrivings/drivings";
 	}
-	
+
 	@GetMapping("/showDoneDrivings")
 	public String listDoneDrivings(Model theModel) {
 		List<Driving> theDrivings = studentRepository.findDoneDrivings(1);
 		theModel.addAttribute("drivings", theDrivings);
 		return "studentViews/studentDrivings/drivingsDone";
 	}
-	
+
 	@GetMapping("/showCancelledDrivings")
 	public String listCancelledDrivings(Model theModel) {
 		List<Driving> theDrivings = studentRepository.findCancelledDrivings(1);
 		theModel.addAttribute("drivings", theDrivings);
 		return "studentViews/studentDrivings/drivingsCancelled";
 	}
-	
+
 	@GetMapping("/showTimetable")
 	public String Timetable(Model theModel) {
 		List<Timetable> theTimetable = studentRepository.queryFindTimetable(1);
 		theModel.addAttribute("timetable", theTimetable);
 		return "studentViews/studentTimetable/timetable";
 	}
-	
+
 	@GetMapping("/showCourses")
 	public String listCourses(Model theModel) {
 		List<Course> theCourses = studentRepository.queryFindCourses(1);
@@ -176,27 +179,27 @@ public class StudentController {
 		return "studentViews/studentCourses/courses";
 	}
 
-	
 	@GetMapping("/showExams")
 	public String listExams(Model theModel) {
 		List<InternalExam> theExams = studentRepository.queryFindExams(1);
 		theModel.addAttribute("internalexams", theExams);
-		
-		return"studentViews/studentExams/exams";
+
+		return "studentViews/studentExams/exams";
 	}
+
 	@GetMapping("/rateInstructors")
 	public String rateInstructors(@RequestParam("id_instructor") int id, Model theModel) {
 		InstructorOpinion theInstructorOpinion = new InstructorOpinion();
 		theInstructorOpinion.setInstructor(instructorRepository.getOne(id));
 		theModel.addAttribute("instructoropinion", theInstructorOpinion);
 		theModel.addAttribute("instructor", instructorRepository.getOne(id));
-		
+
 		return "studentViews/studentInstructors/rateInstructors";
 	}
-	
-	
+
 	@PostMapping("/saveInstructorOpinion")
-	public String saveInstructorOpinion(@RequestParam("id_instructor") int id, @ModelAttribute("instructoropinion") InstructorOpinion theInstructorOpinion) {
+	public String saveInstructorOpinion(@RequestParam("id_instructor") int id,
+			@ModelAttribute("instructoropinion") InstructorOpinion theInstructorOpinion) {
 		theInstructorOpinion.setInstructor(instructorRepository.getOne(id));
 		theInstructorOpinion.setStatus("nowa");
 		theInstructorOpinion.setDeleted(0);
@@ -204,19 +207,20 @@ public class StudentController {
 		instructorOpinionRepository.save(theInstructorOpinion);
 		return "redirect:/students/showInstructors";
 	}
-	
+
 	@GetMapping("/rateCars")
 	public String rateCars(@RequestParam("id_car") int id, Model theModel) {
 		CarOpinion theCarOpinion = new CarOpinion();
 		theCarOpinion.setCar(carRepository.getOne(id));
 		theModel.addAttribute("caropinion", theCarOpinion);
 		theModel.addAttribute("car", carRepository.getOne(id));
-				
+
 		return "studentViews/studentCars/rateCars";
 	}
-	
+
 	@PostMapping("/saveCarOpinion")
-	public String saveCarOpinion(@RequestParam("id_car") int id, @ModelAttribute("caropinion") CarOpinion theCarOpinion) {
+	public String saveCarOpinion(@RequestParam("id_car") int id,
+			@ModelAttribute("caropinion") CarOpinion theCarOpinion) {
 		theCarOpinion.setCar(carRepository.getOne(id));
 		theCarOpinion.setStatus("nowa");
 		theCarOpinion.setDeleted(0);
@@ -225,5 +229,12 @@ public class StudentController {
 		return "redirect:/students/showCars";
 	}
 
-	
+	// dla admina
+	@GetMapping("/listCourses")
+	public String listCCourses(Model theModel) {
+		List<Course> theCourses = courseRepository.findCourses(6);
+		theModel.addAttribute("courses", theCourses);
+		return "adminViews/adminStudents/courses";
+	}
+
 }

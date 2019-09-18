@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pracainz.osk.osk.dao.InstructorRepository;
+import pl.pracainz.osk.osk.dao.InternalExamRepository;
 import pl.pracainz.osk.osk.entity.Course;
 import pl.pracainz.osk.osk.entity.Driving;
 import pl.pracainz.osk.osk.entity.Instructor;
@@ -23,9 +24,11 @@ import pl.pracainz.osk.osk.entity.Student;
 @RequestMapping("/instructors")
 public class InstructorController {
 	private InstructorRepository instructorRepository;
+	private InternalExamRepository internalExamRepository;
 
-	public InstructorController(InstructorRepository repository) {
+	public InstructorController(InstructorRepository repository, InternalExamRepository exams) {
 		this.instructorRepository = repository;
+		this.internalExamRepository = exams;
 	}
 
 	@GetMapping("/list")
@@ -116,6 +119,14 @@ public class InstructorController {
 		theModel.addAttribute("internalexams", theExams);
 		return "instructorViews/instructorExams/exams";
 	}
+	
+	@GetMapping("/showExamForm")
+	public String addExams(Model theModel) {
+		InternalExam theInternalExam = new InternalExam();
+		theModel.addAttribute("internalexam", theInternalExam);
+		return "instructorViews/instructorExams/examForm";
+	}
+
 	
 	@GetMapping("/showArchivedExams")
 	public String listArchivedExams(Model theModel) {

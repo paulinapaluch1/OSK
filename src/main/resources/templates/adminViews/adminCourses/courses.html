@@ -51,10 +51,10 @@
 						class="btn btn-outline-secondary">Zarchiwizowane kursy</button></a>
 			</div>
 			<div class="flex-fill">
-			<a th:href="@{/courses/categories}"><button type="button"
-					class="btn btn btn-primary">KATEGORIE</button></a>
-		</div>
-			
+				<a th:href="@{/courses/categories}"><button type="button"
+						class="btn btn btn-primary">KATEGORIE</button></a>
+			</div>
+
 		</nav>
 
 
@@ -68,7 +68,7 @@
 						<th>Kategoria</th>
 						<th>Instruktor</th>
 						<th>Początek</th>
-						
+
 					</tr>
 				</thead>
 				<tbody id="myTable">
@@ -78,13 +78,16 @@
 						<td
 							th:text="${course.instructor.name}+' ' +${course.instructor.surname} " />
 						<td th:text="${#temporals.format(course.startDate,'dd.MM.yyyy')}" />
-						
+
 						<td><a
 							th:href="@{/courses/showFormForUpdate(id_course=${course.id})}"
 							class="btn btn-primary">EDYTUJ</a></td>
 						<td><a
 							th:href="@{/courses/archiveCourse(id_course=${course.id})}"
 							class="btn btn-danger">ARCHIWIZUJ</a></td>
+						<td><a
+							th:href="@{/courses/showStudents}"
+							class="btn btn-info">ZOBACZ UCZESTNIKÓW</a></td>
 					</tr>
 				</tbody>
 			</table>

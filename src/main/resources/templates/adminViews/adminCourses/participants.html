@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Admin Students</title>
+<title>Admin Profile</title>
 <meta charset="utf-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -40,57 +40,35 @@
 		<br>
 		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
 			<div class="flex-fill">
-				<h3>ZARCHIWIZOWANI KURSANCI</h3>
+				<h3>UCZESTNICY KURSU</h3>
 			</div>
-			<div class="flex-fill"></div>
 			<div class="flex-fill">
-				<a th:href="@{/students/list}"><button type="button"
-						class="btn btn-outline-secondary">Aktualna lista
-						kursantów</button></a>
+				<a th:href="@{/courses/list}"><button type="button"
+						class="btn btn btn-primary">KURSY</button></a>
 			</div>
+
 		</nav>
+
 
 		<br> <input class="form-control" id="myInput" type="text"
 			placeholder="Szukaj..."> <br>
-		<div class="table-responsive">
-			<table class="table table-hover  table-sm">
+		<div class="table-responsive table-sm">
+			<table class="table table-hover table-sm">
 				<thead>
 					<tr class="table-primary">
-						<th>Id</th>
 						<th>Imię</th>
 						<th>Nazwisko</th>
-						<th>Login</th>
-						<th>Hasło</th>
-						<th>Data ur.</th>
-						<th>Adres</th>
-						<th>Telefon</th>
-						<th>Email</th>
-						<th>PKK</th>
-
 					</tr>
 				</thead>
 				<tbody id="myTable">
-					<tr th:each="tempStudent:${students}">
-						<td th:text="${tempStudent.id}" />
-						<td th:text="${tempStudent.name}" />
-						<td th:text="${tempStudent.surname}" />
-						<td th:text="${tempStudent.login}" />
-						<td><button name="sendPassword">Wyślij hasło</button></td>
-						<td
-							th:text="${#dates.format(tempStudent.birthdate,'dd.MM.yyyy')} " />
-						<td
-							th:text="'ul. '+${tempStudent.street}+ ' ' +${tempStudent.buildingNumber}+ '/ ' +${tempStudent.apartmentNumber}+ ' ' +${tempStudent.postCode}+ ' ' +${tempStudent.city}" />
-						<td th:text="${tempStudent.phoneNumber}" />
-						<td th:text="${tempStudent.email}" />
-						<td th:text="${tempStudent.PKK}" />
-
-						<td><a
-							th:href="@{/students/unarchiveStudent(id_student=${tempStudent.id})}"
-							class="btn btn-danger">COFNIJ ARCHIWIZACJĘ</a></td>
+					<tr th:each="student:${students}">
+						<td th:text="${student.name}" />
+						<td th:text="${student.surname}" />
 					</tr>
 				</tbody>
 			</table>
 		</div>
+
 	</div>
 	<script>
 		$(document)
@@ -118,4 +96,8 @@
 						});
 	</script>
 </body>
-</HTML>
+</html>
+
+
+
+
