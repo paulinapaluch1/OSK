@@ -1,19 +1,17 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Drivings</title>
+<title>Admin Exams</title>
 <meta charset="utf-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 </head>
-<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+<body>
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
@@ -30,77 +28,67 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: instruktor</strong> <a href="/logout"><button
-					type="button" class="btn btn-primary">WYLOGUJ</button></a>
-
+			<strong>Zalogowany użytkownik: instruktor</strong> <a
+				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 
 	</nav>
 	<div class="page">
-	<div class="container list">
 		<br>
 		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
 			<div class="flex-fill">
-				<h3>JAZDY</h3>
+				<h3>ZARCHIWIZOWANE EGZAMINY</h3>
 			</div>
 
 			<div class="flex-fill">
-				<a th:href="@{/instructors/showDoneDrivings}"><button type="button"
-						class="btn btn-outline-secondary">Odbyte jazdy</button></a>
+				<a th:href="@{/instructors/showExams}"><button type="button"
+						class="btn btn-outline-secondary">Egzaminy</button></a>
 			</div>
 		</nav>
 
 
 		<br> <input class="form-control" id="myInput" type="text"
-			placeholder="Szukaj..."> <br> <br>
+			placeholder="Szukaj..."> <br>
+		
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>
 					<tr class="table-primary">
-						<th>Nr</th>
-						<th>Kategoria</th>
+						<th>Id egzaminu</th>
+						<th>Instruktor</th>
 						<th>Kursant</th>
-						<th>Samochód</th>
-						<th>Typ</th>
 						<th>Data</th>
-						<th>Początek</th>
-						<th>Koniec</th>
-						<th>Odbyła się</th>
+						<th>Godzina</th>
+						<th>Wynik</th>
+						<th>Typ</th>
 					</tr>
 				</thead>
 				<tbody id="myTable">
-					<tr th:each="driving:${drivings}">
-						<td th:text="${driving.id}" />
-						<td></td>
+					<tr th:each="exam:${internalexams}">
+						<td th:text="${exam.id}" />
 						<td
-							th:text="${driving.student.name}+' '+${driving.student.surname} " />
-						<td
-							th:text="${driving.timetable.car.registrationNumber} + ' ' + ${driving.timetable.car.brand} + ' ' + ${driving.timetable.car.model}" />
-						<td th:text="${driving.timetable.drivingType.type}" />
-<td
-							th:text="${#temporals.format(driving.timetable.begin,'dd.MM.yyyy')}" />
-						<td
-							th:text="${#temporals.format(driving.timetable.begin,'HH.mm')}" />
-						<td th:text="${#temporals.format(driving.timetable.end,'HH.mm')}" />
-						<div th:switch="${driving.done}">
-							<div th:case=0>
-								<td th:text="NIE" />
-							</div>
-							<div th:case=1>
-								<td th:text="TAK" />
-							</div>
+							th:text="${exam.instructor.name} + ' ' + ${exam.instructor.surname}" />
+						<td th:text="${exam.student.name} + ' ' + ${exam.student.surname}" />
+						<td th:text="${#dates.format(exam.dateHour, 'dd-MM-yyyy')}" />
+						<td th:text="${#dates.format(exam.dateHour, 'HH:mm')}" />
+						
+						<div th:switch="${exam.result}" >
+						<div th:case=0> <td th:text="negatywny"/>
 						</div>
-						<td><a
-							th:href="@{/drivings/doneDriving(id_driving=${driving.id})}"
-							class="btn btn-primary">ODBYŁA SIĘ</a></td>
-
+						<div th:case=1> <td th:text="pozytywny"/>
+						</div>
+						
+						</div>
+						<td th:text="${exam.type}" />
+						
 					</tr>
 				</tbody>
 
 
 			</table>
-		</div></div>
+		</div>
 	</div>
+
 	<script>
 		$(document)
 				.ready(
@@ -128,5 +116,4 @@
 	</script>
 
 </body>
-
 </HTML>

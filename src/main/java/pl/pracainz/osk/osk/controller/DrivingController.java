@@ -80,6 +80,23 @@ public class DrivingController {
 		return "redirect:/drivings/listArchived";
 	}
 	
+	//dla instruktora
+	@GetMapping("/doneDriving")
+	public String doneDriving(@RequestParam("id_driving") int id, Model theModel) {
+		Driving theDriving = drivingRepository.getOne(id);
+		theDriving.setDone(1);
+		drivingRepository.save(theDriving);
+		return "redirect:/instructors/showDrivings";
+	}
+	
+	@GetMapping("/undoneDriving")
+	public String undoneDriving(@RequestParam("id_driving") int id, Model theModel) {
+		Driving theDriving = drivingRepository.getOne(id);
+		theDriving.setDone(0);
+		drivingRepository.save(theDriving);
+		return "redirect:/instructors/showDrivings";
+	}
+	
 	// dla kursanta
 	@GetMapping("/cancelDriving")
 	public String cancelDriving(@RequestParam("id_driving") int id, Model theModel) {

@@ -37,6 +37,12 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	@Query("SELECT d FROM Driving d " + "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id") // AND d.cancelled = 0")
 	List<Driving> queryFindDrivings(@Param("id") int id);
 
+	@Query("SELECT d FROM Driving d " + "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id AND d.cancelled = 1")
+	List<Driving> findCancelledDrivings(@Param("id") int id);
+	
+	@Query("SELECT d FROM Driving d " + "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id AND d.done = 1")
+	List<Driving> findDoneDrivings(@Param("id") int id);
+	
 	// lista egzaminow
 	@Query("SELECT ie FROM InternalExam ie " + "JOIN Student s ON s.id = ie.student " + "WHERE s.id = :id")
 	List<InternalExam> queryFindExams(@Param("id") int id);

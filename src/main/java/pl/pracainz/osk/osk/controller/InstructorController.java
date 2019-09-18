@@ -18,7 +18,6 @@ import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.InstructorOpinion;
 import pl.pracainz.osk.osk.entity.InternalExam;
 import pl.pracainz.osk.osk.entity.Student;
-import pl.pracainz.osk.osk.entity.Timetable;
 
 @Controller
 @RequestMapping("/instructors")
@@ -118,6 +117,13 @@ public class InstructorController {
 		return "instructorViews/instructorExams/exams";
 	}
 	
+	@GetMapping("/showArchivedExams")
+	public String listArchivedExams(Model theModel) {
+		List<InternalExam> theExams = instructorRepository.findArchivedExams(1);
+		theModel.addAttribute("internalexams", theExams);
+		return "instructorViews/instructorExams/examsArchived";
+	}
+	
 	@GetMapping("/showStudents")
 	public String listStudents(Model theModel) {
 		List<Student> theStudents = instructorRepository.queryFindStudents(2);
@@ -134,9 +140,16 @@ public class InstructorController {
 	
 	@GetMapping("/showDrivings")
 	public String listDrivings(Model theModel) {
-		List<Driving> theDrivings = instructorRepository.queryFindDrivings(1);
+		List<Driving> theDrivings = instructorRepository.findUndoneDrivings(1);
 		theModel.addAttribute("drivings", theDrivings);
 		return "instructorViews/instructorDrivings/drivings";
+	}
+	
+	@GetMapping("/showDoneDrivings")
+	public String listDoneDrivings(Model theModel) {
+		List<Driving> theDrivings = instructorRepository.findDoneDrivings(1);
+		theModel.addAttribute("drivings", theDrivings);
+		return "instructorViews/instructorDrivings/drivingsDone";
 	}
 	
 //	@GetMapping("/showTimetable")

@@ -67,7 +67,7 @@ public class StudentController {
 
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
-		Student theStudent = new Student();
+		//Student theStudent = new Student();
 		theModel.addAttribute("student", new Student());
 		return "adminViews/adminStudents/addStudent";
 	}
@@ -146,6 +146,20 @@ public class StudentController {
 		List<Driving> theDrivings = studentRepository.queryFindDrivings(1);
 		theModel.addAttribute("drivings", theDrivings);
 		return "studentViews/studentDrivings/drivings";
+	}
+	
+	@GetMapping("/showDoneDrivings")
+	public String listDoneDrivings(Model theModel) {
+		List<Driving> theDrivings = studentRepository.findDoneDrivings(1);
+		theModel.addAttribute("drivings", theDrivings);
+		return "studentViews/studentDrivings/drivingsDone";
+	}
+	
+	@GetMapping("/showCancelledDrivings")
+	public String listCancelledDrivings(Model theModel) {
+		List<Driving> theDrivings = studentRepository.findCancelledDrivings(1);
+		theModel.addAttribute("drivings", theDrivings);
+		return "studentViews/studentDrivings/drivingsCancelled";
 	}
 	
 	@GetMapping("/showTimetable")

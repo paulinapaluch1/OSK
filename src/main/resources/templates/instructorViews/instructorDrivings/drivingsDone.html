@@ -13,7 +13,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 </head>
-<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+<body>
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
@@ -37,16 +37,15 @@
 
 	</nav>
 	<div class="page">
-	<div class="container list">
 		<br>
 		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
 			<div class="flex-fill">
-				<h3>JAZDY</h3>
+				<h3>ODBYTE JAZDY</h3>
 			</div>
 
 			<div class="flex-fill">
-				<a th:href="@{/instructors/showDoneDrivings}"><button type="button"
-						class="btn btn-outline-secondary">Odbyte jazdy</button></a>
+				<a th:href="@{/instructors/showDrivings}"><button type="button"
+						class="btn btn-outline-secondary">Jazdy</button></a>
 			</div>
 		</nav>
 
@@ -90,16 +89,16 @@
 								<td th:text="TAK" />
 							</div>
 						</div>
+						
 						<td><a
-							th:href="@{/drivings/doneDriving(id_driving=${driving.id})}"
-							class="btn btn-primary">ODBYŁA SIĘ</a></td>
-
+							th:href="@{/drivings/undoneDriving(id_driving=${driving.id})}"
+							class="btn btn-danger">COFNIJ</a></td>
 					</tr>
 				</tbody>
 
 
 			</table>
-		</div></div>
+		</div>
 	</div>
 	<script>
 		$(document)
