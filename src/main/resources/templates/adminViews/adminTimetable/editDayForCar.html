@@ -9,7 +9,7 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 </head>
-<body>
+<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
 	<div class="page">
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
@@ -27,8 +27,10 @@
 				<a th:href="@{/}"><-wroc</a>
 			</div>
 		</nav>
-		<div class="container">
+		<div class="container list mt-2">
 			<br>
+			<nav class="navbar navbar-expand-lg d-flex justify-content-end">			
+				<div class="flex-fill">
 			<h3 style="float: left;" th:text="${title}"></h3>
 			<a th:href="@{/timetable/changeDate(date=${today})}"
 				style="float: right;" class=" btn btn-outline-secondary">GRAFIK</a>
@@ -36,8 +38,9 @@
 			<p
 				th:text="'dla samochodu '+ ${car.brand}+' '+${car.model}
 			+' '+${car.registrationNumber} + ' na dzień '+ ${#temporals.format(today,'dd.MM.yyyy')}" />
-
+</div></nav>
 			<br> <b>Obecne dane:</b>
+			
 			<div class="table-responsive">
 				<table class="table table-bordered table-hover table-sm">
 					<thead>
@@ -70,7 +73,7 @@
 				</table>
 			</div>
 			<br>
-			<div class="card mb-5 mr-5" style="width: 30rem; float: left">
+			<div class="card mb-5 mr-5 mt-3" style="width: 30rem; float: left">
 				<div class="card-header">
 					<b>Zmień dane</b>
 
@@ -110,7 +113,7 @@
 					</form>
 				</div>
 			</div>
-			<div class="card mb-5 " style="width: 30rem; float: left">
+			<div class="card mb-5 mt-3 " style="width: 30rem; float: left">
 				<div class="card-header">
 					<b>Dodaj jazdę</b>
 
