@@ -15,7 +15,8 @@
 
 </head>
 
-<body>	<nav
+<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
 			<a href="/"><img
@@ -36,14 +37,15 @@
 		</div>
 
 	</nav>
-	<div class="page">
-		<br>
-		
-				<h3>KATEGORIE</h3>
-			<br>
 	
+	<div class="page">
+		<div class="container pt-3  list">
+	<div class="flex-fill pb-2 mb-3">
+				<h3>KATEGORIE</h3>
+			</div>
+			
 
-		<div class="table-responsive ml-2 mr-5" style="max-width:15rem; float:left;">
+		<div class="table-responsive ml-1 mr-1 mb-3 " style="max-width:15rem; float:left; background-color:white;">
 			<table class="table table-hover  table-sm">
 				<thead>
 					<tr class="table-primary">
@@ -61,7 +63,7 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="card " style="width: 15rem; float:left">
+		<div class="card mb-3" style="width: 15rem; float:left">
 		 <div class="card-header">
 		    <b>Zmień dane</b>
 		  </div>			
@@ -75,11 +77,12 @@
 						 <input type="text" th:field="*{categoryName}"
 							class="form-control " /> <br> 
 						<button type="submit" class="btn btn-info">ZMIEŃ</button>
+</form>
 </div>
-					</form>
+					
 					</div>
 				
-					<div class="card ml-5 " style="width: 15rem; float:left">
+					<div class="card ml-1 " style="width: 15rem; float:left">
 					 <div class="card-header">
 					    <b>Dodaj kategorię</b>
 					  </div>			
@@ -93,7 +96,7 @@
 								</form>
 								</div>
 								</div>
-			</div>
+			</div></div>
 		
 </body>
 </HTML>

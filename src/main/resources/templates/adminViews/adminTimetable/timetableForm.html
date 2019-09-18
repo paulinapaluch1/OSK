@@ -10,7 +10,7 @@
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 </head>
 
-<body>
+<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
 	<div class="page">
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
@@ -28,8 +28,7 @@
 				<a th:href="@{/}"><-wroc</a>
 			</div>
 		</nav>
-		<div class="container">
-			<br>
+		<div class="container list p-3 mt-3">
 			<h3 style="float: left;" th:text="${title}"></h3>
 
 			<a th:href="@{/timetable/changeDate(date=${today})}"
@@ -73,8 +72,12 @@
 			<form th:action="@{/timetable/save}" th:object="${timetable}"
 				method="GET">
 
-				<input style="float: left;" type="hidden" th:field="*{id}" />
-				Instruktor: <select th:field="*{instructor}"
+				<input  type="hidden" th:field="*{id}" />
+				<input type="hidden" th:field="*{drivingType}" /> 
+				
+				Instruktor: 
+				
+				<select th:field="*{instructor}"
 					class="form-control col-4">
 					<option th:each="instructor: ${instructors}"
 						th:value="${instructor.id}"

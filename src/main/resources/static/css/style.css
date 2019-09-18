@@ -32,3 +32,7 @@ inlineButton{
 	opacity:0.97;
 	max-width:200rem;
 }
+
+.form{
+	 max-width:40rem;
+}
