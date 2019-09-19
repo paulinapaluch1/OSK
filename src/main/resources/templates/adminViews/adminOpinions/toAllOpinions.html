@@ -11,7 +11,7 @@
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 </head>
 
-<body>
+<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
@@ -28,35 +28,34 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong> <a
+			<strong>Zalogowany użytkownik:</strong> 
+			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+			<a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 
 	</nav>
 	<div class="page">
 
-
-		<center>
-			<h2>
-				<b>Opinie</b>
-			</h2>
-		</center>
+		<nav class="list navbar navbar-expand-lg d-flex justify-content-end">
+			<div class="flex-fill">
+				<h3>OPINIE</h3>
+			</div>
+		</nav>
 		<br>
-		<br>
-		<br>
-		<div class="d-flex justify-content-center">
+		<div class="container justify-content-center offset-3">
 			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 				<div class="card-body text-center mt-4">
-					<a style="text-decoration: none" th:href="@{/opinions/instructors}">
-						<p class="card-text">Instruktorzy</p>
+					<a style="text-decoration: none" th:href="@{/opinions/instructors}"
+					 class="card-text">Instruktorzy
 					</a>
 				</div>
 			</div>
 
 			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 				<div class="card-body text-center mt-4">
-					<a style="text-decoration: none" th:href="@{/opinions/cars}">
-						<p class="card-text">Samochody</p>
+					<a style="text-decoration: none" th:href="@{/opinions/cars}"
+					class="card-text">Samochody
 					</a>
 				</div>
 			</div>

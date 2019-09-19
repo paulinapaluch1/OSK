@@ -15,7 +15,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
@@ -32,26 +32,26 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong> <a
+			<strong>Zalogowany użytkownik:</strong> 
+			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+			<a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 
 	</nav>
 	<div class="page">
-
-		<center>
-			<h2>
-				<strong>Opinie o instruktorach</strong>
-			</h2>
-		</center>
-
-		<br> <br> <br>
-		<div class="d-flex justify-content-center">
+		<nav class="list navbar navbar-expand-lg d-flex justify-content-end">
+			<div class="flex-fill">
+				<h3>OPINIE O INSTRUKTORACH</h3>
+			</div>
+		</nav>
+	<br>
+		<div class="container justify-content-center">
 			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 				<div class="card-body text-center mt-4">
 					<a style="text-decoration: none"
-						th:href="@{instructors/newOpinions}">
-						<p class="card-text">Nowe</p>
+						th:href="@{instructors/newOpinions}"
+						 class="card-text">Nowe
 					</a>
 				</div>
 			</div>
@@ -59,8 +59,8 @@
 			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 				<div class="card-body text-center mt-4">
 					<a style="text-decoration: none"
-						th:href="@{instructors/checkedOpinions}">
-						<p class="card-text">Zatwierdzone</p>
+						th:href="@{instructors/checkedOpinions}"
+						class="card-text">Zatwierdzone
 					</a>
 				</div>
 			</div>
@@ -68,15 +68,15 @@
 			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 				<div class="card-body text-center mt-4">
 					<a style="text-decoration: none"
-						th:href="@{instructors/rejectedOpinions}">
-						<p class="card-text">Odrzucone</p>
+						th:href="@{instructors/rejectedOpinions}"
+						 class="card-text">Odrzucone
 					</a>
 				</div>
 			</div>
 
 		</div>
+		</div>
 
 		<br>
-	</div>
 </body>
 </HTML>

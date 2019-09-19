@@ -10,7 +10,7 @@
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 
 </head>
-<body>
+<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
@@ -27,13 +27,16 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong> <a
+			<strong>Zalogowany użytkownik:</strong> 
+			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+			
+			<a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 
 	</nav>
 	<div class="page">
-		<div class="container">
+			<div class="container list form pt-3 pb-3" >
 
 			<h3>POJAZD</h3>
 
