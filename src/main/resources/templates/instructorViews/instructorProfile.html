@@ -21,7 +21,8 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: instruktor</strong> <a href="/logout"><button
+<strong>Zalogowany użytkownik:</strong> 
+			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>			 <a href="/logout"><button
 					type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 
@@ -31,6 +32,8 @@
 		<div class="row px-md-5 ">
 			<div class="col-3  list card mt-2 " style=max-height:25rem;>
 				<br> 
+				<b><p th:text=" ${instructor.name + ' ' + instructor.surname}" /></b>
+				
 				<p th:text="'Login: ' + ${instructor.login}" />
 				<p th:text="'Telefon: ' + ${instructor.phoneNumber}" />
 				<p th:text="'E-mail: ' + ${instructor.email}" />
