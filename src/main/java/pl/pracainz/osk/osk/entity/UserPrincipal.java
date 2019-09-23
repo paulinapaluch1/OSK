@@ -65,4 +65,12 @@ public class UserPrincipal implements UserDetails {
   
         return  true;
     }
+    
+    
+    public int getId() {
+        return this.user.getId();
+    }
+    
+    
+  
 }

@@ -74,6 +74,10 @@ public class Student {
 
 	@Column
 	private Integer deleted;
+	
+	
+	@Column
+	private int userId;
 
 	@OneToMany(mappedBy = "id")
 	List<InternalExam> exams;
@@ -303,7 +307,15 @@ public class Student {
 		this.password = password;
 	}
 
-	
-	
+
+	public int getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
 	
 }
