@@ -256,11 +256,12 @@ public class StudentController {
 	
 	private int getCurrentLoggedStudentId() {
 		return getCurrentLoggedStudent().getId();
+	}
 
 	// dla admina
 	@GetMapping("/listCourses")
-	public String listCCourses(Model theModel) {
-		List<Course> theCourses = courseRepository.findCourses(6);
+	public String listCoursesForStudent(@RequestParam("id_student") int id, Model theModel) {
+		List<Course> theCourses = courseRepository.findCourses(id);
 		theModel.addAttribute("courses", theCourses);
 		return "adminViews/adminStudents/courses";
 	}
