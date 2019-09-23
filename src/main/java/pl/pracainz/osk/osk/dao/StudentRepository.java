@@ -58,5 +58,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	  findCoursesForStudent(@Param("id") int id);
 
 	public Student findByUserId(int userId);
+
+	public Student findByPkk(String pkk);
 	 
 }
