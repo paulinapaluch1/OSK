@@ -1,7 +1,6 @@
 package pl.pracainz.osk.osk.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +15,7 @@ import pl.pracainz.osk.osk.dao.CourseRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.entity.Category;
 import pl.pracainz.osk.osk.entity.Course;
-import pl.pracainz.osk.osk.entity.Instructor;
+import pl.pracainz.osk.osk.entity.Student;
 
 
 @Controller
@@ -118,6 +117,15 @@ private CategoryRepository categoryRepository;
 	public Category categoryToAdd() {
 	    return new Category();
 	}
+	
+	@GetMapping("/showStudents")
+	public String listParticipants(Model theModel) {
+		List<Student> theParticipants = courseRepository.findParticipants(2);
+		theModel.addAttribute("students", theParticipants);
+		return "adminViews/adminCourses/participants";
+	}
+	
+
 	
 	
 }

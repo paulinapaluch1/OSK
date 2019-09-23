@@ -14,7 +14,7 @@
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 
 </head>
-<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+<body>
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
@@ -31,32 +31,16 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik</strong>
-			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
-			
-			 <a
+			<strong>Zalogowany użytkownik: administrator</strong> <a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 	</nav>
 	<div class="page">
-	<div class="container list" >
 
 		<br>
 		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
 			<div class="flex-fill">
 				<h3>KURSY</h3>
-			</div>
-			<div class="flex-fill">
-				<a th:href="@{/courses/showFormForAdd}"><button type="button"
-						class="btn btn btn-primary">DODAJ KURS</button></a>
-			</div>
-			<div class="flex-fill">
-				<a th:href="@{/courses/listArchived}"><button type="button"
-						class="btn btn-outline-secondary">Zarchiwizowane kursy</button></a>
-			</div>
-			<div class="flex-fill">
-				<a th:href="@{/courses/categories}"><button type="button"
-						class="btn btn btn-primary">KATEGORIE</button></a>
 			</div>
 
 		</nav>
@@ -72,6 +56,8 @@
 						<th>Kategoria</th>
 						<th>Instruktor</th>
 						<th>Początek</th>
+						<th>Godziny opłacone</th>
+						<th>Godziny przejechane</th>
 
 					</tr>
 				</thead>
@@ -82,20 +68,12 @@
 						<td
 							th:text="${course.instructor.name}+' ' +${course.instructor.surname} " />
 						<td th:text="${#temporals.format(course.startDate,'dd.MM.yyyy')}" />
+						<td>26</td>
+						<td>4</td>
 
-						<td><a
-							th:href="@{/courses/showFormForUpdate(id_course=${course.id})}"
-							class="btn btn-primary">EDYTUJ</a></td>
-						<td><a
-							th:href="@{/courses/archiveCourse(id_course=${course.id})}"
-							class="btn btn-danger">ARCHIWIZUJ</a></td>
-						<td><a
-							th:href="@{/courses/showStudents}"
-							class="btn btn-info">ZOBACZ UCZESTNIKÓW</a></td>
 					</tr>
 				</tbody>
 			</table>
-			</div>
 		</div>
 
 	</div>

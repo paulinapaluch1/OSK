@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pracainz.osk.osk.dao.CarOpinionRepository;
 import pl.pracainz.osk.osk.dao.CarRepository;
+import pl.pracainz.osk.osk.dao.CourseRepository;
 import pl.pracainz.osk.osk.dao.DrivingRepository;
 import pl.pracainz.osk.osk.dao.InstructorOpinionRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
@@ -40,6 +41,7 @@ public class StudentController {
 	private InstructorRepository instructorRepository;
 	private InstructorOpinionRepository instructorOpinionRepository;
 	private CarOpinionRepository carOpinionRepository;
+	private CourseRepository courseRepository;
 	DrivingRepository drivingRepository;
 	TimetableRepository timetableRepository;
 	CarRepository carRepository;
@@ -47,8 +49,9 @@ public class StudentController {
 
 	public StudentController(StudentRepository repository, InstructorRepository instructor,
 			InstructorOpinionRepository instructorOpinion, DrivingRepository drivingRepository,
+
 			TimetableRepository timetableRepository, CarRepository carRepository, CarOpinionRepository carOpinion,
-			UserRepository userRepository) {
+			UserRepository userRepository,CourseRepository courseRepository) {
 		this.studentRepository = repository;
 		this.instructorRepository = instructor;
 		this.instructorOpinionRepository = instructorOpinion;
@@ -57,7 +60,7 @@ public class StudentController {
 		this.carRepository = carRepository;
 		this.carOpinionRepository = carOpinion;
 		this.userRepository = userRepository;
-
+		this.courseRepository = courseRepository;
 	}
 
 	@GetMapping("/list")
@@ -146,7 +149,6 @@ public class StudentController {
 	public String listCars(Model theModel) {
 		List<Car> theCars = studentRepository.findCarsForOneStudentById(getCurrentLoggedStudentId());
 		theModel.addAttribute("cars", theCars);
-
 		return "studentViews/studentCars/cars";
 	}
 
@@ -189,6 +191,7 @@ public class StudentController {
 	public String listExams(Model theModel) {
 		List<InternalExam> theExams = studentRepository.findStudentExams(getCurrentLoggedStudentId());
 		theModel.addAttribute("internalexams", theExams);
+
 		return "studentViews/studentExams/exams";
 	}
 
@@ -198,6 +201,7 @@ public class StudentController {
 		theInstructorOpinion.setInstructor(instructorRepository.getOne(id));
 		theModel.addAttribute("instructoropinion", theInstructorOpinion);
 		theModel.addAttribute("instructor", instructorRepository.getOne(id));
+
 		return "studentViews/studentInstructors/rateInstructors";
 	}
 
@@ -218,6 +222,7 @@ public class StudentController {
 		theCarOpinion.setCar(carRepository.getOne(id));
 		theModel.addAttribute("caropinion", theCarOpinion);
 		theModel.addAttribute("car", carRepository.getOne(id));
+
 		return "studentViews/studentCars/rateCars";
 	}
 
@@ -231,6 +236,7 @@ public class StudentController {
 		carOpinionRepository.save(theCarOpinion);
 		return "redirect:/students/showCars";
 	}
+
 
 	private String getCurrentUserName() {
 		String username = "";
@@ -250,6 +256,13 @@ public class StudentController {
 	
 	private int getCurrentLoggedStudentId() {
 		return getCurrentLoggedStudent().getId();
+
+	// dla admina
+	@GetMapping("/listCourses")
+	public String listCCourses(Model theModel) {
+		List<Course> theCourses = courseRepository.findCourses(6);
+		theModel.addAttribute("courses", theCourses);
+		return "adminViews/adminStudents/courses";
 	}
 
 }

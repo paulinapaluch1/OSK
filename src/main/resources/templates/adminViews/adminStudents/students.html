@@ -13,7 +13,9 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 </head>
+
 <body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
@@ -21,7 +23,7 @@
 				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
 				width="70px" /></a>
 		</div>
-	
+
 		<div class="flex-fill">
 			<a th:href="@{/}">
 				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
@@ -39,8 +41,7 @@
 	</nav>
 	<div class="page">
 			<div class="container list" >
-	
-	<br>
+
 		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
 			<div class="flex-fill">
 				<h3>KURSANCI</h3>
@@ -51,8 +52,7 @@
 			</div>
 			<div class="flex-fill">
 				<a th:href="@{/students/listArchived}"><button type="button"
-						class="btn btn-outline-secondary">Zarchiwizowani
-						kursanci</button></a>
+						class="btn btn-outline-secondary">Zarchiwizowani kursanci</button></a>
 			</div>
 		</nav>
 
@@ -72,9 +72,7 @@
 						<th>Telefon</th>
 						<th>Email</th>
 						<th>PKK</th>
-						<th>Godz. przejechane</th>
-						<th>Godz. opłacone</th>
-						
+
 					</tr>
 				</thead>
 				<tbody id="myTable">
@@ -91,14 +89,17 @@
 						<td th:text="${tempStudent.phoneNumber}" />
 						<td th:text="${tempStudent.email}" />
 						<td th:text="${tempStudent.PKK}" />
-						<td></td>
-						<td>30</td>
-						
-						<td><a th:href="@{/students/showFormForUpdate(id_student=${tempStudent.id})}"
+
+
+						<td><a
+							th:href="@{/students/showFormForUpdate(id_student=${tempStudent.id})}"
 							class="btn btn-primary">EDYTUJ</a></td>
-							<td><a
+						<td><a
 							th:href="@{/students/archiveStudent(id_student=${tempStudent.id})}"
 							class="btn btn-danger">ARCHIWIZUJ</a></td>
+						<td><a
+							th:href="@{/students/listCourses(id_student=${tempStudent.id})}"
+							class="btn btn-primary">ZOBACZ KURSY</a></td>
 					</tr>
 				</tbody>
 			</table>

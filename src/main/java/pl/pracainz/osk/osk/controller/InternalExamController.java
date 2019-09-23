@@ -60,7 +60,7 @@ public class InternalExamController {
 	}
 
 	@PostMapping("save")
-	public String saveLecture(@ModelAttribute("internalexam") InternalExam theInternalExam) {
+	public String saveExam(@ModelAttribute("internalexam") InternalExam theInternalExam) {
 		internalExamRepository.save(theInternalExam);
 		return "redirect:/exams/list";
 	}
