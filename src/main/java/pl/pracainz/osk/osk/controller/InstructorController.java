@@ -96,7 +96,6 @@ public class InstructorController {
 		List<Instructor> theInstructors = instructorRepository.findAll();
 		theModel.addAttribute("instructors", theInstructors);
 		theModel.addAttribute("instructor", getCurrentLoggedInstructor());
-
 		return "instructorViews/instructorProfile";
 	}
 
