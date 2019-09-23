@@ -10,7 +10,6 @@
 </head>
 
 <body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
-
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
@@ -33,7 +32,7 @@
 		
 			<div class="col-3  list card mt-2 " style=max-height:25rem;>
 		<br>
-				
+				<b><p th:text=" ${student.name + ' ' + student.surname}" /></b>
 				<p th:text="'Login: ' + ${student.login}" />
 				<p th:text="'Data urodzenia: ' + ${#dates.format(student.birthdate, 'dd.MM.yyyy')}" />
 				<p
@@ -93,8 +92,6 @@
 					</div>
 				</div>
 
-
-
 				<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 					<div class="card-body text-center mt-4">
 						<a style="text-decoration: none" th:href="@{/lectures/list}"
@@ -107,10 +104,5 @@
 		</div>
 	</div>
 	
-	
-	
-	
 </body>
-
-
 </HTML>
