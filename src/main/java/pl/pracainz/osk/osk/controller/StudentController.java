@@ -79,12 +79,15 @@ public class StudentController {
 	public String showFormForAdd(Model theModel) {
 		// Student theStudent = new Student();
 		theModel.addAttribute("student", new Student());
+		theModel.addAttribute("studentPKK", new Student());
+
 		return "adminViews/adminStudents/addStudent";
 	}
 
 	@GetMapping("/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("id_student") int id, Model theModel) {
 		theModel.addAttribute("student", studentRepository.findById(id));
+		theModel.addAttribute("studentPKK", studentRepository.findById(id));
 		return "adminViews/adminStudents/addStudent";
 
 	}
@@ -264,6 +267,23 @@ public class StudentController {
 		List<Course> theCourses = courseRepository.findCourses(id);
 		theModel.addAttribute("courses", theCourses);
 		return "adminViews/adminStudents/courses";
+	}
+	
+	
+	@GetMapping("checkPKK")
+	public String checkPKK(@ModelAttribute("studentPKK") Student theStudent, Model theModel) {
+		
+		if(null == studentRepository.findByPkk(theStudent.getPkk())) {
+			theModel.addAttribute("student", new Student());
+			theModel.addAttribute("studentPKK", new Student());
+		}else {
+			theModel.addAttribute("student", studentRepository.findByPkk(theStudent.getPkk()));
+			theModel.addAttribute("studentPKK", new Student());
+
+			}
+		
+		
+		return "adminViews/adminStudents/addStudent";
 	}
 
 }
