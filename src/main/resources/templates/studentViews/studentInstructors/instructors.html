@@ -31,7 +31,10 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: kursant</strong> <a href="/logout"><button
+			<strong>Zalogowany użytkownik:</strong> 
+			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+			
+			<a href="/logout"><button
 					type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 
