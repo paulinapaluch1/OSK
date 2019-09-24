@@ -46,8 +46,8 @@
 				<div class="card-body">
 					<form
 						th:action="@{/students/checkPKK}"
-						th:object="${studentPKK}" method="GET">
-						PKK<input type="text" th:field="*{pkk}" class="form-control" />
+						 method="GET">
+						PKK<input type="text" th:value="${pkk}" name="pkk" class="form-control" />
 						<button type="submit" class="btn btn-info mt-3">SZUKAJ</button>
 					</form>
 					
