@@ -68,7 +68,7 @@ public class Student {
 	//@Email(message = "Niepoprawny email")
 	private String email;
 
-	@Column
+	@Column(name="PKK")
 	@Nullable
 	private String pkk;
 

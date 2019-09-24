@@ -79,7 +79,7 @@ public class StudentController {
 	public String showFormForAdd(Model theModel) {
 		// Student theStudent = new Student();
 		theModel.addAttribute("student", new Student());
-		theModel.addAttribute("studentPKK", new Student());
+		theModel.addAttribute("pkk", "");		
 
 		return "adminViews/adminStudents/addStudent";
 	}
@@ -87,7 +87,7 @@ public class StudentController {
 	@GetMapping("/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("id_student") int id, Model theModel) {
 		theModel.addAttribute("student", studentRepository.findById(id));
-		theModel.addAttribute("studentPKK", studentRepository.findById(id));
+		theModel.addAttribute("pkk", studentRepository.getOne(id).getPkk());		
 		return "adminViews/adminStudents/addStudent";
 
 	}
@@ -270,17 +270,16 @@ public class StudentController {
 	}
 	
 	
-	@GetMapping("checkPKK")
-	public String checkPKK(@ModelAttribute("studentPKK") Student theStudent, Model theModel) {
-		
-		if(null == studentRepository.findByPkk(theStudent.getPkk())) {
+	@GetMapping("/checkPKK")
+	public String checkPKK(@ModelAttribute("pkk") String pkk, Model theModel) {
+		if(studentRepository.findByPkk(pkk) == null) {
 			theModel.addAttribute("student", new Student());
-			theModel.addAttribute("studentPKK", new Student());
+			theModel.addAttribute("pkk", "");
 		}else {
-			theModel.addAttribute("student", studentRepository.findByPkk(theStudent.getPkk()));
-			theModel.addAttribute("studentPKK", new Student());
+			theModel.addAttribute("student", studentRepository.findByPkk(pkk));
+			theModel.addAttribute("pkk",studentRepository.findByPkk(pkk).getPkk());
 
-			}
+		}
 		
 		
 		return "adminViews/adminStudents/addStudent";
