@@ -12,8 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
@@ -53,8 +53,16 @@ public class Timetable {
 	
 	@OneToMany(mappedBy = "timetable")
 	List<Driving> drivings;
+	
+	@Transient
+	private boolean reserved;
 
+	@Transient
+	private Driving driving;
+	
 	public Timetable() {
+		this.reserved=false;
+		this.driving=new Driving();
 	}
 
 	public Timetable(Instructor instructor, LocalDateTime begin, LocalDateTime end, Car car, int archived) {
@@ -129,6 +137,22 @@ public class Timetable {
 
 	public void setDrivings(List<Driving> drivings) {
 		this.drivings = drivings;
+	}
+
+	public Driving getDriving() {
+		return driving;
+	}
+
+	public void setDriving(Driving driving) {
+		this.driving = driving;
+	}
+
+	public boolean isReserved() {
+		return reserved;
+	}
+
+	public void setReserved(boolean reserved) {
+		this.reserved = reserved;
 	}
 	
 	
