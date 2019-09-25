@@ -72,9 +72,9 @@
 		</div>
 		<ul class="pagination inline">
 			<li class="page-item"><a class="page-link"
-				th:href="@{/timetable/earlierDate(date=${today})}">&#60;</a></li>
+				th:href="@{/timetable/earlierDate(date=${today},page='cars')}">&#60;</a></li>
 			<li class="page-item"><a class="page-link"
-				th:href="@{/timetable/nextDate(date=${today})}">&#62;</a></li>
+				th:href="@{/timetable/nextDate(date=${today},page='cars')}">&#62;</a></li>
 		</ul>
 		<form th:action="@{/timetable/changeDate}" method="GET">
 			<input style="float: left;" type="date" name="date"
