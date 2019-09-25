@@ -284,6 +284,26 @@ public class TimetableController {
 	
 }
 	
+	@GetMapping("/byInstructors")
+	public String showTimetableByInstructors(Model theModel) {
+		theModel.addAttribute("timetables", timetableRepository.findAll());
+
+	//	theModel.addAttribute("cars", carRepository.findAll());
+		theModel.addAttribute("instructors",instructorRepository.findAll());
+		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(
+				LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
+		theModel.addAttribute("today", LocalDate.now());
+		theModel.addAttribute("dayName", getDayName(LocalDate.now()));
+		return "adminViews/adminTimetable/timetableByInstructors";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
