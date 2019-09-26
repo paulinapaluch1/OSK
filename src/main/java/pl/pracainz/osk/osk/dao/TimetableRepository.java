@@ -25,5 +25,11 @@ public interface TimetableRepository extends JpaRepository<Timetable, Integer>{
 	List<Timetable> queryByDayAndMonthAndYearAndCar(@Param("day") int day, 
 			@Param("month") int month, @Param("year") int year,
 			 @Param("id") int id);
+
+	@Query("select t from Timetable t where EXTRACT(YEAR from t.begin)=:year "
+			+ "and EXTRACT(DAY from t.begin)=:day"
+			+ " and EXTRACT(MONTH from t.begin)=:month and t.instructor.id=:id" )
+	List<Timetable> queryByDayAndMonthAndYearAndInstructor( @Param("day") int day,
+			@Param("month") int month, @Param("year")  int year, @Param("id") int id);
 	
 }
