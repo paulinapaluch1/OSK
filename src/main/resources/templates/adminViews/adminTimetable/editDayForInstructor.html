@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Admin Timetable</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
+</head>
+<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+	<div class="page">
+		<nav
+			class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
+			<div class=" flex-fill">
+				<a href="/"><img
+					src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
+					width="70px" /></a>
+			</div>
+			<div class="flex-fill">
+				<h2>Ośrodek Szkolenia Kierowców</h2>
+			</div>
+			<div class="flex-fill">
+				<strong>Zalogowany użytkownik:</strong> 
+				<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+				<a
+					href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+				<a th:href="@{/}"><-wroc</a>
+			</div>
+		</nav>
+		<div class="container list mt-2">
+			<br>
+			<nav class="navbar navbar-expand-lg d-flex justify-content-end">			
+				<div class="flex-fill">
+			<h3 style="float: left;" th:text="${title}"></h3>
+			<a th:href="@{/timetable/changeDate(date=${today})}"
+				style="float: right;" class=" btn btn-outline-secondary">GRAFIK</a>
+			<br> <br>
+			<p
+				th:text="'dla instruktora '+ ${instructor.name}+' '+${instructor.surname}
+			+ ' na dzień '+ ${#temporals.format(today,'dd.MM.yyyy')}" />
+</div></nav>
+			<br> <b>Obecne dane:</b>
+			
+			<div class="table-responsive">
+				<table class="table table-bordered table-hover table-sm">
+					<thead>
+						<tr class="table-primary">
+							<th>Id</th>
+							<th>Początek</th>
+							<th>Koniec</th>
+							<th>Samochód</th>
+							<th>Typ</th>
+						</tr>
+					</thead>
+					<tbody id="myTable">
+						<tr>
+						<tr th:each="timetable:${timetablesToday}">
+							<td th:text="${timetable.id}" />
+							<td th:text="${#temporals.format(timetable.begin,'HH:mm')}" />
+							<td th:text="${#temporals.format(timetable.end,'HH:mm')}" />
+							<td
+								th:text="${timetable.car.brand}+' ' +${timetable.car.model}+' '+ ${timetable.car.registrationNumber}" />
+
+							<td th:text="${timetable.drivingType.type}" />
+
+							<td><a
+								th:href="@{/timetable/delete(id_timetable=${timetable.id})}">
+									<button type="button" class="btn btn-danger">USUŃ</button>
+							</a></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<br>
+			<div class="card mb-5 mr-5 mt-3" style="width: 30rem; float: left">
+				<div class="card-header">
+					<b>Zmień dane</b>
+
+				</div>
+
+				<div class="card-body">
+					<form
+						th:action="@{/timetable/saveChangedTimetableForInstructor(today=${today})}"
+						th:object="${timetable}" method="GET">
+						Id <input type="number" th:field="*{id}" class="form-control " />
+						<br> <input type="hidden" th:field="*{instructor}" />
+						 Samochód<select
+							th:field="*{car}" class="form-control ">
+
+							<option th:each="car: ${cars}"
+								th:value="${car.id}"
+								th:text="${car.brand}+' '+${car.model}+' '+${car.registrationNumber} " />
+						</select> <br> Godzina
+						<div th:object=${hour}>
+							<select th:name="hour" class="form-control ">
+								<option th:value="6">6:00-8:00</option>
+								<option th:value="8">8:00-10:00</option>
+								<option th:value="10">10:00-12:00</option>
+								<option th:value="12">12:00-14:00</option>
+								<option th:value="12">14:00-16:00</option>
+								<option th:value="12">16:00-18:00</option>
+								<option th:value="12">18:00-20:00</option>
+								<option th:value="12">20:00-22:00</option>
+							</select>
+						</div>
+						<br> Typ<select th:field="*{drivingType}"
+							class="form-control ">
+							<option th:each="drivingType : ${drivingTypes}"
+								th:value="${drivingType.id}" th:text="${drivingType.type} " />
+						</select> <br>
+						<button type="submit" class="btn btn-info ">ZMIEŃ</button>
+
+					</form>
+				</div>
+			</div>
+			<div class="card mb-5 mt-3 " style="width: 30rem; float: left">
+				<div class="card-header">
+					<b>Dodaj jazdę</b>
+
+				</div>
+				<div class="card-body">
+					<form
+						th:action="@{/timetable/saveNewTimetableForInstructor(today=${today},id_instructor=${instructor.id})}"
+						th:object="${timetableToAdd}" method="POST">
+
+						<input type="hidden" th:field="*{id}" /> <input type="hidden"
+							th:field="*{instructor}" /> Samochód<select th:field="*{car}"
+							class="form-control ">
+
+							<option th:each="car: ${cars}"
+								th:value="${car.id}"
+								th:text="${car.brand}+' '+${car.model}+' '+${car.registrationNumber} " />
+						</select> <br> Godzina
+						<div th:object=${hour}>
+							<select th:name="hour" class="form-control ">
+								<option th:value="6">6:00-8:00</option>
+								<option th:value="8">8:00-10:00</option>
+								<option th:value="10">10:00-12:00</option>
+								<option th:value="12">12:00-14:00</option>
+								<option th:value="12">14:00-16:00</option>
+								<option th:value="12">16:00-18:00</option>
+								<option th:value="12">18:00-20:00</option>
+								<option th:value="12">20:00-22:00</option>
+							</select>
+						</div>
+						<br> Typ<select th:field="*{drivingType}"
+							class="form-control ">
+							<option th:each="drivingType : ${drivingTypes}"
+								th:value="${drivingType.id}" th:text="${drivingType.type} " />
+						</select> <br>
+						<button type="submit" class="btn btn-info ">DODAJ</button>
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+</HTML>

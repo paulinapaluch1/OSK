@@ -123,16 +123,16 @@
 									<td th:text="${timetable.driving.student.name   +' ' timetable.driving.student.surname}" />
 									</div>
 									
-								<td>	<a
-										th:href="@{/timetable/list}"><button
-												type="button" class="btn btn-primary">EDYTUJ</button></a></td>
-
+							
 								</span>
 								
 							</tr>
 						</tbody>
 						
 					</table>
+					<a th:href="@{/timetable/editDayForInstructor(date=${today},id=${instructor.id})}"
+												type="button" class="btn btn-primary mb-1">EDYTUJ CAŁY DZIEŃ</a>
+				
 				</div>
 			</div>
 			
