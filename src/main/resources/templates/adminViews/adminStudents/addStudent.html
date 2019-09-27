@@ -38,10 +38,27 @@
 	<div class="container list form pb-3 pt-3" >
 
 			<h3>KURSANT</h3>
-
+<div class="card mb-5 mr-5 mt-3" style="width: 15rem;">
+				
+				<div class="card-header">
+					<b>Wprowadz PKK</b>
+				</div>
+				<div class="card-body">
+					<form
+						th:action="@{/students/checkPKK}"
+						 method="GET">
+						PKK<input type="text" th:value="${pkk}" name="pkk" class="form-control" />
+						<button type="submit" class="btn btn-info mt-3">SZUKAJ</button>
+					</form>
+					
+				</div>
+			</div>
 			<form action="#" th:action="@{/students/save}" th:object="${student}"
 				method="POST">
-				<input type="hidden" th:field="*{id}" /> Imię: <input type="text"
+				<input type="hidden" th:field="*{id}" /> 
+				<input type="hidden" th:field="*{userId}" /> 
+				
+				Imię: <input type="text"
 					th:field="*{name}" class="form-control mb-4 col-4">
 				Nazwisko: <input type="text" th:field="*{surname}"
 					class="form-control mb-4 col-4"> Login: <input type="text"
@@ -60,13 +77,10 @@
 					class="form-control mb-4 col-4"> Numer telefonu: <input
 					type="text" th:field="*{phoneNumber}"
 					class="form-control mb-4 col-4"> 
-
 					Email: <input type="text"
 					th:field="*{email}" class="form-control mb-4 col-4" >
-
-
 					PKK: <input
-					type="text" th:field="*{PKK}" class="form-control mb-4 col-4">
+					type="text" th:field="*{pkk}" class="form-control mb-4 col-4">
 
 				<button type="submit" class="btn btn-info col-2">ZAPISZ</button>
 				<a th:href="@{/students/list}" class="btn btn-danger">ANULUJ</a>

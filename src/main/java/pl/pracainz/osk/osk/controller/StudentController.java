@@ -3,6 +3,7 @@ package pl.pracainz.osk.osk.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import pl.pracainz.osk.osk.dao.InstructorOpinionRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.StudentRepository;
 import pl.pracainz.osk.osk.dao.TimetableRepository;
+import pl.pracainz.osk.osk.dao.UserRepository;
 import pl.pracainz.osk.osk.entity.Car;
 import pl.pracainz.osk.osk.entity.CarOpinion;
 import pl.pracainz.osk.osk.entity.Course;
@@ -28,6 +30,8 @@ import pl.pracainz.osk.osk.entity.InstructorOpinion;
 import pl.pracainz.osk.osk.entity.InternalExam;
 import pl.pracainz.osk.osk.entity.Student;
 import pl.pracainz.osk.osk.entity.Timetable;
+import pl.pracainz.osk.osk.entity.User;
+import pl.pracainz.osk.osk.entity.UserPrincipal;
 
 @Controller
 @RequestMapping("/students")
@@ -41,10 +45,13 @@ public class StudentController {
 	DrivingRepository drivingRepository;
 	TimetableRepository timetableRepository;
 	CarRepository carRepository;
+	UserRepository userRepository;
 
 	public StudentController(StudentRepository repository, InstructorRepository instructor,
 			InstructorOpinionRepository instructorOpinion, DrivingRepository drivingRepository,
-			TimetableRepository timetableRepository, CarRepository carRepository, CarOpinionRepository carOpinion, CourseRepository courseRepository) {
+
+			TimetableRepository timetableRepository, CarRepository carRepository, CarOpinionRepository carOpinion,
+			UserRepository userRepository,CourseRepository courseRepository) {
 		this.studentRepository = repository;
 		this.instructorRepository = instructor;
 		this.instructorOpinionRepository = instructorOpinion;
@@ -52,8 +59,8 @@ public class StudentController {
 		this.timetableRepository = timetableRepository;
 		this.carRepository = carRepository;
 		this.carOpinionRepository = carOpinion;
+		this.userRepository = userRepository;
 		this.courseRepository = courseRepository;
-
 	}
 
 	@GetMapping("/list")
@@ -72,12 +79,15 @@ public class StudentController {
 	public String showFormForAdd(Model theModel) {
 		// Student theStudent = new Student();
 		theModel.addAttribute("student", new Student());
+		theModel.addAttribute("pkk", "");		
+
 		return "adminViews/adminStudents/addStudent";
 	}
 
 	@GetMapping("/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("id_student") int id, Model theModel) {
 		theModel.addAttribute("student", studentRepository.findById(id));
+		theModel.addAttribute("pkk", studentRepository.getOne(id).getPkk());		
 		return "adminViews/adminStudents/addStudent";
 
 	}
@@ -86,6 +96,7 @@ public class StudentController {
 	public String saveStudent(@ModelAttribute("student") Student theStudent) {
 		theStudent.setDeleted(0);
 		studentRepository.save(theStudent);
+
 		return "redirect:/students/list";
 	}
 
@@ -111,7 +122,7 @@ public class StudentController {
 	public String showProfile(Model theModel) {
 		List<Student> theStudents = studentRepository.findAll();
 		theModel.addAttribute("students", theStudents);
-		theModel.addAttribute("student", studentRepository.getOne(3));
+		theModel.addAttribute("student", getCurrentLoggedStudent());
 
 		return "studentViews/studentProfile";
 	}
@@ -131,29 +142,29 @@ public class StudentController {
 
 	@GetMapping("/showInstructors")
 	public String listInstructors(Model theModel) {
-		List<Instructor> theInstructors = studentRepository.queryFindInstructors(1);
+		List<Instructor> theInstructors = studentRepository
+				.findInstructorsForOneStudent(getCurrentLoggedStudentId());
 		theModel.addAttribute("instructors", theInstructors);
 		return "studentViews/studentInstructors/instructors";
 	}
 
 	@GetMapping("/showCars")
 	public String listCars(Model theModel) {
-		List<Car> theCars = studentRepository.queryFindCars(2);
+		List<Car> theCars = studentRepository.findCarsForOneStudentById(getCurrentLoggedStudentId());
 		theModel.addAttribute("cars", theCars);
-
 		return "studentViews/studentCars/cars";
 	}
 
 	@GetMapping("/showDrivings")
 	public String listDrivings(Model theModel) {
-		List<Driving> theDrivings = studentRepository.queryFindDrivings(1);
+		List<Driving> theDrivings = studentRepository.findDrivingsForStudent(getCurrentLoggedStudentId());
 		theModel.addAttribute("drivings", theDrivings);
 		return "studentViews/studentDrivings/drivings";
 	}
 
 	@GetMapping("/showDoneDrivings")
 	public String listDoneDrivings(Model theModel) {
-		List<Driving> theDrivings = studentRepository.findDoneDrivings(1);
+		List<Driving> theDrivings = studentRepository.findDoneDrivingsForStudentById(getCurrentLoggedStudentId());
 		theModel.addAttribute("drivings", theDrivings);
 		return "studentViews/studentDrivings/drivingsDone";
 	}
@@ -167,21 +178,21 @@ public class StudentController {
 
 	@GetMapping("/showTimetable")
 	public String Timetable(Model theModel) {
-		List<Timetable> theTimetable = studentRepository.queryFindTimetable(1);
+		List<Timetable> theTimetable = studentRepository.findTimetableForStudent(1);
 		theModel.addAttribute("timetable", theTimetable);
 		return "studentViews/studentTimetable/timetable";
 	}
 
 	@GetMapping("/showCourses")
 	public String listCourses(Model theModel) {
-		List<Course> theCourses = studentRepository.queryFindCourses(1);
+		List<Course> theCourses = studentRepository.findCoursesForStudent(getCurrentLoggedStudentId());
 		theModel.addAttribute("courses", theCourses);
 		return "studentViews/studentCourses/courses";
 	}
 
 	@GetMapping("/showExams")
 	public String listExams(Model theModel) {
-		List<InternalExam> theExams = studentRepository.queryFindExams(1);
+		List<InternalExam> theExams = studentRepository.findStudentExams(getCurrentLoggedStudentId());
 		theModel.addAttribute("internalexams", theExams);
 
 		return "studentViews/studentExams/exams";
@@ -203,7 +214,7 @@ public class StudentController {
 		theInstructorOpinion.setInstructor(instructorRepository.getOne(id));
 		theInstructorOpinion.setStatus("nowa");
 		theInstructorOpinion.setDeleted(0);
-		theInstructorOpinion.setStudent(studentRepository.getOne(1));
+		theInstructorOpinion.setStudent(getCurrentLoggedStudent());
 		instructorOpinionRepository.save(theInstructorOpinion);
 		return "redirect:/students/showInstructors";
 	}
@@ -224,17 +235,54 @@ public class StudentController {
 		theCarOpinion.setCar(carRepository.getOne(id));
 		theCarOpinion.setStatus("nowa");
 		theCarOpinion.setDeleted(0);
-		theCarOpinion.setStudent(studentRepository.getOne(4));
+		theCarOpinion.setStudent(getCurrentLoggedStudent());
 		carOpinionRepository.save(theCarOpinion);
 		return "redirect:/students/showCars";
 	}
 
+
+	private String getCurrentUserName() {
+		String username = "";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserPrincipal) {
+			username = ((UserPrincipal) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		return username;
+	}
+	
+	private Student getCurrentLoggedStudent() {
+		User user = userRepository.findByUsername(getCurrentUserName());
+		return studentRepository.findByUserId(user.getId());
+	}
+	
+	private int getCurrentLoggedStudentId() {
+		return getCurrentLoggedStudent().getId();
+	}
+
 	// dla admina
 	@GetMapping("/listCourses")
-	public String listCCourses(Model theModel) {
-		List<Course> theCourses = courseRepository.findCourses(6);
+	public String listCoursesForStudent(@RequestParam("id_student") int id, Model theModel) {
+		List<Course> theCourses = courseRepository.findCourses(id);
 		theModel.addAttribute("courses", theCourses);
 		return "adminViews/adminStudents/courses";
+	}
+	
+	
+	@GetMapping("/checkPKK")
+	public String checkPKK(@ModelAttribute("pkk") String pkk, Model theModel) {
+		if(studentRepository.findByPkk(pkk) == null) {
+			theModel.addAttribute("student", new Student());
+			theModel.addAttribute("pkk", "");
+		}else {
+			theModel.addAttribute("student", studentRepository.findByPkk(pkk));
+			theModel.addAttribute("pkk",studentRepository.findByPkk(pkk).getPkk());
+
+		}
+		
+		
+		return "adminViews/adminStudents/addStudent";
 	}
 
 }

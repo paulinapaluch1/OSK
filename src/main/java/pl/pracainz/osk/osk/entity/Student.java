@@ -68,12 +68,16 @@ public class Student {
 	//@Email(message = "Niepoprawny email")
 	private String email;
 
-	@Column
+	@Column(name="PKK")
 	@Nullable
-	private String PKK;
+	private String pkk;
 
 	@Column
 	private Integer deleted;
+	
+	
+	@Column
+	private int userId;
 
 	@OneToMany(mappedBy = "id")
 	List<InternalExam> exams;
@@ -99,7 +103,7 @@ public class Student {
 	}
 
 	public Student(String name, String surname, String login, Date birthdate, String street, String buildingNumber,
-			String apartmentNumber, String city, String postcode, String phoneNumber, String email, String pKK,
+			String apartmentNumber, String city, String postcode, String phoneNumber, String email, String pkk,
 			Integer deleted) {
 		this.name = name;
 		this.surname = surname;
@@ -112,7 +116,7 @@ public class Student {
 		this.postCode = postcode;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
-		this.PKK = pKK;
+		this.pkk = pkk;
 		this.deleted = deleted;
 
 	}
@@ -133,7 +137,7 @@ public class Student {
 		this.postCode = postcode;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
-		PKK = pKK;
+		pkk = pKK;
 		this.deleted = deleted;
 	}
 
@@ -233,12 +237,12 @@ public class Student {
 		this.email = email;
 	}
 
-	public String getPKK() {
-		return PKK;
+	public String getPkk() {
+		return pkk;
 	}
 
-	public void setPKK(String pKK) {
-		PKK = pKK;
+	public void setPkk(String pkk) {
+		this.pkk = pkk;
 	}
 
 	public Integer getDeleted() {
@@ -303,7 +307,13 @@ public class Student {
 		this.password = password;
 	}
 
-	
-	
-	
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
 }

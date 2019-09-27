@@ -85,7 +85,7 @@
 							th:text="'ul. '+${tempStudent.street}+ ' ' +${tempStudent.buildingNumber}+ '/ ' +${tempStudent.apartmentNumber}+ ' ' +${tempStudent.postCode}+ ' ' +${tempStudent.city}" />
 						<td th:text="${tempStudent.phoneNumber}" />
 						<td th:text="${tempStudent.email}" />
-						<td th:text="${tempStudent.PKK}" />
+						<td th:text="${tempStudent.pkk}" />
 
 						<td><a
 							th:href="@{/students/unarchiveStudent(id_student=${tempStudent.id})}"

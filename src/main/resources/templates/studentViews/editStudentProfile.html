@@ -40,7 +40,11 @@
 			<form action="#" th:action="@{/students/data/save}"
 				th:object="${student}" method="POST">
 
-				<input type="hidden" th:field="*{id}" /> <input type="hidden"
+				<input type="hidden" th:field="*{id}" />
+				<input type="hidden" th:field="*{userId}" />
+				<input type="hidden" th:field="*{deleted}" />
+				
+				 <input type="hidden"
 					th:field="*{login}" /> <input type="hidden" th:field="*{name}" />
 				<input type="hidden" th:field="*{surname}" /> Data urodzenia: <input
 					type="date" th:field="*{birthdate}" th:value="${birthdate}"
@@ -56,7 +60,7 @@
 					type="text" th:field="*{phoneNumber}"
 					class="form-control mb-4 col-4"> E-mail: <input type="text"
 					th:field="*{email}" class="form-control mb-4 col-4"> <input
-					type="hidden" th:field="*{PKK}" />
+					type="hidden" th:field="*{pkk}" />
 
 
 

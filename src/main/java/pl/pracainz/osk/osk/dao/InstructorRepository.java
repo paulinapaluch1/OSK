@@ -46,5 +46,7 @@ public interface InstructorRepository extends JpaRepository<Instructor, Integer>
 	@Query("SELECT d FROM Driving d " + "JOIN Timetable t ON t.id = d.timetable "
 			+ "JOIN Instructor i ON i.id = t.instructor " + "WHERE i.id = :id AND d.done = 0")
 	List<Driving> findUndoneDrivings(@Param("id") int id);
+
+	public Instructor findByUserId(int id);
 	
 }

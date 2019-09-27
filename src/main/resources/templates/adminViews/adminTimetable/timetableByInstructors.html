@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Grafik</title>
+<title>Admin Grafik</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
@@ -55,7 +55,8 @@
 		</div>
 		<div class="flex-fill">
 			<strong>Zalogowany użytkownik:</strong> 
-			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+						<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+			
 			<a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
@@ -72,24 +73,23 @@
 		</div>
 		<ul class="pagination inline">
 			<li class="page-item"><a class="page-link"
-				th:href="@{/timetable/earlierDate(date=${today},page='cars')}">&#60;</a></li>
+				th:href="@{/timetable/earlierDate(date=${today},page='instructors')}">&#60;</a></li>
 			<li class="page-item"><a class="page-link"
-				th:href="@{/timetable/nextDate(date=${today},page='cars')}">&#62;</a></li>
+				th:href="@{/timetable/nextDate(date=${today},page='instructors')}">&#62;</a></li>
 		</ul>
-		<form th:action="@{/timetable/changeDate}" method="GET">
+		<form th:action="@{/timetable/changeDateWithInstructorsTimetable}" method="GET">
 			<input style="float: left;" type="date" name="date"
 				th:value="${date}" class="form-control mb-4 col-4">
 			<button style="float: left;" type="submit"
 				class="btn btn-info ">ZMIEŃ</button>
 		</form>
 		<a th:href="@{/timetable/list}"><button	style="margin-left:5px" type="button" class="btn btn-primary ">DODAJ</button></a>
-		<a th:href="@{/timetable/byInstructors}"><button	style="margin-left:5px" type="button" class="btn btn-outline-secondary ">INSTRUKTORZY</button></a>
+		<a th:href="@{/timetable/list}"><button	style="margin-left:5px" type="button" class="btn btn-outline-secondary ">SAMOCHODY</button></a>
 		<br>
 		
-
-		<for:each th:each="car:${cars}">
+		<for:each th:each="instructor:${instructors}">
 			<button class="accordion"  
-				th:text="${car.id}+'. '+${car.brand}+' '+${car.model}+' '+${car.registrationNumber}"></button>
+				th:text="${instructor.id}+'. '+${instructor.name}+' '+${instructor.surname}"></button>
 			<div class="panel"  >
 
 				<div class="table-responsive" >
@@ -109,11 +109,11 @@
 						</thead>
 						<tbody id="myTable">
 							<tr th:each="timetable:${timetablesToday}">
-								<span th:if=${car.id}==${timetable.car.id}>
+								<span th:if=${instructor.id}==${timetable.instructor.id}>
 									<td th:text="${timetable.id}" />
 									<td th:text="${#temporals.format(timetable.begin,'HH:mm')}" />
 									<td th:text="${#temporals.format(timetable.end,'HH:mm')}" />
-									<td	th:text="${timetable.instructor.name}+' ' +${timetable.instructor.surname} " />
+									<td	th:text="${timetable.car.brand}+' ' +${timetable.car.model} +' ' +${timetable.car.registrationNumber} " />
 									<td th:text="${timetable.drivingType.type}"></td>
 									<div th:switch="${timetable.reserved}" >
 									<div th:if="${timetable.reserved} eq false">
@@ -123,19 +123,16 @@
 									<td th:text="${timetable.driving.student.name   +' ' timetable.driving.student.surname}" />
 									</div>
 									
-									
-								<td>	<a
-										th:href="@{/timetable/edit(id_timetable=${timetable.id})}"><button
-												type="button" class="btn btn-primary">EDYTUJ</button></a></td>
-
+							
 								</span>
 								
 							</tr>
 						</tbody>
 						
 					</table>
-				<a th:href="@{/timetable/editDayForCar(date=${today},id=${car.id})}"
+					<a th:href="@{/timetable/editDayForInstructor(date=${today},id=${instructor.id})}"
 												type="button" class="btn btn-primary mb-1">EDYTUJ CAŁY DZIEŃ</a>
+				
 				</div>
 			</div>
 			

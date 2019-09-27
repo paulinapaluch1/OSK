@@ -3,6 +3,7 @@ package pl.pracainz.osk.osk.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,22 +14,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.InternalExamRepository;
+import pl.pracainz.osk.osk.dao.UserRepository;
 import pl.pracainz.osk.osk.entity.Course;
 import pl.pracainz.osk.osk.entity.Driving;
 import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.InstructorOpinion;
 import pl.pracainz.osk.osk.entity.InternalExam;
 import pl.pracainz.osk.osk.entity.Student;
+import pl.pracainz.osk.osk.entity.User;
+import pl.pracainz.osk.osk.entity.UserPrincipal;
 
 @Controller
 @RequestMapping("/instructors")
 public class InstructorController {
 	private InstructorRepository instructorRepository;
 	private InternalExamRepository internalExamRepository;
+	private UserRepository userRepository;
 
-	public InstructorController(InstructorRepository repository, InternalExamRepository exams) {
+	public InstructorController(InstructorRepository repository, InternalExamRepository exams,
+			UserRepository userRepository) {
 		this.instructorRepository = repository;
 		this.internalExamRepository = exams;
+		this.userRepository = userRepository;
 	}
 
 	@GetMapping("/list")
@@ -88,8 +95,7 @@ public class InstructorController {
 	public String showProfile(Model theModel) {
 		List<Instructor> theInstructors = instructorRepository.findAll();
 		theModel.addAttribute("instructors", theInstructors);
-		theModel.addAttribute("instructor", instructorRepository.getOne(3));
-
+		theModel.addAttribute("instructor", getCurrentLoggedInstructor());
 		return "instructorViews/instructorProfile";
 	}
 
@@ -108,14 +114,14 @@ public class InstructorController {
 
 	@GetMapping("/showCourses")
 	public String listCourses(Model theModel) {
-		List<Course> theCourses = instructorRepository.queryFindCourses(2);
+		List<Course> theCourses = instructorRepository.queryFindCourses(getCurrentLoggedInstructorId());
 		theModel.addAttribute("courses", theCourses);
 		return "instructorViews/instructorCourses/courses";
 	}
 	
 	@GetMapping("/showExams")
 	public String listExams(Model theModel) {
-		List<InternalExam> theExams = instructorRepository.queryFindExams(1);
+		List<InternalExam> theExams = instructorRepository.queryFindExams(getCurrentLoggedInstructorId());
 		theModel.addAttribute("internalexams", theExams);
 		return "instructorViews/instructorExams/exams";
 	}
@@ -130,35 +136,35 @@ public class InstructorController {
 	
 	@GetMapping("/showArchivedExams")
 	public String listArchivedExams(Model theModel) {
-		List<InternalExam> theExams = instructorRepository.findArchivedExams(1);
+		List<InternalExam> theExams = instructorRepository.findArchivedExams(getCurrentLoggedInstructorId());
 		theModel.addAttribute("internalexams", theExams);
 		return "instructorViews/instructorExams/examsArchived";
 	}
 	
 	@GetMapping("/showStudents")
 	public String listStudents(Model theModel) {
-		List<Student> theStudents = instructorRepository.queryFindStudents(2);
+		List<Student> theStudents = instructorRepository.queryFindStudents(getCurrentLoggedInstructorId());
 		theModel.addAttribute("students", theStudents);
 		return "instructorViews/instructorStudents/students";
 	}
 	
 	@GetMapping("/showOpinions")
 	public String listOpinions(Model theModel) {
-		List<InstructorOpinion> theOpinions = instructorRepository.queryFindOpinions(5);
+		List<InstructorOpinion> theOpinions = instructorRepository.queryFindOpinions(getCurrentLoggedInstructorId());
 		theModel.addAttribute("instructoropinions", theOpinions);
 		return "instructorViews/instructorOpinions/opinionsAboutInstructor";
 	}
 	
 	@GetMapping("/showDrivings")
 	public String listDrivings(Model theModel) {
-		List<Driving> theDrivings = instructorRepository.findUndoneDrivings(1);
+		List<Driving> theDrivings = instructorRepository.findUndoneDrivings(getCurrentLoggedInstructorId());
 		theModel.addAttribute("drivings", theDrivings);
 		return "instructorViews/instructorDrivings/drivings";
 	}
 	
 	@GetMapping("/showDoneDrivings")
 	public String listDoneDrivings(Model theModel) {
-		List<Driving> theDrivings = instructorRepository.findDoneDrivings(1);
+		List<Driving> theDrivings = instructorRepository.findDoneDrivings(getCurrentLoggedInstructorId());
 		theModel.addAttribute("drivings", theDrivings);
 		return "instructorViews/instructorDrivings/drivingsDone";
 	}
@@ -170,4 +176,28 @@ public class InstructorController {
 //		return "instructorViews/instructorTimetable/timetable";
 //	}
 
+	
+	
+	private String getCurrentUserName() {
+		String username = "";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserPrincipal) {
+			username = ((UserPrincipal) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		return username;
+	}
+	
+	private Instructor getCurrentLoggedInstructor() {
+		User user = userRepository.findByUsername(getCurrentUserName());
+		return instructorRepository.findByUserId(user.getId());
+	}
+	
+	private int getCurrentLoggedInstructorId() {
+		return getCurrentLoggedInstructor().getId();
+	}
+
+	
+	
 }
