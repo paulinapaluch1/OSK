@@ -194,7 +194,6 @@ public class StudentController {
 	public String listExams(Model theModel) {
 		List<InternalExam> theExams = studentRepository.findStudentExams(getCurrentLoggedStudentId());
 		theModel.addAttribute("internalexams", theExams);
-
 		return "studentViews/studentExams/exams";
 	}
 
@@ -204,7 +203,6 @@ public class StudentController {
 		theInstructorOpinion.setInstructor(instructorRepository.getOne(id));
 		theModel.addAttribute("instructoropinion", theInstructorOpinion);
 		theModel.addAttribute("instructor", instructorRepository.getOne(id));
-
 		return "studentViews/studentInstructors/rateInstructors";
 	}
 
@@ -225,7 +223,6 @@ public class StudentController {
 		theCarOpinion.setCar(carRepository.getOne(id));
 		theModel.addAttribute("caropinion", theCarOpinion);
 		theModel.addAttribute("car", carRepository.getOne(id));
-
 		return "studentViews/studentCars/rateCars";
 	}
 
@@ -278,10 +275,7 @@ public class StudentController {
 		}else {
 			theModel.addAttribute("student", studentRepository.findByPkk(pkk));
 			theModel.addAttribute("pkk",studentRepository.findByPkk(pkk).getPkk());
-
 		}
-		
-		
 		return "adminViews/adminStudents/addStudent";
 	}
 

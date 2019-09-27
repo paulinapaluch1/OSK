@@ -49,7 +49,6 @@ public class TimetableController {
 		theModel.addAttribute("cars", carRepository.findAll());
 		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(
 				LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
-
 		theModel.addAttribute("today", LocalDate.now());
 		theModel.addAttribute("dayName", getDayName(LocalDate.now()));
 		return "adminViews/adminTimetable/timetable";
@@ -302,8 +301,6 @@ public class TimetableController {
 	public String showTimetableByInstructors(Model theModel) {
 		theModel.addAttribute("timetables", timetableRepository.findAll());
 
-		// theModel.addAttribute("cars", carRepository.findAll());
-		theModel.addAttribute("instructors", instructorRepository.findAll());
 		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(
 				LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
 		theModel.addAttribute("today", LocalDate.now());
@@ -320,7 +317,6 @@ public class TimetableController {
 		theModel.addAttribute("timetablesToday", timetableRepository
 				.queryByDayAndMonthAndYear(yesterday.getDayOfMonth(), yesterday.getMonthValue(), yesterday.getYear()));
 		theModel.addAttribute("dayName", getDayName(yesterday));
-		theModel.addAttribute("instructors", instructorRepository.findAll());
 		
 		return "adminViews/adminTimetable/timetableByInstructors";
 
@@ -335,13 +331,11 @@ public class TimetableController {
 				date.getDayOfMonth(), date.getMonth().getValue(), date.getYear(), id_instructor));
 		theModel.addAttribute("title", editTitle);
 		theModel.addAttribute("instructor",instructorRepository.getOne(id_instructor));
-		theModel.addAttribute("cars",carRepository.findAll());
 		theModel.addAttribute("today", date);
 		Timetable timetable = new Timetable();
 		timetable.setInstructor(instructorRepository.getOne(id_instructor));
 		theModel.addAttribute("timetable", timetable);
 		theModel.addAttribute("timetableToAdd", new Timetable());
-
 		return "adminViews/adminTimetable/editDayForInstructor";
 	}
 	
