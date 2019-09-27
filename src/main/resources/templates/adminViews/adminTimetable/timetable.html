@@ -37,7 +37,7 @@
 }
 </style>
 </head>
-<body>
+<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
@@ -54,11 +54,14 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong> <a
+			<strong>Zalogowany użytkownik:</strong> 
+			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+			<a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 	</nav>
 	<div class="page">
+	<div class="container list " >
 		<h3>GRAFIK</h3>
 
 		<div th:if="${timetablesToday.isEmpty()}">
@@ -83,11 +86,11 @@
 		<br>
 
 		<for:each th:each="car:${cars}">
-			<button class="accordion"
+			<button class="accordion"  
 				th:text="${car.id}+'. '+${car.brand}+' '+${car.model}+' '+${car.registrationNumber}"></button>
-			<div class="panel">
+			<div class="panel"  >
 
-				<div class="table-responsive">
+				<div class="table-responsive" >
 					<table class="table  table-hover table-sm">
 						<thead>
 							<tr class="table-primary">
@@ -124,9 +127,10 @@
 												type="button" class="btn btn-primary mb-1">EDYTUJ CAŁY DZIEŃ</a>
 				</div>
 			</div>
+			
 		</for:each>
 
-	</div>
+	</div></div>
 	<script>
 		var acc = document.getElementsByClassName("accordion");
 		var i;

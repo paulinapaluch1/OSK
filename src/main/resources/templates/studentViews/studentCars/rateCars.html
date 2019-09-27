@@ -13,7 +13,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 </head>
-<body>
+<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
@@ -36,7 +36,7 @@
 
 	</nav>
 	<div class="page">
-		<div class="container">
+		<div class="container list pt-2 pb-3 form">
 			<!--  <p th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname" />
 -->
 
@@ -70,7 +70,7 @@
 					type="radio" name="caropinion"> 5</label>  -->
 				<label for="opinion"> <strong>Opinia
 						o samochodzie</strong></label> <br>
-				<textarea th:field="*{carOpinion}" rows="10" cols="70"
+				<textarea th:field="*{carOpinion}" rows="10" cols="63"
 					placeholder="Napisz opinię o samochodzie"></textarea>
 
 				<br>

@@ -14,7 +14,9 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body>
+
+<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+	
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
@@ -31,13 +33,14 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong> <a
+			<strong>Zalogowany użytkownik:</strong> 
+			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+			<a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 
 	</nav>
 	<div class="page">
-	
 	<br>
 		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
 			<div class="flex-fill">
@@ -54,10 +57,7 @@
 						opinie</button></a>
 			</div>
 		</nav>
-
-
 		<br>
-		
 		<div class="table-responsive table-sm">
 			<table class="table table-hover">
 				<thead>

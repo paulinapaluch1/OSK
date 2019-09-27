@@ -114,7 +114,6 @@ public class TimetableController {
 	public String changeInstructor(@ModelAttribute("timetable") Timetable theTimetable, Model theModel) {
 		Timetable timetable = timetableRepository.getOne(theTimetable.getId());
 		timetable.setInstructor(theTimetable.getInstructor());
-		timetable.setDrivingType(theTimetable.getDrivingType());
 		timetableRepository.save(timetable);
 		String editTitle = "EDYTUJ ZAPLANOWANĄ JAZDĘ";
 		theModel.addAttribute("timetable", theTimetable);
@@ -136,6 +135,7 @@ public class TimetableController {
 				timetable.getEnd().getMonth(), timetable.getEnd().getDayOfMonth(), end, 0, 0);
 		timetable.setBegin(beginOfPlannedDriving);
 		timetable.setEnd(endOfPlannedDriving);
+		
 		timetableRepository.save(timetable);
 		String editTitle = "EDYTUJ ZAPLANOWANĄ JAZDĘ";
 		theModel.addAttribute("timetable", theTimetable);
@@ -199,7 +199,6 @@ public class TimetableController {
 		theTimetable.setEnd(LocalDateTime.of(theTimetable.getBegin().getYear(), theTimetable.getBegin().getMonth(),
 				theTimetable.getBegin().getDayOfMonth(), end, 0, 0));
 		theTimetable.setInstructor(timetable.getInstructor());
-		theTimetable.setDrivingType(timetable.getDrivingType());
 		timetableRepository.save(theTimetable);
 		String editTitle = "EDYTUJ ZAPLANOWANE JAZDY";
 		theModel.addAttribute("timetablesToday",
@@ -230,6 +229,7 @@ public class TimetableController {
 		newTimetable.setEnd(LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), end, 0, 0));
 		newTimetable.setInstructor(timetable.getInstructor());
 		newTimetable.setCar(carRepository.getOne(id_car));
+		newTimetable.setDrivingType(timetable.getDrivingType());
 		
 		timetableRepository.save(newTimetable);
 		String editTitle = "EDYTUJ ZAPLANOWANE JAZDY";
