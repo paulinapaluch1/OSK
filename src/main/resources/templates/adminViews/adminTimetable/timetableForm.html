@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Admin Timetable</title>
+<title>Grafik</title>
 <meta charset="utf-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -68,12 +68,15 @@
 				</table>
 			</div>
 
+
 			<form th:action="@{/timetable/save}" th:object="${timetable}"
 				method="GET">
 
 				<input  type="hidden" th:field="*{id}" />
 				<input type="hidden" th:field="*{drivingType}" /> 
+
 				Instruktor: 
+
 				<select th:field="*{instructor}"
 					class="form-control col-4">
 					<option th:each="instructor: ${instructors}"
@@ -98,6 +101,7 @@
 					<option th:value="12">18:00-20:00</option>
 					<option th:value="12">20:00-22:00</option>
 				</select>
+
 				<button type="submit" class="btn btn-info col-2">ZMIEŃ</button>
 			</form>
 		</div>

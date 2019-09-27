@@ -213,8 +213,8 @@ public class TimetableController {
 				theTimetable.getBegin().getDayOfMonth(), begin, 0, 0));
 		theTimetable.setEnd(LocalDateTime.of(theTimetable.getBegin().getYear(), theTimetable.getBegin().getMonth(),
 				theTimetable.getBegin().getDayOfMonth(), end, 0, 0));
-			theTimetable.setCar(timetable.getCar());
 
+			theTimetable.setCar(timetable.getCar());
 		timetableRepository.save(theTimetable);
 		String editTitle = "EDYTUJ ZAPLANOWANE JAZDY";
 		theModel.addAttribute("timetablesToday",
@@ -247,6 +247,7 @@ public class TimetableController {
 		newTimetable.setInstructor(timetable.getInstructor());
 		newTimetable.setCar(carRepository.getOne(id_car));
 		newTimetable.setDrivingType(timetable.getDrivingType());
+
 		timetableRepository.save(newTimetable);
 		String editTitle = "EDYTUJ ZAPLANOWANE JAZDY";
 		theModel.addAttribute("timetablesToday", timetableRepository

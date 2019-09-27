@@ -2,7 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<title>Student Profile</title>
+
+<title>Profil</title>
+
 <meta charset="utf-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -10,6 +12,7 @@
 </head>
 
 <body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
@@ -32,6 +35,7 @@
 		
 			<div class="col-3  list card mt-2 " style=max-height:25rem;>
 		<br>
+
 				<b><p th:text=" ${student.name + ' ' + student.surname}" /></b>
 				<p th:text="'Login: ' + ${student.login}" />
 				<p th:text="'Data urodzenia: ' + ${#dates.format(student.birthdate, 'dd.MM.yyyy')}" />
@@ -104,5 +108,6 @@
 		</div>
 	</div>
 	
+
 </body>
 </HTML>
