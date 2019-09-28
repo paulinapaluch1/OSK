@@ -1,8 +1,11 @@
 package pl.pracainz.osk.osk.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.InternalExamRepository;
+import pl.pracainz.osk.osk.dao.TimetableRepository;
 import pl.pracainz.osk.osk.dao.UserRepository;
 import pl.pracainz.osk.osk.entity.Course;
 import pl.pracainz.osk.osk.entity.Driving;
@@ -30,12 +34,14 @@ public class InstructorController {
 	private InstructorRepository instructorRepository;
 	private InternalExamRepository internalExamRepository;
 	private UserRepository userRepository;
+	private TimetableRepository timetableRepository;
 
 	public InstructorController(InstructorRepository repository, InternalExamRepository exams,
-			UserRepository userRepository) {
+			UserRepository userRepository,TimetableRepository timetableRepository) {
 		this.instructorRepository = repository;
 		this.internalExamRepository = exams;
 		this.userRepository = userRepository;
+		this.timetableRepository = timetableRepository;
 	}
 
 	@GetMapping("/list")
@@ -169,13 +175,49 @@ public class InstructorController {
 		return "instructorViews/instructorDrivings/drivingsDone";
 	}
 	
-//	@GetMapping("/showTimetable")
-//	public String listTimetable(Model theModel) {
-//		List<Timetable> theTimetable = instructorRepository.queryFindTimetable(1);
-//		theModel.addAttribute("timetable", theTimetable);
-//		return "instructorViews/instructorTimetable/timetable";
-//	}
+	@GetMapping("/showTimetable")
+	public String listTimetable(Model theModel) {
+	//	List<Timetable> theTimetable = instructorRepository.queryFindTimetable(1);
+		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYearAndInstructor(
+				LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear(),
+				instructorRepository.getOne(getCurrentLoggedInstructorId()).getId()));
+		theModel.addAttribute("today", LocalDate.now());
+		theModel.addAttribute("dayName", getDayName(LocalDate.now()));	
+		theModel.addAttribute("instructor",getCurrentLoggedInstructor());
+		return "instructorViews/instructorTimetable/timetable";
+	}
 
+	@RequestMapping("/changeDateForEarlierForInstructor")
+	public String changeDateForEarlier(
+			@RequestParam(name = "date", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date
+			, Model theModel) {
+		
+		LocalDate yesterday = date.minusDays(1);
+		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYearAndInstructor(
+				yesterday.getDayOfMonth(), yesterday.getMonthValue(), yesterday.getYear(),
+				instructorRepository.getOne(getCurrentLoggedInstructorId()).getId()));
+		theModel.addAttribute("today", yesterday);
+		theModel.addAttribute("dayName", getDayName(yesterday));	
+		theModel.addAttribute("instructor",getCurrentLoggedInstructor());
+		return "instructorViews/instructorTimetable/timetable";
+	}
+	
+	
+	@RequestMapping("/changeDateForLaterForInstructor")
+	public String changeDateForLater(
+			@RequestParam(name = "date", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date
+			, Model theModel) {
+		LocalDate tomorrow = date.plusDays(1);
+		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYearAndInstructor(
+				tomorrow.getDayOfMonth(), tomorrow.getMonthValue(), tomorrow.getYear(),
+				instructorRepository.getOne(getCurrentLoggedInstructorId()).getId()));
+		theModel.addAttribute("today", tomorrow);
+		theModel.addAttribute("dayName", getDayName(tomorrow));	
+		theModel.addAttribute("instructor",getCurrentLoggedInstructor());	
+		return "instructorViews/instructorTimetable/timetable";
+	}
+	
+	
 	
 	
 	private String getCurrentUserName() {
@@ -196,6 +238,31 @@ public class InstructorController {
 	
 	private int getCurrentLoggedInstructorId() {
 		return getCurrentLoggedInstructor().getId();
+	}
+
+	
+	
+	public String getDayName(LocalDate date) {
+		int dayNumber = date.getDayOfWeek().getValue();
+		switch (dayNumber) {
+		case 1:
+			return "Poniedziałek ";
+		case 2:
+			return "Wtorek ";
+		case 3:
+			return "Środa ";
+		case 4:
+			return "Czwartek ";
+		case 5:
+			return "Piątek ";
+		case 6:
+			return "Sobota ";
+		case 7:
+			return "Niedziela ";
+		default:
+			return "Dzisiaj ";
+
+		}
 	}
 
 	
