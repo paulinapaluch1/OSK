@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Grafik</title>
+<title>Admin Grafik</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
@@ -37,7 +37,7 @@
 }
 </style>
 </head>
-<body>
+<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
@@ -46,7 +46,7 @@
 				width="70px" /></a>
 		</div>
 		<div class="flex-fill">
-			<a th:href="@{/students/profile}">
+			<a th:href="@{/}">
 				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
 			</a>
 		</div>
@@ -54,51 +54,81 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: kursant</strong> <a href="/logout"><button
-					type="button" class="btn btn-primary">WYLOGUJ</button></a>
+			<strong>Zalogowany użytkownik:</strong> 
+						<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+			
+			<a
+				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 	</nav>
 	<div class="page">
+	<div class="container list " >
 		<h3>GRAFIK</h3>
-		<br>
 
-		<for:each th:each="car:${cars}">
-			<button class="accordion"
-				th:text="${car.id}+'. '+${car.brand}+' '+${car.model}+' '+${car.registrationNumber}"></button>
-			<div class="panel">
+		<div th:if="${timetablesToday.isEmpty()}">
+			<p th:text="'Brak grafiku na dzień: '+${dayName}+' '+${today}"></p>
+		</div>
+		<div th:unless="${timetablesToday.isEmpty()}">
+			<p class="inline" th:text="${dayName}+' '+${today}" />
+		</div>
+		<ul class="pagination inline">
+			<li class="page-item"><a class="page-link"
+				th:href="@{/}">&#60;</a></li>
+			<li class="page-item"><a class="page-link"
+				th:href="@{/}">&#62;</a></li>
+		</ul>
+		
+		
+		<for:each th:each="instructor:${instructors}">
+			<button class="accordion"  
+				th:text="${instructor.id}+'. '+${instructor.name}+' '+${instructor.surname}"></button>
+			<div class="panel"  >
 
-				<div class="table-responsive">
-					<table class="table table-bordered table-hover table-sm">
+				<div class="table-responsive" >
+					<table class="table  table-hover table-sm">
 						<thead>
 							<tr class="table-primary">
-								<td>Początek</td>
-								<td>Koniec</td>
-								<td>Instruktor</td>
+								<th>Id</th>
+
+								<th>Początek</td>
+								<th>Koniec</th>
+								<th>Samochód</th>
+								<th>Typ</th>
+								<th>Kursant</th>
+								
+
 							</tr>
 						</thead>
 						<tbody id="myTable">
 							<tr th:each="timetable:${timetablesToday}">
-								<span th:if=${car.id}==${timetable.car.id}>
+								<span th:if=${instructor.id}==${timetable.instructor.id}>
+									<td th:text="${timetable.id}" />
 									<td th:text="${#temporals.format(timetable.begin,'HH:mm')}" />
 									<td th:text="${#temporals.format(timetable.end,'HH:mm')}" />
-									<td
-									th:text="${timetable.instructor.name}+' ' +${timetable.instructor.surname} " />
-
-
+									<td	th:text="${timetable.car.brand}+' ' +${timetable.car.model} +' ' +${timetable.car.registrationNumber} " />
+									<td th:text="${timetable.drivingType.type}"></td>
+									<div th:switch="${timetable.reserved}" >
+									<div th:if="${timetable.reserved} eq false">
+									<td><a type="button" class="btn btn-success mb-1">ZAREZERWUJ</a></td>
+									</div>
+									<div th:unless="${timetable.reserved} eq false">
+									<td th:text="zarezerwowana" />
+									</div>
+									
+							
 								</span>
-
+								
 							</tr>
 						</tbody>
-
+						
 					</table>
-
-
+				
 				</div>
 			</div>
-
+			
 		</for:each>
 
-	</div>
+	</div></div>
 	<script>
 		var acc = document.getElementsByClassName("accordion");
 		var i;

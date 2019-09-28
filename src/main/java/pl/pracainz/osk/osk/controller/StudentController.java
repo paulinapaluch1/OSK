@@ -1,5 +1,6 @@
 package pl.pracainz.osk.osk.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -176,12 +177,6 @@ public class StudentController {
 		return "studentViews/studentDrivings/drivingsCancelled";
 	}
 
-	@GetMapping("/showTimetable")
-	public String Timetable(Model theModel) {
-		List<Timetable> theTimetable = studentRepository.findTimetableForStudent(1);
-		theModel.addAttribute("timetable", theTimetable);
-		return "studentViews/studentTimetable/timetable";
-	}
 
 	@GetMapping("/showCourses")
 	public String listCourses(Model theModel) {
@@ -279,4 +274,48 @@ public class StudentController {
 		return "adminViews/adminStudents/addStudent";
 	}
 
+	@GetMapping("/showTimetable")
+	public String showTimetableForStudentToReserved(Model theModel) {
+		theModel.addAttribute("timetables", timetableRepository.findAll());
+		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(
+				LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
+		theModel.addAttribute("today", LocalDate.now());
+		theModel.addAttribute("dayName", getDayName(LocalDate.now()));
+		
+		return "studentViews/studentTimetable/timetable";
+	}
+
+	
+	@ModelAttribute("instructors")
+	public List<Instructor> instructors() {
+		return instructorRepository.findAll();
+	}
+	
+	public String getDayName(LocalDate date) {
+		int dayNumber = date.getDayOfWeek().getValue();
+		switch (dayNumber) {
+		case 1:
+			return "Poniedziałek ";
+		case 2:
+			return "Wtorek ";
+		case 3:
+			return "Środa ";
+		case 4:
+			return "Czwartek ";
+		case 5:
+			return "Piątek ";
+		case 6:
+			return "Sobota ";
+		case 7:
+			return "Niedziela ";
+		default:
+			return "Dzisiaj ";
+
+		}
+
+	
+	}
+	
+	
+	
 }
