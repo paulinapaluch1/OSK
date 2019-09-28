@@ -45,7 +45,6 @@ public class DrivingController {
 		theModel.addAttribute("drivings", drivingRepository.findByDeleted(1));
 		return "adminViews/adminDrivings/drivingsArchived";
 	}
-
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
 		theModel.addAttribute("driving", new Driving());

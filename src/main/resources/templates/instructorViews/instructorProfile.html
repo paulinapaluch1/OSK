@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<title>Admin Profile</title>
+<title>Profil</title>
 <meta charset="utf-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -32,8 +32,10 @@
 		<div class="row px-md-5 ">
 			<div class="col-3  list card mt-2 " style=max-height:25rem;>
 				<br> 
+
 				<b><p th:text=" ${instructor.name + ' ' + instructor.surname}" /></b>
 				
+
 				<p th:text="'Login: ' + ${instructor.login}" />
 				<p th:text="'Telefon: ' + ${instructor.phoneNumber}" />
 				<p th:text="'E-mail: ' + ${instructor.email}" />

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Admin Instructor Opinions</title>
+<title>Zatwierdzone opinie o instruktorach</title>
 <meta charset="utf-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -34,7 +34,9 @@
 		<div class="flex-fill">
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
+
 		<div  class="flex-fill">
+
 			<strong>Zalogowany użytkownik:</strong>
 			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
 			 <a
