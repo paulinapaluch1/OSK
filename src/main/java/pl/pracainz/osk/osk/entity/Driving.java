@@ -33,7 +33,7 @@ public class Driving {
 	@Column
 	private int deleted;
 
-	@ManyToOne(cascade = { CascadeType.DETACH })
+	@ManyToOne(cascade = { CascadeType.ALL },optional=false)
 	@JoinColumn(name = "id_timetable") //, referencedColumnName="id",insertable=false, updatable=false
 	private Timetable timetable;
 	

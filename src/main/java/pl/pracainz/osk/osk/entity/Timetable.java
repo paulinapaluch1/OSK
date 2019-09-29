@@ -27,7 +27,7 @@ public class Timetable {
 	@Column
 	private int id;
 
-	@ManyToOne(cascade = { CascadeType.DETACH })
+	@ManyToOne(cascade = {CascadeType.DETACH })
 	@JoinColumn(name = "id_instructor")
 	@Nullable
 	private Instructor instructor;
@@ -54,15 +54,13 @@ public class Timetable {
 	@OneToMany(mappedBy = "timetable")
 	List<Driving> drivings;
 	
-	@Transient
-	private boolean reserved;
 
-	@Transient
-	private Driving driving;
+	//@Transient
+	//private Driving driving;
 	
 	public Timetable() {
-		this.reserved=false;
-		this.driving=new Driving();
+		
+		
 	}
 
 	public Timetable(Instructor instructor, LocalDateTime begin, LocalDateTime end, Car car, int archived) {
@@ -139,21 +137,33 @@ public class Timetable {
 		this.drivings = drivings;
 	}
 
-	public Driving getDriving() {
-		return driving;
-	}
-
-	public void setDriving(Driving driving) {
-		this.driving = driving;
-	}
 
 	public boolean isReserved() {
-		return reserved;
-	}
-
-	public void setReserved(boolean reserved) {
-		this.reserved = reserved;
+		if(getDrivings().isEmpty())
+			return false;
+		else {
+			boolean reserved = false;
+			for(Driving driving : getDrivings()) {
+				if(driving.getCancelled() == 0)
+					reserved = true;
+			}
+			return reserved;
+		}
+		
 	}
 	
+	public Driving getDriving() {
+		for(Driving driving : getDrivings()) {
+			if(driving.getCancelled() == 0){
+				return driving;
+			}
+		}	
+		return new Driving();	
+	}
+
+	
+	
+	
+
 	
 }

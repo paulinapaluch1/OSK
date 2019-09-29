@@ -97,7 +97,6 @@
 						<thead>
 							<tr class="table-primary">
 								<th>Id</th>
-
 								<th>Początek</td>
 								<th>Koniec</th>
 								<th>Instruktor</th>
@@ -115,14 +114,14 @@
 									<td th:text="${#temporals.format(timetable.end,'HH:mm')}" />
 									<td	th:text="${timetable.instructor.name}+' ' +${timetable.instructor.surname} " />
 									<td th:text="${timetable.drivingType.type}"></td>
-									<div th:switch="${timetable.reserved}" >
-									<div th:if="${timetable.reserved} eq false">
+									<div th:switch="${timetable.isReserved()}" >
+									<div th:if="${timetable.isReserved()} eq false">
 									<td th:text="niezarezerwowana" />
 									</div>
-									<div th:unless="${timetable.reserved} eq false">
-									<td th:text="${timetable.driving.student.name   +' ' timetable.driving.student.surname}" />
+									<div th:unless="${timetable.isReserved()} eq false">
+									<td th:text="${timetable.getDriving().student.name }  +' '+ ${timetable.getDriving().student.surname}" />
 									</div>
-									
+									</div>
 									
 								<td>	<a
 										th:href="@{/timetable/edit(id_timetable=${timetable.id})}"><button

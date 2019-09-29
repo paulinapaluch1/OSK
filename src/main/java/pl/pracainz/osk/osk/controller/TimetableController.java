@@ -44,8 +44,6 @@ public class TimetableController {
 
 	@GetMapping("/list")
 	public String showTimetable(Model theModel) {
-		theModel.addAttribute("timetables", timetableRepository.findAll());
-
 		theModel.addAttribute("cars", carRepository.findAll());
 		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(
 				LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
@@ -66,7 +64,7 @@ public class TimetableController {
 		theModel.addAttribute("dayName", getDayName(yesterday));
 		theModel.addAttribute("instructors", instructorRepository.findAll());
 
-		if (page.contentEquals("cars")) {
+		if (page.equals("cars")) {
 			return "adminViews/adminTimetable/timetable";
 		} else
 			return "adminViews/adminTimetable/timetableByInstructors";

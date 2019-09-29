@@ -73,9 +73,9 @@
 		</div>
 		<ul class="pagination inline">
 			<li class="page-item"><a class="page-link"
-				th:href="@{/}">&#60;</a></li>
+				th:href="@{/students/changeDateForEarlierInStudentsTimetable(date=${today})}">&#60;</a></li>
 			<li class="page-item"><a class="page-link"
-				th:href="@{/}">&#62;</a></li>
+				th:href="@{/students/changeDateForLaterInStudentsTimetable(date=${today})}">&#62;</a></li>
 		</ul>
 		
 		
@@ -107,11 +107,12 @@
 									<td th:text="${#temporals.format(timetable.end,'HH:mm')}" />
 									<td	th:text="${timetable.car.brand}+' ' +${timetable.car.model} +' ' +${timetable.car.registrationNumber} " />
 									<td th:text="${timetable.drivingType.type}"></td>
-									<div th:switch="${timetable.reserved}" >
-									<div th:if="${timetable.reserved} eq false">
-									<td><a type="button" class="btn btn-success mb-1">ZAREZERWUJ</a></td>
+									<div th:switch="${timetable.isReserved()}" >
+									<div th:if="${timetable.isReserved()} eq false">
+									<td><a th:href="@{/students/reservePlannedDriving(date=${today},id_timetable=${timetable.id})}"
+									type="button" class="btn btn-success mb-1">ZAREZERWUJ</a></td>
 									</div>
-									<div th:unless="${timetable.reserved} eq false">
+									<div th:unless="${timetable.isReserved()} eq false">
 									<td th:text="zarezerwowana" />
 									</div>
 									
