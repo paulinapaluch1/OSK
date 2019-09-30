@@ -2,6 +2,7 @@ package pl.pracainz.osk.osk.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,11 +20,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.pracainz.osk.osk.dao.CarRepository;
 import pl.pracainz.osk.osk.dao.DrivingTypeRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
+import pl.pracainz.osk.osk.dao.InternalExamRepository;
 import pl.pracainz.osk.osk.dao.TimetableRepository;
-import pl.pracainz.osk.osk.entity.DrivingType;
 import pl.pracainz.osk.osk.entity.Car;
+import pl.pracainz.osk.osk.entity.DrivingType;
 import pl.pracainz.osk.osk.entity.Instructor;
+import pl.pracainz.osk.osk.entity.InternalExam;
 import pl.pracainz.osk.osk.entity.Timetable;
+
 
 @Controller
 @RequestMapping("/timetable")
@@ -33,13 +37,16 @@ public class TimetableController {
 	private CarRepository carRepository;
 	private InstructorRepository instructorRepository;
 	private DrivingTypeRepository drivingTypeRepository;
+	private InternalExamRepository internalExamRepository;
 
 	public TimetableController(TimetableRepository repository, CarRepository carRepository,
-			InstructorRepository instructorRepository, DrivingTypeRepository drivingTypeRepository) {
+			InstructorRepository instructorRepository, DrivingTypeRepository drivingTypeRepository,
+			InternalExamRepository internalExamRepository) {
 		this.timetableRepository = repository;
 		this.carRepository = carRepository;
 		this.instructorRepository = instructorRepository;
 		this.drivingTypeRepository = drivingTypeRepository;
+		this.internalExamRepository = internalExamRepository;
 	}
 
 	@GetMapping("/list")
@@ -100,9 +107,7 @@ public class TimetableController {
 				.queryByDayAndMonthAndYear(yesterday.getDayOfMonth(), yesterday.getMonthValue(), yesterday.getYear()));
 		theModel.addAttribute("dayName", getDayName(yesterday));
 		theModel.addAttribute("instructors", instructorRepository.findAll());
-
-		
-			return "adminViews/adminTimetable/timetable";
+		return "adminViews/adminTimetable/timetable";
 
 	}
 
@@ -211,7 +216,13 @@ public class TimetableController {
 		theTimetable.setEnd(LocalDateTime.of(theTimetable.getBegin().getYear(), theTimetable.getBegin().getMonth(),
 				theTimetable.getBegin().getDayOfMonth(), end, 0, 0));
 
-			theTimetable.setCar(timetable.getCar());
+		theTimetable.setCar(timetable.getCar());
+		theTimetable.setDrivingType(timetable.getDrivingType());
+		
+		if(timetable.getDrivingType().getType().equals("Egzamin wewnętrzny"))
+			internalExamRepository.save(new InternalExam(theTimetable.getInstructor(),
+				java.util.Date.from(theTimetable.getBegin().atZone(ZoneId.systemDefault()).toInstant()), "praktyczny", 0,2));
+		    
 		timetableRepository.save(theTimetable);
 		String editTitle = "EDYTUJ ZAPLANOWANE JAZDY";
 		theModel.addAttribute("timetablesToday",
@@ -246,6 +257,12 @@ public class TimetableController {
 		newTimetable.setDrivingType(timetable.getDrivingType());
 
 		timetableRepository.save(newTimetable);
+		
+		if(timetable.getDrivingType().getType().equals("Egzamin wewnętrzny"))
+			internalExamRepository.save(new InternalExam(newTimetable.getInstructor(),
+				java.util.Date.from(newTimetable.getBegin().atZone(ZoneId.systemDefault()).toInstant()), "praktyczny", 0,2));
+		    
+		
 		String editTitle = "EDYTUJ ZAPLANOWANE JAZDY";
 		theModel.addAttribute("timetablesToday", timetableRepository
 				.queryByDayAndMonthAndYearAndCar(date.getDayOfMonth(), date.getMonthValue(), date.getYear(), id_car));

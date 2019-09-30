@@ -88,7 +88,7 @@
 						<td th:text="${exam.id}" />
 						<td
 							th:text="${exam.instructor.name} + ' ' + ${exam.instructor.surname}" />
-						<td th:text="${exam.student.name} + ' ' + ${exam.student.surname}" />
+						<td  th:text="${exam.student != null}?${exam.student.name +' ' +exam.student.surname} " />
 						<td th:text="${#dates.format(exam.dateHour, 'dd-MM-yyyy')}" />
 						<td th:text="${#dates.format(exam.dateHour, 'HH:mm')}" />
 						
