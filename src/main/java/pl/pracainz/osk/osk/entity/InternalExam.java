@@ -47,17 +47,19 @@ public class InternalExam {
 	@Column
 	private int deleted;
 
-	public InternalExam() {
-	}
 
-	public InternalExam(Instructor instructor, Student student, Date dateHour, int result, String type, int deleted) {
+
+	public InternalExam(Instructor instructor, Date dateHour, String type, 
+			int deleted, int result) {
 		super();
 		this.instructor = instructor;
-		this.student = student;
 		this.dateHour = dateHour;
-		this.result = result;
 		this.type = type;
 		this.deleted = deleted;
+		this.result = result;
+	}
+
+	public InternalExam() {
 	}
 
 	public int getId() {

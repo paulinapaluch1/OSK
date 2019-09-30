@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -276,7 +278,6 @@ public class StudentController {
 
 	@GetMapping("/showTimetable")
 	public String showTimetableForStudentToReserved(Model theModel) {
-		theModel.addAttribute("timetables", timetableRepository.findAll());
 		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(
 				LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
 		theModel.addAttribute("today", LocalDate.now());
@@ -290,6 +291,53 @@ public class StudentController {
 	public List<Instructor> instructors() {
 		return instructorRepository.findAll();
 	}
+	
+	@RequestMapping("/changeDateForEarlierInStudentsTimetable")
+	public String changeDateForEarlier(
+			@RequestParam(name = "date", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date,
+			 Model theModel) {
+		LocalDate yesterday = date.minusDays(1);
+		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(
+				yesterday.getDayOfMonth(), yesterday.getMonthValue(), yesterday.getYear()));
+		theModel.addAttribute("today", LocalDate.now());
+		theModel.addAttribute("dayName", getDayName(yesterday));
+		return "studentViews/studentTimetable/timetable";
+	}
+	
+	@RequestMapping("/changeDateForLaterInStudentsTimetable")
+	public String changeDateForLater(
+			@RequestParam(name = "date", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date,
+			 Model theModel) {
+		LocalDate tomorrow = date.plusDays(1);
+		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(
+				tomorrow.getDayOfMonth(), tomorrow.getMonthValue(), tomorrow.getYear()));
+		theModel.addAttribute("today", LocalDate.now());
+		theModel.addAttribute("dayName", getDayName(tomorrow));
+		return "studentViews/studentTimetable/timetable";
+	}
+	
+	@GetMapping("/reservePlannedDriving")
+	public String reservePlannedDriving(
+			@RequestParam(name = "date", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date,
+			@RequestParam("id_timetable") int id, Model theModel) {
+		Timetable timetableToReserve = timetableRepository.getOne(id);
+		Driving driving = new Driving();
+		driving.setTimetable(timetableToReserve);
+		driving.setStudent(getCurrentLoggedStudent());
+		driving.setDone(0);
+		driving.setCancelled(0);
+		driving.setDeleted(0);
+		drivingRepository.save(driving);
+		timetableToReserve.getDrivings().add(driving);
+		timetableRepository.save(timetableToReserve);
+		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(
+				LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
+		theModel.addAttribute("today", LocalDate.now());
+		theModel.addAttribute("dayName", getDayName(LocalDate.now()));
+		return "studentViews/studentTimetable/timetable";
+	}
+	
+	
 	
 	public String getDayName(LocalDate date) {
 		int dayNumber = date.getDayOfWeek().getValue();
@@ -310,10 +358,8 @@ public class StudentController {
 			return "Niedziela ";
 		default:
 			return "Dzisiaj ";
-
 		}
 
-	
 	}
 	
 	

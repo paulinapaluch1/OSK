@@ -27,7 +27,6 @@
 				<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
 				<a
 					href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-				<a th:href="@{/}"><-wroc</a>
 			</div>
 		</nav>
 		<div class="container list p-3 mt-3">
@@ -52,6 +51,7 @@
 							<th>Koniec</th>
 							<th>Instruktor</th>
 							<th>Typ</th>
+							<th>Kursant</th>
 
 						</tr>
 					</thead>
@@ -63,6 +63,14 @@
 							<td
 								th:text="${this.instructor.name}+' ' +${this.instructor.surname} " />
 							<td th:text="${this.drivingType.type}" />
+							<div th:switch="${this.isReserved()}" >
+									<div th:if="${this.isReserved()} eq false">
+									<td th:text="niezarezerwowana" />
+									</div>
+									<div th:unless="${this.isReserved()} eq false">
+									<td th:text="${this.getDriving().student.name }  +' '+ ${this.getDriving().student.surname}" />
+									</div>
+									</div>
 						</tr>
 					</tbody>
 				</table>
@@ -101,9 +109,9 @@
 					<option th:value="12">18:00-20:00</option>
 					<option th:value="12">20:00-22:00</option>
 				</select>
-
 				<button type="submit" class="btn btn-info col-2">ZMIEŃ</button>
 			</form>
+			
 		</div>
 	</div>
 </body>

@@ -177,7 +177,6 @@ public class InstructorController {
 	
 	@GetMapping("/showTimetable")
 	public String listTimetable(Model theModel) {
-	//	List<Timetable> theTimetable = instructorRepository.queryFindTimetable(1);
 		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYearAndInstructor(
 				LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear(),
 				instructorRepository.getOne(getCurrentLoggedInstructorId()).getId()));

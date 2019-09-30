@@ -1,7 +1,6 @@
 package pl.pracainz.osk.osk.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.pracainz.osk.osk.dao.DrivingRepository;
 import pl.pracainz.osk.osk.dao.DrivingTypeRepository;
 import pl.pracainz.osk.osk.dao.StudentRepository;
-import pl.pracainz.osk.osk.entity.Category;
+import pl.pracainz.osk.osk.dao.TimetableRepository;
 import pl.pracainz.osk.osk.entity.Driving;
 import pl.pracainz.osk.osk.entity.DrivingType;
 import pl.pracainz.osk.osk.entity.Student;
+import pl.pracainz.osk.osk.entity.Timetable;
 
 @Controller
 @RequestMapping("/drivings")
@@ -33,6 +33,7 @@ public class DrivingController {
 		this.drivingTypeRepository = drivingTypeRepository;
 		this.studentRepository = studentRepository;
 	}
+	
 
 	@GetMapping("/list")
 	public String listDrivings(Model theModel) {
@@ -102,7 +103,6 @@ public class DrivingController {
 		Driving theDriving = drivingRepository.getOne(id);
 		theDriving.setCancelled(1);
 		theDriving.setDone(0);
-		// tutaj pewnie trzeba zwolnić miejsce w grafiku
 		drivingRepository.save(theDriving);
 		
 		return "redirect:/students/showDrivings";
