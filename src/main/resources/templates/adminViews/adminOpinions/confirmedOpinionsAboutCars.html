@@ -14,7 +14,8 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+<body
+	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
@@ -23,10 +24,10 @@
 				width="70px" /></a>
 		</div>
 		<div class="flex-fill">
-			<a  sec:authorize="hasRole('ADMIN')" th:href="@{/opinions/cars}">
+			<a sec:authorize="hasRole('ADMIN')" th:href="@{/opinions/cars}">
 				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
-			</a>
-			<a sec:authorize="hasRole('INSTRUCTOR')" th:href="@{/instructors/showOpinions}">
+			</a> <a sec:authorize="hasRole('INSTRUCTOR')"
+				th:href="@{/instructors/showOpinions}">
 				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
 			</a>
 		</div>
@@ -34,63 +35,60 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik:</strong>
-			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
-			 <a
+			<strong>Zalogowany użytkownik:</strong> <span
+				th:text="${#authentication.getPrincipal().getUsername()}"></span> <a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 
 	</nav>
 	<div class="page">
-	<div class="container list">
-		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
-			<div class="flex-fill">
-				<h3>SAMOCHODY - ZATWIERDZONE OPINIE</h3>
-			</div>
-			<div sec:authorize="hasRole('ADMIN')" class="flex-fill">
-				<a th:href="@{/opinions/cars/newOpinions}"><button type="button"
-						class="btn btn-outline-secondary">Nowe opinie</button></a>
-			</div>
-			<div sec:authorize="hasRole('ADMIN')" class="flex-fill">
-				<a th:href="@{/opinions/cars/rejectedOpinions}"><button
-						type="button" class="btn btn-outline-secondary">Odrzucone
+		<div class="container list">
+			<h3 class="title">SAMOCHODY - ZATWIERDZONE OPINIE</h3>
+			<nav class="navbar justify-content-end">
+				<a sec:authorize="hasRole('ADMIN')"
+					th:href="@{/opinions/cars/newOpinions}"><button type="button"
+						class="btn btn-outline-secondary mr-3 mb-2">Nowe opinie</button></a> <a
+					sec:authorize="hasRole('ADMIN')"
+					th:href="@{/opinions/cars/rejectedOpinions}"><button
+						type="button" class="btn btn-outline-secondary mr-3 mb-2">Odrzucone
 						opinie</button></a>
+
+			</nav>
+
+
+			<br>
+			<div class="table-responsive table-sm">
+				<table class="table table-hover">
+					<thead>
+						<tr class="table-primary">
+							<th>Id opinii</th>
+							<th>Kursant</th>
+							<th>Samochód</th>
+							<th>Ocena</th>
+							<th>Opinia</th>
+						</tr>
+
+					</thead>
+					<tbody id="myTable">
+						<tr th:each="caropinion:${caropinions}">
+							<td th:text="${caropinion.id}" />
+							<td
+								th:text="${caropinion.student.name + ' ' + caropinion.student.surname}" />
+							<td th:text="${caropinion.car.registrationNumber}" />
+							<td th:text="${caropinion.carMark}" />
+							<td th:text="${caropinion.carOpinion}" />
+							<td><a sec:authorize="hasRole('ADMIN')"
+								th:href="@{/opinions/cancelCar(id_carOpinion=${caropinion.id})}"
+								class="btn btn-warning">Cofnij zatwierdzenie</a></td>
+
+
+						</tr>
+					</tbody>
+
+
+				</table>
 			</div>
-		</nav>
-
-
-		<br>
-		<div class="table-responsive table-sm">
-			<table class="table table-hover">
-				<thead>
-					<tr class="table-primary">
-						<th>Id opinii</th>
-						<th>Kursant</th>
-						<th>Samochód</th>
-						<th>Ocena</th>
-						<th>Opinia</th>
-					</tr>
-
-				</thead>
-				<tbody id="myTable">
-					<tr th:each="caropinion:${caropinions}">
-						<td th:text="${caropinion.id}" />
-						<td
-							th:text="${caropinion.student.name + ' ' + caropinion.student.surname}" />
-						<td th:text="${caropinion.car.registrationNumber}" />
-						<td th:text="${caropinion.carMark}" />
-						<td th:text="${caropinion.carOpinion}" />
-						<td><a sec:authorize="hasRole('ADMIN')"
-							th:href="@{/opinions/cancelCar(id_carOpinion=${caropinion.id})}"
-							class="btn btn-warning">Cofnij zatwierdzenie</a></td>
-
-
-					</tr>
-				</tbody>
-
-
-			</table>
 		</div>
-	</div></div>
+	</div>
 </body>
 </html>

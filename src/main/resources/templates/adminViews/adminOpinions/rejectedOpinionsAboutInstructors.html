@@ -41,20 +41,15 @@
 
 	</nav>
 	<div class="page">
-		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
-			<div class="flex-fill">
-				<h3>INSTRUKTORZY - ODRZUCONE OPINIE</h3>
-			</div>
-			<div class="flex-fill">
+				<h3 class="title">INSTRUKTORZY - ODRZUCONE OPINIE</h3>
+					<nav class="navbar justify-content-end">
+			
 				<a th:href="@{/opinions/instructors/newOpinions}"><button
-						type="button" class="btn btn-outline-secondary">Nowe
+						type="button" class="btn btn-outline-secondary mr-3 mb-2">Nowe
 						opinie</button></a>
-			</div>
-			<div class="flex-fill">
 				<a th:href="@{/opinions/instructors/checkedOpinions}"><button
-						type="button" class="btn btn-outline-secondary">Zatwierdzone
+						type="button" class="btn btn-outline-secondary mr-3 mb-2">Zatwierdzone
 						opinie</button></a>
-			</div>
 		</nav>
 		<br>
 		<div class="table-responsive table-sm">

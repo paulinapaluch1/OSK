@@ -37,3 +37,7 @@ inlineButton{
 .form{
 	 max-width:40rem;
 }
+
+.title{
+	float:left;
+}
