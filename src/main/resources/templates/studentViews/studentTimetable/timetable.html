@@ -57,8 +57,7 @@
 			<strong>Zalogowany użytkownik:</strong> 
 						<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
 			
-			<a
-				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+			<a href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 	</nav>
 	<div class="page">
@@ -71,12 +70,15 @@
 		<div th:unless="${timetablesToday.isEmpty()}">
 			<p class="inline" th:text="${dayName}+' '+${today}" />
 		</div>
-		<ul class="pagination inline">
+		<ul class="pagination inline mr-3" style="float:left">
 			<li class="page-item"><a class="page-link"
 				th:href="@{/students/changeDateForEarlierInStudentsTimetable(date=${today})}">&#60;</a></li>
 			<li class="page-item"><a class="page-link"
 				th:href="@{/students/changeDateForLaterInStudentsTimetable(date=${today})}">&#62;</a></li>
 		</ul>
+		
+		<a th:href="@{/students/showDrivings}" style="float:right"><button type="button"
+						class="btn btn-outline-secondary">MOJE JAZDY</button></a>
 		
 		
 		<for:each th:each="instructor:${instructors}">

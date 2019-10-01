@@ -14,6 +14,7 @@ import pl.pracainz.osk.osk.dao.DrivingRepository;
 import pl.pracainz.osk.osk.dao.DrivingTypeRepository;
 import pl.pracainz.osk.osk.dao.StudentRepository;
 import pl.pracainz.osk.osk.dao.TimetableRepository;
+import pl.pracainz.osk.osk.entity.Category;
 import pl.pracainz.osk.osk.entity.Driving;
 import pl.pracainz.osk.osk.entity.DrivingType;
 import pl.pracainz.osk.osk.entity.Student;
@@ -103,11 +104,36 @@ public class DrivingController {
 		Driving theDriving = drivingRepository.getOne(id);
 		theDriving.setCancelled(1);
 		theDriving.setDone(0);
-		drivingRepository.save(theDriving);
-		
+		drivingRepository.save(theDriving);	
 		return "redirect:/students/showDrivings";
 	}
 	
+
+	@GetMapping("/types")
+	public String editDrivingTypes(Model theModel){
+		theModel.addAttribute("drivingTypeToAdd", new DrivingType());
+		return "adminViews/adminDrivings/types";
+	}
+	
+	@PostMapping("/saveEditedDrivingType")
+	public String saveEditedDrivingType(@ModelAttribute("drivingType") DrivingType theDrivingType, Model theModel) {
+		DrivingType drivingType = drivingTypeRepository.getOne(theDrivingType.getId());
+		drivingType.setType(theDrivingType.getType());
+		drivingTypeRepository.save(drivingType);
+		return "redirect:/drivings/types";
+	}
+	
+	@PostMapping("/saveNewDrivingType")
+	public String saveNewDrivingType(@ModelAttribute("categoryToAdd") DrivingType theDrivingType, Model theModel) {
+		drivingTypeRepository.save(theDrivingType);
+		return "redirect:/drivings/types";
+	}
+	
+	
+	@ModelAttribute("drivingType")
+	public DrivingType drivingType() {
+	    return new DrivingType();
+	}
 	
 	@ModelAttribute("students")
 	public List<Student> students() {
@@ -116,7 +142,9 @@ public class DrivingController {
 	
 	@ModelAttribute("drivingTypes")
 	public List<DrivingType> drivingTypes() {
-	    return drivingTypeRepository.findAll();
+		
+		
+	    return drivingTypeRepository.findAllByOrderByIdAsc();
 	}
 
 }

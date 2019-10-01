@@ -299,7 +299,7 @@ public class StudentController {
 		LocalDate yesterday = date.minusDays(1);
 		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(
 				yesterday.getDayOfMonth(), yesterday.getMonthValue(), yesterday.getYear()));
-		theModel.addAttribute("today", LocalDate.now());
+		theModel.addAttribute("today", yesterday);
 		theModel.addAttribute("dayName", getDayName(yesterday));
 		return "studentViews/studentTimetable/timetable";
 	}
@@ -311,7 +311,7 @@ public class StudentController {
 		LocalDate tomorrow = date.plusDays(1);
 		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(
 				tomorrow.getDayOfMonth(), tomorrow.getMonthValue(), tomorrow.getYear()));
-		theModel.addAttribute("today", LocalDate.now());
+		theModel.addAttribute("today", tomorrow);
 		theModel.addAttribute("dayName", getDayName(tomorrow));
 		return "studentViews/studentTimetable/timetable";
 	}
