@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Typy jazd</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
+
+</head>
+
+<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+<nav
+		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
+		<div class=" flex-fill">
+			<a href="/"><img
+				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
+				width="70px" /></a>
+		</div>
+		<div class="flex-fill">
+			<a th:href="@{/}">
+				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
+			</a>
+		</div>
+		<div class="flex-fill">
+			<h2>Ośrodek Szkolenia Kierowców</h2>
+		</div>
+		<div class="flex-fill">
+			<strong>Zalogowany użytkownik:</strong> 
+			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+			<a
+				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+		</div>
+
+	</nav>
+	
+	<div class="page">
+		<div class="container pt-3  list">
+	<div class="flex-fill pb-2 mb-3">
+				<h3>TYPY JAZD</h3>
+			</div>
+			
+
+		<div class="table-responsive ml-1 mr-1 mb-3 " style="max-width:15rem; float:left; background-color:white;">
+			<table class="table table-hover  table-sm">
+				<thead>
+					<tr class="table-primary">
+						<th>Id</th>
+						<th>Nazwa</th>
+						<th></th>
+
+					</tr>
+				</thead>
+				<tbody id="myTable">
+					<tr th:each="type:${drivingTypes}">
+						<td th:text="${type.id}" />
+						<td th:text="${type.type}" />
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="card mb-3" style="width: 15rem; float:left">
+		 <div class="card-header">
+		    <b>Zmień dane</b>
+		  </div>			
+		  <div class="card-body" >
+		  <form th:action="@{/drivings/saveEditedDrivingType}"
+						th:object="${drivingType}" method="POST">
+						Id
+						 <input type="number" th:field="*{id}"
+							class="form-control " /> <br> 
+						Typ
+						 <input type="text" th:field="*{type}"
+							class="form-control " /> <br> 
+						<button type="submit" class="btn btn-info">ZMIEŃ</button>
+</form>
+</div>
+					
+					</div>
+				
+					<div class="card ml-1 " style="width: 15rem; float:left">
+					 <div class="card-header">
+					    <b>Dodaj nowy typ jazdy </b>
+					  </div>			
+					 <div class="card-body">
+					  <form th:action="@{/drivings/saveNewDrivingType}"
+									th:object="${drivingTypeToAdd}" method="POST">
+									 <input type="hidden" th:field="*{id}"/>
+									 <input type="text" class="form-control" th:field="*{type}"/>
+									<br>
+									<button type="submit" class="btn btn-info ">DODAJ</button>
+								</form>
+								</div>
+								</div>
+			</div></div>
+		
+</body>
+</HTML>
