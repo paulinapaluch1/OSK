@@ -30,13 +30,11 @@
 			<strong>Zalogowany użytkownik: </strong> 
 			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
 			
-			<a
-				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+			<a href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 	</nav>
 	<div class="page">
-		<br>
-			<div class="container list" >
+			<div class="container list">
 		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
 			<div class="flex-fill">
 				<h3>SAMOCHODY</h3>

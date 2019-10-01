@@ -15,6 +15,7 @@ import pl.pracainz.osk.osk.dao.CourseRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.entity.Category;
 import pl.pracainz.osk.osk.entity.Course;
+import pl.pracainz.osk.osk.entity.DrivingType;
 import pl.pracainz.osk.osk.entity.Student;
 
 
