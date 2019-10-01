@@ -46,20 +46,14 @@
 	</nav>
 	<div class="page">
 <div class="container list">
-		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
-			<div class="flex-fill">
-				<h3>INSTRUKTORZY - ZATWIERDZONE OPINIE</h3>
-			</div>
-			<div sec:authorize="hasRole('ADMIN')" class="flex-fill">
-				<a th:href="@{/opinions/instructors/newOpinions}"><button
-						type="button" class="btn btn-outline-secondary">Nowe
+				<h3 class="title">INSTRUKTORZY - ZATWIERDZONE OPINIE</h3>
+					<nav class="navbar  justify-content-end">
+				<a sec:authorize="hasRole('ADMIN')"  th:href="@{/opinions/instructors/newOpinions}"><button
+						type="button" class="btn btn-outline-secondary mr-3 mb-2">Nowe
 						opinie</button></a>
-			</div>
-			<div class="flex-fill">
 				<a sec:authorize="hasRole('ADMIN')" th:href="@{/opinions/instructors/rejectedOpinions}"><button
-						type="button" class="btn btn-outline-secondary">Odrzucone
+						type="button" class="btn btn-outline-secondary mr-3 mb-3">Odrzucone
 						opinie</button></a>
-			</div>
 		</nav>
 
 
