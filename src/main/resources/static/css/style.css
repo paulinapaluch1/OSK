@@ -31,6 +31,7 @@ inlineButton{
 	background-color:white;
 	opacity:0.97;
 	max-width:200rem;
+	padding-top:10px;
 }
 
 .form{
