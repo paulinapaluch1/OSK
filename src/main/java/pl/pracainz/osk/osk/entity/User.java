@@ -41,7 +41,7 @@ public class User {
 	    }
 	 
 	 
-	 protected User(){}
+	 public User(){}
 
 	    public int getId() {
 	        return id;

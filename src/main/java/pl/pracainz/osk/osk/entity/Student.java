@@ -13,7 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
+import javax.persistence.Transient;
 import javax.validation.constraints.Past;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -90,9 +90,13 @@ public class Student {
 
 	@OneToMany(mappedBy = "id")
 	List<Driving> drivings;
+	
 
 	@OneToMany(targetEntity = Participant.class)
 	private Set<Participant> participants = new HashSet<Participant>();
+	
+	@Transient
+	private String username;
 	
 	public void addParticipant(Participant participant) {
 		this.participants.add(participant);
@@ -316,4 +320,18 @@ public class Student {
 		this.userId = userId;
 	}
 
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+
+	
+	
+	
 }

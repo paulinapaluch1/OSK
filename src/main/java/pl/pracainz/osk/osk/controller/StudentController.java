@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pl.pracainz.osk.osk.PasswordGenerator;
 import pl.pracainz.osk.osk.dao.CarOpinionRepository;
 import pl.pracainz.osk.osk.dao.CarRepository;
 import pl.pracainz.osk.osk.dao.CourseRepository;
@@ -49,12 +51,12 @@ public class StudentController {
 	TimetableRepository timetableRepository;
 	CarRepository carRepository;
 	UserRepository userRepository;
+	PasswordEncoder encoder;
 
 	public StudentController(StudentRepository repository, InstructorRepository instructor,
 			InstructorOpinionRepository instructorOpinion, DrivingRepository drivingRepository,
-
 			TimetableRepository timetableRepository, CarRepository carRepository, CarOpinionRepository carOpinion,
-			UserRepository userRepository,CourseRepository courseRepository) {
+			UserRepository userRepository, CourseRepository courseRepository, PasswordEncoder encoder) {
 		this.studentRepository = repository;
 		this.instructorRepository = instructor;
 		this.instructorOpinionRepository = instructorOpinion;
@@ -64,6 +66,7 @@ public class StudentController {
 		this.carOpinionRepository = carOpinion;
 		this.userRepository = userRepository;
 		this.courseRepository = courseRepository;
+		this.encoder = encoder;
 	}
 
 	@GetMapping("/list")
@@ -80,32 +83,35 @@ public class StudentController {
 
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
-		// Student theStudent = new Student();
 		theModel.addAttribute("student", new Student());
-		theModel.addAttribute("pkk", "");		
-
+		theModel.addAttribute("pkk", "");
+		theModel.addAttribute("action", "add");
 		return "adminViews/adminStudents/addStudent";
 	}
 
 	@GetMapping("/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("id_student") int id, Model theModel) {
 		theModel.addAttribute("student", studentRepository.findById(id));
-		theModel.addAttribute("pkk", studentRepository.getOne(id).getPkk());		
+		theModel.addAttribute("pkk", studentRepository.getOne(id).getPkk());
+		theModel.addAttribute("action", "update");
 		return "adminViews/adminStudents/addStudent";
 
 	}
 
 	@PostMapping("save")
-	public String saveStudent(@ModelAttribute("student") Student theStudent) {
+	public String saveStudent(@ModelAttribute("student") Student theStudent, @RequestParam("action") String action) {
+		if(action.contentEquals("add"))  {
+			String password = PasswordGenerator.generatePassword(20);
+			User user = new User(theStudent.getUsername(), encoder.encode(password), "STUDENT", "");
+			userRepository.save(user);
+		}
 		theStudent.setDeleted(0);
 		studentRepository.save(theStudent);
-
 		return "redirect:/students/list";
 	}
 
 	@GetMapping("/archiveStudent")
 	public String archiveStudent(@RequestParam("id_student") int id, Model theModel) {
-
 		Student theStudent = studentRepository.getOne(id);
 		theStudent.setDeleted(1);
 		studentRepository.save(theStudent);
@@ -145,8 +151,7 @@ public class StudentController {
 
 	@GetMapping("/showInstructors")
 	public String listInstructors(Model theModel) {
-		List<Instructor> theInstructors = studentRepository
-				.findInstructorsForOneStudent(getCurrentLoggedStudentId());
+		List<Instructor> theInstructors = studentRepository.findInstructorsForOneStudent(getCurrentLoggedStudentId());
 		theModel.addAttribute("instructors", theInstructors);
 		return "studentViews/studentInstructors/instructors";
 	}
@@ -178,7 +183,6 @@ public class StudentController {
 		theModel.addAttribute("drivings", theDrivings);
 		return "studentViews/studentDrivings/drivingsCancelled";
 	}
-
 
 	@GetMapping("/showCourses")
 	public String listCourses(Model theModel) {
@@ -234,7 +238,6 @@ public class StudentController {
 		return "redirect:/students/showCars";
 	}
 
-
 	private String getCurrentUserName() {
 		String username = "";
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -245,12 +248,12 @@ public class StudentController {
 		}
 		return username;
 	}
-	
+
 	private Student getCurrentLoggedStudent() {
 		User user = userRepository.findByUsername(getCurrentUserName());
 		return studentRepository.findByUserId(user.getId());
 	}
-	
+
 	private int getCurrentLoggedStudentId() {
 		return getCurrentLoggedStudent().getId();
 	}
@@ -262,16 +265,19 @@ public class StudentController {
 		theModel.addAttribute("courses", theCourses);
 		return "adminViews/adminStudents/courses";
 	}
-	
-	
+
 	@GetMapping("/checkPKK")
 	public String checkPKK(@ModelAttribute("pkk") String pkk, Model theModel) {
-		if(studentRepository.findByPkk(pkk) == null) {
+		if (studentRepository.findByPkk(pkk) == null) {
 			theModel.addAttribute("student", new Student());
 			theModel.addAttribute("pkk", "");
-		}else {
+			theModel.addAttribute("action", "add");
+
+		} else {
 			theModel.addAttribute("student", studentRepository.findByPkk(pkk));
-			theModel.addAttribute("pkk",studentRepository.findByPkk(pkk).getPkk());
+			theModel.addAttribute("pkk", studentRepository.findByPkk(pkk).getPkk());
+			theModel.addAttribute("action", "update");
+
 		}
 		return "adminViews/adminStudents/addStudent";
 	}
@@ -282,40 +288,39 @@ public class StudentController {
 				LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
 		theModel.addAttribute("today", LocalDate.now());
 		theModel.addAttribute("dayName", getDayName(LocalDate.now()));
-		
+
 		return "studentViews/studentTimetable/timetable";
 	}
 
-	
 	@ModelAttribute("instructors")
 	public List<Instructor> instructors() {
 		return instructorRepository.findAll();
 	}
-	
+
 	@RequestMapping("/changeDateForEarlierInStudentsTimetable")
 	public String changeDateForEarlier(
 			@RequestParam(name = "date", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date,
-			 Model theModel) {
+			Model theModel) {
 		LocalDate yesterday = date.minusDays(1);
-		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(
-				yesterday.getDayOfMonth(), yesterday.getMonthValue(), yesterday.getYear()));
+		theModel.addAttribute("timetablesToday", timetableRepository
+				.queryByDayAndMonthAndYear(yesterday.getDayOfMonth(), yesterday.getMonthValue(), yesterday.getYear()));
 		theModel.addAttribute("today", yesterday);
 		theModel.addAttribute("dayName", getDayName(yesterday));
 		return "studentViews/studentTimetable/timetable";
 	}
-	
+
 	@RequestMapping("/changeDateForLaterInStudentsTimetable")
 	public String changeDateForLater(
 			@RequestParam(name = "date", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date,
-			 Model theModel) {
+			Model theModel) {
 		LocalDate tomorrow = date.plusDays(1);
-		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(
-				tomorrow.getDayOfMonth(), tomorrow.getMonthValue(), tomorrow.getYear()));
+		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(tomorrow.getDayOfMonth(),
+				tomorrow.getMonthValue(), tomorrow.getYear()));
 		theModel.addAttribute("today", tomorrow);
 		theModel.addAttribute("dayName", getDayName(tomorrow));
 		return "studentViews/studentTimetable/timetable";
 	}
-	
+
 	@GetMapping("/reservePlannedDriving")
 	public String reservePlannedDriving(
 			@RequestParam(name = "date", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date,
@@ -336,9 +341,7 @@ public class StudentController {
 		theModel.addAttribute("dayName", getDayName(LocalDate.now()));
 		return "studentViews/studentTimetable/timetable";
 	}
-	
-	
-	
+
 	public String getDayName(LocalDate date) {
 		int dayNumber = date.getDayOfWeek().getValue();
 		switch (dayNumber) {
@@ -361,7 +364,5 @@ public class StudentController {
 		}
 
 	}
-	
-	
-	
+
 }
