@@ -19,7 +19,7 @@
 				width="70px" /></a>
 		</div>
 		<div class="flex-fill">
-			<a th:href="@{/exams/list}">
+			<a th:href="@{/instructor/showExams}">
 				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
 			</a>
 		</div>
@@ -27,7 +27,8 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong> <a
+			<strong>Zalogowany użytkownik:</strong>
+			<span th:text="${#authentication.getPrincipal().getUsername()}"></span> <a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 
@@ -40,10 +41,10 @@
 
 			<h3>EGZAMIN</h3>
 
-			<form action="#" th:action="@{/exams/save}"
+			<form action="#" th:action="@{/instructors/save}"
 				th:object="${internalexam}" method="POST">
 
-				<input type="hidden" th:field="*{id}" /> Instruktor: <select
+				<input type="hidden" th:field="*{id}" />  Instruktor: <select
 					th:field="*{instructor}" class="form-control mb-4 col-4">
 					<option th:each="instructor: ${instructors}"
 						th:value="${instructor.id}"
