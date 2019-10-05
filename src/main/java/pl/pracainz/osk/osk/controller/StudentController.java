@@ -47,11 +47,11 @@ public class StudentController {
 	private InstructorOpinionRepository instructorOpinionRepository;
 	private CarOpinionRepository carOpinionRepository;
 	private CourseRepository courseRepository;
-	DrivingRepository drivingRepository;
-	TimetableRepository timetableRepository;
-	CarRepository carRepository;
-	UserRepository userRepository;
-	PasswordEncoder encoder;
+	private DrivingRepository drivingRepository;
+	private TimetableRepository timetableRepository;
+	private CarRepository carRepository;
+	private UserRepository userRepository;
+	private PasswordEncoder encoder;
 
 	public StudentController(StudentRepository repository, InstructorRepository instructor,
 			InstructorOpinionRepository instructorOpinion, DrivingRepository drivingRepository,
@@ -102,8 +102,14 @@ public class StudentController {
 	public String saveStudent(@ModelAttribute("student") Student theStudent, @RequestParam("action") String action) {
 		if(action.contentEquals("add"))  {
 			String password = PasswordGenerator.generatePassword(20);
-			User user = new User(theStudent.getUsername(), encoder.encode(password), "STUDENT", "");
+			User user = new User(theStudent.getLogin(), encoder.encode(password), "STUDENT", "");
 			userRepository.save(user);
+			UserPrincipal principal = new UserPrincipal(user);
+			theStudent.setUserId(principal.getId());
+		}
+		else {
+			User user = userRepository.findById(theStudent.getUserId());
+			user.setUsername(theStudent.getLogin());
 		}
 		theStudent.setDeleted(0);
 		studentRepository.save(theStudent);
@@ -277,6 +283,7 @@ public class StudentController {
 			theModel.addAttribute("student", studentRepository.findByPkk(pkk));
 			theModel.addAttribute("pkk", studentRepository.findByPkk(pkk).getPkk());
 			theModel.addAttribute("action", "update");
+			
 
 		}
 		return "adminViews/adminStudents/addStudent";

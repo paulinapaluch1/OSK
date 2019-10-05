@@ -37,8 +37,6 @@ public class Student {
 	@Column
 	private String login;
 
-	@Column
-	private String password;
 	
 	@Column
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -76,7 +74,7 @@ public class Student {
 	private Integer deleted;
 	
 	
-	@Column
+	@Column(name="id_user")
 	private int userId;
 
 	@OneToMany(mappedBy = "id")
@@ -302,16 +300,6 @@ public class Student {
 	}
 
 
-	public String getPassword() {
-		return password;
-	}
-
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-
 	public int getUserId() {
 		return userId;
 	}
@@ -320,16 +308,6 @@ public class Student {
 		this.userId = userId;
 	}
 
-
-	public String getUsername() {
-		return username;
-	}
-
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	
 
 	
 	

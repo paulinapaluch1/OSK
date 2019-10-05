@@ -78,12 +78,11 @@
 		</ul>
 		<form th:action="@{/timetable/changeDate}" method="GET">
 			<input style="float: left;" type="date" name="date"
-				th:value="${date}" class="form-control mb-4 col-4">
+				th:value="${date}" class="form-control mb-4 col-3">
 			<button style="float: left;margin-right:5px;" type="submit"
 				class="btn btn-info " >ZMIEŃ</button>
 		</form>
-		<a th:href="@{/timetable/list}"><button	style="margin-left:5px" type="button" class="btn btn-primary ">DODAJ</button></a>
-		<a th:href="@{/timetable/byInstructors}"><button	style="margin-left:5px" type="button" class="btn btn-outline-secondary ">INSTRUKTORZY</button></a>
+		<a th:href="@{/timetable/byInstructors}"><button	style="float:right;" type="button" class="btn btn-outline-secondary ">INSTRUKTORZY</button></a>
 		<br>
 	
 		<for:each th:each="car:${cars}">
