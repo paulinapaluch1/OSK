@@ -1,6 +1,8 @@
 package pl.pracainz.osk.osk.controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,11 +43,11 @@ public class InstructorController {
 	private PasswordEncoder encoder;
 	private InternalExamRepository internalExamRepository;
 
-  private StudentRepository studentRepository;
+	private StudentRepository studentRepository;
 
 	public InstructorController(InstructorRepository repository, InternalExamRepository exams,
-			UserRepository userRepository,TimetableRepository timetableRepository, 
-      StudentRepository studentRepository,  PasswordEncoder encoder,  InternalExamRepository internalExamRepository) {
+			UserRepository userRepository, TimetableRepository timetableRepository, StudentRepository studentRepository,
+			PasswordEncoder encoder, InternalExamRepository internalExamRepository) {
 
 		this.instructorRepository = repository;
 		this.userRepository = userRepository;
@@ -166,7 +168,6 @@ public class InstructorController {
 		return "instructorViews/instructorExams/examForm";
 	}
 
-	
 	@GetMapping("/showExamFormForUpdate")
 	public String showExamUpdate(@RequestParam("id_internalExam") int id, Model theModel) {
 		Optional<InternalExam> theInternalExam = internalExamRepository.findById(id);
@@ -175,14 +176,12 @@ public class InstructorController {
 		theModel.addAttribute("internalexam", theInternalExam);
 		return "instructorViews/instructorExams/examForm";
 	}
-	
-	
+
 	@GetMapping("/exams/save")
 	public String saveDataExam(@ModelAttribute("internalexam") InternalExam theInternalExam) {
 		internalExamRepository.save(theInternalExam);
 		return "redirect:/instructors/showExams";
 	}
-	
 
 	@GetMapping("/showArchivedExams")
 	public String listArchivedExams(Model theModel) {
@@ -221,18 +220,20 @@ public class InstructorController {
 
 	@GetMapping("/weeklyTimetable")
 	public String showWeeklyTimetable(Model theModel) {
-		LocalDate monday = getMonday();
+		LocalDate monday = getLastMonday();
 		theModel.addAttribute("monday", monday);
 		theModel.addAttribute("sunday", monday.plusDays(6));
 		theModel.addAttribute("timetablesToday",
-				timetableRepository.queryByDayAndMonthAndYearAndInstructor(LocalDate.now().getDayOfMonth(),
-						LocalDate.now().getMonthValue(), LocalDate.now().getYear(),
-						instructorRepository.getOne(getCurrentLoggedInstructorId()).getId()));
+				timetableRepository.queryByInstructorAndWeek(
+						instructorRepository.getOne(getCurrentLoggedInstructorId()),
+						LocalDateTime.of(monday, LocalTime.of(0, 0, 0, 0)),
+						LocalDateTime.of(monday.plusDays(6), LocalTime.of(23, 59, 59, 0))));
+
 		theModel.addAttribute("instructor", getCurrentLoggedInstructor());
 		return "instructorViews/instructorTimetable/weeklyTimetable";
 	}
 
-	private LocalDate getMonday() {
+	private LocalDate getLastMonday() {
 		LocalDate today = LocalDate.now();
 		switch (today.getDayOfWeek().getValue()) {
 		case 1:
