@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,22 +39,20 @@ public class InstructorController {
 	private UserRepository userRepository;
 	private TimetableRepository timetableRepository;
 	private PasswordEncoder encoder;
-<<<<<<< HEAD
+	private InternalExamRepository internalExamRepository;
 
-	public InstructorController(InstructorRepository repository, InternalExamRepository exams,
-			UserRepository userRepository, TimetableRepository timetableRepository, PasswordEncoder encoder) {
-=======
   private StudentRepository studentRepository;
 
 	public InstructorController(InstructorRepository repository, InternalExamRepository exams,
 			UserRepository userRepository,TimetableRepository timetableRepository, 
-      StudentRepository studentRepository,  PasswordEncoder encoder) {
->>>>>>> 9ff3eab6ece09a2cd03b1a8c012fa779e6f276e6
+      StudentRepository studentRepository,  PasswordEncoder encoder,  InternalExamRepository internalExamRepository) {
+
 		this.instructorRepository = repository;
 		this.userRepository = userRepository;
 		this.timetableRepository = timetableRepository;
 		this.encoder = encoder;
 		this.studentRepository = studentRepository;
+		this.internalExamRepository = internalExamRepository;
 	}
 
 	@GetMapping("/list")
@@ -156,12 +155,7 @@ public class InstructorController {
 		theModel.addAttribute("internalexams", theExams);
 		return "instructorViews/instructorExams/exams";
 	}
-<<<<<<< HEAD
 
-=======
-	
-	
->>>>>>> 9ff3eab6ece09a2cd03b1a8c012fa779e6f276e6
 	@GetMapping("/showExamForm")
 	public String addExams(Model theModel) {
 		InternalExam theInternalExam = new InternalExam();
@@ -171,9 +165,7 @@ public class InstructorController {
 		// theModel.addAttribute("internalexam", theInternalExam);
 		return "instructorViews/instructorExams/examForm";
 	}
-<<<<<<< HEAD
 
-=======
 	
 	@GetMapping("/showExamFormForUpdate")
 	public String showExamUpdate(@RequestParam("id_internalExam") int id, Model theModel) {
@@ -189,7 +181,7 @@ public class InstructorController {
 		return "redirect:/instructors/showExams";
 	}
 	
->>>>>>> 9ff3eab6ece09a2cd03b1a8c012fa779e6f276e6
+
 	@GetMapping("/showArchivedExams")
 	public String listArchivedExams(Model theModel) {
 		List<InternalExam> theExams = instructorRepository.findArchivedExams(getCurrentLoggedInstructorId());
