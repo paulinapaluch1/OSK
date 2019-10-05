@@ -170,6 +170,8 @@ public class InstructorController {
 	@GetMapping("/showExamFormForUpdate")
 	public String showExamUpdate(@RequestParam("id_internalExam") int id, Model theModel) {
 		Optional<InternalExam> theInternalExam = internalExamRepository.findById(id);
+		theModel.addAttribute("instructors", instructorRepository.findAll());
+		theModel.addAttribute("students", studentRepository.findAll());
 		theModel.addAttribute("internalexam", theInternalExam);
 		return "instructorViews/instructorExams/examForm";
 	}

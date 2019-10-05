@@ -37,7 +37,6 @@
 
 		<div class="container list pb-3 pt-3 form">
 			<h3>EGZAMIN</h3>
-
 			<form action="#" th:action="@{/instructors/save}"
 				th:object="${internalexam}" method="POST">
 
@@ -54,12 +53,10 @@
 						th:text="${student.name} + ' ' + ${student.surname}" />
 				</select> 
 				
-				
 				Data: <input type="date" th:field="*{dateHour}" th:value="${date}"
 					class="form-control mb-4 col-4"> 
 				
 				Wynik: 
-					
 					<select th:field="*{result}"
 					class="form-control mb-4 col-4">
 					<option th:text="nowy" th:value="2" />	
