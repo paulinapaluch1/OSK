@@ -41,18 +41,12 @@
 	</nav>
 	<div class="page">
 			<div class="container list" >
-		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
-			<div class="flex-fill">
-				<h3>KURSANCI</h3>
-			</div>
-			<div class="flex-fill">
+				<h3 class="title">KURSANCI</h3>
+			<nav class="navbar justify-content-end">
 				<a th:href="@{/students/showFormForAdd}"><button type="button"
-						class="btn btn btn-primary">DODAJ KURSANTA</button></a>
-			</div>
-			<div class="flex-fill">
+						class="btn btn btn-primary mr-3 mb-2">DODAJ KURSANTA</button></a>
 				<a th:href="@{/students/listArchived}"><button type="button"
-						class="btn btn-outline-secondary">Zarchiwizowani kursanci</button></a>
-			</div>
+						class="btn btn-outline-secondary mr-3 mb-2">Zarchiwizowani kursanci</button></a>
 		</nav>
 
 		<br> <input class="form-control col-3" id="myInput" type="text"

@@ -29,9 +29,6 @@ public class Instructor {
 	private String login;
 
 	@Column
-	private String password;
-
-	@Column
 	private String email;
 
 	@Column(name = "phoneNumber")
@@ -59,14 +56,13 @@ public class Instructor {
 	public Instructor() {
 	}
 
-	public Instructor(int id, String name, String surname, String login, String password, String email,
+	public Instructor(int id, String name, String surname, String login, String email,
 			String phoneNumber, int deleted) {
 
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.login = login;
-		this.password = password;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.deleted = deleted;
@@ -102,14 +98,6 @@ public class Instructor {
 
 	public void setLogin(String login) {
 		this.login = login;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getEmail() {
@@ -167,18 +155,7 @@ public class Instructor {
 	public void setTimetables(List<Timetable> timetables) {
 		this.timetables = timetables;
 	}
-/*
-	public User getUser() {
-		return user;
-	}
 
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	
-	
-	*/
 
 	public int getUserId() {
 		return userId;

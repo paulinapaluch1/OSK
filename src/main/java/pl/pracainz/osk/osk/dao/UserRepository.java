@@ -9,6 +9,8 @@ import pl.pracainz.osk.osk.entity.User;
 public interface UserRepository extends JpaRepository<User,Long> {
 
 	User findByUsername(String username);
+
+	User findById(int userId);
 	
 	
 	

@@ -71,6 +71,9 @@ public class UserPrincipal implements UserDetails {
         return this.user.getId();
     }
     
+    public void setUsername(String username) {
+         this.user.setUsername(username);
+    }
     
   
 }
