@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.pracainz.osk.osk.PasswordGenerator;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.InternalExamRepository;
+import pl.pracainz.osk.osk.dao.StudentRepository;
 import pl.pracainz.osk.osk.dao.TimetableRepository;
 import pl.pracainz.osk.osk.dao.UserRepository;
 import pl.pracainz.osk.osk.entity.Course;
@@ -38,16 +39,17 @@ public class InstructorController {
 	private UserRepository userRepository;
 	private TimetableRepository timetableRepository;
 	private PasswordEncoder encoder;
-
+  private StudentRepository studentRepository;
 
 	public InstructorController(InstructorRepository repository, InternalExamRepository exams,
-			UserRepository userRepository,TimetableRepository timetableRepository,
-			 PasswordEncoder encoder) {
+			UserRepository userRepository,TimetableRepository timetableRepository, 
+      StudentRepository studentRepository,  PasswordEncoder encoder) {
 		this.instructorRepository = repository;
 		this.internalExamRepository = exams;
 		this.userRepository = userRepository;
 		this.timetableRepository = timetableRepository;
 		this.encoder = encoder;
+		this.studentRepository = studentRepository;
 	}
 
 	@GetMapping("/list")
@@ -158,13 +160,30 @@ public class InstructorController {
 		return "instructorViews/instructorExams/exams";
 	}
 	
+	
 	@GetMapping("/showExamForm")
 	public String addExams(Model theModel) {
 		InternalExam theInternalExam = new InternalExam();
 		theModel.addAttribute("internalexam", theInternalExam);
+		theModel.addAttribute("instructors", instructorRepository.findAll());
+		theModel.addAttribute("students", studentRepository.findAll());
+		// theModel.addAttribute("internalexam", theInternalExam);
 		return "instructorViews/instructorExams/examForm";
 	}
-
+	
+	@GetMapping("/showExamFormForUpdate")
+	public String showExamUpdate(@RequestParam("id_internalExam") int id, Model theModel) {
+		Optional<InternalExam> theInternalExam = internalExamRepository.findById(id);
+		theModel.addAttribute("internalexam", theInternalExam);
+		return "instructorViews/instructorExams/examForm";
+	}
+	
+	
+	@GetMapping("/exams/save")
+	public String saveDataExam(@ModelAttribute("internalexam") InternalExam theInternalExam) {
+		internalExamRepository.save(theInternalExam);
+		return "redirect:/instructors/showExams";
+	}
 	
 	@GetMapping("/showArchivedExams")
 	public String listArchivedExams(Model theModel) {
