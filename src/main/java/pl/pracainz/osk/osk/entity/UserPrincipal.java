@@ -72,7 +72,7 @@ public class UserPrincipal implements UserDetails {
     }
     
     public void setUsername(String username) {
-         this.user.setUsername();
+         this.user.setUsername(username);
     }
     
   

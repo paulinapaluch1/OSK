@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pl.pracainz.osk.osk.PasswordGenerator;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.InternalExamRepository;
 import pl.pracainz.osk.osk.dao.TimetableRepository;
@@ -35,13 +37,17 @@ public class InstructorController {
 	private InternalExamRepository internalExamRepository;
 	private UserRepository userRepository;
 	private TimetableRepository timetableRepository;
+	private PasswordEncoder encoder;
+
 
 	public InstructorController(InstructorRepository repository, InternalExamRepository exams,
-			UserRepository userRepository,TimetableRepository timetableRepository) {
+			UserRepository userRepository,TimetableRepository timetableRepository,
+			 PasswordEncoder encoder) {
 		this.instructorRepository = repository;
 		this.internalExamRepository = exams;
 		this.userRepository = userRepository;
 		this.timetableRepository = timetableRepository;
+		this.encoder = encoder;
 	}
 
 	@GetMapping("/list")
@@ -61,6 +67,7 @@ public class InstructorController {
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
 		theModel.addAttribute("instructor", new Instructor());
+		theModel.addAttribute("action", "add");
 		return "adminViews//adminInstructors/instructorForm";
 	}
 
@@ -69,12 +76,31 @@ public class InstructorController {
 	public String showFormForUpdate(@RequestParam("id_instructor") int id,
 									Model theModel) {
 		theModel.addAttribute("instructor", instructorRepository.findById(id));
+		theModel.addAttribute("action", "update");
 		return "adminViews/adminInstructors/instructorForm";			
 
 	}
 
 	@PostMapping("save")
-	public String saveInstructor(@ModelAttribute("instructor") Instructor theInstructor) {
+	public String saveInstructor(@ModelAttribute("instructor") Instructor theInstructor,
+			@RequestParam("action") String action) {
+		if(action.contentEquals("add"))  {
+			String password = PasswordGenerator.generatePassword(20);
+			User user = new User(theInstructor.getLogin(), encoder.encode(password), "INSTRUCTOR", "");
+			userRepository.save(user);
+			UserPrincipal principal = new UserPrincipal(user);
+			theInstructor.setUserId(principal.getId());
+		}
+		else {
+			User user = userRepository.findById(theInstructor.getUserId());
+			user.setUsername(theInstructor.getLogin());
+		}
+		
+		
+		
+		
+		
+		
 		theInstructor.setDeleted(0);
 		instructorRepository.save(theInstructor);
 		return "redirect:/instructors/list";

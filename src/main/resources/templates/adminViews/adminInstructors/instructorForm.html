@@ -38,7 +38,7 @@
 
 			<h3>INSTRUKTOR</h3>
 
-			<form action="#" th:action="@{/instructors/save}"
+			<form action="#" th:action="@{/instructors/save(action=${action})}"
 				th:object="${instructor}" method="POST">
 
 				<input type="hidden" th:field="*{id}" />

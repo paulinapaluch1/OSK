@@ -99,7 +99,8 @@ public class StudentController {
 	}
 
 	@PostMapping("save")
-	public String saveStudent(@ModelAttribute("student") Student theStudent, @RequestParam("action") String action) {
+	public String saveStudent(@ModelAttribute("student") Student theStudent,
+			@RequestParam("action") String action) {
 		if(action.contentEquals("add"))  {
 			String password = PasswordGenerator.generatePassword(20);
 			User user = new User(theStudent.getLogin(), encoder.encode(password), "STUDENT", "");
