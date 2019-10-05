@@ -28,7 +28,8 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: administrator</strong> <a
+			<strong>Zalogowany użytkownik:</strong>
+			<span th:text="${#authentication.getPrincipal().getUsername()}"></span><a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 
@@ -85,7 +86,7 @@
 						</div>
 						<td th:text="${exam.type}" />
 						<td><a
-							th:href="@{/exams/showFormForUpdate(id_internalExam=${exam.id})}"
+							th:href="@{/instructors/showExamFormForUpdate(id_internalExam=${exam.id})}"
 							class="btn btn-primary">EDYTUJ</a></td>
 					</tr>
 				</tbody>
