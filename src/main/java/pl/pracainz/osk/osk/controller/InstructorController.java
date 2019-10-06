@@ -346,4 +346,36 @@ public class InstructorController {
 		}
 	}
 
+	@RequestMapping("/earlierWeek")
+	public String changeWeek(@RequestParam(name = "monday", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate monday,
+			Model theModel) {
+		LocalDate firstDay = monday.minusDays(7);
+		theModel.addAttribute("monday", firstDay);
+		theModel.addAttribute("sunday", firstDay.plusDays(6));
+		theModel.addAttribute("days", getListOfWeekDays());
+		theModel.addAttribute("timetablesThisWeek",	timetableRepository.queryByInstructorAndWeek(
+						instructorRepository.getOne(getCurrentLoggedInstructorId()),
+						LocalDateTime.of(firstDay, LocalTime.of(0, 0, 0, 0)),
+						LocalDateTime.of(firstDay.plusDays(6), LocalTime.of(23, 59, 59, 0))));
+		theModel.addAttribute("instructor", getCurrentLoggedInstructor());
+		return "instructorViews/instructorTimetable/weeklyTimetable";	}
+
+	@RequestMapping("/laterWeek")
+	public String changeWeekForLater(@RequestParam(name = "monday", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate monday,
+			Model theModel) {
+		LocalDate firstDay = monday.plusDays(7);
+		theModel.addAttribute("monday", firstDay);
+		theModel.addAttribute("sunday", firstDay.plusDays(6));
+		theModel.addAttribute("days", getListOfWeekDays());
+		theModel.addAttribute("timetablesThisWeek",	timetableRepository.queryByInstructorAndWeek(
+						instructorRepository.getOne(getCurrentLoggedInstructorId()),
+						LocalDateTime.of(firstDay, LocalTime.of(0, 0, 0, 0)),
+						LocalDateTime.of(firstDay.plusDays(6), LocalTime.of(23, 59, 59, 0))));
+		theModel.addAttribute("instructor", getCurrentLoggedInstructor());
+		return "instructorViews/instructorTimetable/weeklyTimetable";	}
+
+	
+	
+	
+	
 }
