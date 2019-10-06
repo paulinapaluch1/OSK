@@ -67,16 +67,16 @@
 		<h3>GRAFIK TYGODNIOWY</h3>
 
 		<div th:if="${timetablesThisWeek.isEmpty()}">
-			<p th:text="'Brak grafiku na tydzień: ' '+${monday}+' - '+${sunday}"></p>
+			<p th:text="'Brak grafiku na tydzień: '+${monday}+' - '+${sunday}"></p>
 		</div>
 		<div th:unless="${timetablesThisWeek.isEmpty()}">
 			<p class="inline" th:text="${monday}+' - '+${sunday}"/>
 		</div>
 		<ul class="pagination inline" style="float:left">
 			<li class="page-item"><a class="page-link"
-				th:href="@{/instructors/changeDateForEarlierForInstructor(date=${today})}">&#60;</a></li>
+				th:href="@{/instructors/earlierWeek(monday=${monday})}">&#60;</a></li>
 			<li class="page-item"><a class="page-link"
-				th:href="@{/instructors/changeDateForLaterForInstructor(date=${today})}">&#62;</a></li>
+				th:href="@{/instructors/laterWeek(monday=${monday})}">&#62;</a></li>
 		</ul>
 		<a th:href="@{/instructors/showTimetable}"><button
 						type="button" class="btn btn-outline-secondary mr-3 mb-2" style=float:right>GRAFIK DZIENNY</button></a>
