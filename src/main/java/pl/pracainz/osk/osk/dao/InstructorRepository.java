@@ -23,10 +23,10 @@ public interface InstructorRepository extends JpaRepository<Instructor, Integer>
 	List<Course> queryFindCourses(@Param("id") int id);
 
 	// lista egzaminow
-	@Query("SELECT ie FROM InternalExam ie " + "JOIN Instructor i ON i.id = ie.instructor " + "WHERE i.id = :id AND ie.deleted = 0")
+	@Query("SELECT ie FROM InternalExam ie " + "JOIN Instructor i ON i.id = ie.instructor " + "WHERE i.id = :id AND ie.deleted = 0 " + "ORDER BY ie.dateHour DESC")
 	List<InternalExam> queryFindExams(@Param("id") int id);
 	
-	@Query("SELECT ie FROM InternalExam ie " + "JOIN Instructor i ON i.id = ie.instructor " + "WHERE i.id = :id AND ie.deleted = 1")
+	@Query("SELECT ie FROM InternalExam ie " + "JOIN Instructor i ON i.id = ie.instructor " + "WHERE i.id = :id AND ie.deleted = 1" + "ORDER BY ie.dateHour DESC")
 	List<InternalExam> findArchivedExams(@Param("id") int id);
 
 	// lista kursantów
