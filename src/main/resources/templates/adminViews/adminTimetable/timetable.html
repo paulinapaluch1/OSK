@@ -84,7 +84,7 @@
 		</form>
 		<a th:href="@{/timetable/byInstructors}"><button	style="float:right;" type="button" class="btn btn-outline-secondary ">INSTRUKTORZY</button></a>
 		<br>
-	
+	<br>
 		<for:each th:each="car:${cars}">
 			<button class="accordion"  
 				th:text="${car.id}+'. '+${car.brand}+' '+${car.model}+' '+${car.registrationNumber}"></button>
@@ -100,8 +100,7 @@
 								<th>Instruktor</th>
 								<th>Typ</th>
 								<th>Kursant</th>
-								
-
+							
 							</tr>
 						</thead>
 						<tbody id="myTable">
