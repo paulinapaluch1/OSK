@@ -1,5 +1,6 @@
 package pl.pracainz.osk.osk.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -162,8 +163,29 @@ public class Timetable {
 	}
 
 	
-	
-	
+	public String getDayName() {
+		int dayNumber = begin.getDayOfWeek().getValue();
+		switch (dayNumber) {
+		case 1:
+			return "Poniedziałek";
+		case 2:
+			return "Wtorek";
+		case 3:
+			return "Środa";
+		case 4:
+			return "Czwartek";
+		case 5:
+			return "Piątek";
+		case 6:
+			return "Sobota";
+		case 7:
+			return "Niedziela";
+		default:
+			return "Dzisiaj";
+
+		}
+	}
+
 
 	
 }

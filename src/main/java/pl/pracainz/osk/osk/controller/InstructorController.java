@@ -3,10 +3,12 @@ package pl.pracainz.osk.osk.controller;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,6 +33,7 @@ import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.InstructorOpinion;
 import pl.pracainz.osk.osk.entity.InternalExam;
 import pl.pracainz.osk.osk.entity.Student;
+import pl.pracainz.osk.osk.entity.Timetable;
 import pl.pracainz.osk.osk.entity.User;
 import pl.pracainz.osk.osk.entity.UserPrincipal;
 
@@ -79,7 +82,6 @@ public class InstructorController {
 	}
 
 	@GetMapping("/showFormForUpdate")
-
 	public String showFormForUpdate(@RequestParam("id_instructor") int id, Model theModel) {
 		theModel.addAttribute("instructor", instructorRepository.findById(id));
 		theModel.addAttribute("action", "update");
@@ -223,16 +225,19 @@ public class InstructorController {
 		LocalDate monday = getLastMonday();
 		theModel.addAttribute("monday", monday);
 		theModel.addAttribute("sunday", monday.plusDays(6));
-		theModel.addAttribute("timetablesToday",
-				timetableRepository.queryByInstructorAndWeek(
+		theModel.addAttribute("days", getListOfWeekDays());
+		theModel.addAttribute("timetablesThisWeek",	timetableRepository.queryByInstructorAndWeek(
 						instructorRepository.getOne(getCurrentLoggedInstructorId()),
 						LocalDateTime.of(monday, LocalTime.of(0, 0, 0, 0)),
 						LocalDateTime.of(monday.plusDays(6), LocalTime.of(23, 59, 59, 0))));
-
 		theModel.addAttribute("instructor", getCurrentLoggedInstructor());
 		return "instructorViews/instructorTimetable/weeklyTimetable";
 	}
 
+	private List<String> getListOfWeekDays(){
+		return Arrays.asList(new String[]{"Poniedziałek", "Wtorek","Środa","Czwartek","Piątek","Sobota","Niedziela"});
+	}
+	
 	private LocalDate getLastMonday() {
 		LocalDate today = LocalDate.now();
 		switch (today.getDayOfWeek().getValue()) {
@@ -252,9 +257,7 @@ public class InstructorController {
 			return today.minusDays(6);
 		default:
 			return today;
-
 		}
-
 	}
 
 	@GetMapping("/showTimetable")
@@ -324,21 +327,21 @@ public class InstructorController {
 		int dayNumber = date.getDayOfWeek().getValue();
 		switch (dayNumber) {
 		case 1:
-			return "Poniedziałek ";
+			return "Poniedziałek";
 		case 2:
-			return "Wtorek ";
+			return "Wtorek";
 		case 3:
-			return "Środa ";
+			return "Środa";
 		case 4:
-			return "Czwartek ";
+			return "Czwartek";
 		case 5:
-			return "Piątek ";
+			return "Piątek";
 		case 6:
-			return "Sobota ";
+			return "Sobota";
 		case 7:
-			return "Niedziela ";
+			return "Niedziela";
 		default:
-			return "Dzisiaj ";
+			return "Dzisiaj";
 
 		}
 	}

@@ -11,7 +11,31 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<style>
+.accordion {
+	background-color: #eee;
+	color: #444;
+	cursor: pointer;
+	padding: 18px;
+	width: 100%;
+	border: none;
+	text-align: left;
+	outline: none;
+	font-size: 15px;
+	transition: 0.4s;
+}
 
+.active, .accordion:hover {
+	background-color: #ccc;
+}
+
+.panel {
+	padding: 0 18px;
+	display: none;
+	background-color: white;
+	overflow: hidden;
+}
+</style>
 
 </head>
 <body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
@@ -39,13 +63,13 @@
 		</div>
 	</nav>
 	<div class="page">
-	<div class="container list " >
+	<div class="container list pb-3" >
 		<h3>GRAFIK TYGODNIOWY</h3>
 
-		<div th:if="${timetablesToday.isEmpty()}">
+		<div th:if="${timetablesThisWeek.isEmpty()}">
 			<p th:text="'Brak grafiku na tydzień: ' '+${monday}+' - '+${sunday}"></p>
 		</div>
-		<div th:unless="${timetablesToday.isEmpty()}">
+		<div th:unless="${timetablesThisWeek.isEmpty()}">
 			<p class="inline" th:text="${monday}+' - '+${sunday}"/>
 		</div>
 		<ul class="pagination inline" style="float:left">
@@ -56,8 +80,10 @@
 		</ul>
 		<a th:href="@{/instructors/showTimetable}"><button
 						type="button" class="btn btn-outline-secondary mr-3 mb-2" style=float:right>GRAFIK DZIENNY</button></a>
-		
-		
+	<for:each th:each="day:${days}">
+		<button class="accordion"  
+				th:text="${day}"></button>
+			<div class="panel"  >
 				<div class="table-responsive" >
 					<table class="table  table-hover table-sm">
 						<thead>
@@ -69,12 +95,11 @@
 								<th>Typ</th>
 								<th>Kursant</th>
 								
-
 							</tr>
 						</thead>
 						<tbody id="myTable">
-							<tr th:each="timetable:${timetablesToday}">
-								<span th:if=${instructor.id}==${timetable.instructor.id}>
+							<tr th:each="timetable:${timetablesThisWeek}">
+								<span th:if=${timetable.getDayName()}==${day}>
 									<td th:text="${timetable.id}" />
 									<td th:text="${#temporals.format(timetable.begin,'HH:mm')}" />
 									<td th:text="${#temporals.format(timetable.end,'HH:mm')}" />
@@ -99,8 +124,34 @@
 				</div>
 			</div>
 			
+			</for:each>
+			</div>
 
 	</div>
+	
+	
+	<script>
+		var acc = document.getElementsByClassName("accordion");
+		var i;
+
+		for (i = 0; i < acc.length; i++) {
+			acc[i].addEventListener("click", function() {
+
+				this.classList.toggle("active");
+
+				var panel = this.nextElementSibling;
+				if (panel.style.display === "block") {
+					panel.style.display = "none";
+				} else {
+					panel.style.display = "block";
+				}
+			});
+		}
+	</script>
+	
+	
+	
+	
 	
 </body>
 
