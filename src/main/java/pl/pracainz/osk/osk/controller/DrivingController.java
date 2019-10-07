@@ -68,7 +68,6 @@ public class DrivingController {
 
 	@PostMapping("save")
 	public String saveDriving(@ModelAttribute("driving") Driving theDriving) {
-		
 		Driving driving = drivingRepository.getOne(theDriving.getId());
 		Timetable timetable = timetableRepository.getOne(driving.getTimetable().getId());
 		timetable.setDrivingType(theDriving.getTimetable().getDrivingType());
