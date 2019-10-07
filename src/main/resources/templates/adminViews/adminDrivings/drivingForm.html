@@ -77,12 +77,12 @@
 						th:value="${drivingType.id}" th:text="${drivingType.type} " />
 				</select> Zrealizowana: <select th:field="*{done}"
 					class="form-control  col-4">
-					<option th:text="TAK" th:value="0" />
-					<option th:text="NIE" th:value="1" />
+					<option th:text="TAK" th:value="1" />
+					<option th:text="NIE" th:value="0" />
 				</select> Odwołana: <select th:field="*{cancelled}"
 					class="form-control mb-3 col-4">
-					<option th:text="TAK" th:value="0" />
-					<option th:text="NIE" th:value="1" />
+					<option th:text="TAK" th:value="1" />
+					<option th:text="NIE" th:value="0" />
 				</select>
 
 				<button type="submit" class="btn btn-info col-2">ZAPISZ</button>
