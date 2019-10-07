@@ -15,90 +15,68 @@
 
 </head>
 
-<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
-<nav
-		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
-		<div class=" flex-fill">
-			<a href="/"><img
-				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
-				width="70px" /></a>
-		</div>
-		<div class="flex-fill">
-			<a th:href="@{/}">
-				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
-			</a>
-		</div>
-		<div class="flex-fill">
-			<h2>Ośrodek Szkolenia Kierowców</h2>
-		</div>
-		<div class="flex-fill">
-			<strong>Zalogowany użytkownik:</strong> 
-			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
-			<a
-				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-		</div>
+<body
+	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+	<header th:insert="fragments/topNav.html :: navbar(returnPage = '/')">
+	</header>
 
-	</nav>
-	
 	<div class="page">
 		<div class="container pt-3  list">
-	<div class="flex-fill pb-2 mb-3">
+			<div class="flex-fill pb-2 mb-3">
 				<h3>KATEGORIE</h3>
 			</div>
-			
 
-		<div class="table-responsive ml-1 mr-1 mb-3 " style="max-width:15rem; float:left; background-color:white;">
-			<table class="table table-hover  table-sm">
-				<thead>
-					<tr class="table-primary">
-						<th>Id</th>
-						<th>Nazwa</th>
-						<th></th>
 
-					</tr>
-				</thead>
-				<tbody id="myTable">
-					<tr th:each="category:${categories}">
-						<td th:text="${category.id}" />
-						<td th:text="${category.categoryName}" />
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="card mb-3" style="width: 15rem; float:left">
-		 <div class="card-header">
-		    <b>Zmień dane</b>
-		  </div>			
-		  <div class="card-body" >
-		  <form th:action="@{/courses/saveEditedCategory}"
+			<div class="table-responsive ml-1 mr-1 mb-3 "
+				style="max-width: 15rem; float: left; background-color: white;">
+				<table class="table table-hover  table-sm">
+					<thead>
+						<tr class="table-primary">
+							<th>Id</th>
+							<th>Nazwa</th>
+							<th></th>
+
+						</tr>
+					</thead>
+					<tbody id="myTable">
+						<tr th:each="category:${categories}">
+							<td th:text="${category.id}" />
+							<td th:text="${category.categoryName}" />
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="card mb-3" style="width: 15rem; float: left">
+				<div class="card-header">
+					<b>Zmień dane</b>
+				</div>
+				<div class="card-body">
+					<form th:action="@{/courses/saveEditedCategory}"
 						th:object="${category}" method="POST">
-						Id
-						 <input type="number" th:field="*{id}"
-							class="form-control " /> <br> 
-						Kategoria
-						 <input type="text" th:field="*{categoryName}"
-							class="form-control " /> <br> 
+						Id <input type="number" th:field="*{id}" class="form-control " />
+						<br> Kategoria <input type="text" th:field="*{categoryName}"
+							class="form-control " /> <br>
 						<button type="submit" class="btn btn-info">ZMIEŃ</button>
-</form>
-</div>
-					
-					</div>
-				
-					<div class="card ml-1 " style="width: 15rem; float:left">
-					 <div class="card-header">
-					    <b>Dodaj kategorię</b>
-					  </div>			
-					 <div class="card-body">
-					  <form th:action="@{/courses/saveNewCategory}"
-									th:object="${categoryToAdd}" method="POST">
-									 <input type="hidden" th:field="*{id}"/>
-									 <input type="text" class="form-control" th:field="*{categoryName}"/>
-									<br>
-									<button type="submit" class="btn btn-info ">DODAJ</button>
-								</form>
-								</div>
-								</div>
-			</div></div>
-		
+					</form>
+				</div>
+
+			</div>
+
+			<div class="card ml-1 " style="width: 15rem; float: left">
+				<div class="card-header">
+					<b>Dodaj kategorię</b>
+				</div>
+				<div class="card-body">
+					<form th:action="@{/courses/saveNewCategory}"
+						th:object="${categoryToAdd}" method="POST">
+						<input type="hidden" th:field="*{id}" /> <input type="text"
+							class="form-control" th:field="*{categoryName}" /> <br>
+						<button type="submit" class="btn btn-info ">DODAJ</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </body>
 </HTML>

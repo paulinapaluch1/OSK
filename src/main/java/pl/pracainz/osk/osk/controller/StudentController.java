@@ -146,8 +146,11 @@ public class StudentController {
 		List<Instructor> theInstructors = studentRepository
 				.findInstructorsForOneStudent(getCurrentLoggedStudentId());
 		theModel.addAttribute("instructors", theInstructors);
+		theModel.addAttribute("instructoropinions", instructorOpinionRepository.findAll());
+			
 		return "studentViews/studentInstructors/instructors";
 	}
+		
 
 	@GetMapping("/showCars")
 	public String listCars(Model theModel) {
@@ -172,7 +175,7 @@ public class StudentController {
 
 	@GetMapping("/showCancelledDrivings")
 	public String listCancelledDrivings(Model theModel) {
-		List<Driving> theDrivings = studentRepository.findCancelledDrivings(1);
+		List<Driving> theDrivings = studentRepository.findCancelledDrivings(getCurrentLoggedStudentId());
 		theModel.addAttribute("drivings", theDrivings);
 		return "studentViews/studentDrivings/drivingsCancelled";
 	}
@@ -196,6 +199,7 @@ public class StudentController {
 	public String rateInstructors(@RequestParam("id_instructor") int id, Model theModel) {
 		InstructorOpinion theInstructorOpinion = new InstructorOpinion();
 		theInstructorOpinion.setInstructor(instructorRepository.getOne(id));
+		theModel.addAttribute("rated", instructorOpinionRepository.checkIfRated(getCurrentLoggedStudentId()));
 		theModel.addAttribute("instructoropinion", theInstructorOpinion);
 		theModel.addAttribute("instructor", instructorRepository.getOne(id));
 		return "studentViews/studentInstructors/rateInstructors";

@@ -11,97 +11,80 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
-<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
-	<nav
-		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
-		<div class=" flex-fill">
-			<a href="/"><img
-				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
-				width="70px" /></a>
-		</div>
-		<div class="flex-fill">
-			<a th:href="@{/}">
-				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
-			</a>
-		</div>
-		<div class="flex-fill">
-			<h2>Ośrodek Szkolenia Kierowców</h2>
-		</div>
-		<div class="flex-fill">
-			<strong>Zalogowany użytkownik:</strong> 
-			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
-			<a
-				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-		</div>
+<body
+	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+	<header
+		th:insert="fragments/topNav.html :: navbar(returnPage = '/exams/list')">
+	</header>
 
-	</nav>
 	<div class="page">
-	<div class="container list">
-		<br>
-		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
-			<div class="flex-fill">
-				<h3>Zarchiwizowane egzaminy</h3>
+		<div class="container list">
+			<br>
+			<nav class="navbar navbar-expand-lg d-flex justify-content-end">
+				<div class="flex-fill">
+					<h3>Zarchiwizowane egzaminy</h3>
+				</div>
+				<div class="flex-fill"></div>
+				<div class="flex-fill">
+					<a th:href="@{/exams/list}"><button type="button"
+							class="btn btn-outline-secondary">Aktualna lista
+							egzaminów</button></a>
+				</div>
+			</nav>
+
+
+			<br> <input class="form-control col-3" id="myInput" type="text"
+				placeholder="Szukaj..."> <br>
+			<nav class="navbar navbar-expand-lg d-flex justify-content-center">
+
+				<div class="flex-fill">
+					<a th:href="@{/exams/list}"><button type="button"
+							class="btn btn-outline-secondary btn-sm">Wszystkie
+							aktualne egzaminy</button></a> <a th:href="@{/exams/listPassed}"><button
+							type="button" class="btn btn-success btn-sm">Zdane
+							egzaminy</button></a> <a th:href="@{/exams/listFailed}"><button
+							type="button" class="btn btn-danger btn-sm">Niezdane
+							egzaminy</button></a>
+				</div>
+
+			</nav>
+
+			<br>
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<thead>
+						<tr class="table-primary">
+							<th>Id egzaminu</th>
+							<th>Instruktor</th>
+							<th>Kursant</th>
+							<th>Data</th>
+							<th>Godzina</th>
+							<th>Wynik</th>
+							<th>Typ</th>
+
+						</tr>
+					</thead>
+					<tbody id="myTable">
+						<tr th:each="exam:${internalexams}">
+							<td th:text="${exam.id}" />
+							<td
+								th:text="${exam.instructor.name} + ' ' + ${exam.instructor.surname}" />
+							<td
+								th:text="${exam.student.name} + ' ' + ${exam.student.surname}" />
+							<td th:text="${#dates.format(exam.dateHour, 'dd-MM-yyyy')}" />
+							<td th:text="${#dates.format(exam.dateHour, 'HH:mm')}" />
+							<td th:text="${exam.result}" />
+							<td th:text="${exam.type}" />
+
+							<td><a
+								th:href="@{/exams/unarchiveExam(id_internalExam=${exam.id})}"
+								class="btn btn-danger">COFNIJ ARCHIWIZACJĘ</a></td>
+						</tr>
+					</tbody>
+
+
+				</table>
 			</div>
-			<div class="flex-fill"></div>
-			<div class="flex-fill">
-				<a th:href="@{/exams/list}"><button type="button"
-						class="btn btn-outline-secondary">Aktualna lista
-						egzaminów</button></a>
-			</div>
-		</nav>
-
-
-		<br> <input class="form-control col-3" id="myInput" type="text"
-			placeholder="Szukaj..."> <br>
-		<nav class="navbar navbar-expand-lg d-flex justify-content-center">
-
-			<div class="flex-fill">
-				<a th:href="@{/exams/list}"><button type="button"
-						class="btn btn-outline-secondary btn-sm">Wszystkie
-						aktualne egzaminy</button></a> <a th:href="@{/exams/listPassed}"><button
-						type="button" class="btn btn-success btn-sm">Zdane
-						egzaminy</button></a> <a th:href="@{/exams/listFailed}"><button
-						type="button" class="btn btn-danger btn-sm">Niezdane
-						egzaminy</button></a>
-			</div>
-
-		</nav>
-
-		<br>
-		<div class="table-responsive">
-			<table class="table table-hover">
-				<thead>
-					<tr class="table-primary">
-						<th>Id egzaminu</th>
-						<th>Instruktor</th>
-						<th>Kursant</th>
-						<th>Data</th>
-						<th>Godzina</th>
-						<th>Wynik</th>
-						<th>Typ</th>
-						
-					</tr>
-				</thead>
-				<tbody id="myTable">
-					<tr th:each="exam:${internalexams}">
-						<td th:text="${exam.id}" />
-						<td
-							th:text="${exam.instructor.name} + ' ' + ${exam.instructor.surname}" />
-						<td th:text="${exam.student.name} + ' ' + ${exam.student.surname}" />
-						<td th:text="${#dates.format(exam.dateHour, 'dd-MM-yyyy')}" />
-						<td th:text="${#dates.format(exam.dateHour, 'HH:mm')}" />
-						<td th:text="${exam.result}" />
-						<td th:text="${exam.type}" />
-						
-						<td><a
-							th:href="@{/exams/unarchiveExam(id_internalExam=${exam.id})}"
-							class="btn btn-danger">COFNIJ ARCHIWIZACJĘ</a></td>
-					</tr>
-				</tbody>
-
-
-			</table>
-		</div>
 		</div>
 	</div>
 	<script>

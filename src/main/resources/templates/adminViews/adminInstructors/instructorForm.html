@@ -9,29 +9,11 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 </head>
-<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
-	<nav
-		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
-		<div class=" flex-fill">
-			<a href="/"><img
-				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
-				width="70px" /></a>
-		</div>
-		<div class="flex-fill">
-			<a th:href="@{/instructors/list}">
-				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
-			</a>
-		</div>
-		<div class="flex-fill">
-			<h2>Ośrodek Szkolenia Kierowców</h2>
-		</div>
-		<div class="flex-fill">
-			<strong>Zalogowany użytkownik:</strong> 
-			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
-			<a
-				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-		</div>
-	</nav>
+<body
+	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+	<header
+		th:insert="fragments/topNav.html :: navbar(returnPage = '/instructors/list')">
+	</header>
 <body>
 	<div class="page">
 		<div class="container list form pb-3 pt-3">
@@ -41,10 +23,8 @@
 			<form action="#" th:action="@{/instructors/save}"
 				th:object="${instructor}" method="POST">
 
-				<input type="hidden" th:field="*{id}" />
-				<input type="hidden" th:field="*{userId}" />
-				
-				 Imię: <input type="text"
+				<input type="hidden" th:field="*{id}" /> <input type="hidden"
+					th:field="*{userId}" /> Imię: <input type="text"
 					th:field="*{name}" class="form-control mb-4 col-4">
 				Nazwisko: <input type="text" th:field="*{surname}"
 					class="form-control mb-4 col-4"> Login: <input type="text"

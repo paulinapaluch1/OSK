@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<div th:fragment="navbar">
+<div th:fragment="navbar (returnPage)">
 
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
@@ -8,16 +8,18 @@
 				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
 				width="70px" /></a>
 		</div>
-		
 		<div class="flex-fill">
-			<h2>Ośrodek Szkolenia Kierofców</h2>
+			<a th:href="${returnPage}">
+				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
+			</a>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: #</strong> <a href="/logout"><button
-					type="button" class="btn btn-primary">WYLOGUJ</button></a>
-
+			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
-
+		<div class="flex-fill">
+			<strong>Zalogowany użytkownik:</strong> <span
+				th:text="${#authentication.getPrincipal().getUsername()}"></span> <a
+				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+		</div>
 	</nav>
 
-</div>
