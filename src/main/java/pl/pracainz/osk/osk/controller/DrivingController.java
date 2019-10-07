@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pracainz.osk.osk.dao.DrivingRepository;
 import pl.pracainz.osk.osk.dao.DrivingTypeRepository;
+import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.StudentRepository;
 import pl.pracainz.osk.osk.dao.TimetableRepository;
-import pl.pracainz.osk.osk.entity.Category;
 import pl.pracainz.osk.osk.entity.Driving;
 import pl.pracainz.osk.osk.entity.DrivingType;
+import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.Student;
 import pl.pracainz.osk.osk.entity.Timetable;
 
@@ -27,14 +28,18 @@ public class DrivingController {
 	private DrivingRepository drivingRepository;
 	private DrivingTypeRepository drivingTypeRepository;
 	private StudentRepository studentRepository;
+	private InstructorRepository instructorRepository;
+	private TimetableRepository timetableRepository;
 
 	public DrivingController(DrivingRepository repository, DrivingTypeRepository drivingTypeRepository,
-			StudentRepository studentRepository) {
+			StudentRepository studentRepository, InstructorRepository instructorRepository,
+			TimetableRepository timetableRepository) {
 		this.drivingRepository = repository;
 		this.drivingTypeRepository = drivingTypeRepository;
 		this.studentRepository = studentRepository;
+		this.instructorRepository = instructorRepository;
+		this.timetableRepository = timetableRepository;
 	}
-	
 
 	@GetMapping("/list")
 	public String listDrivings(Model theModel) {
@@ -47,6 +52,7 @@ public class DrivingController {
 		theModel.addAttribute("drivings", drivingRepository.findByDeleted(1));
 		return "adminViews/adminDrivings/drivingsArchived";
 	}
+
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
 		theModel.addAttribute("driving", new Driving());
@@ -55,12 +61,19 @@ public class DrivingController {
 
 	@GetMapping("/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("id_driving") int id, Model theModel) {
-		theModel.addAttribute("driving", drivingRepository.findById(id));
+		theModel.addAttribute("driving", drivingRepository.getOne(id));
+
 		return "adminViews/adminDrivings/drivingForm";
 	}
 
 	@PostMapping("save")
 	public String saveDriving(@ModelAttribute("driving") Driving theDriving) {
+		
+		Driving driving = drivingRepository.getOne(theDriving.getId());
+		Timetable timetable = timetableRepository.getOne(driving.getTimetable().getId());
+		timetable.setDrivingType(theDriving.getTimetable().getDrivingType());
+		timetable.setInstructor(theDriving.getTimetable().getInstructor());
+		theDriving.setTimetable(timetable);
 		drivingRepository.save(theDriving);
 		return "redirect:/drivings/list";
 	}
@@ -80,8 +93,8 @@ public class DrivingController {
 		drivingRepository.save(theDriving);
 		return "redirect:/drivings/listArchived";
 	}
-	
-	//dla instruktora
+
+	// dla instruktora
 	@GetMapping("/doneDriving")
 	public String doneDriving(@RequestParam("id_driving") int id, Model theModel) {
 		Driving theDriving = drivingRepository.getOne(id);
@@ -89,7 +102,7 @@ public class DrivingController {
 		drivingRepository.save(theDriving);
 		return "redirect:/instructors/showDrivings";
 	}
-	
+
 	@GetMapping("/undoneDriving")
 	public String undoneDriving(@RequestParam("id_driving") int id, Model theModel) {
 		Driving theDriving = drivingRepository.getOne(id);
@@ -97,24 +110,23 @@ public class DrivingController {
 		drivingRepository.save(theDriving);
 		return "redirect:/instructors/showDrivings";
 	}
-	
+
 	// dla kursanta
 	@GetMapping("/cancelDriving")
 	public String cancelDriving(@RequestParam("id_driving") int id, Model theModel) {
 		Driving theDriving = drivingRepository.getOne(id);
 		theDriving.setCancelled(1);
 		theDriving.setDone(0);
-		drivingRepository.save(theDriving);	
+		drivingRepository.save(theDriving);
 		return "redirect:/students/showDrivings";
 	}
-	
 
 	@GetMapping("/types")
-	public String editDrivingTypes(Model theModel){
+	public String editDrivingTypes(Model theModel) {
 		theModel.addAttribute("drivingTypeToAdd", new DrivingType());
 		return "adminViews/adminDrivings/types";
 	}
-	
+
 	@PostMapping("/saveEditedDrivingType")
 	public String saveEditedDrivingType(@ModelAttribute("drivingType") DrivingType theDrivingType, Model theModel) {
 		DrivingType drivingType = drivingTypeRepository.getOne(theDrivingType.getId());
@@ -122,29 +134,31 @@ public class DrivingController {
 		drivingTypeRepository.save(drivingType);
 		return "redirect:/drivings/types";
 	}
-	
+
 	@PostMapping("/saveNewDrivingType")
 	public String saveNewDrivingType(@ModelAttribute("categoryToAdd") DrivingType theDrivingType, Model theModel) {
 		drivingTypeRepository.save(theDrivingType);
 		return "redirect:/drivings/types";
 	}
-	
-	
+
 	@ModelAttribute("drivingType")
 	public DrivingType drivingType() {
-	    return new DrivingType();
+		return new DrivingType();
 	}
-	
+
 	@ModelAttribute("students")
 	public List<Student> students() {
-	    return studentRepository.findByDeleted(0);
+		return studentRepository.findByDeleted(0);
 	}
-	
+
+	@ModelAttribute("instructors")
+	public List<Instructor> instructors() {
+		return instructorRepository.findByDeleted(0);
+	}
+
 	@ModelAttribute("drivingTypes")
 	public List<DrivingType> drivingTypes() {
-		
-		
-	    return drivingTypeRepository.findAllByOrderByIdAsc();
+		return drivingTypeRepository.findAllByOrderByIdAsc();
 	}
 
 }
