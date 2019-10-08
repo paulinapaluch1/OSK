@@ -37,32 +37,16 @@
 }
 </style>
 </head>
-<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
-	<nav
-		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
-		<div class=" flex-fill">
-			<a href="/"><img
-				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
-				width="70px" /></a>
-		</div>
-		<div class="flex-fill">
-			<a th:href="@{/}">
-				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
-			</a>
-		</div>
-		<div class="flex-fill">
-			<h2>Ośrodek Szkolenia Kierowców</h2>
-		</div>
-		<div class="flex-fill">
-			<strong>Zalogowany użytkownik:</strong> 
-			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
-			<a
-				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-		</div>
-	</nav>
+<body
+	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+	<header th:insert="fragments/topNav.html :: navbar(returnPage = '/')">
+	</header>
+
+
 	<div class="page">
-	<div class="container list " >
-		<h3>GRAFIK</h3>
+		<div class="container list ">
+			<h3>GRAFIK</h3>
+
 
 		<div th:if="${timetablesToday.isEmpty()}">
 			<p th:text="'Brak grafiku na dzień: '+${dayName}+' '+${today}"></p>
@@ -133,11 +117,15 @@
 				<a th:href="@{/timetable/editDayForCar(date=${today},id=${car.id})}"
 												type="button" class="btn btn-primary mb-1">EDYTUJ CAŁY DZIEŃ</a>
 				</div>
-			</div>
-			
-		</for:each>
 
-	</div></div>
+			
+					
+				</div>
+
+			</for:each>
+
+		</div>
+	</div>
 	<script>
 		var acc = document.getElementsByClassName("accordion");
 		var i;

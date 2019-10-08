@@ -13,8 +13,13 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 </head>
+
 <body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
-	<nav
+	<header
+		th:insert="fragments/topNav.html :: navbar(returnPage = '/drivings/list')">
+	</header>
+
+<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
 			<a href="/"><img
@@ -60,30 +65,31 @@
 						<th>Odwołana</th>
 						
 
-					</tr>
-				</thead>
-				<tbody id="myTable">
-					<tr th:each="driving:${drivings}">
-						<td th:text="${driving.id}" />
-						<td th:text="${driving.timetable.drivingType.type}" />
-						<td
-							th:text="${driving.student.name}+' '+${driving.student.surname} " />
-						<td
-							th:text="${#temporals.format(driving.timetable.begin,'dd.MM.yyyy HH:mm')}" />
-						<td
-							th:text="${#temporals.format(driving.timetable.end,'dd.MM.yyyy HH:mm')}" />
-						<td th:text="${driving.done}" />
-						<td th:text="${driving.cancelled}" />
-						
-						<td><a
-							th:href="@{/drivings/unarchiveDriving(id_driving=${driving.id})}"
-							class="btn btn-warning">COFNIJ ARCHIWIZACJĘ</a></td>
-
-					</tr>
-				</tbody>
+						</tr>
+					</thead>
+					<tbody id="myTable">
+						<tr th:each="driving:${drivings}">
+							<td th:text="${driving.id}" />
+							<td th:text="${driving.timetable.drivingType.type}" />
+							<td
+								th:text="${driving.student.name}+' '+${driving.student.surname} " />
+							<td
+								th:text="${#temporals.format(driving.timetable.begin,'dd.MM.yyyy HH:mm')}" />
+							<td
+								th:text="${#temporals.format(driving.timetable.end,'dd.MM.yyyy HH:mm')}" />
+							<td th:text="${driving.done}" />
+							<td th:text="${driving.cancelled}" />
 
 
-			</table>
+							<td><a
+								th:href="@{/drivings/unarchiveDriving(id_driving=${driving.id})}"
+								class="btn btn-warning">COFNIJ ARCHIWIZACJĘ</a></td>
+
+						</tr>
+					</tbody>
+
+
+				</table>
 			</div>
 		</div>
 	</div>

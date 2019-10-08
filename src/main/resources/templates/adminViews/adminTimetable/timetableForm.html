@@ -10,32 +10,23 @@
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 </head>
 
-<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+<body
+	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+	<header
+		th:insert="fragments/topNav.html :: navbar(returnPage = '/timetable/list')">
+	</header>
+
 	<div class="page">
-		<nav
-			class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
-			<div class=" flex-fill">
-				<a href="/"><img
-					src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
-					width="70px" /></a>
-			</div>
-			<div class="flex-fill">
-				<h2>Ośrodek Szkolenia Kierowców</h2>
-			</div>
-			<div class="flex-fill">
-				<strong>Zalogowany użytkownik:</strong> 
-				<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
-				<a
-					href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-			</div>
-		</nav>
+
+		
+
+
 		<div class="container list p-3 mt-3">
 			<h3 style="float: left;" th:text="${title}"></h3>
 
 			<a th:href="@{/timetable/changeDate(date=${today})}"
 				style="float: right;" class=" btn btn-outline-secondary">GRAFIK</a>
-			<br>
-			<br>
+			<br> <br>
 			<p
 				th:text="'dla samochodu '+ ${this.car.brand}+' '+${this.car.model}
 			+' '+${this.car.registrationNumber} + ' na dzień '+ ${#temporals.format(this.begin,'dd.MM.yyyy')}" />
@@ -80,13 +71,9 @@
 			<form th:action="@{/timetable/save}" th:object="${timetable}"
 				method="GET">
 
-				<input  type="hidden" th:field="*{id}" />
-				<input type="hidden" th:field="*{drivingType}" /> 
-
-				Instruktor: 
-
-				<select th:field="*{instructor}"
-					class="form-control col-4">
+				<input type="hidden" th:field="*{id}" /> <input type="hidden"
+					th:field="*{drivingType}" /> Instruktor: <select
+					th:field="*{instructor}" class="form-control col-4">
 					<option th:each="instructor: ${instructors}"
 						th:value="${instructor.id}"
 						th:text="${instructor.name}+' '+${instructor.surname}" />

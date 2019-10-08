@@ -4,12 +4,16 @@
 <head>
 <title>Profil</title>
 <meta charset="utf-8">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" th:href="@{/css/style.css}"  type="text/css"/>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 </head>
 
-<body th:style="'background: url(car.jpg) no-repeat center center fixed;'">
-	<nav style="opacity:0.95;"
+<body
+	th:style="'background: url(car.jpg) no-repeat center center fixed;'">
+	<nav style="opacity: 0.95;"
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
 			<a href="/"><img
@@ -20,82 +24,73 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik:</strong>
-			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
-			<a href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
+			<strong>Zalogowany użytkownik:</strong> <span
+				th:text="${#authentication.getPrincipal().getUsername()}"></span> <a
+				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 
 		</div>
 	</nav>
-<div class="page">
-<div class="container">
-<br>
-<div id="card" class="card bg-light mb-4 ml-4 mr-4">
-		<div class="card-body text-center mt-4" >
-			<a style="text-decoration: none" th:href="@{/courses/list}"
-			 class="card-text">Kursy
-			</a>
-		</div>
-	</div>
-	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
-		<div class="card-body text-center mt-4">
-			<a style="text-decoration: none" th:href="@{/students/list}"
-			 class="card-text">Kursanci
-			</a>
-		</div>
-	</div>
-	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
-		<div class="card-body text-center mt-4">
-			<a style="text-decoration: none" th:href="@{/instructors/list}"
-			class="card-text">Instruktorzy
-			</a>
-		</div>
-	</div>
-	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
-		<div class="card-body text-center mt-4">
-			<a style="text-decoration: none" th:href="@{/cars/list}"
-			 class="card-text">Samochody
-			</a>
-		</div>
-	</div>
-	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
-		<div class="card-body text-center mt-4">
-			<a style="text-decoration: none" th:href="@{/exams/list}"
-			class="card-text">Egzaminy
-			</a>
-		</div>
-	</div>
-	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
-		<div class="card-body text-center mt-4">
-			<a style="text-decoration: none" th:href="@{/timetable/list}"
-			class="card-text">Grafik
-			</a>
-		</div>
-	</div>
-	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
-		<div class="card-body text-center mt-4">
-			<a style="text-decoration: none" th:href="@{/opinions/allOpinions}"
-			 class="card-text">Opinie
-			</a>
-		</div>
-	</div>
+	<div class="page">
+		<div class="container">
+			<br>
+			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+				<div class="card-body text-center mt-4">
+					<a style="text-decoration: none" th:href="@{/courses/list}"
+						class="card-text">Kursy </a>
+				</div>
+			</div>
+			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+				<div class="card-body text-center mt-4">
+					<a style="text-decoration: none" th:href="@{/students/list}"
+						class="card-text">Kursanci </a>
+				</div>
+			</div>
+			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+				<div class="card-body text-center mt-4">
+					<a style="text-decoration: none" th:href="@{/instructors/list}"
+						class="card-text">Instruktorzy </a>
+				</div>
+			</div>
+			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+				<div class="card-body text-center mt-4">
+					<a style="text-decoration: none" th:href="@{/cars/list}"
+						class="card-text">Samochody </a>
+				</div>
+			</div>
+			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+				<div class="card-body text-center mt-4">
+					<a style="text-decoration: none" th:href="@{/exams/list}"
+						class="card-text">Egzaminy </a>
+				</div>
+			</div>
+			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+				<div class="card-body text-center mt-4">
+					<a style="text-decoration: none" th:href="@{/timetable/list}"
+						class="card-text">Grafik </a>
+				</div>
+			</div>
+			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+				<div class="card-body text-center mt-4">
+					<a style="text-decoration: none" th:href="@{/opinions/allOpinions}"
+						class="card-text">Opinie </a>
+				</div>
+			</div>
 
-	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
-		<div class="card-body text-center mt-4">
-			<a style="text-decoration: none" th:href="@{/drivings/list}"
-			 class="card-text">Jazdy
-			</a>
-		</div>
-	</div>
+			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+				<div class="card-body text-center mt-4">
+					<a style="text-decoration: none" th:href="@{/drivings/list}"
+						class="card-text">Jazdy </a>
+				</div>
+			</div>
 
-	<div id="card" class="card bg-light mb-4 ml-4 mr-4">
-		<div class="card-body text-center mt-4">
-			<a style="text-decoration: none" th:href="@{/lectures/list}"
-			 class="card-text">Wykłady
-			</a>
+			<div id="card" class="card bg-light mb-4 ml-4 mr-4">
+				<div class="card-body text-center mt-4">
+					<a style="text-decoration: none" th:href="@{/lectures/list}"
+						class="card-text">Wykłady </a>
+				</div>
+			</div>
 		</div>
 
 	</div>
-</div>
-</div>
 </body>
 </HTML>

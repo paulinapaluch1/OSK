@@ -11,31 +11,14 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
-<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
-	<nav
-		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
-		<div class=" flex-fill">
-			<a href="/"><img
-				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
-				width="70px" /></a>
-		</div>
-		<div class="flex-fill">
-			<a th:href="@{/}">
-				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
-			</a>
-		</div>
-		<div class="flex-fill">
-			<h2>Ośrodek Szkolenia Kierowców</h2>
-		</div>
-		<div class="flex-fill">
-			<strong>Zalogowany użytkownik:</strong> 
-			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
-			<a
-				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-		</div>
+<body
+	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+	<header
+		th:insert="fragments/topNav.html :: navbar(returnPage = '/exams/list')">
+	</header>
 
-	</nav>
 	<div class="page">
+
 	<div class="container list">
 				<h3 class="title">ZARCHIWIZOWANE EGZAMINY</h3>
 			<nav class="navbar justify-content-end">	
@@ -49,17 +32,20 @@
 			placeholder="Szukaj..."> <br>
 		<nav class="navbar navbar-expand-lg d-flex justify-content-center">
 
-			<div class="flex-fill">
-				<a th:href="@{/exams/list}"><button type="button"
-						class="btn btn-outline-secondary btn-sm">Wszystkie
-						aktualne egzaminy</button></a> <a th:href="@{/exams/listPassed}"><button
-						type="button" class="btn btn-success btn-sm">Zdane
-						egzaminy</button></a> <a th:href="@{/exams/listFailed}"><button
-						type="button" class="btn btn-danger btn-sm">Niezdane
-						egzaminy</button></a>
-			</div>
+		
 
-		</nav>
+				<div class="flex-fill">
+					<a th:href="@{/exams/list}"><button type="button"
+							class="btn btn-outline-secondary btn-sm">Wszystkie
+							aktualne egzaminy</button></a> <a th:href="@{/exams/listPassed}"><button
+							type="button" class="btn btn-success btn-sm">Zdane
+							egzaminy</button></a> <a th:href="@{/exams/listFailed}"><button
+							type="button" class="btn btn-danger btn-sm">Niezdane
+							egzaminy</button></a>
+				</div>
+
+			</nav>
+
 
 		
 		<div class="table-responsive">
@@ -93,9 +79,10 @@
 					</tr>
 				</tbody>
 
+						
 
-			</table>
-		</div>
+				</table>
+			</div>
 		</div>
 	</div>
 	<script>

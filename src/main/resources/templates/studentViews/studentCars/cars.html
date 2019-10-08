@@ -11,14 +11,13 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
-<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
-
-	<div th:insert="fragments/topNav :: navbar"></div>
-
-	<a th:href="@{/students/profile}">
-		<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
-	</a>
+<body
+	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+	<header
+		th:insert="fragments/topNav.html :: navbar(returnPage = '/students/profile')">
+	</header>
 	<div class="page">
+
 	<div class="container list">
 		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
 			<div class="flex-fill">
@@ -36,25 +35,26 @@
 						<th>Marka</th>
 						<th>Model</th>
 
-					</tr>
-				</thead>
-				<tbody id="myTable">
-					<tr th:each="car:${cars}">
-						<td th:text="${car.registrationNumber}" />
-						<td th:text="${car.brand}" />
-						<td th:text="${car.model}" />
-						<td><a
-							th:href="@{/students/rateCars(id_car=${car.id})}"
-							class="btn btn-primary">OCEŃ</a></td>
-					</tr>
 
-				</tbody>
+						</tr>
+					</thead>
+					<tbody id="myTable">
+						<tr th:each="car:${cars}">
+							<td th:text="${car.registrationNumber}" />
+							<td th:text="${car.brand}" />
+							<td th:text="${car.model}" />
+							<td><a th:href="@{/students/rateCars(id_car=${car.id})}"
+								class="btn btn-primary">OCEŃ</a></td>
+						</tr>
+
+					</tbody>
 
 
-			</table>
+				</table>
+			</div>
+
 		</div>
-
-	</div></div>
+	</div>
 	<script>
 		$(document)
 				.ready(

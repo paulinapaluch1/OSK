@@ -11,29 +11,14 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
-<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
-	<nav
-		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
-		<div class=" flex-fill">
-			<a href="/"><img
-				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
-				width="70px" /></a>
-		</div>
-		<div class="flex-fill">
-			<a th:href="@{/students/profile}">
-				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
-			</a>
-		</div>
-		<div class="flex-fill">
-			<h2>Ośrodek Szkolenia Kierowców</h2>
-		</div>
-		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: kursant</strong> <a
-				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
-		</div>
+<body
+	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+	<header
+		th:insert="fragments/topNav.html :: navbar(returnPage = '/students/profile')">
+	</header>
 
-	</nav>
 	<div class="page">
+
 	<div class="container list">
 		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
 			<div class="flex-fill">
@@ -66,10 +51,11 @@
 				</tbody>
 
 
-			</table>
+
+				</table>
+			</div>
 		</div>
 	</div>
-</div>
 	<script>
 		$(document)
 				.ready(
