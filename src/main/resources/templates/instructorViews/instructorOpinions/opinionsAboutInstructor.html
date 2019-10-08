@@ -54,7 +54,6 @@
 			<table class="table table-hover">
 				<thead>
 					<tr class="table-primary">
-						<th>Id opinii</th>
 						<th>Kursant</th>
 						<th>Ocena</th>
 						<th>Opinia</th>
@@ -62,9 +61,8 @@
 				</thead>
 				<tbody id="myTable">
 					<tr th:each="instructoropinion:${instructoropinions}">
-						<td th:text="${instructoropinion.id}" />
 						<td
-							th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname}" />
+							th:text="${instructoropinion.student.name} + ' ' + ${instructoropinion.student.surname}" />
 						<td th:text="${instructoropinion.instructorMark}" />
 						<td th:text="${instructoropinion.instructorOpinion}" />
 					</tr>

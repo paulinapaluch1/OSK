@@ -157,6 +157,7 @@ public class OpinionController {
 		return "adminViews/adminOpinions/newOpinionsAboutCars";
 	}
 
+		
 	@GetMapping("/cars/checkedOpinions")
 	public String listCheckedCarOpinions(Model theModel) {
 
