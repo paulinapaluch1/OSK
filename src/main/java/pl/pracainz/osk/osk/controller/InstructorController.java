@@ -30,6 +30,7 @@ import pl.pracainz.osk.osk.entity.Driving;
 import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.InstructorOpinion;
 import pl.pracainz.osk.osk.entity.InternalExam;
+import pl.pracainz.osk.osk.entity.Lecture;
 import pl.pracainz.osk.osk.entity.Student;
 import pl.pracainz.osk.osk.entity.User;
 import pl.pracainz.osk.osk.entity.UserPrincipal;
@@ -148,6 +149,13 @@ public class InstructorController {
 		List<Course> theCourses = instructorRepository.queryFindCourses(getCurrentLoggedInstructorId());
 		theModel.addAttribute("courses", theCourses);
 		return "instructorViews/instructorCourses/courses";
+	}
+	
+	@GetMapping("/showLectures")
+	public String listLectures(Model theModel) {
+		List<Lecture> theLectures = instructorRepository.findLectures(getCurrentLoggedInstructorId());
+		theModel.addAttribute("lectures", theLectures);
+		return "instructorViews/instructorLectures/lectures";
 	}
 
 	@GetMapping("/showExams")
