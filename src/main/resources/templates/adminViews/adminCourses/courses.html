@@ -65,7 +65,8 @@
 							<td><a
 								th:href="@{/courses/archiveCourse(id_course=${course.id})}"
 								class="btn btn-danger">ARCHIWIZUJ</a></td>
-							<td><a th:href="@{/courses/showStudents}"
+							<td><a th:href="@{/courses/showStudents(id_course=${course.id})}"
+
 								class="btn btn-info">ZOBACZ UCZESTNIKÓW</a></td>
 						</tr>
 					</tbody>
