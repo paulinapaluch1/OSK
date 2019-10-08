@@ -120,8 +120,8 @@ private CategoryRepository categoryRepository;
 	}
 	
 	@GetMapping("/showStudents")
-	public String listParticipants(Model theModel) {
-		List<Student> theParticipants = courseRepository.findParticipants(2);
+	public String listParticipants(@RequestParam("id_course") int id, Model theModel) {
+		List<Student> theParticipants = courseRepository.findParticipants(id);
 		theModel.addAttribute("students", theParticipants);
 		return "adminViews/adminCourses/participants";
 	}

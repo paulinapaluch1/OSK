@@ -37,7 +37,7 @@ public class Instructor {
 	@Column
 	private Integer deleted;
 	
-	@Column
+	@Column (name = "id_user")
 	private int userId;
 
 	@OneToMany(mappedBy = "instructor")
