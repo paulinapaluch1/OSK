@@ -13,30 +13,15 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 </head>
-<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
-	<nav
-		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
-		<div class=" flex-fill">
-			<a href="/"><img
-				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
-				width="70px" /></a>
-		</div>
-		<div class="flex-fill">
-			<a th:href="@{/instructors/profile}">
-				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
-			</a>
-		</div>
-		<div class="flex-fill">
-			<h2>Ośrodek Szkolenia Kierowców</h2>
-		</div>
-		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: instruktor</strong> <a href="/logout"><button
-					type="button" class="btn btn-primary">WYLOGUJ</button></a>
+<body
+	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+	<header
+		th:insert="fragments/topNav.html :: navbar(returnPage = '/instructors/profile')">
+	</header>
 
-		</div>
 
-	</nav>
 	<div class="page">
+
 	<div class="container list">		
 				<h3 class="title">JAZDY</h3>
 		<nav class="navbar justify-content-end">
@@ -81,18 +66,19 @@
 							</div>
 							<div th:case=1>
 								<td th:text="TAK" />
+
 							</div>
-						</div>
-						<td><a
-							th:href="@{/drivings/doneDriving(id_driving=${driving.id})}"
-							class="btn btn-primary">ODBYŁA SIĘ</a></td>
+							<td><a
+								th:href="@{/drivings/doneDriving(id_driving=${driving.id})}"
+								class="btn btn-primary">ODBYŁA SIĘ</a></td>
 
-					</tr>
-				</tbody>
+						</tr>
+					</tbody>
 
 
-			</table>
-		</div></div>
+				</table>
+			</div>
+		</div>
 	</div>
 	<script>
 		$(document)

@@ -10,28 +10,12 @@
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 
 </head>
-<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
-	<nav
-		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
-		<div class=" flex-fill">
-			<a href="/"><img
-				src="https://cdn.pixabay.com/photo/2014/04/03/00/41/house-309113_960_720.png"
-				width="70px" /></a>
-		</div>
-		<div class="flex-fill">
-			<a th:href="@{/cars/list}">
-				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
-			</a>
-		</div>
-		<div class="flex-fill">
-			<h2>Ośrodek Szkolenia Kierowców</h2>
-		</div>
-		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: kursant</strong> <a href="/logout"><button
-					type="button" class="btn btn-primary">WYLOGUJ</button></a>
-		</div>
+<body
+	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+	<header
+		th:insert="fragments/topNav.html :: navbar(returnPage = '/students/profile')">
+	</header>
 
-	</nav>
 	<div class="page">
 		<div class="container list pt-3 pb-3 form">
 
@@ -40,17 +24,16 @@
 			<form action="#" th:action="@{/students/data/save}"
 				th:object="${student}" method="POST">
 
-				<input type="hidden" th:field="*{id}" />
-				<input type="hidden" th:field="*{userId}" />
-				<input type="hidden" th:field="*{deleted}" />
-				
-				 <input type="hidden"
-					th:field="*{login}" /> <input type="hidden" th:field="*{name}" />
-				<input type="hidden" th:field="*{surname}" /> Data urodzenia: <input
-					type="date" th:field="*{birthdate}" th:value="${birthdate}"
-					class="form-control mb-4 col-4"> Ulica: <input type="text"
-					th:field="*{street}" class="form-control mb-4 col-4"> Numer
-				domu: <input type="text" th:field="*{buildingNumber}"
+				<input type="hidden" th:field="*{id}" /> <input type="hidden"
+					th:field="*{userId}" /> <input type="hidden" th:field="*{deleted}" />
+
+				<input type="hidden" th:field="*{login}" /> <input type="hidden"
+					th:field="*{name}" /> <input type="hidden" th:field="*{surname}" />
+				Data urodzenia: <input type="date" th:field="*{birthdate}"
+					th:value="${birthdate}" class="form-control mb-4 col-4">
+				Ulica: <input type="text" th:field="*{street}"
+					class="form-control mb-4 col-4"> Numer domu: <input
+					type="text" th:field="*{buildingNumber}"
 					class="form-control mb-4 col-4"> Numer mieszkania: <input
 					type="text" th:field="*{apartmentNumber}"
 					class="form-control mb-4 col-4"> Kod pocztowy: <input
