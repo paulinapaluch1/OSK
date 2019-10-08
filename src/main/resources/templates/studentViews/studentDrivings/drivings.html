@@ -22,22 +22,16 @@
 	<div class="page">
 
 	<div class="container list">
-		<nav class="navbar navbar-expand-lg d-flex justify-content-end">
-			<div class="flex-fill">
-				<h3>JAZDY</h3>
-			</div>
-			<div class="flex-fill">
+				<h3 class="title">JAZDY</h3>
+				<nav class="navbar justify-content-end">
 				<a th:href="@{/students/showDoneDrivings}"><button type="button"
-						class="btn btn btn-primary">ODBYTE JAZDY</button></a>
-			</div>
-			<div class="flex-fill">
+						class="btn btn btn-primary mr-3 mb-2">ODBYTE JAZDY</button></a>
 				<a th:href="@{/students/showCancelledDrivings}"><button type="button"
-						class="btn btn btn-primary">ODWOŁANE JAZDY</button></a>
-			</div>
+						class="btn btn btn-primary mr-3 mb2">ODWOŁANE JAZDY</button></a>
 		</nav>
 
  <input class="form-control col-3" id="myInput" type="text"
-			placeholder="Szukaj..."> <br> <br>
+			placeholder="Szukaj..."> <br> 
 
 			<div class="table-responsive">
 				<table class="table table-hover">
