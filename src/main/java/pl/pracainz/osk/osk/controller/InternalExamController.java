@@ -103,6 +103,4 @@ public class InternalExamController {
 	    return instructorRepository.findByDeleted(0);
 	
 }
-	
-	
 }

@@ -11,6 +11,10 @@ public interface UserRepository extends JpaRepository<User,Long> {
 	User findByUsername(String username);
 
 	User findById(int userId);
+
+//	void changeUserPassword(User user, String password);
+
+	//boolean checkIfValidOldPassword(User user, String oldPassword);
 	
 	
 	
