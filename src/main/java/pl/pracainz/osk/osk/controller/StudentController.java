@@ -2,10 +2,12 @@ package pl.pracainz.osk.osk.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,7 +16,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.classmate.GenericType;
 
 import pl.pracainz.osk.osk.PasswordGenerator;
 import pl.pracainz.osk.osk.dao.CarOpinionRepository;
@@ -376,5 +382,26 @@ public class StudentController {
 		}
 
 	}
-
+	
+	
+	@GetMapping("/changePassword")
+	public String changePassword() {
+		return "studentViews/changePassword";
+	}
+	/*
+	@RequestMapping(value = "/saveNewPassword", method = RequestMethod.POST)
+	@PreAuthorize("hasRole('READ_PRIVILEGE')")
+	@ResponseBody
+	public GenericResponse changeUserPassword(Locale locale, 
+	  @RequestParam("password") String password, 
+	  @RequestParam("oldpassword") String oldPassword) {
+	    User user = userRepository.findByUsername(getCurrentUserName());
+	     
+	    if (!userService.checkIfValidOldPassword(user, oldPassword)) {
+	        throw new InvalidOldPasswordException();
+	    }
+	    userService.changeUserPassword(user, password);
+	    return new GenericType(messages.getMessage("message.updatePasswordSuc", null, locale));
+	}
+*/
 }
