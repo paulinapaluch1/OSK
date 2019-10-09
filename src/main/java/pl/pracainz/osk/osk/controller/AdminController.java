@@ -9,12 +9,10 @@ import pl.pracainz.osk.osk.dao.UserRepository;
 @Controller
 public class AdminController {
 
-	private UserRepository userRepository;
 	PasswordEncoder encoder;
 
 	public AdminController(UserRepository userRepository, PasswordEncoder encoder) {
 		this.encoder = encoder;
-		this.userRepository = userRepository;
 	}
 
 	@GetMapping("/")
@@ -22,27 +20,6 @@ public class AdminController {
 		return "adminViews/adminProfile";
 	}
 
-	/*@GetMapping("/users")
-	public String showUsers(Model theModel) {
-		List<User> theUsers = userRepository.findAll();
-		theModel.addAttribute("users", theUsers);
-		return "users";
-	}
-*/
-	//@GetMapping("/usersForm")
-	//public String showFormForUpdate(Model theModel) {
-	//	User theStudent = new User();
-	//	theModel.addAttribute("user", theStudent);
-	//	return "usersForm";
-	//}
-
-	//@PostMapping("save")
-	//public String saveStudent(@ModelAttribute("user") User theStudent) {
-	///	theStudent.setPassword(encoder.encode("paulis"));
-	//	theStudent.setId_role(1);
-	///	userRepository.save(theStudent);
-	//	return "redirect:users/list";
-	//}
 	@GetMapping("/login")
 	public String login() {
 	return "login";

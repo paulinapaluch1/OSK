@@ -16,7 +16,6 @@ import pl.pracainz.osk.osk.entity.Car;
 public class CarController {
 	private CarRepository carRepository;
 
-	
 	public CarController(CarRepository repository) {
 		this.carRepository = repository;
 	}

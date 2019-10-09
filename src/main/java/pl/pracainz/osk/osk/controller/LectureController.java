@@ -27,7 +27,6 @@ public class LectureController {
 	private CategoryRepository categoryRepository;
 	private InstructorRepository instructorRepository;
 	
-
 	public LectureController(LectureRepository repository, CourseRepository course, CategoryRepository category, InstructorRepository instructor) {
 		this.lectureRepository = repository;
 		this.courseRepository = course;
@@ -95,6 +94,5 @@ public class LectureController {
 	public List<Instructor> instructors() {
 	    return instructorRepository.findByDeleted(0);
 	}
-	
 	
 }
