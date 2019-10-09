@@ -25,7 +25,7 @@
 		<div class="container list pb-3 pt-3 form">
 
 			<h3>EGZAMIN</h3>
-			<form action="#" th:action="@{/instructors/save}"
+			<form action="#" th:action="@{/instructors/exams/save}"
 				th:object="${internalexam}" method="POST">
 
 				<input type="hidden" th:field="*{id}" /> Instruktor: <select
@@ -38,18 +38,13 @@
 					<option th:each="student: ${students}" th:value="${student.id}"
 						th:text="${student.name} + ' ' + ${student.surname}" />
 
-				</select> 
-				
-				Data: <input type="date" th:field="*{dateHour}" th:value="${date}"
-					class="form-control mb-4 col-4"> 
-				
-				Wynik: 
-					<select th:field="*{result}"
-					class="form-control mb-4 col-4">
-					<option th:text="nowy" th:value="2" />	
+				</select> Data: <input type="date" th:field="*{dateHour}" th:value="${date}"
+					class="form-control mb-4 col-4"> Wynik: <select
+					th:field="*{result}" class="form-control mb-4 col-4">
+					<option th:text="nowy" th:value="0" />
 
 					<option th:text="zdany" th:value="1" />
-					<option th:text="niezdany" th:value="0" />
+					<option th:text="niezdany" th:value="2" />
 				</select> Typ: <select th:field="*{type}" class="form-control mb-4 col-4">
 					<option th:text="teoretyczny" th:value="teoretyczny" />
 					<option th:text="praktyczny" th:value="praktyczny" />
@@ -57,12 +52,10 @@
 
 
 				<button type="submit" class="btn btn-info col-2">ZAPISZ</button>
-				<a th:href="@{/exams/list}" class="btn btn-danger">ANULUJ</a>
+				<a th:href="@{/instructors/showExams}" class="btn btn-danger">ANULUJ</a>
 
 
 			</form>
-
-
 		</div>
 	</div>
 </body>
