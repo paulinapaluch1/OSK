@@ -41,7 +41,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .passwordParameter("txtPassword")
         .and()
         .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
-		;
+		.and()
+		.rememberMe().tokenValiditySeconds(2592000)
+        ;
 	}
 	
 	@Bean
@@ -49,7 +51,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		DaoAuthenticationProvider daoAuthenticationProvider= new DaoAuthenticationProvider();
 		daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
 		daoAuthenticationProvider.setUserDetailsService(this.userPrincipalDetailsService);
-	
 		return daoAuthenticationProvider;
 	}
 	
