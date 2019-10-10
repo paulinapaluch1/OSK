@@ -171,7 +171,6 @@ public class InstructorController {
 		theModel.addAttribute("internalexam", theInternalExam);
 		theModel.addAttribute("instructors", instructorRepository.findAll());
 		theModel.addAttribute("students", studentRepository.findAll());
-		// theModel.addAttribute("internalexam", theInternalExam);
 		return "instructorViews/instructorExams/examForm";
 	}
 
@@ -184,7 +183,7 @@ public class InstructorController {
 		return "instructorViews/instructorExams/examForm";
 	}
 
-	@GetMapping("/exams/save")
+	@PostMapping("/exams/save")
 	public String saveDataExam(@ModelAttribute("internalexam") InternalExam theInternalExam) {
 		internalExamRepository.save(theInternalExam);
 		return "redirect:/instructors/showExams";
