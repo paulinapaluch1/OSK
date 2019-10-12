@@ -360,9 +360,9 @@ public class StudentController {
 		timetableToReserve.getDrivings().add(driving);
 		timetableRepository.save(timetableToReserve);
 		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(
-				LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
-		theModel.addAttribute("today", LocalDate.now());
-		theModel.addAttribute("dayName", getDayName(LocalDate.now()));
+				date.getDayOfMonth(), date.getMonthValue(), date.getYear()));
+		theModel.addAttribute("today", date);
+		theModel.addAttribute("dayName", getDayName(date));
 		return "studentViews/studentTimetable/timetable";
 	}
 
