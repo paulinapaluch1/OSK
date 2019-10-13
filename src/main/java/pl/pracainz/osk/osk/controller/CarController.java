@@ -1,11 +1,15 @@
 package pl.pracainz.osk.osk.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pracainz.osk.osk.dao.CarRepository;
@@ -44,7 +48,17 @@ public class CarController {
 		return "adminViews/adminCars/carForm";
 	}
 
-	@PostMapping("save")
+	@RequestMapping(value="/save", method=RequestMethod.POST)
+	public String validateForm(@Valid Car car, BindingResult result, Model theModel) {
+		if(result.hasErrors()) {
+			return "adminViews/adminCars/carForm";
+		}
+		return saveCar(car);
+	}
+	
+	
+	
+	@RequestMapping(value="/save", method=RequestMethod.GET)
 	public String saveCar(@ModelAttribute("car") Car theCar) {
 		theCar.setDeleted(0);
 		carRepository.save(theCar);
