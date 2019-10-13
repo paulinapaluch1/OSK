@@ -24,14 +24,28 @@
 			<form action="#" th:action="@{/cars/save}" th:object="${car}"
 				method="POST">
 
-				<input type="hidden" th:field="*{id}" /> Numer rejestracyjny: <input
-					type="text" th:field="*{registrationNumber}"
-					class="form-control mb-4 col-4"> Marka: <input type="text"
-					th:field="*{brand}" class="form-control mb-4 col-4"> Model:
-				<input type="text" th:field="*{model}"
-					class="form-control mb-4 col-4">
-				<button type="submit" class="btn btn-info col-2">ZAPISZ</button>
-				<a th:href="@{/cars/list}" class="btn btn-danger">ANULUJ</a>
+				<input type="hidden" th:field="*{id}" /> 
+				<div>Numer rejestracyjny: <br><input
+					type="text" class="form-control col-4 "
+					th:field="*{registrationNumber}" /> <span
+					th:if="${#fields.hasErrors('registrationNumber')}"
+					class="errorField" th:errors="*{registrationNumber}"></span> 
+					</div>
+				<div>Marka: <input type="text" th:field="*{brand}"
+					class="form-control  col-4 ">
+					<span
+					th:if="${#fields.hasErrors('brand')}"
+					class="errorField" th:errors="*{brand}" ></span> 
+					</div>
+					<div>
+					 Model: <input type="text"
+					th:field="*{model}" class="form-control  col-4">
+					<span
+					th:if="${#fields.hasErrors('model')}"
+					class="errorField" th:errors="*{model}"></span> 
+				</div>
+				<button type="submit" class="btn btn-info  mt-2">ZAPISZ</button>
+				<a th:href="@{/cars/list}" class="btn btn-danger mt-2">ANULUJ</a>
 
 			</form>
 		</div>

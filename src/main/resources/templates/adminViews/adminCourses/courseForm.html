@@ -21,7 +21,7 @@
 
 			<h3>KURS</h3>
 
-			<form action="#" th:action="@{/courses/save}" th:object="${course}"
+			<form th:action="@{/courses/save}" th:object="${course}"
 				method="POST">
 
 				<input type="hidden" th:field="*{id}" /> Kategoria: <select
@@ -36,6 +36,8 @@
 				</select> Data rozpoczęcia <input type="date" th:field="*{startDate}"
 					th:value="${startDate}" class="form-control mb-4 col-4"
 					placeholder="Data rozpoczęcia">
+					 <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">Data rozpoczęcia nie może być pusta</span>
+					
 
 				<button type="submit" class="btn btn-info col-2">ZAPISZ</button>
 				<a th:href="@{/courses/list}" class="btn btn-danger">ANULUJ</a>
