@@ -1,7 +1,7 @@
 package pl.pracainz.osk.osk.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,8 +39,8 @@ public class Course {
 
 	@Column
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	@NotNull
-	private LocalDateTime startDate;
+	@NotNull(message="Wybierz datę rozpoczęcia")
+	private LocalDate startDate;
 
 	@Column
 	private int finished;
@@ -56,7 +56,7 @@ public class Course {
 	public Course() {
 	}
 
-	public Course(Category id_category, Instructor instructor, LocalDateTime startDate, int finished) {
+	public Course(Category id_category, Instructor instructor, LocalDate startDate, int finished) {
 		this.category = id_category;
 		this.instructor = instructor;
 		this.startDate = startDate;
@@ -100,11 +100,11 @@ public class Course {
 	}
 
 
-	public LocalDateTime getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(LocalDateTime startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 

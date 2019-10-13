@@ -33,12 +33,15 @@
 					<option th:each="instructor: ${instructors}"
 						th:value="${instructor.id}"
 						th:text="${instructor.name}+' '+${instructor.surname}" />
-				</select> Data rozpoczęcia <input type="date" th:field="*{startDate}"
-					th:value="${startDate}" class="form-control mb-4 col-4"
+				</select> 
+				<div>
+				Data rozpoczęcia 
+				<input type="date" th:field="*{startDate}"
+					th:value="${startDate}" class="form-control col-4"
 					placeholder="Data rozpoczęcia">
-					 <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">Data rozpoczęcia nie może być pusta</span>
-					
-
+				<span	th:if="${#fields.hasErrors('startDate')}"
+					class="errorField" th:errors="*{startDate}"></span> 					
+				</div>
 				<button type="submit" class="btn btn-info col-2">ZAPISZ</button>
 				<a th:href="@{/courses/list}" class="btn btn-danger">ANULUJ</a>
 
