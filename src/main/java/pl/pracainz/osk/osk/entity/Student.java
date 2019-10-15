@@ -14,7 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
@@ -29,45 +33,57 @@ public class Student {
 	private int id;
 
 	@Column(name = "name")
+    @Pattern(regexp = "^[A-ZŁŚ]{1}+[a-ząęółśżźćń]+$", message="Wprowadz poprawne imię")
 	private String name;
 
 	@Column(name = "surname")
+	@NotEmpty(message="Pole nazwisko nie może być puste")
 	private String surname;
 
 	@Column
+	@NotEmpty(message="Pole login nie może być puste")
 	private String login;
 
 	
 	@Column
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	@Past
+	@NotNull(message="Pole data urodzenia nie może być puste")
 	private Date birthdate;
 
 	@Column
+	@NotEmpty(message="Pole ulica nie może być puste")
 	private String street;
 
 	@Column
+    @Pattern(regexp = "^[0-9]*$", message="Wprowadz poprawny numer budynku")
+	@NotEmpty(message="Pole numer budynku nie może być puste")
 	private String buildingNumber;
 
 	@Column
+    @Pattern(regexp = "^[0-9]*$", message="Wprowadz poprawny numer mieszkania")
 	private String apartmentNumber;
 
 	@Column
+	@NotEmpty(message="Pole miasto nie może być puste")
 	private String city;
 
 	@Column
+	@NotEmpty(message="Pole kod pocztowy nie może być puste")
 	private String postCode;
 
 	@Column
+	@NotEmpty(message="Pole numer telefonu nie może być puste")
 	private String phoneNumber;
 
 	
 	@Column
-	//@Email(message = "Niepoprawny email")
+	@Email(message="Wprowadz poprawny email")
+	@NotEmpty(message="Pole email nie może być puste")
 	private String email;
 
 	@Column(name="PKK")
-	@Nullable
+	@NotEmpty(message="Pole PKK nie może być puste")
 	private String pkk;
 
 	@Column

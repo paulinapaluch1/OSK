@@ -1,7 +1,6 @@
 package pl.pracainz.osk.osk.entity;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -29,10 +29,12 @@ public class Lecture {
 	private Course course;
 
 	@Column
+	@NotEmpty(message="Pole numer sali nie może być puste")
 	private String roomNumber;
 
 	@Column
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	@NotNull(message="Pole data nie może być puste")
 	private LocalDateTime date;
 	
 	@Column

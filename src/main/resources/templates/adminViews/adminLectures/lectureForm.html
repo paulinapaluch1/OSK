@@ -37,11 +37,20 @@
 					<option th:each="instructor: ${instructors}"
 						th:value="${instructor.id}"
 						th:text="${instructor.name} + ' ' + ${instructor.surname}" />
-				</select> Numer sali: <input type="text" th:field="*{roomNumber}"
-					class="form-control mb-4 col-4"> Zmień <input
+				</select>
+				<div class="mb-3">
+				 Numer sali: <input type="text" th:field="*{roomNumber}"
+					class="form-control  col-4"> 
+					<span	th:if="${#fields.hasErrors('roomNumber')}"
+					class="errorField" th:errors="*{roomNumber}"></span> 	
+					</div>
+					<div class="mb-3">
+					Data: <input
 					type="datetime-local" th:field="*{date}" th:value="${date}"
-					class="form-control mb-4 col-4">
-
+					class="form-control col-5">
+<span	th:if="${#fields.hasErrors('date')}"
+					class="errorField" th:errors="*{date}"></span> 	
+					</div>
 				<button type="submit" class="btn btn-info col-2">ZAPISZ</button>
 
 				<a th:href="@{/lectures/list}" class="btn btn-danger">ANULUJ</a>

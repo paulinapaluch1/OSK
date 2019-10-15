@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -110,7 +113,7 @@ public class StudentController {
 
 	}
 
-	@PostMapping("save")
+	@RequestMapping(value="/save", method=RequestMethod.GET)
 	public String saveStudent(@ModelAttribute("student") Student theStudent,
 			@RequestParam("action") String action) {
 		if(action.contentEquals("add"))  {
@@ -129,6 +132,15 @@ public class StudentController {
 		return "redirect:/students/list";
 	}
 
+	
+	@RequestMapping(value="/save", method=RequestMethod.POST)
+	public String validateForm(@Valid Student student, BindingResult result, Model theModel,
+			@RequestParam("action") String action) {
+		if(result.hasErrors()) {
+			return "adminViews/adminStudents/addStudent";
+		}
+		return saveStudent(student,action);
+	}
 	@GetMapping("/archiveStudent")
 	public String archiveStudent(@RequestParam("id_student") int id, Model theModel) {
 		Student theStudent = studentRepository.getOne(id);
