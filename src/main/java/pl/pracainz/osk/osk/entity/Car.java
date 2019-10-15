@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import org.springframework.lang.Nullable;
 
@@ -30,11 +32,14 @@ public class Car {
 	private int id;
 
 	@Column(name = "registration_number")
+	@NotEmpty(message="Numer rejestracyjny nie może być pusty")
 	private String registrationNumber;
 
 	@Column(name = "brand")
+	@NotEmpty(message="Marka nie może być pusta")
 	private String brand;
 
+	@NotEmpty(message="Model nie może być pusty")
 	@Column(name = "model")
 	private String model;
 

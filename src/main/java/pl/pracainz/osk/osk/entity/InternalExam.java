@@ -34,7 +34,7 @@ public class InternalExam {
 
 	@Column
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	@NotNull
+	@NotNull(message = "Wybierz datę egzaminu")
 	private Date dateHour;
 
 	@Column

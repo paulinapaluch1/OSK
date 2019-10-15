@@ -4,7 +4,6 @@ import java.security.SecureRandom;
 import java.util.Random;
 
 public class PasswordGenerator {
-
 	
 	private static final Random RANDOM_NUMBER = new SecureRandom();
     private static final String NUMBERS_AND_LETTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -16,7 +15,4 @@ public class PasswordGenerator {
         }
         return new String(generatedPassword);
     }
-
-	
-	
 }

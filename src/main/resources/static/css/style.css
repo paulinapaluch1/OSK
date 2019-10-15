@@ -1,3 +1,8 @@
+body{
+font-family: 'Arimo', sans-serif;
+	
+}
+
 .page {
 	padding: 10px !important;
 }
@@ -41,3 +46,20 @@ inlineButton{
 .title{
 	float:left;
 }
+
+
+.errorField{
+	
+	  color:red;
+	
+}
+
+
+/*
+
+.container-fluid{
+	max-width:1200px; 
+	margin: auto auto 100px 175px ;
+	
+}
+*/

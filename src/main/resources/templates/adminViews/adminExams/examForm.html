@@ -32,10 +32,16 @@
 					class="form-control mb-4 col-4">
 					<option th:each="student: ${students}" th:value="${student.id}"
 						th:text="${student.name} + ' ' + ${student.surname}" />
-				</select> Data: <input type="date" th:field="*{dateHour}" th:value="${date}"
-					class="form-control mb-4 col-4"> Wynik: <select
+				</select>
+				<div class="mb-3">
+				 Data: <input type="date" th:field="*{dateHour}" th:value="${date}"
+					class="form-control col-4"> 
+<span	th:if="${#fields.hasErrors('dateHour')}"
+					class="errorField" th:errors="*{dateHour}"></span> 					
+				</div>
+					Wynik: <select
 					th:field="*{result}" class="form-control mb-4 col-4">
-					<option th:text="nowy" th:value="2" />
+					<option th:text="nowy" th:value="2" th:selected="selected"/>
 					<option th:text="zdany" th:value="1" />
 					<option th:text="niezdany" th:value="0" />
 				</select> Typ: <select th:field="*{type}" class="form-control mb-4 col-4">

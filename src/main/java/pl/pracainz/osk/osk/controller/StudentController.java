@@ -2,20 +2,31 @@ package pl.pracainz.osk.osk.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import pl.pracainz.osk.osk.GenericResponse;
+import pl.pracainz.osk.osk.InvalidOldPasswordException;
 import pl.pracainz.osk.osk.PasswordGenerator;
 import pl.pracainz.osk.osk.dao.CarOpinionRepository;
 import pl.pracainz.osk.osk.dao.CarRepository;
@@ -53,6 +64,10 @@ public class StudentController {
 	private UserRepository userRepository;
 	private PasswordEncoder encoder;
 
+	  @Autowired
+	  private MessageSource messages;
+	
+	
 	public StudentController(StudentRepository repository, InstructorRepository instructor,
 			InstructorOpinionRepository instructorOpinion, DrivingRepository drivingRepository,
 			TimetableRepository timetableRepository, CarRepository carRepository, CarOpinionRepository carOpinion,
@@ -98,7 +113,7 @@ public class StudentController {
 
 	}
 
-	@PostMapping("save")
+	@RequestMapping(value="/save", method=RequestMethod.GET)
 	public String saveStudent(@ModelAttribute("student") Student theStudent,
 			@RequestParam("action") String action) {
 		if(action.contentEquals("add"))  {
@@ -117,6 +132,15 @@ public class StudentController {
 		return "redirect:/students/list";
 	}
 
+	
+	@RequestMapping(value="/save", method=RequestMethod.POST)
+	public String validateForm(@Valid Student student, BindingResult result, Model theModel,
+			@RequestParam("action") String action) {
+		if(result.hasErrors()) {
+			return "adminViews/adminStudents/addStudent";
+		}
+		return saveStudent(student,action);
+	}
 	@GetMapping("/archiveStudent")
 	public String archiveStudent(@RequestParam("id_student") int id, Model theModel) {
 		Student theStudent = studentRepository.getOne(id);
@@ -348,9 +372,9 @@ public class StudentController {
 		timetableToReserve.getDrivings().add(driving);
 		timetableRepository.save(timetableToReserve);
 		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(
-				LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
-		theModel.addAttribute("today", LocalDate.now());
-		theModel.addAttribute("dayName", getDayName(LocalDate.now()));
+				date.getDayOfMonth(), date.getMonthValue(), date.getYear()));
+		theModel.addAttribute("today", date);
+		theModel.addAttribute("dayName", getDayName(date));
 		return "studentViews/studentTimetable/timetable";
 	}
 
@@ -375,6 +399,28 @@ public class StudentController {
 			return "Dzisiaj ";
 		}
 
+	}
+	
+	
+	@GetMapping("/changePassword")
+	public String changePassword() {
+
+		return "studentViews/changePassword";
+        
+	}
+	
+	@RequestMapping(value = "/saveNewPassword", method = RequestMethod.POST)
+	//@PreAuthorize("hasRole('READ_PRIVILEGE')")
+	@ResponseBody
+	public GenericResponse changeUserPassword(Locale locale, @RequestParam("password") String password, 
+	  @RequestParam("oldpassword") String oldPassword) {
+	    User user = userRepository.findByUsername(getCurrentUserName());
+	     
+	  //  if (!userRepository.checkIfValidOldPassword(user, oldPassword)) {
+	  //      throw new InvalidOldPasswordException();
+	  //  }
+	 //   userRepository.changeUserPassword(user, password);
+	    return new GenericResponse(messages.getMessage("Zmieniono", null, locale));
 	}
 
 }

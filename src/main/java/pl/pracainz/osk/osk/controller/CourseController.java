@@ -2,12 +2,16 @@ package pl.pracainz.osk.osk.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pracainz.osk.osk.dao.CategoryRepository;
@@ -15,6 +19,7 @@ import pl.pracainz.osk.osk.dao.CourseRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.entity.Category;
 import pl.pracainz.osk.osk.entity.Course;
+import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.Student;
 
 
@@ -47,7 +52,6 @@ private CategoryRepository categoryRepository;
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
 		theModel.addAttribute("course", new Course());
-		theModel.addAttribute("instructors",instructorRepository.findByDeleted(0) );
 		return "adminViews/adminCourses/courseForm";
 	}
 
@@ -55,12 +59,18 @@ private CategoryRepository categoryRepository;
 	public String showFormForUpdate(@RequestParam("id_course") int id,
 									Model theModel) {
 		theModel.addAttribute("course", courseRepository.findById(id));
-		theModel.addAttribute("instructors",instructorRepository.findByDeleted(0));
 		return "adminViews/adminCourses/courseForm";		
 	}
 	
-
-	@PostMapping("save")
+	@RequestMapping(value="/save", method=RequestMethod.POST)
+	public String validateForm(@Valid Course course, BindingResult result, Model theModel) {
+		if(result.hasErrors()) {
+			return "adminViews/adminCourses/courseForm";
+		}
+		return saveCourse(course);
+	}
+	
+	@RequestMapping(value="/save", method=RequestMethod.GET)
 	public String saveCourse(@ModelAttribute("course") Course theCourse) {
 		theCourse.setFinished(0);
 		courseRepository.save(theCourse);
@@ -106,6 +116,11 @@ private CategoryRepository categoryRepository;
 	@ModelAttribute("categories")
 	public List<Category> categories() {
 	    return categoryRepository.findAll();
+	}
+	
+	@ModelAttribute("instructors")
+	public List<Instructor> instructors() {
+	    return instructorRepository.findByDeleted(0);
 	}
 	
 	@ModelAttribute("category")

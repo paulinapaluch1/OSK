@@ -12,7 +12,6 @@
 </head>
 
 <body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
-
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
@@ -32,7 +31,6 @@
 	<div class="page">
 	<br><br>
 		<div class="row px-md-5">
-		
 			<div class="col-3  list card mt-2 " style=max-height:25rem;>
 		<br>
 
@@ -43,7 +41,10 @@
 					th:text="'Adres: ul. ' + ${student.street + ' ' + student.buildingNumber + ', ' + student.postCode + ' ' + student.city}" />
 				<p th:text="'Telefon: ' + ${student.phoneNumber}" />
 				<p th:text="'E-mail: ' + ${student.email}" />
-				<a th:href="@{/students/updateDataStudent(id_student=${student.id})}"><button type="submit" class="btn btn-info">Edytuj</button></a>
+				<a th:href="@{/students/updateDataStudent(id_student=${student.id})}">
+				<button type="submit" class="btn btn-info mb-2" >EDYTUJ</button></a>
+				<a th:href="@{/students/changePassword}"><button
+					type="button" class="btn btn-primary" >ZMIEŃ HASŁO</button></a>
 
 			</div>
 			<div class="col-9 mt-2">

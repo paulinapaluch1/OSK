@@ -9,6 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "instructors")
@@ -20,18 +24,24 @@ public class Instructor {
 	private int id;
 
 	@Column(name = "name")
+    @Pattern(regexp = "^[A-ZŁŚ]{1}+[a-ząęółśżźćń]+$", message="Wprowadz poprawne imię")
 	private String name;
 
 	@Column
+	@NotEmpty(message="Pole nazwisko nie może być puste")
 	private String surname;
 
 	@Column
+	@NotEmpty(message="Pole login nie może być puste")
 	private String login;
 
 	@Column
+	@Email(message="Wprowadz poprawny email")
+	@NotEmpty(message="Pole email nie może być puste")
 	private String email;
 
 	@Column(name = "phoneNumber")
+	@NotEmpty(message="Pole numer telefonu nie może być puste")
 	private String phoneNumber;
 
 	@Column
