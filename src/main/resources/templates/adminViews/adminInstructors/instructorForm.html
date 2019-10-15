@@ -48,9 +48,12 @@
 					<div class="mb-3">
 					 Numer
 				telefonu: <input type="text" th:field="*{phoneNumber}"
-					class="form-control  col-4"> </div>
-					<div class="mb-3">
+					class="form-control  col-4"> 
+					<span	th:if="${#fields.hasErrors('phoneNumber')}"
+					class="errorField" th:errors="*{phoneNumber}"></span> 	
+					</div>
 					
+					<div class="mb-3">
 					Email: <input type="text"
 					th:field="*{email}" class="form-control col-4">
 <span	th:if="${#fields.hasErrors('email')}"

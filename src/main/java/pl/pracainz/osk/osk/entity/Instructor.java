@@ -41,6 +41,7 @@ public class Instructor {
 	private String email;
 
 	@Column(name = "phoneNumber")
+	@NotEmpty(message="Pole numer telefonu nie może być puste")
 	private String phoneNumber;
 
 	@Column

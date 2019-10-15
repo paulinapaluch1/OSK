@@ -1,6 +1,5 @@
 package pl.pracainz.osk.osk.entity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,7 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
@@ -56,12 +55,7 @@ public class Timetable {
 	List<Driving> drivings;
 	
 
-	//@Transient
-	//private Driving driving;
-	
 	public Timetable() {
-		
-		
 	}
 
 	public Timetable(Instructor instructor, LocalDateTime begin, LocalDateTime end, Car car, int archived) {
