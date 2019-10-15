@@ -69,7 +69,7 @@ public class InternalExamController {
 	}
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
-	public String validateForm(@Valid InternalExam internalexam, BindingResult result) {
+	public String validateForm(@Valid @ModelAttribute("internalexam")InternalExam internalexam, BindingResult result) {
 		if(result.hasErrors()) {
 			return "adminViews/adminExams/examForm";
 		}
