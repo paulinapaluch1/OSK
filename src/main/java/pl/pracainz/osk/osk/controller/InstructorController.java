@@ -7,16 +7,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pracainz.osk.osk.PasswordGenerator;
@@ -86,8 +90,18 @@ public class InstructorController {
 		return "adminViews/adminInstructors/instructorForm";
 
 	}
-
-	@PostMapping("save")
+	@RequestMapping(value="/save", method=RequestMethod.POST)
+	public String validateForm(@Valid Instructor instructor, BindingResult result, Model theModel,
+			@RequestParam("action") String action) {
+		if(result.hasErrors()) {
+			return "adminViews/adminInstructors/instructorForm";
+		}
+		return saveInstructor(instructor,action );
+	}
+	
+	
+	
+	@RequestMapping(value="/save", method=RequestMethod.GET)
 	public String saveInstructor(@ModelAttribute("instructor") Instructor theInstructor,
 			@RequestParam("action") String action) {
 		if (action.contentEquals("add")) {

@@ -25,19 +25,19 @@
 				method="POST">
 
 				<input type="hidden" th:field="*{id}" /> 
-				<div>Numer rejestracyjny: <br><input
+				<div class="mb-3">Numer rejestracyjny: <br><input
 					type="text" class="form-control col-4 "
 					th:field="*{registrationNumber}" /> <span
 					th:if="${#fields.hasErrors('registrationNumber')}"
 					class="errorField" th:errors="*{registrationNumber}"></span> 
 					</div>
-				<div>Marka: <input type="text" th:field="*{brand}"
+				<div class="mb-3">Marka: <input type="text" th:field="*{brand}"
 					class="form-control  col-4 ">
 					<span
 					th:if="${#fields.hasErrors('brand')}"
 					class="errorField" th:errors="*{brand}" ></span> 
 					</div>
-					<div>
+					<div class="mb-3">
 					 Model: <input type="text"
 					th:field="*{model}" class="form-control  col-4">
 					<span

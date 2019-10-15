@@ -24,17 +24,23 @@
 			<form th:action="@{/courses/save}" th:object="${course}"
 				method="POST">
 
-				<input type="hidden" th:field="*{id}" /> Kategoria: <select
+				<input type="hidden" th:field="*{id}" /> 
+				<div class="mb-3">
+				Kategoria: <select
 					th:field="*{category}" class="form-control col-4">
 					<option th:each="category: ${categories}" th:value="${category.id}"
 						th:text="${category.categoryName}" />
-				</select> Instruktor: <select th:field="*{instructor}"
+						
+				</select> 
+				</div>
+				<div class="mb-3">
+				Instruktor: <select th:field="*{instructor}"
 					class=" col-4 form-control">
 					<option th:each="instructor: ${instructors}"
 						th:value="${instructor.id}"
 						th:text="${instructor.name}+' '+${instructor.surname}" />
-				</select> 
-				<div>
+				</select> </div>
+				<div class="mb-3">
 				Data rozpoczęcia 
 				<input type="date" th:field="*{startDate}"
 					th:value="${startDate}" class="form-control col-4"
