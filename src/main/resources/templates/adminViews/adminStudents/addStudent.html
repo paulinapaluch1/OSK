@@ -34,44 +34,100 @@
 
 				</div>
 			</div>
-			<form action="#" th:action="@{/students/save(action=${action})}" th:object="${student}"
-				method="POST">
-
-				
-				<input type="hidden" th:field="*{id}" /> 
-				<input type="hidden" th:field="*{userId}" /> 
-				
-				Imię: <input type="text"
-
-					th:field="*{name}" class="form-control mb-4 col-4">
-				Nazwisko: <input type="text" th:field="*{surname}"
-					class="form-control mb-4 col-4"> Login: <input type="text"
-					th:field="*{login}" class="form-control mb-4 col-4"> Data
-				urodzenia: <input type="date" th:field="*{birthdate}"
-					th:value="${birthdate}" class="form-control mb-4 col-4">
-
-				Ulica: <input type="text" th:field="*{street}"
-					class="form-control mb-4 col-4"> Numer budynku: <input
-					type="text" th:field="*{buildingNumber}"
-					class="form-control mb-4 col-4"> Numer mieszkania: <input
-					type="text" th:field="*{apartmentNumber}"
-					class="form-control mb-4 col-4"> Miasto: <input type="text"
-					th:field="*{city}" class="form-control mb-4 col-4"> Kod
-				pocztowy: <input type="text" th:field="*{postCode}"
-					class="form-control mb-4 col-4"> Numer telefonu: <input
-					type="text" th:field="*{phoneNumber}"
-					class="form-control mb-4 col-4"> Email: <input type="text"
-					th:field="*{email}" class="form-control mb-4 col-4"> PKK:
-				<input type="text" th:field="*{pkk}" class="form-control mb-4 col-4">
-
-				<button type="submit" class="btn btn-info col-2">ZAPISZ</button>
-			
-				<a th:href="@{/students/list}" class="btn btn-danger">ANULUJ</a>
+			<form action="#" th:action="@{/students/save(action=${action})}"
+				th:object="${student}" method="POST">
 
 
-			</form>
-
+				<input type="hidden" th:field="*{id}" /> <input type="hidden"
+					th:field="*{userId}" />
+				<div class="mb-3">
+					Imię: <input type="text" th:field="*{name}"
+						class="form-control col-4"> <span
+						th:if="${#fields.hasErrors('name')}" class="errorField"
+						th:errors="*{name}"></span>
+				</div>
+				<div class="mb-3">
+					Nazwisko: <input type="text" th:field="*{surname}"
+						class="form-control col-4"> <span
+						th:if="${#fields.hasErrors('surname')}" class="errorField"
+						th:errors="*{surname}"></span>
+				</div>
+				<div class="mb-3">
+					Login: <input type="text" th:field="*{login}"
+						class="form-control  col-4"> <span
+						th:if="${#fields.hasErrors('login')}" class="errorField"
+						th:errors="*{login}"></span>
+				</div>
+				<div class="mb-3">
+				Data urodzenia: <input type="date" th:field="*{birthdate}"
+					th:value="${birthdate}" class="form-control col-4"> <span
+					th:if="${#fields.hasErrors('birthdate')}" class="errorField"
+					th:errors="*{birthdate}"></span>
 		</div>
+		Ulica: <input type="text" th:field="*{street}"
+			class="form-control mb-4 col-4"> 
+			<div class="mb-3">
+			Numer budynku: <input
+			type="text" th:field="*{buildingNumber}"
+			class="form-control  col-4"> 
+			<span
+					th:if="${#fields.hasErrors('buildingNumber')}"
+					class="errorField" th:errors="*{buildingNumber}"></span> 
+				</div>
+				<div class="mb-3">
+			Numer mieszkania: <input
+			type="text" th:field="*{apartmentNumber}"
+			class="form-control col-4"> 
+			<span
+					th:if="${#fields.hasErrors('apartmentNumber')}"
+					class="errorField" th:errors="*{apartmentNumber}"></span> 
+				</div>
+				<div class="mb-3">
+			Miasto: <input type="text"
+			th:field="*{city}" class="form-control col-4">
+			<span
+					th:if="${#fields.hasErrors('city')}"
+					class="errorField" th:errors="*{city}"></span> 
+				</div>
+				<div class="mb-3">
+			 Kod
+		pocztowy: <input type="text" th:field="*{postCode}"
+			class="form-control mb-4 col-4"> 
+			<div class="mb-3">
+			<span
+					th:if="${#fields.hasErrors('postCode')}"
+					class="errorField" th:errors="*{postCode}"></span> 
+				</div>
+				<div class="mb-3">
+			Numer telefonu: <input
+			type="text" th:field="*{phoneNumber}" class="form-control col-4">
+			<span
+					th:if="${#fields.hasErrors('phoneNumber')}"
+					class="errorField" th:errors="*{phoneNumber}"></span> 
+				</div>
+				<div class="mb-3">
+		Email: <input type="text" th:field="*{email}"
+			class="form-control col-4">
+			<span
+					th:if="${#fields.hasErrors('email')}"
+					class="errorField" th:errors="*{email}"></span> 
+				</div>
+			
+			<div class="mb-3">
+			PKK: <input type="text"
+			th:field="*{pkk}" class="form-control col-4">
+<span
+					th:if="${#fields.hasErrors('pkk')}"
+					class="errorField" th:errors="*{pkk}"></span> 
+				</div>
+		<button type="submit" class="btn btn-info col-2">ZAPISZ</button>
+
+		<a th:href="@{/students/list}" class="btn btn-danger">ANULUJ</a>
+
+
+		</form>
+
+	</div>
 	</div>
 </body>
 </HTML>
