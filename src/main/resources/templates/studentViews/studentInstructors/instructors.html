@@ -40,7 +40,7 @@
 							
 							
 							<td th:if="${ratedInstructorsIds.contains(instructor.id)}"><a
-								th:href="@{/students/rateInstructors(id_instructor=${instructor.id})}"
+								th:href="@{/students/showInstructorOpinion(id_instructor=${instructor.id})}"
 								class="btn btn-primary">ZOBACZ OCENĘ</a></td>
 							<td th:unless="${ratedInstructorsIds.contains(instructor.id)}"><a
 								th:href="@{/students/rateInstructors(id_instructor=${instructor.id})}"
