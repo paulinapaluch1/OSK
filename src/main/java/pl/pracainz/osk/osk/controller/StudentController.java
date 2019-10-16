@@ -182,23 +182,31 @@ public class StudentController {
 		List<Instructor> theInstructors = studentRepository.findInstructorsForOneStudent(getCurrentLoggedStudentId());
 		Set<Integer> ratedInstructorsIds = new HashSet<>();
 		Integer currentLoggedStudentId = getCurrentLoggedStudent().getId();
-		for(Instructor instructor : theInstructors) {
-			for(InstructorOpinion opinion : instructor.getInstructorOpinions()) {
-				if(opinion.getStudent().getId() == currentLoggedStudentId ) {
+		for (Instructor instructor : theInstructors) {
+			for (InstructorOpinion opinion : instructor.getInstructorOpinions()) {
+				if (opinion.getStudent().getId() == currentLoggedStudentId) {
 					ratedInstructorsIds.add(instructor.getId());
 				}
 			}
 		}
-		
 		theModel.addAttribute("ratedInstructorsIds", ratedInstructorsIds);
 		theModel.addAttribute("instructors", theInstructors);
-		theModel.addAttribute("instructoropinions", instructorOpinionRepository.findAll());
 		return "studentViews/studentInstructors/instructors";
 	}
 
 	@GetMapping("/showCars")
 	public String listCars(Model theModel) {
 		List<Car> theCars = studentRepository.findCarsForOneStudentById(getCurrentLoggedStudentId());
+		Set<Integer> ratedCarsIds = new HashSet<>();
+		Integer currentLoggedStudentId = getCurrentLoggedStudent().getId();
+		for (Car car : theCars) {
+			for (CarOpinion opinion : car.getCarOpinions()) {
+				if (opinion.getStudent().getId() == currentLoggedStudentId) {
+					ratedCarsIds.add(car.getId());
+				}
+			}
+		}
+		theModel.addAttribute("ratedCarsIds", ratedCarsIds);
 		theModel.addAttribute("cars", theCars);
 		return "studentViews/studentCars/cars";
 	}

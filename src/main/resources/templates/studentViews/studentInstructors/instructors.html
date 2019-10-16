@@ -37,6 +37,8 @@
 						<tr th:each="instructor:${instructors}">
 							<td th:text="${instructor.name}" />
 							<td th:text="${instructor.surname}" />
+							
+							
 							<td th:if="${ratedInstructorsIds.contains(instructor.id)}"><a
 								th:href="@{/students/rateInstructors(id_instructor=${instructor.id})}"
 								class="btn btn-primary">ZOBACZ OCENĘ</a></td>
