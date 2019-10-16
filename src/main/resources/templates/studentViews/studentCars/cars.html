@@ -41,7 +41,7 @@
 						
 						
 							<td th:if="${ratedCarsIds.contains(car.id)}"><a
-								th:href="@{/students/rateCars(id_car=${car.id})}"
+								th:href="@{/students/showCarOpinion(id_car=${car.id})}"
 								class="btn btn-primary">ZOBACZ OCENĘ</a></td>
 							<td th:unless="${ratedCarsIds.contains(car.id)}"><a
 								th:href="@{/students/rateCars(id_car=${car.id})}"

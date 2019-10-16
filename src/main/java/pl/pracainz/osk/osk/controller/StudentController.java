@@ -276,6 +276,26 @@ public class StudentController {
 		return "studentViews/studentCars/rateCars";
 	}
 
+	@GetMapping("/showCarOpinion")
+	public String showCarOpinion(@RequestParam("id_car") int id, Model theModel) {
+		CarOpinion theCarOpinion = getCarOpinionGivenByLoggedStudentForThisCar(id);
+		if (theCarOpinion != null) {
+			theModel.addAttribute("caropinion", theCarOpinion);
+			theModel.addAttribute("car", carRepository.getOne(id));
+
+			return "studentViews/studentCars/showCarOpinion";
+		} else
+			return listCars(theModel);
+	}
+
+	private CarOpinion getCarOpinionGivenByLoggedStudentForThisCar(Integer id) {
+		for (CarOpinion opinion : carRepository.getOne(id).getCarOpinions()) {
+			if (opinion.getStudent().getId() == getCurrentLoggedStudent().getId())
+				return opinion;
+		}
+		return null;
+	}
+
 	@PostMapping("/saveCarOpinion")
 	public String saveCarOpinion(@RequestParam("id_car") int id,
 			@ModelAttribute("caropinion") CarOpinion theCarOpinion) {
