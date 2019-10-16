@@ -96,6 +96,7 @@ private CategoryRepository categoryRepository;
 	
 	@GetMapping("/categories")
 	public String listCategories(Model theModel) {
+		
 		return "adminViews/adminCourses/categories";
 	}
 	
