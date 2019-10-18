@@ -1,5 +1,6 @@
 package pl.pracainz.osk.osk;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -9,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import pl.pracainz.osk.osk.dao.UserPrincipalDetailsService;
@@ -18,6 +21,15 @@ import pl.pracainz.osk.osk.dao.UserPrincipalDetailsService;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	private UserPrincipalDetailsService userPrincipalDetailsService;
+	private AuthenticationSuccessHandler authenticationSuccessHandler;
+	private AuthenticationFailureHandler authenticationFailersHandler;
+	 
+    @Autowired
+    public void WebSecurityConfig(AuthenticationSuccessHandler authenticationSuccessHandler,
+    		AuthenticationFailureHandler authenticationFailersHandler) {
+        this.authenticationSuccessHandler = authenticationSuccessHandler;
+        this.authenticationFailersHandler = authenticationFailersHandler;
+    }
 	
 	public SecurityConfiguration(UserPrincipalDetailsService userPrincipalDetailsService) {
 		this.userPrincipalDetailsService = userPrincipalDetailsService;
@@ -32,19 +44,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception{
 		http
 		.authorizeRequests()
-        .antMatchers("/").authenticated()
-		.and()
-        .formLogin()
-        .loginProcessingUrl("/signin")
-        .loginPage("/login").permitAll()
-        .usernameParameter("txtUsername")
-        .passwordParameter("txtPassword")
-        .and()
-        .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
-		.and()
+			.antMatchers("/").authenticated()
+			.and()
+		.formLogin()
+			.loginProcessingUrl("/signin")
+			.loginPage("/login").permitAll()
+			.usernameParameter("txtUsername")
+			.passwordParameter("txtPassword")
+			.successHandler(authenticationSuccessHandler).permitAll()
+			.failureHandler(authenticationFailersHandler).permitAll()
+			.failureUrl("/login?error")
+			.and()
+        .logout()
+        	.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+        	.logoutSuccessUrl("/login").permitAll()
+        	.and()
 		.rememberMe().tokenValiditySeconds(2592000).key("uniqueKey")
-		.userDetailsService(userPrincipalDetailsService);
-        ;
+		.userDetailsService(userPrincipalDetailsService).
+		and()
+		.csrf().disable();
+        
 	}
 	
 	@Bean
