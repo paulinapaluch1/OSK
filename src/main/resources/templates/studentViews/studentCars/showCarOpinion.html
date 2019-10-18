@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Oceń samochód</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+</head>
+<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+	<header
+		th:insert="fragments/topNav.html :: navbar(returnPage = '/students/showCars')">
+	</header>
+	
+	<div class="page">
+		<div class="container list pt-2 pb-3 form">
+	
+	<h3 class="title">TWOJA OPINIA</h3>
+<nav class="navbar justify-content-end">	
+<a th:href="@{/students/showCars}" ><button type="button"
+						class="btn btn-outline-secondary">SAMOCHODY</button></a>
+		
+		
+	</nav>
+	<span>o samochodzie </span><span th:text="${car.brand+ ' ' +car.model + ' ' + car.registrationNumber}"></span>
+	
+	<br><br>
+<strong>Wystawiona ocena w skali 1-5 </strong>
+			<form 
+				
+				th:object="${caropinion}" method="POST">
+				
+				<select th:field="*{carMark}" class="form-control mb-4 col-4" disabled>
+					<option th:text="1" th:value="1" />
+					<option th:text="2" th:value="2" />
+					<option th:text="3" th:value="3" />
+					<option th:text="4" th:value="4" />
+					<option th:text="5" th:value="5" />
+				</select>
+			
+				<label for="opinion"> <strong>Opinia
+						o samochodzie</strong></label> <br>
+				<textarea th:field="*{carOpinion}" rows="10" cols="63" disabled
+					></textarea>
+
+			</form>
+
+		</div>
+
+	</div>
+
+</body>
+
+
+</HTML>

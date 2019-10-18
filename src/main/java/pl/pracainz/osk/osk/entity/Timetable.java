@@ -40,7 +40,7 @@ public class Timetable {
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime end;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.DETACH })
 	@JoinColumn(name = "id_car")
 	private Car car;
 

@@ -1,5 +1,6 @@
 package pl.pracainz.osk.osk.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +23,7 @@ public class CarOpinion {
 	@JoinColumn(name = "id_student")
 	private Student student;
 	
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.DETACH })
 	@JoinColumn(name = "id_car")
 	private Car car;
 	
