@@ -198,9 +198,7 @@ public class TimetableController {
 			return "Niedziela ";
 		default:
 			return "Dzisiaj ";
-
 		}
-
 	}
 
 	@RequestMapping(value = "/saveNewTimetableForDay", method = RequestMethod.GET)
@@ -259,7 +257,6 @@ public class TimetableController {
 		newTimetable.setInstructor(timetable.getInstructor());
 		newTimetable.setCar(carRepository.getOne(id_car));
 		newTimetable.setDrivingType(timetable.getDrivingType());
-
 		timetableRepository.save(newTimetable);
 
 		if (timetable.getDrivingType().getType().equals("Egzamin wewnętrzny"))
@@ -312,7 +309,6 @@ public class TimetableController {
 	@ModelAttribute("cars")
 	public List<Car> cars() {
 		return carRepository.findAll();
-
 	}
 
 	// grafik wg instruktorów
@@ -354,6 +350,7 @@ public class TimetableController {
 		theModel.addAttribute("today", date);
 		Timetable timetable = new Timetable();
 		timetable.setInstructor(instructorRepository.getOne(id_instructor));
+		timetable.setBegin(LocalDateTime.of(date, LocalTime.of(0, 0,0)));
 		theModel.addAttribute("timetable", timetable);
 		theModel.addAttribute("timetableToAdd", new Timetable());
 		return "adminViews/adminTimetable/editDayForInstructor";
@@ -363,24 +360,29 @@ public class TimetableController {
 	public String saveChangedTimetableForInstructor(@RequestParam(value = "hour", required = false) String hour,
 			@ModelAttribute("timetable") Timetable timetable, BindingResult result, Model theModel,
 			@RequestParam(name = "today", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date) {
-		Timetable theTimetable = timetableRepository.getOne(timetable.getId());
-		int begin = Integer.parseInt(hour);
-		int end = begin + 2;
-		LocalDate day = date;
-		theTimetable.setBegin(LocalDateTime.of(theTimetable.getBegin().getYear(), theTimetable.getBegin().getMonth(),
-				theTimetable.getBegin().getDayOfMonth(), begin, 0, 0));
-		theTimetable.setEnd(LocalDateTime.of(theTimetable.getBegin().getYear(), theTimetable.getBegin().getMonth(),
-				theTimetable.getBegin().getDayOfMonth(), end, 0, 0));
-		theTimetable.setInstructor(timetable.getInstructor());
-		timetableRepository.save(theTimetable);
+		if (timetableRepository.existsById(timetable.getId())) {
+			Timetable theTimetable = timetableRepository.getOne(timetable.getId());
+			int begin = Integer.parseInt(hour);
+			int end = begin + 2;
+			theTimetable.setBegin(LocalDateTime.of(theTimetable.getBegin().getYear(),
+					theTimetable.getBegin().getMonth(), theTimetable.getBegin().getDayOfMonth(), begin, 0, 0));
+			theTimetable.setEnd(LocalDateTime.of(theTimetable.getBegin().getYear(), theTimetable.getBegin().getMonth(),
+					theTimetable.getBegin().getDayOfMonth(), end, 0, 0));
+			theTimetable.setInstructor(timetable.getInstructor());
+			timetableRepository.save(theTimetable);
+		} else {
+			theModel.addAttribute("noTimetableWithId", true);
+
+		}
+
 		String editTitle = "EDYTUJ ZAPLANOWANE JAZDY";
 		theModel.addAttribute("timetablesToday",
-				timetableRepository.queryByDayAndMonthAndYearAndInstructor(theTimetable.getBegin().getDayOfMonth(),
-						theTimetable.getBegin().getMonthValue(), theTimetable.getBegin().getYear(),
-						theTimetable.getInstructor().getId()));
+				timetableRepository.queryByDayAndMonthAndYearAndInstructor(timetable.getBegin().getDayOfMonth(),
+						timetable.getBegin().getMonthValue(), timetable.getBegin().getYear(),
+						timetable.getInstructor().getId()));
 		theModel.addAttribute("title", editTitle);
-		theModel.addAttribute("instructor", theTimetable.getInstructor());
-		theModel.addAttribute("today", day);
+		theModel.addAttribute("instructor", timetable.getInstructor());
+		theModel.addAttribute("today", date);
 		theModel.addAttribute("timetable", timetable);
 		theModel.addAttribute("timetableToAdd", new Timetable());
 
