@@ -44,7 +44,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception{
 		http
 		.authorizeRequests()
-			.antMatchers("/").authenticated()
 			.and()
 		.formLogin()
 			.loginProcessingUrl("/signin")
@@ -65,7 +64,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.csrf().disable();
         
 	}
-	
 	@Bean
 	DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider daoAuthenticationProvider= new DaoAuthenticationProvider();
@@ -73,7 +71,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		daoAuthenticationProvider.setUserDetailsService(this.userPrincipalDetailsService);
 		return daoAuthenticationProvider;
 	}
-	
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

@@ -20,7 +20,7 @@ public class SimpleEmailExampleController {
         // Create a Simple MailMessage.
         SimpleMailMessage message = new SimpleMailMessage();
          
-        message.setTo("ivonapoleszak@gmail.com");
+        message.setTo("kmiecinc@gmail.com");
         message.setSubject("[OSK] Dane do logowania");
         message.setText("Witaj, Twoje dane do logowania to: login: , hasło: ");
  

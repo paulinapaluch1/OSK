@@ -424,6 +424,7 @@ public class StudentController {
 		drivingRepository.save(driving);
 		timetableToReserve.getDrivings().add(driving);
 		timetableRepository.save(timetableToReserve);
+		
 		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(date.getDayOfMonth(),
 				date.getMonthValue(), date.getYear()));
 		theModel.addAttribute("today", date);

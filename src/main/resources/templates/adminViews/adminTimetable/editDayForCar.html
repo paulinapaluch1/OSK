@@ -74,8 +74,14 @@
 					<form
 						th:action="@{/timetable/saveNewTimetableForDay(today=${today})}"
 						th:object="${timetable}" method="GET">
+						
 						Id <input type="number" th:field="*{id}" class="form-control " />
-						<br> <input type="hidden" th:field="*{car}" /> Instruktor<select
+						<span th:if="${noTimetableWithId} eq true" class="errorField" >
+						Wpisz poprawny identyfikator
+						</span>
+						<br> <input type="hidden" th:field="*{car}" /> 
+						<input type="hidden" th:field="*{begin}" /> 
+						Instruktor<select
 							th:field="*{instructor}" class="form-control ">
 
 							<option th:each="instructor: ${instructors}"
