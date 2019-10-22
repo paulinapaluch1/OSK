@@ -307,7 +307,7 @@ public class StudentController {
 		} else
 			return listCars(theModel);
 	}
-	
+
 	private InstructorOpinion getCarOpinionGivenByLoggedStudentForThisInstructor(Integer id) {
 		for (InstructorOpinion opinion : instructorRepository.getOne(id).getInstructorOpinions()) {
 			if (opinion.getStudent().getId() == getCurrentLoggedStudent().getId())
@@ -315,7 +315,7 @@ public class StudentController {
 		}
 		return null;
 	}
-	
+
 	@PostMapping("/saveCarOpinion")
 	public String saveCarOpinion(@RequestParam("id_car") int id,
 			@ModelAttribute("caropinion") CarOpinion theCarOpinion) {
@@ -424,7 +424,7 @@ public class StudentController {
 		drivingRepository.save(driving);
 		timetableToReserve.getDrivings().add(driving);
 		timetableRepository.save(timetableToReserve);
-		
+
 		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(date.getDayOfMonth(),
 				date.getMonthValue(), date.getYear()));
 		theModel.addAttribute("today", date);
@@ -456,24 +456,43 @@ public class StudentController {
 	}
 
 	@GetMapping("/changePassword")
-	public String changePassword() {
+	public String changePassword(Model theModel) {
+		String newPassword = "";
+		String oldPassword = "";
+		String repeatedPassword = "";
+		theModel.addAttribute("newPassword", newPassword);
+		theModel.addAttribute("oldPassword", oldPassword);
+		theModel.addAttribute("repeatedPassword", repeatedPassword);
+		theModel.addAttribute("error", "");
 
 		return "studentViews/changePassword";
 
 	}
 
-	@RequestMapping(value = "/saveNewPassword", method = RequestMethod.POST)
-	// @PreAuthorize("hasRole('READ_PRIVILEGE')")
-	@ResponseBody
-	public GenericResponse changeUserPassword(Locale locale, @RequestParam("password") String password,
-			@RequestParam("oldpassword") String oldPassword) {
+	@RequestMapping("/checkPassword")
+	public String checkPassword(@RequestParam("repeatedPassword") String password,
+			@ModelAttribute("newPassword") String newPassword, @RequestParam("oldPassword") String oldPassword,
+			Model theModel) {
 		User user = userRepository.findByUsername(getCurrentUserName());
+		oldPassword="student5";
+		if (!oldPassword.equals(encoder.encode(user.getPassword()))) {
+			theModel.addAttribute("error", "Stare hasło jest niepoprawne");
+			return "studentViews/changePassword";
+		} else if (!newPassword.equals(password)) {
+			theModel.addAttribute("error", "Hasła są różne");
+			return "studentViews/changePassword";
+		} else {
+			theModel.addAttribute("error", "");
+		return changeUserPassword(newPassword);
+		}
+	}
 
-		// if (!userRepository.checkIfValidOldPassword(user, oldPassword)) {
-		// throw new InvalidOldPasswordException();
-		// }
-		// userRepository.changeUserPassword(user, password);
-		return new GenericResponse(messages.getMessage("Zmieniono", null, locale));
+	public String changeUserPassword(String password) {
+		User user = userRepository.findByUsername(getCurrentUserName());
+		user.setPassword(encoder.encode(password));
+		userRepository.save(user);
+
+		return "studentViews/studentProfile";
 	}
 
 }
