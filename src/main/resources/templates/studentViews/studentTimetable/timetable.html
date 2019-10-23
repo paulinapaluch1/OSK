@@ -76,13 +76,12 @@
 					<table class="table  table-hover table-sm">
 						<thead>
 							<tr class="table-primary">
-								<th>Id</th>
-
+				
 								<th>Początek</td>
 								<th>Koniec</th>
 								<th>Samochód</th>
 								<th>Typ</th>
-								<th>Kursant</th>
+								<th>Dostępność</th>
 								
 
 							</tr>
@@ -90,7 +89,6 @@
 						<tbody id="myTable">
 							<tr th:each="timetable:${timetablesToday}">
 								<span th:if=${instructor.id}==${timetable.instructor.id}>
-									<td th:text="${timetable.id}" />
 									<td th:text="${#temporals.format(timetable.begin,'HH:mm')}" />
 									<td th:text="${#temporals.format(timetable.end,'HH:mm')}" />
 									<td	th:text="${timetable.car.brand}+' ' +${timetable.car.model} +' ' +${timetable.car.registrationNumber} " />
