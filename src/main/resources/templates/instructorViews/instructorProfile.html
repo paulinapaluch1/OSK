@@ -39,8 +39,11 @@
 				<p th:text="'Login: ' + ${instructor.login}" />
 				<p th:text="'Telefon: ' + ${instructor.phoneNumber}" />
 				<p th:text="'E-mail: ' + ${instructor.email}" />
-				<a th:href="@{/instructors/updateDataInstructor(id_instructor=${instructor.id})}"><button type="submit" class="btn btn-info">Edytuj</button></a>
+				<a class="mb-2" th:href="@{/instructors/updateDataInstructor(id_instructor=${instructor.id})}"><button type="submit" class="btn btn-info">Edytuj</button></a>
+<a th:href="@{/}"><button
+					type="button" class="btn btn-primary" >ZMIEŃ HASŁO</button></a>
 
+			
 			</div>
 			<div class="col-9 mt-2">
 
