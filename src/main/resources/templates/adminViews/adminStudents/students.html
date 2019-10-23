@@ -57,7 +57,9 @@
 							<td th:text="${tempStudent.name}" />
 							<td th:text="${tempStudent.surname}" />
 							<td th:text="${tempStudent.login}" />
-							<td><button name="sendPassword">Wyślij hasło</button></td>
+							<td><a
+							th:href="@{/sendEmail(email=${tempStudent.email})}"
+							class="btn btn-secondary">Wyślij hasło</a></td>
 							<td
 								th:text="${#dates.format(tempStudent.birthdate,'dd.MM.yyyy')} " />
 							<td
