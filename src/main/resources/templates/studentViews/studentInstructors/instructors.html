@@ -15,33 +15,36 @@
 
 </head>
 
-<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+<body
+	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
 	<header
 		th:insert="fragments/topNav.html :: navbar(returnPage = '/students/profile')">
 	</header>
 
 	<div class="page">
-	<div class="container list pt-3">
-		<h3>INSTRUKTORZY</h3>
-		<br>
-		<div class="table-responsive">
-			<table class="table table-hover  table-sm">
-				<thead>
-					<tr class="table-primary">
-						<th>Imię</th>
-						<th>Nazwisko</th>
-					</tr>
-				</thead>
-				<tbody id="myTable">
-					<tr th:each="instructor:${instructors}">
-						<td th:text="${instructor.name}" />
-						<td th:text="${instructor.surname}" />
-						<td><a
-							th:href="@{/students/rateInstructors(id_instructor=${instructor.id})}"
-							class="btn btn-primary">OCEŃ</a></td>
-
-
-
+		<div class="container list pt-3">
+			<h3>INSTRUKTORZY</h3>
+			<br>
+			<div class="table-responsive">
+				<table class="table table-hover  table-sm">
+					<thead>
+						<tr class="table-primary">
+							<th>Imię</th>
+							<th>Nazwisko</th>
+						</tr>
+					</thead>
+					<tbody id="myTable">
+						<tr th:each="instructor:${instructors}">
+							<td th:text="${instructor.name}" />
+							<td th:text="${instructor.surname}" />
+							
+							
+							<td th:if="${ratedInstructorsIds.contains(instructor.id)}"><a
+								th:href="@{/students/showInstructorOpinion(id_instructor=${instructor.id})}"
+								class="btn btn-primary">ZOBACZ OCENĘ</a></td>
+							<td th:unless="${ratedInstructorsIds.contains(instructor.id)}"><a
+								th:href="@{/students/rateInstructors(id_instructor=${instructor.id})}"
+								class="btn btn-outline-primary">OCEŃ</a></td>
 						</tr>
 					</tbody>
 

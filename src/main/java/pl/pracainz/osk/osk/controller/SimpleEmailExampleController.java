@@ -22,7 +22,9 @@ public class SimpleEmailExampleController {
         // Create a Simple MailMessage.
         SimpleMailMessage message = new SimpleMailMessage();
          
+
         message.setTo(email);
+
         message.setSubject("[OSK] Dane do logowania");
         message.setText(content);
  

@@ -24,15 +24,13 @@
 
 <input class="form-control col-3" id="myInput" type="text"
 			placeholder="Szukaj..."> <br>
-		<div class="table-responsive">
+		<div class="table-responsive table-sm">
 			<table class="table table-hover">
 				<thead>
 					<tr class="table-primary">
 						<th>Numer rejestracyjny</th>
 						<th>Marka</th>
 						<th>Model</th>
-
-
 						</tr>
 					</thead>
 					<tbody id="myTable">
@@ -40,8 +38,14 @@
 							<td th:text="${car.registrationNumber}" />
 							<td th:text="${car.brand}" />
 							<td th:text="${car.model}" />
-							<td><a th:href="@{/students/rateCars(id_car=${car.id})}"
-								class="btn btn-primary">OCEŃ</a></td>
+						
+						
+							<td th:if="${ratedCarsIds.contains(car.id)}"><a
+								th:href="@{/students/showCarOpinion(id_car=${car.id})}"
+								class="btn btn-primary">ZOBACZ OCENĘ</a></td>
+							<td th:unless="${ratedCarsIds.contains(car.id)}"><a
+								th:href="@{/students/rateCars(id_car=${car.id})}"
+								class="btn btn-outline-primary">OCEŃ</a></td>
 						</tr>
 
 					</tbody>

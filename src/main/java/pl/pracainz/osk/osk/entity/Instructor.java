@@ -24,30 +24,30 @@ public class Instructor {
 	private int id;
 
 	@Column(name = "name")
-    @Pattern(regexp = "^[A-ZŁŚ]{1}+[a-ząęółśżźćń]+$", message="Wprowadz poprawne imię")
+	@Pattern(regexp = "^[A-ZŁŚ]{1}+[a-ząęółśżźćń]+$", message = "Wprowadz poprawne imię")
 	private String name;
 
 	@Column
-	@NotEmpty(message="Pole nazwisko nie może być puste")
+	@NotEmpty(message = "Pole nazwisko nie może być puste")
 	private String surname;
 
 	@Column
-	@NotEmpty(message="Pole login nie może być puste")
+	@NotEmpty(message = "Pole login nie może być puste")
 	private String login;
 
 	@Column
-	@Email(message="Wprowadz poprawny email")
-	@NotEmpty(message="Pole email nie może być puste")
+	@Email(message = "Wprowadz poprawny email")
+	@NotEmpty(message = "Pole email nie może być puste")
 	private String email;
 
 	@Column(name = "phoneNumber")
-	@NotEmpty(message="Pole numer telefonu nie może być puste")
+	@NotEmpty(message = "Pole numer telefonu nie może być puste")
 	private String phoneNumber;
 
 	@Column
 	private Integer deleted;
-	
-	@Column (name = "id_user")
+
+	@Column(name = "id_user")
 	private int userId;
 
 	@OneToMany(mappedBy = "instructor")
@@ -62,12 +62,11 @@ public class Instructor {
 	@OneToMany(mappedBy = "instructor")
 	List<Timetable> timetables;
 
-	
 	public Instructor() {
 	}
 
-	public Instructor(int id, String name, String surname, String login, String email,
-			String phoneNumber, int deleted) {
+	public Instructor(int id, String name, String surname, String login, String email, String phoneNumber,
+			int deleted) {
 
 		this.id = id;
 		this.name = name;
@@ -166,7 +165,6 @@ public class Instructor {
 		this.timetables = timetables;
 	}
 
-
 	public int getUserId() {
 		return userId;
 	}
@@ -174,7 +172,27 @@ public class Instructor {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
+
+	public double getMarkAverage() {
+		if(!instructorOpinions.isEmpty()) {
+		double sum = 0;
+		for (InstructorOpinion opinion : instructorOpinions) {
+			sum += opinion.getInstructorMark();
+		}
+		return round(sum / instructorOpinions.size(), 2);
+		}
+		else return 0;
+	}
+	
+	private double round(double value, int placesAfterComma) {
+	    if (placesAfterComma < 0) throw new IllegalArgumentException();
+
+	    long factor = (long) Math.pow(10, placesAfterComma);
+	    value = value * factor;
+	    long roundedNumber = Math.round(value);
+	    return (double) roundedNumber / factor;
+	}
 	
 	
-	
+
 }
