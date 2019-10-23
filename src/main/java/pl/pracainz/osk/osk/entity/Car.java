@@ -47,10 +47,10 @@ public class Car {
 	@Column
 	private Integer deleted;
 
-	@OneToMany(mappedBy = "id")
+	@OneToMany(mappedBy = "car")
 	List<CarOpinion> carOpinions;
 
-	@OneToMany(mappedBy = "id")
+	@OneToMany(mappedBy = "car")
 	List<Timetable> timetables;
 
 	public Car() {

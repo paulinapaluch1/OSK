@@ -24,9 +24,12 @@
 	<div class="page">
 		<div class="container list">
 
-
-				<h3>MOJE KURSY</h3>
-
+			<h3 class="title">TWOJE KURSY</h3>
+			<nav class="navbar justify-content-end">
+				<a th:href="@{/instructors/showLectures}"><button type="button"
+						class="btn btn-outline-secondary mr-3 mb-2">WYŚWIETL
+						WYKŁADY</button></a>
+			</nav>
 			<input class="form-control col-3" id="myInput" type="text"
 				placeholder="Szukaj..."> <br>
 			<div class="table-responsive">

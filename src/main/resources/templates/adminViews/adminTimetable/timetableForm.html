@@ -55,13 +55,10 @@
 								th:text="${this.instructor.name}+' ' +${this.instructor.surname} " />
 							<td th:text="${this.drivingType.type}" />
 							<div th:switch="${this.isReserved()}" >
-									<div th:if="${this.isReserved()} eq false">
-									<td th:text="niezarezerwowana" />
+									<td th:if="${this.isReserved()} eq false" th:text="niezarezerwowana" />
+									<td th:unless="${this.isReserved()} eq false"th:text="${this.getDriving().student.name }  +' '+ ${this.getDriving().student.surname}" />
 									</div>
-									<div th:unless="${this.isReserved()} eq false">
-									<td th:text="${this.getDriving().student.name }  +' '+ ${this.getDriving().student.surname}" />
-									</div>
-									</div>
+									
 						</tr>
 					</tbody>
 				</table>

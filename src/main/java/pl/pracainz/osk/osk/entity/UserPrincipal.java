@@ -75,5 +75,9 @@ public class UserPrincipal implements UserDetails {
          this.user.setUsername(username);
     }
     
+    public List<String> getRoleList(){
+    	return this.user.getRoleList();
+    }
+
   
 }
