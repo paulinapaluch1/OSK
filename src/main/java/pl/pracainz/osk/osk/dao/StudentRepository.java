@@ -13,6 +13,7 @@ import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.InternalExam;
 import pl.pracainz.osk.osk.entity.Student;
 import pl.pracainz.osk.osk.entity.Timetable;
+import pl.pracainz.osk.osk.entity.User;
 
 public interface StudentRepository extends JpaRepository<Student, Integer> {
 
@@ -57,6 +58,10 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	  "JOIN Student s ON s.id = p.primaryKey.student " + "WHERE s.id = :id") List<Course>
 	  findCoursesForStudent(@Param("id") int id);
 
+	// znajdz haslos
+	  @Query("SELECT u FROM User u " + "JOIN Student s ON s.userId = u.id " + "WHERE s.id = :id")
+	  User findPassword(@Param("id") int id);
+	  
 	public Student findByUserId(int userId);
 
 	public Student findByPkk(String pkk);

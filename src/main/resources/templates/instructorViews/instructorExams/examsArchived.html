@@ -39,7 +39,6 @@
 			<table class="table table-hover">
 				<thead>
 					<tr class="table-primary">
-						<th>Id egzaminu</th>
 						<th>Instruktor</th>
 						<th>Kursant</th>
 						<th>Data</th>
@@ -50,7 +49,6 @@
 				</thead>
 				<tbody id="myTable">
 					<tr th:each="exam:${internalexams}">
-						<td th:text="${exam.id}" />
 						<td
 							th:text="${exam.instructor.name} + ' ' + ${exam.instructor.surname}" />
 						<td th:text="${exam.student.name} + ' ' + ${exam.student.surname}" />
