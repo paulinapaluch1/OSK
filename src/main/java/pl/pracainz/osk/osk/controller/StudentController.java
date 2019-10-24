@@ -3,7 +3,6 @@ package pl.pracainz.osk.osk.controller;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
@@ -13,10 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
-
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -28,9 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import pl.pracainz.osk.osk.GenericResponse;
 import pl.pracainz.osk.osk.PasswordGenerator;
 import pl.pracainz.osk.osk.dao.CarOpinionRepository;
 import pl.pracainz.osk.osk.dao.CarRepository;
@@ -68,8 +61,7 @@ public class StudentController {
 	private UserRepository userRepository;
 	private PasswordEncoder encoder;
 
-	@Autowired
-	private MessageSource messages;
+	
 
 	public StudentController(StudentRepository repository, InstructorRepository instructor,
 			InstructorOpinionRepository instructorOpinion, DrivingRepository drivingRepository,
@@ -127,6 +119,7 @@ public class StudentController {
 		} else {
 			User user = userRepository.findById(theStudent.getUserId());
 			user.setUsername(theStudent.getLogin());
+			userRepository.save(user);
 		}
 		theStudent.setDeleted(0);
 		studentRepository.save(theStudent);

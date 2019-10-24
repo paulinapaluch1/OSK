@@ -1,16 +1,19 @@
 package pl.pracainz.osk.osk.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
-import javax.validation.Valid;
-
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pracainz.osk.osk.dao.CategoryRepository;
@@ -29,8 +32,9 @@ public class LectureController {
 	private CourseRepository courseRepository;
 	private CategoryRepository categoryRepository;
 	private InstructorRepository instructorRepository;
-	
-	public LectureController(LectureRepository repository, CourseRepository course, CategoryRepository category, InstructorRepository instructor) {
+
+	public LectureController(LectureRepository repository, CourseRepository course, CategoryRepository category,
+			InstructorRepository instructor) {
 		this.lectureRepository = repository;
 		this.courseRepository = course;
 		this.categoryRepository = category;
@@ -42,7 +46,7 @@ public class LectureController {
 		theModel.addAttribute("lectures", lectureRepository.findByDeleted(0));
 		return "adminViews/adminLectures/lectures";
 	}
-	
+
 	@GetMapping("/listArchived")
 	public String listArchivedLectures(Model theModel) {
 		theModel.addAttribute("lectures", lectureRepository.findByDeleted(1));
@@ -51,31 +55,45 @@ public class LectureController {
 
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
+		theModel.addAttribute("date", LocalDate.now());
+		theModel.addAttribute("time", LocalTime.now());
 		theModel.addAttribute("lecture", new Lecture());
 		return "adminViews/adminLectures/lectureForm";
 	}
 
 	@GetMapping("/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("id_lecture") int id, Model theModel) {
-		theModel.addAttribute("lecture", lectureRepository.findById(id));
+		theModel.addAttribute("date", LocalDate.now());
+		theModel.addAttribute("time", LocalTime.now());
+		theModel.addAttribute("lecture", lectureRepository.getOne(id));
 		return "adminViews/adminLectures/lectureForm";
+		
 	}
 
-	@RequestMapping(value="/save", method=RequestMethod.GET)
-	public String saveLecture(@ModelAttribute("lecture") Lecture theLecture) {
+	//@RequestMapping(value = "/save", method = RequestMethod.POST)
+	@PostMapping("/save")
+	public String saveLecture(@ModelAttribute("lecture") Lecture theLecture, 
+			@RequestParam("date") @DateTimeFormat(iso = ISO.DATE) LocalDate date, 
+			@RequestParam("time") @DateTimeFormat(iso = ISO.TIME) LocalTime time, 
+			BindingResult result,Model theModel
+	) {
+		
+		theLecture.setDate(LocalDateTime.of(date, time));
 		lectureRepository.save(theLecture);
 		return "redirect:/lectures/list";
 	}
-	
-	
-	@RequestMapping(value="/save", method=RequestMethod.POST)
-	public String validateForm(@Valid Lecture lecture, BindingResult result, Model theModel) {
-		if(result.hasErrors()) {
-			return "adminViews/adminLectures/lectureForm";
-		}
-		return saveLecture(lecture);
+/*
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public String validateForm(@Valid Lecture lecture, BindingResult result, Model theModel,
+			@RequestParam(name = "date", required=false) @DateTimeFormat(iso = ISO.DATE) LocalDate date, 
+			@RequestParam(name = "time") @DateTimeFormat(iso = ISO.TIME) LocalTime time
+			) {
+		//if (result.hasErrors()) {
+		//	return "adminViews/adminLectures/lectureForm";
+		//}
+		return saveLecture(lecture, date, time,result, theModel);
 	}
-	
+*/
 	@GetMapping("/archiveLecture")
 	public String archiveLecture(@RequestParam("id_lecture") int id, Model theModel) {
 		Lecture theLecture = lectureRepository.getOne(id);
@@ -83,7 +101,7 @@ public class LectureController {
 		lectureRepository.save(theLecture);
 		return "redirect:/lectures/list";
 	}
-	
+
 	@GetMapping("/unarchiveLecture")
 	public String unarchiveLecture(@RequestParam("id_lecture") int id, Model theModel) {
 		Lecture theLecture = lectureRepository.getOne(id);
@@ -94,17 +112,17 @@ public class LectureController {
 
 	@ModelAttribute("categories")
 	public List<Category> categories() {
-	    return categoryRepository.findAll();
+		return categoryRepository.findAll();
 	}
-	
+
 	@ModelAttribute("courses")
 	public List<Course> courses() {
-	    return courseRepository.findByFinished(0);
+		return courseRepository.findByFinished(0);
 	}
-	
+
 	@ModelAttribute("instructors")
 	public List<Instructor> instructors() {
-	    return instructorRepository.findByDeleted(0);
+		return instructorRepository.findByDeleted(0);
 	}
-	
+
 }
