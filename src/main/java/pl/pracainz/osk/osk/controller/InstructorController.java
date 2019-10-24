@@ -221,6 +221,7 @@ public class InstructorController {
 	public String listOpinions(Model theModel) {
 		List<InstructorOpinion> theOpinions = instructorRepository.queryFindOpinions(getCurrentLoggedInstructorId());
 		theModel.addAttribute("instructoropinions", theOpinions);
+		theModel.addAttribute("instructor", instructorRepository.getOne(getCurrentLoggedInstructorId()));
 		return "instructorViews/instructorOpinions/opinionsAboutInstructor";
 	}
 
