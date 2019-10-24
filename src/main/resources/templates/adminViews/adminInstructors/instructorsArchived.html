@@ -16,20 +16,20 @@
 </head>
 <body
 	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
-<header
+	<header
 		th:insert="fragments/topNav.html :: navbar(returnPage = '/instructors/list')">
 	</header>
-	
+
 	<div class="page">
 		<div class="container list">
 			<h3 class="title">ZARCHIWIZOWANI INSTRUKTORZY</h3>
 			<nav class="navbar justify-content-end">
 				<a th:href="@{/instructors/list}"><button type="button"
-						class="btn btn-outline-secondary mb-2 mr-3">Aktualna lista
-						instruktorów</button></a>
+						class="btn btn-outline-secondary mb-2 mr-3">Aktualna
+						lista instruktorów</button></a>
 			</nav>
 
-	
+
 
 			<input class="form-control col-3" id="myInput" type="text"
 				placeholder="Szukaj..."> <br>
@@ -46,8 +46,6 @@
 							<th>Telefon</th>
 							<th>Email</th>
 							<th>Średnia ocen</th>
-
-
 						</tr>
 					</thead>
 					<tbody id="myTable">
@@ -70,7 +68,7 @@
 					</tbody>
 
 
-			
+
 
 				</table>
 			</div>
