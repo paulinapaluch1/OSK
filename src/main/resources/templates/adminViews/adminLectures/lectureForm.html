@@ -21,7 +21,7 @@
 		<div class="container list form pb-3 pt-3">
 			<h3>WYKŁAD</h3>
 
-			<form action="#" th:action="@{/lectures/save}" th:object="${lecture}"
+			<form action="#" th:action="@{/lectures/save(date=${date},time=${time})}" th:object="${lecture}"
 				method="POST">
 
 				<input type="hidden" th:field="*{id}" /> Kurs: <select
@@ -44,13 +44,15 @@
 					<span	th:if="${#fields.hasErrors('roomNumber')}"
 					class="errorField" th:errors="*{roomNumber}"></span> 	
 					</div>
-					<div class="mb-3">
+					<input type="hidden" th:field="*{date}" />
 					Data: <input
-					type="datetime-local" th:field="*{date}" th:value="${date}"
-					class="form-control col-5">
-<span	th:if="${#fields.hasErrors('date')}"
-					class="errorField" th:errors="*{date}"></span> 	
-					</div>
+					type="date" th:object="${date}" 
+					class="form-control col-4">
+					Godzina: 
+					<input
+					type="time" th:object="${time}" 
+					class="form-control col-4">
+					
 				<button type="submit" class="btn btn-info col-2">ZAPISZ</button>
 
 				<a th:href="@{/lectures/list}" class="btn btn-danger">ANULUJ</a>
