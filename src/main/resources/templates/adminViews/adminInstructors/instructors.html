@@ -17,7 +17,7 @@
 <body
 	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
 
-	
+
 
 	<header th:insert="fragments/topNav.html :: navbar(returnPage = '/')">
 	</header>
@@ -29,12 +29,11 @@
 
 			<h3 class="title">INSTRUKTORZY</h3>
 			<nav class="navbar justify-content-end">
-					<a th:href="@{/instructors/showFormForAdd}"><button
-							type="button" class="btn btn btn-primary mr-3 mb-2">DODAJ
-							INSTRUKTORA</button></a>
-					<a th:href="@{/instructors/listArchived}"><button type="button"
-							class="btn btn-outline-secondary mr-3 mb-2">Zarchiwizowani
-							instruktorzy</button></a>
+				<a th:href="@{/instructors/showFormForAdd}"><button
+						type="button" class="btn btn btn-primary mr-3 mb-2">DODAJ
+						INSTRUKTORA</button></a> <a th:href="@{/instructors/listArchived}"><button
+						type="button" class="btn btn-outline-secondary mr-3 mb-2">Zarchiwizowani
+						instruktorzy</button></a>
 			</nav>
 
 
@@ -63,7 +62,9 @@
 							<td th:text="${instructor.name}" />
 							<td th:text="${instructor.surname}" />
 							<td th:text="${instructor.login}" />
-							<td><button name="sendPassword">Wyslij haslo</button></td>
+							<td><a
+								th:href="@{/sendEmail(email=${instructor.email}, login=${instructor.login})}"
+								class="btn btn-secondary">Wyślij hasło</a></td>
 							<td th:text="${instructor.phoneNumber}" />
 							<td th:text="${instructor.email}" />
 							<td th:text="${instructor.getMarkAverage()}" />
