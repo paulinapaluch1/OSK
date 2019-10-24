@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 import org.springframework.lang.Nullable;
 
@@ -116,6 +115,31 @@ public class Car {
 
 	public void setTimetables(List<Timetable> timetables) {
 		this.timetables = timetables;
+	}
+	
+	public double getMarkAverage() {
+		if(!carOpinions.isEmpty()) {
+		double sum = 0;
+		double quantity = 0;
+		for (CarOpinion opinion : carOpinions) {
+			if(opinion.getStatus().equals("zatwierdzona")) {
+				sum += opinion.getCarMark();
+				quantity++;
+			}	
+				
+		}
+		return round(sum / quantity, 2);
+		}
+		else return 0;
+	}
+	
+	private double round(double value, int placesAfterComma) {
+	    if (placesAfterComma < 0) throw new IllegalArgumentException();
+
+	    long factor = (long) Math.pow(10, placesAfterComma);
+	    value = value * factor;
+	    long roundedNumber = Math.round(value);
+	    return (double) roundedNumber / factor;
 	}
 	
 	

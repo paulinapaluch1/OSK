@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pracainz.osk.osk.PasswordGenerator;
 import pl.pracainz.osk.osk.dao.StudentRepository;
-import pl.pracainz.osk.osk.dao.UserPrincipalDetailsService;
 import pl.pracainz.osk.osk.dao.UserRepository;
 import pl.pracainz.osk.osk.entity.Student;
 import pl.pracainz.osk.osk.entity.User;

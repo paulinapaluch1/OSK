@@ -176,10 +176,14 @@ public class Instructor {
 	public double getMarkAverage() {
 		if(!instructorOpinions.isEmpty()) {
 		double sum = 0;
+		double quantity = 0;			
 		for (InstructorOpinion opinion : instructorOpinions) {
-			sum += opinion.getInstructorMark();
+			if(opinion.getStatus().equals("zatwierdzona")) {
+				sum += opinion.getInstructorMark();
+				quantity++;
+			}
 		}
-		return round(sum / instructorOpinions.size(), 2);
+		return round(sum / quantity, 2);
 		}
 		else return 0;
 	}
