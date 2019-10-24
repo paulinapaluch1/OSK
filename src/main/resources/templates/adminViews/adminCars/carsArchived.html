@@ -36,6 +36,7 @@
 						<th>Numer rejestracyjny</th>
 						<th>Marka</th>
 						<th>Model</th>
+						<th>Średnia ocen</th>
 						
 					</tr>
 				</thead>
@@ -45,6 +46,7 @@
 						<td th:text="${car.registrationNumber}" />
 						<td th:text="${car.brand}" />
 						<td th:text="${car.model}" />
+						<td th:text="${car.getMarkAverage()}" />
 						
 						<td><a th:href="@{/cars/unarchiveCar(id_car=${car.id})}"
 							class="btn btn-warning">COFNIJ ARCHIWIZACJĘ</a></td>

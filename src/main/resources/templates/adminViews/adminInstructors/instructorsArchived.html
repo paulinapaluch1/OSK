@@ -45,6 +45,7 @@
 							<th>Hasło</th>
 							<th>Telefon</th>
 							<th>Email</th>
+							<th>Średnia ocen</th>
 
 
 						</tr>
@@ -58,6 +59,7 @@
 							<td><button name="sendPassword">Wyslij haslo</button></td>
 							<td th:text="${instructor.phoneNumber}" />
 							<td th:text="${instructor.email}" />
+							<td th:text="${instructor.getMarkAverage()}" />
 
 
 							<td><a
