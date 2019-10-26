@@ -220,6 +220,7 @@ public class InstructorController {
 	@GetMapping("/showOpinions")
 	public String listOpinions(Model theModel) {
 		List<InstructorOpinion> theOpinions = instructorRepository.queryFindOpinions(getCurrentLoggedInstructorId());
+		theModel.addAttribute("average", getCurrentLoggedInstructor().getMarkAverage());
 		theModel.addAttribute("instructoropinions", theOpinions);
 		theModel.addAttribute("instructor", instructorRepository.getOne(getCurrentLoggedInstructorId()));
 		return "instructorViews/instructorOpinions/opinionsAboutInstructor";
