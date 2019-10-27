@@ -14,36 +14,37 @@
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 </head>
 
-<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+<body
+	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
 	<header
 		th:insert="fragments/topNav.html :: navbar(returnPage = '/drivings/list')">
 	</header>
 
 
 	<div class="page">
-	<div class="container list">
-				<h3 class="title">ZARCHWIZOWANE JAZDY</h3>
-		<nav class="navbar justify-content-end">	
+		<div class="container list">
+			<h3 class="title">ZARCHWIZOWANE JAZDY</h3>
+			<nav class="navbar justify-content-end">
 				<a th:href="@{/drivings/list}"><button type="button"
 						class="btn btn-outline-secondary mr-3 mb-2">Jazdy</button></a>
-		</nav>
+			</nav>
 
 
-		 <input class="form-control col-3" id="myInput" type="text"
-			placeholder="Szukaj..."> <br>
-		<div class="table-responsive">
-			<table class="table table-hover">
-				<thead>
-					<tr class="table-primary">
-						<th>Id</th>
-						<th>Typ</th>
-						<th>Kursant</th>
-						<th>Początek</th>
-						<th>Koniec</th>
-						<th>Zrealizowana</th>
-						<th>Odwołana</th>
-						
-
+			<input class="form-control col-3" id="myInput" type="text"
+				placeholder="Szukaj..."> <br>
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<thead>
+						<tr class="table-primary">
+							<th>Id</th>
+							<th>Typ</th>
+							<th>Instruktor</th>
+							<th>Kursant</th>
+							<th>Data</th>
+							<th>Początek</th>
+							<th>Koniec</th>
+							<th>Zrealizowana</th>
+							<th>Odwołana</th>
 						</tr>
 					</thead>
 					<tbody id="myTable">
@@ -51,18 +52,39 @@
 							<td th:text="${driving.id}" />
 							<td th:text="${driving.timetable.drivingType.type}" />
 							<td
+								th:text="${driving.timetable.instructor.name}+' '+${driving.timetable.instructor.surname} " />
+							<td
 								th:text="${driving.student.name}+' '+${driving.student.surname} " />
 							<td
-								th:text="${#temporals.format(driving.timetable.begin,'dd.MM.yyyy HH:mm')}" />
+								th:text="${#temporals.format(driving.timetable.begin,'dd.MM.yyyy')}" />
 							<td
-								th:text="${#temporals.format(driving.timetable.end,'dd.MM.yyyy HH:mm')}" />
-							<td th:text="${driving.done}" />
-							<td th:text="${driving.cancelled}" />
+								th:text="${#temporals.format(driving.timetable.begin,'HH:mm')}" />
+							<td th:text="${#temporals.format(driving.timetable.end,'HH:mm')}" />
+
+							<div th:if="${driving.done} eq 0">
+								<td th:text="NIE" />
+							</div>
+							<div th:unless="${driving.done} eq 0">
+								<td th:text="TAK" />
+							</div>
+
+
+
+							<div th:if="${driving.cancelled} eq 0">
+								<td th:text="NIE" />
+							</div>
+							<div th:unless="${driving.cancelled} eq 0">
+								<td th:text="TAK" />
+							</div>
+
 
 
 							<td><a
-								th:href="@{/drivings/unarchiveDriving(id_driving=${driving.id})}"
-								class="btn btn-warning">COFNIJ ARCHIWIZACJĘ</a></td>
+								th:href="@{/drivings/showFormForUpdate(id_driving=${driving.id})}"
+								class="btn btn-primary">EDYTUJ</a></td>
+							<td><a
+								th:href="@{/drivings/archiveDriving(id_driving=${driving.id})}"
+								class="btn btn-danger">ARCHIWIZUJ</a></td>
 
 						</tr>
 					</tbody>

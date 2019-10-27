@@ -21,31 +21,30 @@
 
 	<div class="page">
 		<div class="container list">
-	<h3 class="title">KURSY</h3>
-		<nav class="navbar justify-content-end">
+			<h3 class="title">KURSY</h3>
+			<nav class="navbar justify-content-end">
 				<a th:href="@{/courses/showFormForAdd}"><button type="button"
-						class="btn btn btn-primary mr-3 mb-2">DODAJ KURS</button></a>
-			
-				<a th:href="@{/courses/listArchived}"><button type="button"
-						class="btn btn-outline-secondary mr-3 mb-2">Zarchiwizowane kursy</button></a>
-			
-		
-				<a th:href="@{/courses/categories}"><button type="button"
-						class="btn btn btn-primary mr-3 mb-2">KATEGORIE</button></a>
+						class="btn btn btn-primary mr-3 mb-2">DODAJ KURS</button></a> <a
+					th:href="@{/courses/addParticipants}"><button type="button"
+						class="btn btn-outline-secondary mr-3 mb-2">Dodaj
+						uczestnika</button></a> <a th:href="@{/courses/listArchived}"><button
+						type="button" class="btn btn-outline-secondary mr-3 mb-2">Zarchiwizowane
+						kursy</button></a> <a th:href="@{/courses/categories}"><button
+						type="button" class="btn btn btn-primary mr-3 mb-2">KATEGORIE</button></a>
 
 			</nav>
 
 
-	 <input class="form-control col-3" id="myInput" type="text"
-			placeholder="Szukaj..."> <br>
-		<div class="table-responsive table-sm ">
-			<table class="table table-hover">
-				<thead>
-					<tr class="table-primary">
-						<th>Id</th>
-						<th>Kategoria</th>
-						<th>Instruktor</th>
-						<th>Początek</th>
+			<input class="form-control col-3" id="myInput" type="text"
+				placeholder="Szukaj..."> <br>
+			<div class="table-responsive table-sm ">
+				<table class="table table-hover">
+					<thead>
+						<tr class="table-primary">
+							<th>Id</th>
+							<th>Kategoria</th>
+							<th>Instruktor</th>
+							<th>Początek</th>
 
 
 						</tr>
@@ -64,8 +63,8 @@
 							<td><a
 								th:href="@{/courses/archiveCourse(id_course=${course.id})}"
 								class="btn btn-danger">ARCHIWIZUJ</a></td>
-							<td><a th:href="@{/courses/showStudents(id_course=${course.id})}"
-
+							<td><a
+								th:href="@{/courses/showStudents(id_course=${course.id})}"
 								class="btn btn-info">ZOBACZ UCZESTNIKÓW</a></td>
 						</tr>
 					</tbody>

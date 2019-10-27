@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Uczestnicy kursu - formularz</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
+
+</head>
+<body
+	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+	<header
+		th:insert="fragments/topNav.html :: navbar(returnPage = '/courses/list')">
+	</header>
+
+
+	<div class="page">
+		<div class="container list form pb-3 pt-3">
+			<h3>UCZESTNIK KURSU</h3>
+
+			<form action="#" th:action="@{/courses/participants/save}"
+				th:object="${participant}" method="POST">
+
+				Kurs: <select th:field="*{primaryKey.course}"
+					class="form-control mb-4 col-4">
+					<option th:each="course: ${courses}" th:value="${course.id}"
+						th:text="${course.id} +'. Kategoria: '+${course.category.categoryName}+' START: '+${#temporals.format(course.startDate,'dd.MM.yyyy')}" />
+				</select> 
+				
+				Kursant: <select th:field="*{primaryKey.student}"
+					class="form-control mb-4 col-4">
+					<option th:each="student: ${students}" th:value="${student.id}"
+						th:text="${student.name} + ' ' + ${student.surname}" />
+				</select>
+
+
+				<button type="submit" class="btn btn-info col-2">ZAPISZ</button>
+
+				<a th:href="@{/courses/list}" class="btn btn-danger">ANULUJ</a>
+
+			</form>
+
+		</div>
+	</div>
+
+</body>
+</HTML>

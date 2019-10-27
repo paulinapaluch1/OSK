@@ -61,8 +61,6 @@ public class StudentController {
 	private UserRepository userRepository;
 	private PasswordEncoder encoder;
 
-	
-
 	public StudentController(StudentRepository repository, InstructorRepository instructor,
 			InstructorOpinionRepository instructorOpinion, DrivingRepository drivingRepository,
 			TimetableRepository timetableRepository, CarRepository carRepository, CarOpinionRepository carOpinion,

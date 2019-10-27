@@ -3,10 +3,13 @@ package pl.pracainz.osk.osk.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.web.bind.annotation.ResponseBody;
+ 
+
 import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pracainz.osk.osk.PasswordGenerator;
@@ -14,10 +17,11 @@ import pl.pracainz.osk.osk.dao.StudentRepository;
 import pl.pracainz.osk.osk.dao.UserRepository;
 import pl.pracainz.osk.osk.entity.Student;
 import pl.pracainz.osk.osk.entity.User;
- 
 @Controller
 public class SimpleEmailExampleController {
+
  
+
     @Autowired
     public JavaMailSender emailSender;
     
