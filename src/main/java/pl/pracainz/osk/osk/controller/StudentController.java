@@ -117,6 +117,7 @@ public class StudentController {
 		} else {
 			User user = userRepository.findById(theStudent.getUserId());
 			user.setUsername(theStudent.getLogin());
+			userRepository.save(user);
 		}
 		theStudent.setDeleted(0);
 		studentRepository.save(theStudent);

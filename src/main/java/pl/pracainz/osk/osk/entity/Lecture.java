@@ -34,7 +34,7 @@ public class Lecture {
 
 	@Column
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	@NotNull(message="Pole data nie może być puste")
+	//@NotNull(message="Pole data nie może być puste")
 	private LocalDateTime date;
 	
 	@Column
