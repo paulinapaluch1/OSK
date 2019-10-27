@@ -16,16 +16,7 @@ import org.springframework.lang.Nullable;
 @Entity
 @Table(name = "cars")
 public class Car {
-
-	public List<CarOpinion> getCarOpinions() {
-		return carOpinions;
-	}
-
-	public void setCarOpinions(List<CarOpinion> carOpinions) {
-		this.carOpinions = carOpinions;
-	}
-
-	@Id
+	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_car")
 	private int id;
@@ -41,8 +32,7 @@ public class Car {
 	@NotEmpty(message="Model nie może być pusty")
 	@Column(name = "model")
 	private String model;
-
-	@Nullable
+	
 	@Column
 	private Integer deleted;
 
@@ -115,6 +105,15 @@ public class Car {
 
 	public void setTimetables(List<Timetable> timetables) {
 		this.timetables = timetables;
+	}
+	
+
+	public List<CarOpinion> getCarOpinions() {
+		return carOpinions;
+	}
+
+	public void setCarOpinions(List<CarOpinion> carOpinions) {
+		this.carOpinions = carOpinions;
 	}
 	
 	public double getMarkAverage() {

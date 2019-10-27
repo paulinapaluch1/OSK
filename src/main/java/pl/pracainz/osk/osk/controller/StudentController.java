@@ -415,17 +415,18 @@ public class StudentController {
 			@RequestParam(name = "date", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date,
 			@RequestParam("id_timetable") int id, Model theModel) {
 			boolean canReserve = false;
-		
+	/*	
 		for(Participant participant : getCurrentLoggedStudent().getParticipants()){
-		if(participant.getNumberHoursUsed()>=28 && participant.getNumberHoursPaid()>=2) {
+		if(participant.getNumberHoursUsed()<=28 && participant.getNumberHoursPaid()>=2) {
 			participant.setNumberHoursUsed(participant.getNumberHoursUsed()+2);
 			canReserve = true;
 			participantRepository.save(participant);
 			break;
 	
 		}
-		}
-		if(canReserve == true) {
+		}*/
+		
+	//	if(canReserve == true) {
 			Timetable timetableToReserve = timetableRepository.getOne(id);
 			Driving driving = new Driving();
 			driving.setTimetable(timetableToReserve);
@@ -436,7 +437,7 @@ public class StudentController {
 			drivingRepository.save(driving);
 			timetableToReserve.getDrivings().add(driving);
 			timetableRepository.save(timetableToReserve);
-		}
+	//	}
 		
 		
 		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(date.getDayOfMonth(),
