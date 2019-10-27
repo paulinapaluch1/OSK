@@ -30,7 +30,7 @@
 				<a th:href="@{/students/showDrivings}"><button type="button"
 						class="btn btn btn-primary mr-3 mb-2">JAZDY</button></a> <a
 					th:href="@{/students/showCancelledDrivings}"><button
-						type="button" class="btn btn btn-primary mr-3 mb2">ODWOŁANE
+						type="button" class="btn btn btn-primary mr-3 mb-2">ODWOŁANE
 						JAZDY</button></a>
 			</nav>
 
@@ -42,6 +42,7 @@
 					<thead>
 						<tr class="table-primary">
 							<th>Typ</th>
+							<th>Instruktor</th>
 							<th>Data</th>
 							<th>Początek</th>
 							<th>Koniec</th>
@@ -54,6 +55,8 @@
 					<tbody id="myTable">
 						<tr th:each="driving:${drivings}">
 							<td th:text="${driving.timetable.drivingType.type}" />
+							<td
+								th:text="${driving.timetable.instructor.name}+' '+${driving.timetable.instructor.surname} " />
 							<td
 								th:text="${#temporals.format(driving.timetable.begin,'dd.MM.yyyy')}" />
 							<td

@@ -35,7 +35,6 @@
 			<table class="table table-hover table-sm">
 				<thead>
 					<tr class="table-primary">
-						<th>Nr</th>
 						<th>Kategoria</th>
 						<th>Kursant</th>
 						<th>Samochód</th>
@@ -48,7 +47,6 @@
 				</thead>
 				<tbody id="myTable">
 					<tr th:each="driving:${drivings}">
-						<td th:text="${driving.id}" />
 						<td></td>
 						<td
 							th:text="${driving.student.name}+' '+${driving.student.surname} " />
