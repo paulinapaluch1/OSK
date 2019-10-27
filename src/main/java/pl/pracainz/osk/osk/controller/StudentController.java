@@ -9,7 +9,6 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,6 +30,7 @@ import pl.pracainz.osk.osk.dao.CourseRepository;
 import pl.pracainz.osk.osk.dao.DrivingRepository;
 import pl.pracainz.osk.osk.dao.InstructorOpinionRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
+import pl.pracainz.osk.osk.dao.ParticipantRepository;
 import pl.pracainz.osk.osk.dao.StudentRepository;
 import pl.pracainz.osk.osk.dao.TimetableRepository;
 import pl.pracainz.osk.osk.dao.UserRepository;
@@ -41,6 +41,7 @@ import pl.pracainz.osk.osk.entity.Driving;
 import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.InstructorOpinion;
 import pl.pracainz.osk.osk.entity.InternalExam;
+import pl.pracainz.osk.osk.entity.Participant;
 import pl.pracainz.osk.osk.entity.Student;
 import pl.pracainz.osk.osk.entity.Timetable;
 import pl.pracainz.osk.osk.entity.User;
@@ -61,6 +62,12 @@ public class StudentController {
 	private UserRepository userRepository;
 	private PasswordEncoder encoder;
 
+<<<<<<< HEAD
+	@Autowired 
+	private ParticipantRepository participantRepository;
+
+=======
+>>>>>>> da31c313b64c63a264840e3c220b99479f8eaa6e
 	public StudentController(StudentRepository repository, InstructorRepository instructor,
 			InstructorOpinionRepository instructorOpinion, DrivingRepository drivingRepository,
 			TimetableRepository timetableRepository, CarRepository carRepository, CarOpinionRepository carOpinion,
@@ -409,17 +416,31 @@ public class StudentController {
 	public String reservePlannedDriving(
 			@RequestParam(name = "date", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date,
 			@RequestParam("id_timetable") int id, Model theModel) {
-		Timetable timetableToReserve = timetableRepository.getOne(id);
-		Driving driving = new Driving();
-		driving.setTimetable(timetableToReserve);
-		driving.setStudent(getCurrentLoggedStudent());
-		driving.setDone(0);
-		driving.setCancelled(0);
-		driving.setDeleted(0);
-		drivingRepository.save(driving);
-		timetableToReserve.getDrivings().add(driving);
-		timetableRepository.save(timetableToReserve);
-
+			boolean canReserve = false;
+		
+		for(Participant participant : getCurrentLoggedStudent().getParticipants()){
+		if(participant.getNumberHoursUsed()>=28 && participant.getNumberHoursPaid()>=2) {
+			participant.setNumberHoursUsed(participant.getNumberHoursUsed()+2);
+			canReserve = true;
+			participantRepository.save(participant);
+			break;
+	
+		}
+		}
+		if(canReserve == true) {
+			Timetable timetableToReserve = timetableRepository.getOne(id);
+			Driving driving = new Driving();
+			driving.setTimetable(timetableToReserve);
+			driving.setStudent(getCurrentLoggedStudent());
+			driving.setDone(0);
+			driving.setCancelled(0);
+			driving.setDeleted(0);
+			drivingRepository.save(driving);
+			timetableToReserve.getDrivings().add(driving);
+			timetableRepository.save(timetableToReserve);
+		}
+		
+		
 		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(date.getDayOfMonth(),
 				date.getMonthValue(), date.getYear()));
 		theModel.addAttribute("today", date);
