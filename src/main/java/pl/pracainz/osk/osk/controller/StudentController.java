@@ -41,7 +41,11 @@ import pl.pracainz.osk.osk.entity.Driving;
 import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.InstructorOpinion;
 import pl.pracainz.osk.osk.entity.InternalExam;
+
+import pl.pracainz.osk.osk.entity.Lecture;
+
 import pl.pracainz.osk.osk.entity.Participant;
+
 import pl.pracainz.osk.osk.entity.Student;
 import pl.pracainz.osk.osk.entity.Timetable;
 import pl.pracainz.osk.osk.entity.User;
@@ -507,6 +511,13 @@ public class StudentController {
 		userRepository.save(user);
 
 		return "studentViews/studentProfile";
+	}
+	
+	@GetMapping("/showLectures")
+	public String listLectures(Model theModel) {
+		List<Lecture> theLectures = studentRepository.findLectures(getCurrentLoggedStudentId());
+		theModel.addAttribute("lectures", theLectures);
+		return "studentViews/studentLectures/lectures";
 	}
 
 }
