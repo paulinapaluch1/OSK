@@ -63,7 +63,7 @@
 							<td th:text="${instructor.surname}" />
 							<td th:text="${instructor.login}" />
 							<td><a
-								th:href="@{/sendEmail(email=${instructor.email}, login=${instructor.login})}"
+								th:href="@{/sendInstructorEmail(email=${instructor.email}, id=${instructor.id})}"
 								class="btn btn-secondary">Wyślij hasło</a></td>
 							<td th:text="${instructor.phoneNumber}" />
 							<td th:text="${instructor.email}" />
