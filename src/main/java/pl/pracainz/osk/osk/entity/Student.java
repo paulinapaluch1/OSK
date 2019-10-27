@@ -44,7 +44,6 @@ public class Student {
 	@NotEmpty(message="Pole login nie może być puste")
 	private String login;
 
-	
 	@Column
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	@Past
