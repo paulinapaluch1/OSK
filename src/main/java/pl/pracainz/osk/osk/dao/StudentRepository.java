@@ -58,7 +58,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	  "JOIN Student s ON s.id = p.primaryKey.student " + "WHERE s.id = :id") List<Course>
 	  findCoursesForStudent(@Param("id") int id);
 
-	// znajdz haslos
+	// znajdz haslo
 	  @Query("SELECT u FROM User u " + "JOIN Student s ON s.userId = u.id " + "WHERE s.id = :id")
 	  User findPassword(@Param("id") int id);
 	  

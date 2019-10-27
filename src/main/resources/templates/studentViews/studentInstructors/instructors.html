@@ -31,14 +31,15 @@
 						<tr class="table-primary">
 							<th>Imię</th>
 							<th>Nazwisko</th>
+							<th>Średnia ocen</th>
 						</tr>
 					</thead>
 					<tbody id="myTable">
 						<tr th:each="instructor:${instructors}">
 							<td th:text="${instructor.name}" />
 							<td th:text="${instructor.surname}" />
-							
-							
+							<td th:text="${instructor.getMarkAverage()}" />
+
 							<td th:if="${ratedInstructorsIds.contains(instructor.id)}"><a
 								th:href="@{/students/showInstructorOpinion(id_instructor=${instructor.id})}"
 								class="btn btn-primary">ZOBACZ OCENĘ</a></td>

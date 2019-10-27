@@ -24,34 +24,37 @@
 
 
 	<div class="page">
-	<div class="container list">
-		
-				<h3 class="title">ODWOŁANE JAZDY</h3>
+		<div class="container list">
+
+			<h3 class="title">ODWOŁANE JAZDY</h3>
 			<nav class="navbar justify-content-end">
 				<a th:href="@{/students/showDrivings}"><button type="button"
-						class="btn btn btn-primary mr-3 mb-2">JAZDY</button></a>
-				<a th:href="@{/students/showDoneDrivings}"><button
-						type="button" class="btn btn btn-primary mr-3 mb-2">ODBYTE JAZDY</button></a>
+						class="btn btn btn-primary mr-3 mb-2">JAZDY</button></a> <a
+					th:href="@{/students/showDoneDrivings}"><button type="button"
+						class="btn btn btn-primary mr-3 mb-2">ODBYTE JAZDY</button></a>
 
-		</nav>
- <input class="form-control col-3" id="myInput" type="text"
-			placeholder="Szukaj..."> <br> 
-		<div class="table-responsive">
-			<table class="table table-hover">
-				<thead>
-					<tr class="table-primary">
-						<th>Typ</th>
-						<th>Data</th>
-						<th>Początek</th>
-						<th>Koniec</th>
-						<th>Zrealizowana</th>
-						<th>Odwołana</th>
+			</nav>
+			<input class="form-control col-3" id="myInput" type="text"
+				placeholder="Szukaj..."> <br>
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<thead>
+						<tr class="table-primary">
+							<th>Typ</th>
+							<th>Instruktor</th>
+							<th>Data</th>
+							<th>Początek</th>
+							<th>Koniec</th>
+							<th>Zrealizowana</th>
+							<th>Odwołana</th>
 
 						</tr>
 					</thead>
 					<tbody id="myTable">
 						<tr th:each="driving:${drivings}">
 							<td th:text="${driving.timetable.drivingType.type}" />
+							<td
+								th:text="${driving.timetable.instructor.name}+' '+${driving.timetable.instructor.surname} " />
 							<td
 								th:text="${#temporals.format(driving.timetable.begin,'dd.MM.yyyy')}" />
 							<td
@@ -79,7 +82,8 @@
 				</table>
 			</div>
 		</div>
-	</div></div>
+	</div>
+	</div>
 	<script>
 		$(document)
 				.ready(

@@ -62,9 +62,12 @@ public class StudentController {
 	private UserRepository userRepository;
 	private PasswordEncoder encoder;
 
+<<<<<<< HEAD
 	@Autowired 
 	private ParticipantRepository participantRepository;
 
+=======
+>>>>>>> da31c313b64c63a264840e3c220b99479f8eaa6e
 	public StudentController(StudentRepository repository, InstructorRepository instructor,
 			InstructorOpinionRepository instructorOpinion, DrivingRepository drivingRepository,
 			TimetableRepository timetableRepository, CarRepository carRepository, CarOpinionRepository carOpinion,

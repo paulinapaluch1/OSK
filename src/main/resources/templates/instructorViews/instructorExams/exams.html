@@ -67,9 +67,12 @@
 						
 						</div>
 						<td th:text="${exam.type}" />
-						<td><a
+						<td th:if="${exam.result == 2}"><a
+								th:href="@{/instructors/showExamFormForUpdate(id_internalExam=${exam.id})}"
+								class="btn btn-primary">WPROWADŹ WYNIK</a></td>
+						<td th:if="${exam.result != 2}"><a
 							th:href="@{/instructors/showExamFormForUpdate(id_internalExam=${exam.id})}"
-							class="btn btn-primary">EDYTUJ</a></td>
+							class="btn btn-primary">EDYTUJ WYNIK</a></td>
 					</tr>
 				</tbody>
 
