@@ -1,5 +1,7 @@
 package pl.pracainz.osk.osk.entity;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +21,6 @@ public class Driving {
 	@Column(name = "id_driving")
 	private int id;
 
-	
 	@ManyToOne(cascade = { CascadeType.DETACH })
 	@JoinColumn(name = "id_student")
 	private Student student;
@@ -29,14 +30,14 @@ public class Driving {
 
 	@Column
 	private Integer cancelled;
-	
+
 	@Column
 	private int deleted;
 
-	@ManyToOne(cascade = { CascadeType.ALL },optional=false)
-	@JoinColumn(name = "id_timetable") //, referencedColumnName="id",insertable=false, updatable=false
+	@ManyToOne(cascade = { CascadeType.ALL }, optional = false)
+	@JoinColumn(name = "id_timetable") 
 	private Timetable timetable;
-	
+
 	public Driving() {
 	}
 
@@ -56,7 +57,6 @@ public class Driving {
 		this.id = id;
 	}
 
-
 	public Student getStudent() {
 		return student;
 	}
@@ -73,8 +73,6 @@ public class Driving {
 		this.done = done;
 	}
 
-
-
 	public Integer getCancelled() {
 		return cancelled;
 	}
@@ -83,8 +81,6 @@ public class Driving {
 		this.cancelled = cancelled;
 	}
 
-	
-	
 	public int getDeleted() {
 		return deleted;
 	}
@@ -101,5 +97,11 @@ public class Driving {
 		this.timetable = timetable;
 	}
 
+	public boolean isDrivingDateInThePast() {
+		if (timetable.getBegin().isAfter(LocalDateTime.now()))
+			return false;
+		else
+			return true;
+	}
 
 }
