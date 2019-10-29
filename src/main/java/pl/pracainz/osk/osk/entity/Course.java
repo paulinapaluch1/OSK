@@ -51,7 +51,7 @@ public class Course {
 	private Set<Participant> participants = new HashSet<>();
 	
 	
-	
+
 	public Course() {
 	}
 

@@ -73,12 +73,12 @@ public class LectureController {
 	//@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@PostMapping("/save")
 	public String saveLecture(@ModelAttribute("lecture") Lecture theLecture, 
-			@RequestParam("date") @DateTimeFormat(iso = ISO.DATE) LocalDate date, 
-			@RequestParam("time") @DateTimeFormat(iso = ISO.TIME) LocalTime time, 
+			@RequestParam("date") @DateTimeFormat(iso = ISO.DATE_TIME) String date,
 			BindingResult result,Model theModel
 	) {
-		
-		theLecture.setDate(LocalDateTime.of(date, time));
+		LocalDate lectureDate = LocalDate.parse(date);
+
+		theLecture.setDate(LocalDateTime.of(lectureDate, LocalTime.of(10, 10)));
 		lectureRepository.save(theLecture);
 		return "redirect:/lectures/list";
 	}
