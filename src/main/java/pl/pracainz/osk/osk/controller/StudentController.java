@@ -214,6 +214,7 @@ public class StudentController {
 	@GetMapping("/showDrivings")
 	public String listDrivings(Model theModel) {
 		List<Driving> theDrivings = studentRepository.findDrivingsForStudent(getCurrentLoggedStudentId());
+		
 		theModel.addAttribute("drivings", theDrivings);
 		return "studentViews/studentDrivings/drivings";
 	}
@@ -235,6 +236,11 @@ public class StudentController {
 	@GetMapping("/showCourses")
 	public String listCourses(Model theModel) {
 		List<Course> theCourses = studentRepository.findCoursesForStudent(getCurrentLoggedStudentId());
+	/*	boolean isParticipant = false;
+		for(Participant participant : theCourses.get(0).getParticipants())
+			if(isParticipant==false)
+			theModel.addAttribute("participant", participant);
+		*/
 		theModel.addAttribute("courses", theCourses);
 		return "studentViews/studentCourses/courses";
 	}
@@ -415,16 +421,17 @@ public class StudentController {
 			@RequestParam(name = "date", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date,
 			@RequestParam("id_timetable") int id, Model theModel) {
 			boolean canReserve = false;
-	/*	
+	
 		for(Participant participant : getCurrentLoggedStudent().getParticipants()){
 		if(participant.getNumberHoursUsed()<=28 && participant.getNumberHoursPaid()>=2) {
-			participant.setNumberHoursUsed(participant.getNumberHoursUsed()+2);
+			int hours=participant.getNumberHoursUsed()+2;
+			participant.setNumberHoursUsed(hours);
 			canReserve = true;
 			participantRepository.save(participant);
 			break;
 	
 		}
-		}*/
+		}
 		
 	//	if(canReserve == true) {
 			Timetable timetableToReserve = timetableRepository.getOne(id);

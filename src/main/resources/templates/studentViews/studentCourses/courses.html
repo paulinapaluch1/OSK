@@ -37,6 +37,8 @@
 							<th>Kategoria</th>
 							<th>Instruktor</th>
 							<th>Początek</th>
+							<th>Godziny opłacone</th>
+							<th>Godziny wykorzystane</th>
 
 
 						</tr>
@@ -47,6 +49,10 @@
 							<td
 								th:text="${course.instructor.name}+' ' +${course.instructor.surname} " />
 							<td th:text="${#temporals.format(course.startDate,'dd.MM.yyyy')}" />
+					<td th:text="30" />
+					<td th:text="20"/>
+						
+						
 						</tr>
 					</tbody>
 				</table>

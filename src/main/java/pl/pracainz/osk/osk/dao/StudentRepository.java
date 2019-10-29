@@ -21,13 +21,12 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 
 	// lista instruktorów
 	@Query("SELECT distinct i FROM Instructor i " + "JOIN Timetable t ON t.instructor = i.id "
-			+ "JOIN Driving d ON d.timetable = t.id " + "JOIN Student s ON s.id = d.student "
-			+ "WHERE s.id = :id")
+			+ "JOIN Driving d ON d.timetable = t.id " + "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id")
 	List<Instructor> findInstructorsForOneStudent(@Param("id") int id);
 
 	// lista samochodów
-	@Query("SELECT distinct c FROM Car c " + "JOIN Timetable t ON t.car = c.id " + "JOIN Driving d ON d.timetable = t.id "
-			+ "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id")
+	@Query("SELECT distinct c FROM Car c " + "JOIN Timetable t ON t.car = c.id "
+			+ "JOIN Driving d ON d.timetable = t.id " + "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id")
 	List<Car> findCarsForOneStudentById(@Param("id") int id);
 
 	// lista - grafik
@@ -36,34 +35,34 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	List<Timetable> findTimetableForStudent(@Param("id") int id);
 
 	// lista jazd
-	@Query("SELECT d FROM Driving d " + "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id") // AND d.cancelled = 0")
+	@Query("SELECT d FROM Driving d " + "JOIN Student s ON s.id = d.student " + "JOIN Timetable t ON t.id = d.timetable "
+			+ "WHERE s.id = :id " + "order by t.begin") // AND d.cancelled = 0")
 	List<Driving> findDrivingsForStudent(@Param("id") int id);
 
 	@Query("SELECT d FROM Driving d " + "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id AND d.cancelled = 1")
 	List<Driving> findCancelledDrivings(@Param("id") int id);
-	
+
 	@Query("SELECT d FROM Driving d " + "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id AND d.done = 1")
 	List<Driving> findDoneDrivingsForStudentById(@Param("id") int id);
-	
+
 	// lista egzaminow
 	@Query("SELECT ie FROM InternalExam ie " + "JOIN Student s ON s.id = ie.student " + "WHERE s.id = :id")
 	List<InternalExam> findStudentExams(@Param("id") int id);
 
 	// lista wykładów
 
-	 // lista kursów
-	  
-	  @Query("SELECT DISTINCT c FROM Course c " +
-	  "JOIN Participant p ON p.primaryKey.course = c.id " +
-	  "JOIN Student s ON s.id = p.primaryKey.student " + "WHERE s.id = :id") List<Course>
-	  findCoursesForStudent(@Param("id") int id);
+	// lista kursów
+
+	@Query("SELECT DISTINCT c FROM Course c " + "JOIN Participant p ON p.primaryKey.course = c.id "
+			+ "JOIN Student s ON s.id = p.primaryKey.student " + "WHERE s.id = :id")
+	List<Course> findCoursesForStudent(@Param("id") int id);
 
 	// znajdz haslo
-	  @Query("SELECT u FROM User u " + "JOIN Student s ON s.userId = u.id " + "WHERE s.id = :id")
-	  User findPassword(@Param("id") int id);
-	  
+	@Query("SELECT u FROM User u " + "JOIN Student s ON s.userId = u.id " + "WHERE s.id = :id")
+	User findPassword(@Param("id") int id);
+
 	public Student findByUserId(int userId);
 
 	public Student findByPkk(String pkk);
-	 
+
 }
