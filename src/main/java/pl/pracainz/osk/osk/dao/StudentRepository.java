@@ -11,6 +11,7 @@ import pl.pracainz.osk.osk.entity.Course;
 import pl.pracainz.osk.osk.entity.Driving;
 import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.InternalExam;
+import pl.pracainz.osk.osk.entity.Lecture;
 import pl.pracainz.osk.osk.entity.Student;
 import pl.pracainz.osk.osk.entity.Timetable;
 import pl.pracainz.osk.osk.entity.User;
@@ -35,8 +36,10 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	List<Timetable> findTimetableForStudent(@Param("id") int id);
 
 	// lista jazd
+
 	@Query("SELECT d FROM Driving d " + "JOIN Student s ON s.id = d.student " + "JOIN Timetable t ON t.id = d.timetable "
 			+ "WHERE s.id = :id " + "order by t.begin") // AND d.cancelled = 0")
+
 	List<Driving> findDrivingsForStudent(@Param("id") int id);
 
 	@Query("SELECT d FROM Driving d " + "JOIN Student s ON s.id = d.student " + "WHERE s.id = :id AND d.cancelled = 1")
@@ -50,6 +53,9 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	List<InternalExam> findStudentExams(@Param("id") int id);
 
 	// lista wykładów
+	@Query("SELECT DISTINCT l FROM Lecture l " + "JOIN Course c ON c.id = l.course " + "JOIN Participant p ON p.primaryKey.course = c.id "
+			+ "JOIN Student s ON s.id = p.primaryKey.student " + "WHERE s.id = :id " + "ORDER BY l.date ")
+	List<Lecture> findLectures(@Param("id") int id);
 
 	// lista kursów
 
