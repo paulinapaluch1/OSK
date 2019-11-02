@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.hibernate.mapping.PrimaryKey;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import pl.pracainz.osk.osk.dao.CategoryRepository;
 import pl.pracainz.osk.osk.dao.CourseRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
+import pl.pracainz.osk.osk.dao.ParticipantRepository;
 import pl.pracainz.osk.osk.dao.StudentRepository;
 import pl.pracainz.osk.osk.entity.Category;
 import pl.pracainz.osk.osk.entity.Course;
@@ -32,13 +35,15 @@ public class CourseController {
 	private InstructorRepository instructorRepository;
 	private CategoryRepository categoryRepository;
 	private StudentRepository studentRepository;
+	private ParticipantRepository participantRepository;
 
 	public CourseController(CourseRepository repository, InstructorRepository instructorRepository,
-			CategoryRepository categoryRepository, StudentRepository studentRepository) {
+			CategoryRepository categoryRepository, StudentRepository studentRepository, ParticipantRepository participantRepository) {
 		this.courseRepository = repository;
 		this.instructorRepository = instructorRepository;
 		this.categoryRepository = categoryRepository;
 		this.studentRepository = studentRepository;
+		this.participantRepository = participantRepository;
 	}
 
 	@GetMapping("/list")
@@ -143,19 +148,35 @@ public class CourseController {
 		return "adminViews/adminCourses/participants";
 	}
 
-	@GetMapping("/deleteParticipant")
-	public String deleteParticipant(@RequestParam("id_student") int id_student, Model theModel) {
-		List<Student> theParticipants = courseRepository.deleteParticipant(3, id_student);
-		theModel.addAttribute("students", theParticipants);
+	@RequestMapping("/deleteParticipant")
+	@ResponseBody
+	public String deleteParticipants(@RequestParam("id_student") int id_student, @ModelAttribute("participant") Participant theParticipant) {
+		//Participant theParticipant = participantRepository.getOne(id)
+		//courseRepository.deleteParticipant(id_course, id_student);
+		//theParticipant = null;
+		//participantRepository.deleteById(theParticipant.getPrimaryKey().getStudent().getId(studentRepository.getOne(id_student).getId()));
+		//participantRepository.delete(theParticipant);
+		//theModel.addAttribute(theParticipant);
+		//participantRepository.deleteById(theParticipant.getPrimaryKey().getStudent().getId());
+		//participantRepository.getOne(3).setPrimaryKey(courseRepository.get);
+		//theModel.addAttribute("students", theParticipants);
+		//participantRepository.deleteById(participantRepository.ge);
+		//participantRepository.getOne(theParticipant.getPrimaryKey().setCourse(courseRepository.getOne(0)));
 		return "adminViews/adminCourses/participants";
 	}
 
 	@GetMapping("/addParticipants")
 	public String addParticipants(Model theModel) {
 		theModel.addAttribute("participant", new Participant());
-		theModel.addAttribute("student", studentRepository.findAll());
-		theModel.addAttribute("course", courseRepository.findAll());
+		theModel.addAttribute("students", studentRepository.findAll());
+		theModel.addAttribute("courses", courseRepository.findAll());
 		return "adminViews/adminCourses/addParticipant";
+	}
+	
+	@PostMapping("/participants/save")
+	public String saveNewParticipant(@ModelAttribute("participant") Participant theParticipant, Model theModel) {
+		participantRepository.save(theParticipant);
+		return "redirect:/courses/list";
 	}
 	
 	// save form
