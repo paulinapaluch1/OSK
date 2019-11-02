@@ -14,7 +14,8 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+<body
+	th:style="'background: url(/../car.jpg) no-repeat center center fixed;'">
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
@@ -32,54 +33,54 @@
 		</div>
 
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik:</strong> 
-			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
-			<a
+			<strong>Zalogowany użytkownik:</strong> <span
+				th:text="${#authentication.getPrincipal().getUsername()}"></span> <a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 
 	</nav>
 	<div class="page">
-				<h3 class="title">SAMOCHODY - ODRZUCONE OPINIE</h3>
-				<nav class="navbar justify-content-end">
-			
+		<div class="container list">
+			<h3 class="title">SAMOCHODY - ODRZUCONE OPINIE</h3>
+			<nav class="navbar justify-content-end">
+
 				<a th:href="@{/opinions/cars/newOpinions}"><button type="button"
-						class="btn btn-outline-secondary mr-3 mb-2">Nowe opinie</button></a>
-			
-				<a th:href="@{/opinions/cars/checkedOpinions}"><button
+						class="btn btn-outline-secondary mr-3 mb-2">Nowe opinie</button></a> <a
+					th:href="@{/opinions/cars/checkedOpinions}"><button
 						type="button" class="btn btn-outline-secondary mr-3 mb-2">Zatwierdzone
 						opinie</button></a>
-		</nav>
+			</nav>
 
 
-		<br>
+			<br>
 
-		<div class="table-responsive table-sm">
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr class="table-primary">
-						<th>Id opinii</th>
-						<th>Kursant</th>
-						<th>Samochód</th>
-						<th>Ocena</th>
-						<th>Opinia</th>
-					</tr>
-				</thead>
-				<tbody id="myTable">
-					<tr th:each="caropinion:${caropinions}">
-						<td th:text="${caropinion.id}" />
-						<td
-							th:text="${caropinion.student.name + ' ' + caropinion.student.surname}" />
-						<td th:text="${caropinion.car.registrationNumber}" />
-						<td th:text="${caropinion.carMark}" />
-						<td th:text="${caropinion.carOpinion}" />
+			<div class="table-responsive table-sm">
+				<table class="table table-hover">
+					<thead>
+						<tr class="table-primary">
+							<th>Id opinii</th>
+							<th>Kursant</th>
+							<th>Samochód</th>
+							<th>Ocena</th>
+							<th>Opinia</th>
+						</tr>
+					</thead>
+					<tbody id="myTable">
+						<tr th:each="caropinion:${caropinions}">
+							<td th:text="${caropinion.id}" />
+							<td
+								th:text="${caropinion.student.name + ' ' + caropinion.student.surname}" />
+							<td th:text="${caropinion.car.registrationNumber}" />
+							<td th:text="${caropinion.carMark}" />
+							<td th:text="${caropinion.carOpinion}" />
 
-						<td><a
-							th:href="@{/opinions/cancelCar(id_carOpinion=${caropinion.id})}"
-							class="btn btn-info">Przywróć</a></td>
-					</tr>
-				</tbody>
-			</table>
+							<td><a
+								th:href="@{/opinions/cancelCar(id_carOpinion=${caropinion.id})}"
+								class="btn btn-info">Przywróć</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </body>

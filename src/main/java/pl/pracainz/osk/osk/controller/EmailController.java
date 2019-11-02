@@ -50,7 +50,7 @@ public class SimpleEmailExampleController {
         User user  = userRepository.findById(student.getUserId());
         user.setPassword(encoder.encode(password));
 		userRepository.save(user);
-		String content = "Witaj " + student.getName() + "! \nTwoje dane do logowania to:\n \nlogin: " + student.getLogin() + " \nhasło: "+ password; 
+		String content = "Witaj " + student.getName() + "! \n\nTwoje dane do logowania to:\nlogin: " + student.getLogin() + " \nhasło: "+ password; 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
         message.setSubject("[OSK] Dane do logowania");

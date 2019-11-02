@@ -13,22 +13,33 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 </head>
-<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+<body
+	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
 	<header
 		th:insert="fragments/topNav.html :: navbar(returnPage = '/students/showCars')">
 	</header>
-	
+
 	<div class="page">
 		<div class="container list pt-2 pb-3 form">
-			<!--  <p th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname" />
--->
+			<h3 class="title">DODAJ OCENĘ</h3>
+			<nav class="navbar justify-content-end">
+				<a th:href="@{/students/showCars}"><button type="button"
+						class="btn btn-outline-secondary">SAMOCHODY</button></a>
+
+
+			</nav>
+			<span>o samochodzie </span><b><span
+				th:text="${car.brand+ ' ' +car.model + ' ' + car.registrationNumber}"></span></b>
+
+			<br>
+			<br>
 
 			<form action="#"
 				th:action="@{/students/saveCarOpinion(id_car=${caropinion.car.id})}"
 				th:object="${caropinion}" method="POST">
 
-				<strong>Oceń samochód w skali 1-5 </strong> (1 - najniższa ocena,
-				5 - najwyższa ocena) <br>
+				<strong>Ocena samochodu w skali 1-5 </strong> (1 - najniższa ocena, 5
+				- najwyższa ocena) <br>
 
 				<!--  <ul>
 					<li th:each="ty : ${allTypes}"><input type="radio"
@@ -51,8 +62,8 @@
 					type="radio" name="caropinion"> 3</label> <label><input
 					type="radio" name="caropinion"> 4</label> <label><input
 					type="radio" name="caropinion"> 5</label>  -->
-				<label for="opinion"> <strong>Opinia
-						o samochodzie*</strong></label> <br>
+				<label for="opinion"> <strong>Opinia o samochodzie*</strong></label>
+				<br>
 				<textarea th:field="*{carOpinion}" rows="10" cols="63"
 					placeholder="Napisz opinię o samochodzie"></textarea>
 
