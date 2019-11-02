@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 
+
 @Entity
 @Table(name = "internalexams")
 public class InternalExam {
