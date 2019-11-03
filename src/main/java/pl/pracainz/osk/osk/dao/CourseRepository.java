@@ -24,6 +24,6 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	List<Course> findCourses(@Param("id") int id);
 
 	// usun uczestnika kursu
-	@Query("DELETE FROM Participant p " + "WHERE p.primaryKey.student = :id_student AND p.primaryKey.course = :id_course")
-	List<Student> deleteParticipant(@Param("id_course") int id_course, @Param("id_student") int id_student);
+	//@Query("DELETE FROM Participant p " + "WHERE p.primaryKey.student.id = :id_student AND p.primaryKey.course.id = :id_course")
+	//List<Student> deleteParticipant(@Param("id_course") int id_course, @Param("id_student") int id_student);
 }
