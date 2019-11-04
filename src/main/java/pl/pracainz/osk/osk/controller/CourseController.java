@@ -158,6 +158,6 @@ public class CourseController {
 		return "adminViews/adminCourses/addParticipant";
 	}
 	
-	// save form
+
 
 }

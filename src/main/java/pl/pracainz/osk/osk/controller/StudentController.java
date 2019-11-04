@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.pracainz.osk.osk.PasswordGenerator;
 import pl.pracainz.osk.osk.dao.CarOpinionRepository;
@@ -112,7 +113,8 @@ public class StudentController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.GET)
-	public String saveStudent(@ModelAttribute("student") Student theStudent, @RequestParam("action") String action) {
+	public String saveStudent(@ModelAttribute("student") Student theStudent, @RequestParam("action") String action,
+			Model theModel) {
 		if (action.contentEquals("add")) {
 			String password = PasswordGenerator.generatePassword(20);
 			User user = new User(theStudent.getLogin(), encoder.encode(password), "STUDENT", "");
@@ -126,7 +128,8 @@ public class StudentController {
 		}
 		theStudent.setDeleted(0);
 		studentRepository.save(theStudent);
-		return "redirect:/students/list";
+		theModel.addAttribute("studentSaved", true);
+		return listStudents(theModel);
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -135,7 +138,7 @@ public class StudentController {
 		if (result.hasErrors()) {
 			return "adminViews/adminStudents/addStudent";
 		}
-		return saveStudent(student, action);
+		return saveStudent(student, action, theModel);
 	}
 
 	@GetMapping("/archiveStudent")

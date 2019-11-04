@@ -19,12 +19,10 @@
 	<div class="page">
 		<div class="container list form pb-3 pt-3">
 
+
+
 			<h3>KURSANT</h3>
-			
-			<form action="#" th:action="@{/students/save(action=${action})}"
-				th:object="${student}" method="POST">
-				<div class="row">
-<div class="card mb-5 mr-5 mt-3 ml-3" style="width: 15rem;">
+			<div class="card mb-5 mr-5 mt-3 ml-3" style="width: 15rem;">
 
 				<b class="card-header">Wprowadz PKK</b>
 				<div class="card-body">
@@ -35,6 +33,10 @@
 					</form>
 				</div>
 			</div>
+			<form action="#" th:action="@{/students/save(action=${action})}"
+				th:object="${student}" method="POST">
+				<div class="row">
+
 
 <div class="col">
 				<input type="hidden" th:field="*{id}" /> <input type="hidden"
