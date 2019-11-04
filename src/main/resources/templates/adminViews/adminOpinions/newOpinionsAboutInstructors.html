@@ -14,7 +14,9 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body th:style="'background: url(/../car.jpg) no-repeat center center fixed;'">
+
+<body
+	th:style="'background: url(/../car.jpg) no-repeat center center fixed;'">
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
@@ -23,7 +25,10 @@
 				width="70px" /></a>
 		</div>
 		<div class="flex-fill">
-			<a th:href="@{/opinions/instructors}">
+			<a sec:authorize="hasRole('ADMIN')" th:href="@{/opinions/instructors}">
+				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
+			</a> <a sec:authorize="hasRole('INSTRUCTOR')"
+				th:href="@{/instructors/showOpinions}">
 				<button class="btn btn-secondary my-2 my-sm-0">Wróć</button>
 			</a>
 		</div>
@@ -31,61 +36,60 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik:</strong> 
-			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
-			<a
+			<strong>Zalogowany użytkownik:</strong> <span
+				th:text="${#authentication.getPrincipal().getUsername()}"></span> <a
 				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 
 	</nav>
 	<div class="page">
-	<div class="container list">
-				<h3 class="title">INSTRUKTORZY - NOWE OPINIE</h3>
-					<nav class="navbar justify-content-end">
-			
+		<div class="container list">
+			<h3 class="title">INSTRUKTORZY - NOWE OPINIE</h3>
+			<nav class="navbar justify-content-end">
+
 				<a th:href="@{/opinions/instructors/checkedOpinions}"><button
 						type="button" class="btn btn-outline-secondary mr-3 mb-2">Zatwierdzone
-						opinie</button></a>
-				<a th:href="@{/opinions/instructors/rejectedOpinions}"><button
+						opinie</button></a> <a th:href="@{/opinions/instructors/rejectedOpinions}"><button
 						type="button" class="btn btn-outline-secondary mr-3 mb-2">Odrzucone
 						opinie</button></a>
-		</nav>
+			</nav>
 
 
-		<br>
+			<br>
 
-		<div class="table-responsive table-sm">
-			<table class="table table-hover">
-				<thead>
-					<tr class="table-primary">
-						<th>Id opinii</th>
-						<th>Instruktor</th>
-						<th>Kursant</th>
-						<th>Ocena</th>
-						<th>Opinia</th>
-					</tr>
-				</thead>
-				<tbody id="myTable">
-					<tr th:each="instructoropinion:${instructoropinions}">
-						<td th:text="${instructoropinion.id}" />
-						<td
-							th:text="${instructoropinion.student.name} + ' ' + ${instructoropinion.student.surname}" />
-						<td
-							th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname}" />
-						<td th:text="${instructoropinion.instructorMark}" />
-						<td th:text="${instructoropinion.instructorOpinion}" />
-						<td><a
-							th:href="@{/opinions/confirmInstructor(id_instructorOpinion=${instructoropinion.id})}"
-							class="btn btn-success">Zatwierdź</a></td>
-						<td><a
-							th:href="@{/opinions/rejectInstructor(id_instructorOpinion=${instructoropinion.id})}"
-							class="btn btn-danger">Odrzuć</a></td>
-					</tr>
-				</tbody>
+			<div class="table-responsive table-ssm">
+				<table class="table table-hover">
+					<thead>
+						<tr class="table-primary">
+							<th>Id opinii</th>
+							<th>Instruktor</th>
+							<th>Kursant</th>
+							<th>Ocena</th>
+							<th>Opinia</th>
+						</tr>
+					</thead>
+					<tbody id="myTable">
+						<tr th:each="instructoropinion:${instructoropinions}">
+							<td th:text="${instructoropinion.id}" />
+							<td
+								th:text="${instructoropinion.student.name} + ' ' + ${instructoropinion.student.surname}" />
+							<td
+								th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname}" />
+							<td th:text="${instructoropinion.instructorMark}" />
+							<td th:text="${instructoropinion.instructorOpinion}" />
+							<td><a
+								th:href="@{/opinions/confirmInstructor(id_instructorOpinion=${instructoropinion.id})}"
+								class="btn btn-success">Zatwierdź</a></td>
+							<td><a
+								th:href="@{/opinions/rejectInstructor(id_instructorOpinion=${instructoropinion.id})}"
+								class="btn btn-danger">Odrzuć</a></td>
+						</tr>
+					</tbody>
 
-			</table>
+				</table>
+			</div>
 		</div>
-	</div></div>
+	</div>
 </body>
 
 

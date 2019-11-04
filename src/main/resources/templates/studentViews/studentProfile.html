@@ -11,7 +11,8 @@
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 </head>
 
-<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+<body
+	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
 		<div class=" flex-fill">
@@ -23,43 +24,46 @@
 			<h2>Ośrodek Szkolenia Kierowców</h2>
 		</div>
 		<div class="flex-fill">
-			<strong>Zalogowany użytkownik: student</strong> <a href="/logout"><button
-					type="button" class="btn btn-primary">WYLOGUJ</button></a>
+			<strong>Zalogowany użytkownik:</strong> <span
+				th:text="${#authentication.getPrincipal().getUsername()}"></span> <a
+				href="/logout"><button type="button" class="btn btn-primary">WYLOGUJ</button></a>
 		</div>
 
 	</nav>
 	<div class="page">
-	<br><br>
-		<div class="row px-md-5">
-			<div class="col-3  list card mt-2 " style=max-height:31rem;>
 		<br>
-
-				<b><p th:text=" ${student.name + ' ' + student.surname}" /></b>
+		<br>
+		<div class="row px-md-5">
+			<div class="col-3  list card mt-2 " style="max-height: 31rem;">
+				<br> <b><p
+						th:text=" ${student.name + ' ' + student.surname}" /></b>
 				<p th:text="'Login: ' + ${student.login}" />
-				<p th:text="'Data urodzenia: ' + ${#dates.format(student.birthdate, 'dd.MM.yyyy')}" />
+				<p
+					th:text="'Data urodzenia: ' + ${#dates.format(student.birthdate, 'dd.MM.yyyy')}" />
 				<p
 					th:text="'Adres: ul. ' + ${student.street + ' ' + student.buildingNumber + ', ' + student.postCode + ' ' + student.city}" />
 				<p th:text="'Telefon: ' + ${student.phoneNumber}" />
 				<p th:text="'E-mail: ' + ${student.email}" />
-				<a th:href="@{/students/updateDataStudent(id_student=${student.id})}">
-				<button type="submit" class="btn btn-info mb-2" >EDYTUJ</button></a>
-				<a th:href="@{/students/changePassword}"><button
-					type="button" class="btn btn-primary mb-3" >ZMIEŃ HASŁO</button></a>
+				<a
+					th:href="@{/students/updateDataStudent(id_student=${student.id})}">
+					<button type="submit" class="btn btn-info mb-2">EDYTUJ</button>
+				</a> <a th:href="@{/students/changePassword}"><button type="button"
+						class="btn btn-primary mb-3">ZMIEŃ HASŁO</button></a>
 
 			</div>
 			<div class="col-9 mt-2">
 				<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 					<div class="card-body text-center mt-4">
-						<a style="text-decoration: none" th:href="@{/students/showCourses}"
-						 class="card-text">Moje kursy
-						</a>
+						<a style="text-decoration: none"
+							th:href="@{/students/showCourses}" class="card-text">Moje
+							kursy </a>
 					</div>
 				</div>
 
 				<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 					<div class="card-body text-center mt-4">
-						<a style="text-decoration: none" th:href="@{/students/showTimetable}"
-						class="card-text">Grafik
+						<a style="text-decoration: none"
+							th:href="@{/students/showTimetable}" class="card-text">Grafik
 						</a>
 					</div>
 				</div>
@@ -67,16 +71,15 @@
 				<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 					<div class="card-body text-center mt-4">
 						<a style="text-decoration: none" th:href="@{/students/showExams}"
-						 class="card-text">Egzaminy
-						</a>
+							class="card-text">Egzaminy </a>
 					</div>
 				</div>
 
 
 				<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 					<div class="card-body text-center mt-4">
-						<a style="text-decoration: none" th:href="@{/students/showInstructors}"
-						class="card-text">Instruktorzy
+						<a style="text-decoration: none"
+							th:href="@{/students/showInstructors}" class="card-text">Instruktorzy
 						</a>
 					</div>
 				</div>
@@ -84,16 +87,14 @@
 				<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 					<div class="card-body text-center mt-4">
 						<a style="text-decoration: none" th:href="@{/students/showCars}"
-						 class="card-text">Samochody
-						</a>
+							class="card-text">Samochody </a>
 					</div>
 				</div>
 
 				<div id="card" class="card bg-light mb-4 ml-4 mr-4">
 					<div class="card-body text-center mt-4">
-						<a style="text-decoration: none" th:href="@{/students/showDrivings}"
-						 class="card-text">Jazdy
-						</a>
+						<a style="text-decoration: none"
+							th:href="@{/students/showDrivings}" class="card-text">Jazdy </a>
 					</div>
 				</div>
 
@@ -101,7 +102,7 @@
 
 		</div>
 	</div>
-	
+
 
 </body>
 </HTML>
