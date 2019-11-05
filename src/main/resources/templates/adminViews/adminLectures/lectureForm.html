@@ -15,8 +15,6 @@
 	<header
 		th:insert="fragments/topNav.html :: navbar(returnPage = '/lectures/list')">
 	</header>
-
-
 	<div class="page">
 		<div class="container list form pb-3 pt-3">
 			<h3>WYKŁAD</h3>
@@ -37,7 +35,7 @@
 					class="form-control mb-4 col-4">
 					<option th:each="instructor: ${instructors}"
 						th:value="${instructor.id}"
-						th:text="${instructor.name} + ' ' + ${instructor.surname}" />
+						th:text="${instructor.name} + ' ' + ${instructor.surname}"/>
 				</select>
 				<div class="mb-3">
 					Numer sali: <input type="text" th:field="*{roomNumber}"
@@ -47,9 +45,7 @@
 				</div>
 				<input type="hidden" th:field="*{date}" /> Data: <input type="date"
 					th:object="${date}" class="form-control col-4">
-
 				<button type="submit" class="btn btn-info col-2">ZAPISZ</button>
-
 				<a th:href="@{/lectures/list}" class="btn btn-danger">ANULUJ</a>
 
 			</form>

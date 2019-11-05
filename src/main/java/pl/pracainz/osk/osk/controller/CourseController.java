@@ -173,12 +173,13 @@ public class CourseController {
 		return "adminViews/adminCourses/addParticipant";
 	}
 	
+
 	@PostMapping("/participants/save")
 	public String saveNewParticipant(@ModelAttribute("participant") Participant theParticipant, Model theModel) {
 		participantRepository.save(theParticipant);
 		return "redirect:/courses/list";
 	}
 	
-	// save form
+
 
 }

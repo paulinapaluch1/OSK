@@ -11,7 +11,14 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
+
 </head>
 
 <body
@@ -19,19 +26,20 @@
 	<header th:insert="fragments/topNav.html :: navbar(returnPage = '/')">
 	</header>
 
-
 	<div class="page">
-
-			<div class="container list" >
-				<h3 class="title">KURSANCI</h3>
-			<nav class="navbar justify-content-end">
-				<a th:href="@{/students/showFormForAdd}"><button type="button"
-						class="btn btn btn-primary mr-3 mb-2">DODAJ KURSANTA</button></a>
-				<a th:href="@{/students/listArchived}"><button type="button"
-						class="btn btn-outline-secondary mr-3 mb-2">Zarchiwizowani kursanci</button></a>
+	
+	
+	<div class="container list">
+		<h3 class="title">KURSANCI</h3>
+		<nav class="navbar justify-content-end">
+			<a th:href="@{/students/showFormForAdd}"><button type="button"
+					class="btn btn btn-primary mr-3 mb-2">DODAJ KURSANTA</button></a> <a
+				th:href="@{/students/listArchived}"><button type="button"
+					class="btn btn-outline-secondary mr-3 mb-2">Zarchiwizowani
+					kursanci</button></a>
 		</nav>
 
-		 <input class="form-control col-3" id="myInput" type="text"
+		<input class="form-control col-3" id="myInput" type="text"
 			placeholder="Szukaj..."> <br>
 		<div class="table-responsive">
 			<table class="table table-hover table-sm">
@@ -47,26 +55,24 @@
 						<th>Telefon</th>
 						<th>Email</th>
 						<th>PKK</th>
-						</tr>
-					</thead>
-					<tbody id="myTable">
-						<tr th:each="tempStudent:${students}">
-							<td th:text="${tempStudent.id}" />
-							<td th:text="${tempStudent.name}" />
-							<td th:text="${tempStudent.surname}" />
-							<td th:text="${tempStudent.login}" />
-							<td><a
-
+					</tr>
+				</thead>
+				<tbody id="myTable">
+					<tr th:each="tempStudent:${students}">
+						<td th:text="${tempStudent.id}" />
+						<td th:text="${tempStudent.name}" />
+						<td th:text="${tempStudent.surname}" />
+						<td th:text="${tempStudent.login}" />
+						<td><a
 							th:href="@{/sendEmail(email=${tempStudent.email},id=${tempStudent.id})}"
-
 							class="btn btn-secondary">Wyślij hasło</a></td>
-							<td
-								th:text="${#dates.format(tempStudent.birthdate,'dd.MM.yyyy')} " />
-							<td
-								th:text="'ul. '+${tempStudent.street}+ ' ' +${tempStudent.buildingNumber}+ '/ ' +${tempStudent.apartmentNumber}+ ' ' +${tempStudent.postCode}+ ' ' +${tempStudent.city}" />
-							<td th:text="${tempStudent.phoneNumber}" />
-							<td th:text="${tempStudent.email}" />
-							<td th:text="${tempStudent.pkk}" />
+						<td
+							th:text="${#dates.format(tempStudent.birthdate,'dd.MM.yyyy')} " />
+						<td
+							th:text="'ul. '+${tempStudent.street}+ ' ' +${tempStudent.buildingNumber}+ '/ ' +${tempStudent.apartmentNumber}+ ' ' +${tempStudent.postCode}+ ' ' +${tempStudent.city}" />
+						<td th:text="${tempStudent.phoneNumber}" />
+						<td th:text="${tempStudent.email}" />
+						<td th:text="${tempStudent.pkk}" />
 
 
 						<td><a
@@ -82,14 +88,20 @@
 				</tbody>
 			</table>
 
-			</div>
 		</div>
+	</div>
+	<div th:if="${studentSaved == true}"id="snackbar" >Zapisano dane kursanta</div>
 	</div>
 	<script>
 		$(document)
 				.ready(
 						function() {
-							$("#myInput")
+
+							var x = document.getElementById("snackbar");
+							  x.className = "show";
+							  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+						
+							  $("#myInput")
 									.on(
 											"keyup",
 											function() {

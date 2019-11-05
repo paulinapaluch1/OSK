@@ -10,51 +10,45 @@
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
 </head>
-<body
-	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
-	<header th:insert="fragments/topNav.html :: navbar(returnPage = '/')">
-	</header>
 
+
+<body th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+	<header th:insert="fragments/topNav.html :: navbar(returnPage = '/')"/>
 	<div class="page">
-
-			<div class="container list" >
-				<h3 class="title">WYKŁADY</h3>
-					<nav class="navbar justify-content-end">
-							<a th:href="@{/lectures/showFormForAdd}" class="btn btn-primary mr-3 mb-2">DODAJ
-					WYKŁAD</a>
+		<div class="container list" >
+			<h3 class="title">WYKŁADY</h3>
+				<nav class="navbar justify-content-end">
+				  <a th:href="@{/lectures/showFormForAdd}" 
+				  class="btn btn-primary mr-3 mb-2">DODAJ WYKŁAD</a>
 				<a th:href="@{/lectures/listArchived}"
-					class="btn btn-outline-secondary mr-3 mb-2">Zarchiwizowane wykłady</a>
-		</nav>
+					class="btn btn-outline-secondary mr-3 mb-2">
+					Zarchiwizowane wykłady</a>
+				</nav>
 		<input class="form-control col-3" id="myInput" type="text"
 			placeholder="Szukaj..."> <br>
 		<div class="table-responsive">
-			<table class="table table-hover table-sm">
-				<thead>
-					<tr class="table-primary">
-						<th>Id wykładu</th>
-						<th>Id kursu</th>
-						<th>Kategoria</th>
-						<th>Instruktor</th>
-						<th>Numer sali</th>
-						<th>Data</th>
+		  <table class="table table-hover table-sm">
+			<thead>
+			  <tr class="table-primary">
+				<th>Id wykładu</th>
+				<th>Id kursu</th>
+				<th>Kategoria</th>
+				<th>Instruktor</th>
+				<th>Numer sali</th>
+				<th>Data</th>
 					</tr>
 				</thead>
-				<tbody id="myTable">
-					<tr th:each="lecture:${lectures}">
-						<td th:text="${lecture.id}" />
-						<td th:text="${lecture.course.id}" />
-						<td th:text="${lecture.course.category.categoryName}" />
-						<td
-							th:text="${lecture.course.instructor.name} + ' ' + ${lecture.course.instructor.surname}" />
-						<td th:text="${lecture.roomNumber}" />
-						<td th:text="${#temporals.format(lecture.date,'dd.MM.yyyy HH:mm')}" />
-						
-
-
-							<td><a
-								th:href="@{/lectures/showFormForUpdate(id_lecture=${lecture.id})}"
+			 <tbody id="myTable">
+				<tr th:each="lecture:${lectures}">
+					<td th:text="${lecture.id}" />
+					<td th:text="${lecture.course.id}" />
+					<td th:text="${lecture.course.category.categoryName}" />
+					<td	th:text="${lecture.course.instructor.name}
+					  + ' ' + ${lecture.course.instructor.surname}" />
+					<td th:text="${lecture.roomNumber}" />
+					<td th:text="${#temporals.format(lecture.date,'dd.MM.yyyy HH:mm')}" />
+					<td><a th:href="@{/lectures/showFormForUpdate(id_lecture=${lecture.id})}"
 								class="btn btn-primary">EDYTUJ</a></td>
 							<td><a
 								th:href="@{/lectures/archiveLecture(id_lecture=${lecture.id})}"
