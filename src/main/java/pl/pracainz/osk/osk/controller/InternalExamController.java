@@ -63,17 +63,19 @@ public class InternalExamController {
 	}
 
 	@RequestMapping(value="/save", method=RequestMethod.GET)
-	public String saveExam(@ModelAttribute("internalexam") InternalExam theInternalExam) {
+	public String saveExam(@ModelAttribute("internalexam") InternalExam theInternalExam, Model theModel) {
 		internalExamRepository.save(theInternalExam);
-		return "redirect:/exams/list";
+		theModel.addAttribute("saved", true);
+		return listInternalExams(theModel) ;
 	}
-	
+	 
 	@RequestMapping(value="/save", method=RequestMethod.POST)
-	public String validateForm(@Valid @ModelAttribute("internalexam")InternalExam internalexam, BindingResult result) {
+	public String validateForm(@Valid @ModelAttribute("internalexam")InternalExam internalexam, BindingResult result,
+			Model theModel) {
 		if(result.hasErrors()) {
 			return "adminViews/adminExams/examForm";
 		}
-		return saveExam(internalexam);
+		return saveExam(internalexam, theModel);
 	}
 	
 	@GetMapping("/archiveExam")

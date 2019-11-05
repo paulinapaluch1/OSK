@@ -75,14 +75,15 @@ public class CourseController {
 		if (result.hasErrors()) {
 			return "adminViews/adminCourses/courseForm";
 		}
-		return saveCourse(course);
+		return saveCourse(course, theModel);
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.GET)
-	public String saveCourse(@ModelAttribute("course") Course theCourse) {
+	public String saveCourse(@ModelAttribute("course") Course theCourse, Model theModel) {
 		theCourse.setFinished(0);
 		courseRepository.save(theCourse);
-		return "redirect:/courses/list";
+		theModel.addAttribute("saved", true);
+		return listCourses(theModel);
 	}
 
 	@GetMapping("/archiveCourse")

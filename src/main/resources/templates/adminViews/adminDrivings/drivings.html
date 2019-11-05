@@ -3,6 +3,7 @@
 <head>
 <title>Jazdy</title>
 <meta charset="utf-8">
+<meta charset="utf-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -12,8 +13,8 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
-</head>
 
+</head>
 <body
 	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
 	<header th:insert="fragments/topNav.html :: navbar(returnPage = '/')">
@@ -27,9 +28,6 @@
 						jazdy</button></a> <a th:href="@{/drivings/types}"><button type="button"
 						class="btn btn btn-primary mr-3 mb-2">TYPY JAZD</button></a>
 			</nav>
-
-
-
 
 
 			<input class="form-control col-3" id="myInput" type="text"
@@ -96,11 +94,16 @@
 				</table>
 			</div>
 		</div>
+		<div th:if="${saved == true}" id="snackbar" >Zapisano dane jazdy</div>
 	</div>
 	<script>
 		$(document)
 				.ready(
 						function() {
+							var x = document.getElementById("snackbar");
+							  x.className = "show";
+							  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+						
 							$("#myInput")
 									.on(
 											"keyup",

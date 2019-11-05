@@ -52,7 +52,6 @@ public class InternalExam {
 
 	public InternalExam(Instructor instructor, Date dateHour, String type, 
 			int deleted, int result) {
-		super();
 		this.instructor = instructor;
 		this.dateHour = dateHour;
 		this.type = type;

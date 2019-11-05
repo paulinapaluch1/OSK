@@ -2,12 +2,16 @@ package pl.pracainz.osk.osk.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pracainz.osk.osk.dao.DrivingRepository;
@@ -15,6 +19,7 @@ import pl.pracainz.osk.osk.dao.DrivingTypeRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.StudentRepository;
 import pl.pracainz.osk.osk.dao.TimetableRepository;
+import pl.pracainz.osk.osk.entity.Car;
 import pl.pracainz.osk.osk.entity.Driving;
 import pl.pracainz.osk.osk.entity.DrivingType;
 import pl.pracainz.osk.osk.entity.Instructor;
@@ -66,17 +71,28 @@ public class DrivingController {
 		return "adminViews/adminDrivings/drivingForm";
 	}
 
-	@PostMapping("save")
-	public String saveDriving(@ModelAttribute("driving") Driving theDriving) {
+	
+	@RequestMapping(value="/save", method=RequestMethod.POST)
+	public String validateForm(@Valid Driving theDriving, BindingResult result, Model theModel) {
+		if(result.hasErrors()) {
+			return "adminViews/adminDrivings/drivingForm";
+		}
+		return saveDriving(theDriving, theModel);
+	}
+	
+	@RequestMapping(value="/save", method=RequestMethod.GET)
+	public String saveDriving(@ModelAttribute("driving")  Driving theDriving, Model theModel) {
 		Driving driving = drivingRepository.getOne(theDriving.getId());
 		Timetable timetable = timetableRepository.getOne(driving.getTimetable().getId());
 		timetable.setDrivingType(theDriving.getTimetable().getDrivingType());
 		timetable.setInstructor(theDriving.getTimetable().getInstructor());
 		theDriving.setTimetable(timetable);
 		drivingRepository.save(theDriving);
-		return "redirect:/drivings/list";
+		theModel.addAttribute("saved", true);
+		return listDrivings(theModel);
 	}
 
+	
 	@GetMapping("/archiveDriving")
 	public String archiveDriving(@RequestParam("id_driving") int id, Model theModel) {
 		Driving theDriving = drivingRepository.getOne(id);

@@ -29,10 +29,7 @@
 						class="btn btn-outline-secondary mr-3 mb-2">Zarchiwizowane
 						kursy</button></a> <a th:href="@{/courses/categories}"><button
 						type="button" class="btn btn btn-primary mr-3 mb-2">KATEGORIE</button></a>
-
 			</nav>
-
-
 			<input class="form-control col-3" id="myInput" type="text"
 				placeholder="Szukaj..."> <br>
 			<div class="table-responsive table-sm ">
@@ -75,12 +72,20 @@
 
 			</div>
 		</div>
+	<div th:if="${saved == true}"id="snackbar" >Zapisano dane kursu</div>
 
 	</div>
 	<script>
 		$(document)
 				.ready(
 						function() {
+							var x = document.getElementById("snackbar");
+							  x.className = "show";
+							  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+						
+							
+							
+							
 							$("#myInput")
 									.on(
 											"keyup",
