@@ -42,7 +42,7 @@ import pl.pracainz.osk.osk.entity.UserPrincipal;
 @Controller
 @RequestMapping("/instructors")
 public class InstructorController {
-	private InstructorRepository instructorRepository;
+	private static InstructorRepository instructorRepository;
 	private UserRepository userRepository;
 	private TimetableRepository timetableRepository;
 	private PasswordEncoder encoder;
@@ -63,7 +63,7 @@ public class InstructorController {
 	}
 
 	@GetMapping("/list")
-	public String listInstructors(Model theModel) {
+	public static String listInstructors(Model theModel) {
 		List<Instructor> theInstructors = instructorRepository.findByDeleted(0);
 		theModel.addAttribute("instructors", theInstructors);
 		return "adminViews/adminInstructors/instructors";
@@ -96,14 +96,12 @@ public class InstructorController {
 		if(result.hasErrors()) {
 			return "adminViews/adminInstructors/instructorForm";
 		}
-		return saveInstructor(instructor,action );
+		return saveInstructor(instructor,action, theModel );
 	}
-	
-	
-	
+
 	@RequestMapping(value="/save", method=RequestMethod.GET)
 	public String saveInstructor(@ModelAttribute("instructor") Instructor theInstructor,
-			@RequestParam("action") String action) {
+			@RequestParam("action") String action, Model theModel) {
 		if (action.contentEquals("add")) {
 			String password = PasswordGenerator.generatePassword(20);
 			User user = new User(theInstructor.getLogin(), encoder.encode(password), "INSTRUCTOR", "");
@@ -117,7 +115,8 @@ public class InstructorController {
 
 		theInstructor.setDeleted(0);
 		instructorRepository.save(theInstructor);
-		return "redirect:/instructors/list";
+		theModel.addAttribute("saved", true);
+		return listInstructors(theModel) ;
 	}
 
 	@GetMapping("/archiveInstructor")

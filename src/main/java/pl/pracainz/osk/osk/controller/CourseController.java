@@ -113,13 +113,15 @@ public class CourseController {
 		Category category = categoryRepository.getOne(theCategory.getId());
 		category.setCategoryName(theCategory.getCategoryName());
 		categoryRepository.save(category);
-		return "redirect:/courses/categories";
+		theModel.addAttribute("changed", true);
+		return listCategories(theModel);
 	}
 
 	@PostMapping("saveNewCategory")
 	public String saveNewCategory(@ModelAttribute("categoryToAdd") Category theCategory, Model theModel) {
 		categoryRepository.save(theCategory);
-		return "redirect:/courses/categories";
+		theModel.addAttribute("added", true);
+		return listCategories(theModel);
 	}
 
 	@ModelAttribute("categories")
@@ -168,7 +170,10 @@ public class CourseController {
 
 	@GetMapping("/addParticipants")
 	public String addParticipants(Model theModel) {
-		theModel.addAttribute("participant", new Participant());
+		Participant participant = new Participant();
+		participant.getPrimaryKey().setCourse(courseRepository.getOne(4));
+		theModel.addAttribute("participant", participant);
+		
 		theModel.addAttribute("students", studentRepository.findAll());
 		theModel.addAttribute("courses", courseRepository.findAll());
 		return "adminViews/adminCourses/addParticipant";
