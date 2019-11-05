@@ -7,6 +7,8 @@ import pl.pracainz.osk.osk.entity.Participant;
 public interface ParticipantRepository extends JpaRepository<Participant, Integer> {
 
 	
+
+	
 	
 	
 
