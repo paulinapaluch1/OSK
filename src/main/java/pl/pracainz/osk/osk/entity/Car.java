@@ -117,7 +117,7 @@ public class Car {
 	}
 	
 	public double getMarkAverage() {
-		if(!getCarOpinions().isEmpty()) {
+		if(getCarOpinions()!=null && !carOpinions.isEmpty()) {
 		double sum = 0;
 		double quantity = 0;
 		for (CarOpinion opinion : carOpinions) {

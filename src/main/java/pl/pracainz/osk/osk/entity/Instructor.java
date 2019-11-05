@@ -174,7 +174,7 @@ public class Instructor {
 	}
 
 	public double getMarkAverage() {
-		if(!instructorOpinions.isEmpty()) {
+		if(getInstructorOpinions()!=null && !getInstructorOpinions().isEmpty()) {
 		double sum = 0;
 		double quantity = 0;			
 		for (InstructorOpinion opinion : instructorOpinions) {

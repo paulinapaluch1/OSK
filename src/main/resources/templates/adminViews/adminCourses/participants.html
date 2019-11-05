@@ -25,13 +25,15 @@
 		<div class="container list">
 
 			<h3 class="title">UCZESTNICY KURSU</h3>
+		
 			<nav class="navbar  justify-content-end">
-				<a th:href="@{/courses/addParticipants}"><button type="button"
+			<span class="mr-3" th:text="${course.id} +'. Kategoria: '+${course.category.categoryName}+' START: '+${#temporals.format(course.startDate,'dd.MM.yyyy')}" />
+			
+				<a th:href="@{/courses/addParticipants(id=${course.id})}"><button type="button"
 						class="btn btn-outline-secondary mr-3 mb-2">Dodaj
 						uczestnika</button></a> <a th:href="@{/courses/list}"><button type="button"
 						class="btn btn btn-primary mr-3 mb-2">KURSY</button></a>
 			</nav>
-
 			<input class="form-control col-3" id="myInput" type="text"
 				placeholder="Szukaj..."> <br>
 			<div class="table-responsive table-sm">
@@ -47,7 +49,7 @@
 							<td th:text="${student.name}" />
 							<td th:text="${student.surname}" />
 							<td><a
-								th:href="@{/courses/deleteParticipant(id_student=${student.id})}"
+								th:href="@{/courses/deleteParticipant(id_student=${student.id}, id_course=${course.id})}"
 								class="btn btn-danger">USUŃ UCZESTNIKA</a></td>
 
 

@@ -76,7 +76,44 @@
 				</div>
 			</div>
 		</div>
+		
+			<div th:if="${changed == true}"id="snackbar" >Zmieniono nazwę kategorii</div>
+			<div th:if="${added == true}"id="snackbar" >Dodano nową kategorię</div>
+		
+		
+		
 	</div>
-
+<script>
+		$(document)
+				.ready(
+						function() {
+							var x = document.getElementById("snackbar");
+							  x.className = "show";
+							  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+						
+							
+							
+							
+							$("#myInput")
+									.on(
+											"keyup",
+											function() {
+												var value = $(this).val()
+														.toLowerCase();
+												$("#myTable tr")
+														.filter(
+																function() {
+																	$(this)
+																			.toggle(
+																					$(
+																							this)
+																							.text()
+																							.toLowerCase()
+																							.indexOf(
+																									value) > -1)
+																});
+											});
+						});
+	</script>
 </body>
-</HTML>
+</html>

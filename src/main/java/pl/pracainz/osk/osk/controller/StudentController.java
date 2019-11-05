@@ -56,7 +56,7 @@ import pl.pracainz.osk.osk.entity.UserPrincipal;
 @RequestMapping("/students")
 public class StudentController {
 
-	private StudentRepository studentRepository;
+	private static StudentRepository studentRepository;
 	private InstructorRepository instructorRepository;
 	private InstructorOpinionRepository instructorOpinionRepository;
 	private CarOpinionRepository carOpinionRepository;
@@ -88,7 +88,7 @@ public class StudentController {
 	}
 
 	@GetMapping("/list")
-	public String listStudents(Model theModel) {
+	public static String listStudents(Model theModel) {
 		theModel.addAttribute("students", studentRepository.findByDeleted(0));
 		return "adminViews/adminStudents/students";
 	}
