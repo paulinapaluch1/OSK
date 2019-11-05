@@ -7,12 +7,13 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 </head>
-<body
-	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+<body	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
 	<header th:insert="fragments/topNav.html :: navbar(returnPage = '/')">
 	</header>
 
@@ -95,12 +96,21 @@
 
 			</div>
 		</div>
+			<div th:if="${saved == true}"id="snackbar" >Zapisano dane egzaminu</div>
+		
 	</div>
 
 	<script>
 		$(document)
 				.ready(
 						function() {
+							
+							var x = document.getElementById("snackbar");
+							  x.className = "show";
+							  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+						
+							
+							
 							$("#myInput")
 									.on(
 											"keyup",

@@ -53,16 +53,17 @@ public class CarController {
 		if(result.hasErrors()) {
 			return "adminViews/adminCars/carForm";
 		}
-		return saveCar(car);
+		return saveCar(car, theModel);
 	}
 	
 	
 	
 	@RequestMapping(value="/save", method=RequestMethod.GET)
-	public String saveCar(@ModelAttribute("car") Car theCar) {
+	public String saveCar(@ModelAttribute("car") Car theCar, Model theModel) {
 		theCar.setDeleted(0);
+		theModel.addAttribute("saved", true);
 		carRepository.save(theCar);
-		return "redirect:/cars/list";
+		return listCars(theModel) ;
 	}
 
 	@GetMapping("/archiveCar")

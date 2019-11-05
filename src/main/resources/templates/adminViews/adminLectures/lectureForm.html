@@ -20,7 +20,7 @@
 			<h3>WYKŁAD</h3>
 
 			<form action="#"
-				th:action="@{/lectures/save(date=${${#temporals.format(date,'dd.MM.yyyy')}}"
+				th:action="@{/lectures/save}"
 				th:object="${lecture}" method="POST">
 
 				<input type="hidden" th:field="*{id}" /> Kurs: <select
