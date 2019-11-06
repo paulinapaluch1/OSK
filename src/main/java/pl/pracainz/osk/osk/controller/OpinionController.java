@@ -96,7 +96,8 @@ public class OpinionController {
 		InstructorOpinion theInstructorOpinion = instructorOpinionRepository.getOne(id);
 		theInstructorOpinion.setStatus("zatwierdzona");
 		instructorOpinionRepository.save(theInstructorOpinion);
-		return "redirect:/opinions/instructors/newOpinions";
+	theModel.addAttribute("confirmed", "Zatwierdzono opinię kursanta "+theInstructorOpinion.getStudent().getName()+" "+theInstructorOpinion.getStudent().getSurname());
+		return listNewOpinions(theModel);
 	}
 
 	@GetMapping("/rejectInstructor")
@@ -104,7 +105,8 @@ public class OpinionController {
 		InstructorOpinion theInstructorOpinion = instructorOpinionRepository.getOne(id);
 		theInstructorOpinion.setStatus("odrzucona");
 		instructorOpinionRepository.save(theInstructorOpinion);
-		return "redirect:/opinions/instructors/newOpinions";
+		theModel.addAttribute("rejected", "Odrzucono opinię kursanta "+theInstructorOpinion.getStudent().getName()+" "+theInstructorOpinion.getStudent().getSurname());
+		return listNewOpinions(theModel);
 	}
 
 	@GetMapping("/cancelInstructor")

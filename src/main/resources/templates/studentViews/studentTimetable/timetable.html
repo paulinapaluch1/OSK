@@ -117,8 +117,22 @@
 			</for:each>
 
 		</div>
+			<div th:if="${reserved}"id="snackbar" >Zarezerwowano jazdę</div>
+		
 	</div>
 	<script>
+	$(document)
+	.ready(
+			function() {
+
+				var x = document.getElementById("snackbar");
+				  x.className = "show";
+				  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+			
+			})
+	
+	
+	
 		var acc = document.getElementsByClassName("accordion");
 		var i;
 

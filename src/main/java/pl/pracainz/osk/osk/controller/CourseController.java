@@ -1,6 +1,8 @@
 package pl.pracainz.osk.osk.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -152,15 +154,18 @@ public class CourseController {
 		List<Student> students = courseRepository.findParticipants(id);
 		theModel.addAttribute("course", courseRepository.getOne(id));
 		theModel.addAttribute("students", students);
+		theModel.addAttribute("participants", courseRepository.getOne(id).getParticipants());
+		theModel.addAttribute("service",participantService);
+
 		return "adminViews/adminCourses/participants";
 	}
 
 	@RequestMapping("/deleteParticipant")
-
 	public String deleteParticipants(@RequestParam("id_student") int id_student,
 			@RequestParam("id_course") int id_course, Model theModel) {
 		participantService.deleteParticipant(id_student, id_course);
-
+		Student student = studentRepository.getOne(id_student);
+		theModel.addAttribute("deleted","Usunięto uczestnika "+student.getName()+" "+student.getSurname());
 		return listParticipants(id_course, theModel);
 	}
 
@@ -178,6 +183,9 @@ public class CourseController {
 	@PostMapping("/participants/save")
 	public String saveNewParticipant(@ModelAttribute("participant") Participant theParticipant, Model theModel) {
 		participantRepository.save(theParticipant);
+		Student student = theParticipant.getPrimaryKey().getStudent();
+		theModel.addAttribute("added","Dodano uczestnika "+student.getName()+" "+student.getSurname());
+
 		return listParticipants(theParticipant.getPrimaryKey().getCourse().getId(), theModel);
 	}
 

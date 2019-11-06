@@ -197,9 +197,10 @@ public class InstructorController {
 	}
 
 	@PostMapping("/exams/save")
-	public String saveDataExam(@ModelAttribute("internalexam") InternalExam theInternalExam) {
+	public String saveDataExam(@ModelAttribute("internalexam") InternalExam theInternalExam, Model theModel) {
 		internalExamRepository.save(theInternalExam);
-		return "redirect:/instructors/showExams";
+		theModel.addAttribute("resultAdded","Zapisano dane egzaminu ");
+		return listExams(theModel);
 	}
 
 	@GetMapping("/showArchivedExams")

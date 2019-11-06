@@ -42,12 +42,17 @@
 						<tr class="table-primary">
 							<th>Imię</th>
 							<th>Nazwisko</th>
+							<th>Godziny opłacone</th>
+							
 						</tr>
 					</thead>
 					<tbody id="myTable">
 						<tr th:each="student:${students}">
+						 
 							<td th:text="${student.name}" />
 							<td th:text="${student.surname}" />
+						<td th:text="${student.getNumberHoursPaidForCourse(course.id)}">  
+						 </td>
 							<td><a
 								th:href="@{/courses/deleteParticipant(id_student=${student.id}, id_course=${course.id})}"
 								class="btn btn-danger">USUŃ UCZESTNIKA</a></td>
@@ -58,11 +63,22 @@
 				</table>
 			</div>
 		</div>
+			<div th:if="${added}" th:text="${added}"  id="snackbar" ></div>
+			<div th:if="${deleted}" th:text="${deleted}" id="snackbar" ></div>
+		
 	</div>
 	<script>
 		$(document)
 				.ready(
 						function() {
+							
+							var x = document.getElementById("snackbar");
+							  x.className = "show";
+							  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+						
+							
+							
+							
 							$("#myInput")
 									.on(
 											"keyup",
