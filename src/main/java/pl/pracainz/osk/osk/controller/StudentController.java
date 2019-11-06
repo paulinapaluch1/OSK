@@ -458,6 +458,8 @@ public class StudentController {
 				date.getMonthValue(), date.getYear()));
 		theModel.addAttribute("today", date);
 		theModel.addAttribute("dayName", getDayName(date));
+		
+		theModel.addAttribute("reserved",true);
 		return "studentViews/studentTimetable/timetable";
 	}
 

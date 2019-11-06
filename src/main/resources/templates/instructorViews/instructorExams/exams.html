@@ -68,7 +68,7 @@
 							<td th:text="${exam.type}" />
 							<td th:if="${exam.result == 2}"><a
 								th:href="@{/instructors/showExamFormForUpdate(id_internalExam=${exam.id})}"
-								class="btn btn-primary">WPROWADŹ WYNIK</a></td>
+								class="btn btn-outline-primary">WPROWADŹ WYNIK</a></td>
 							<td th:if="${exam.result != 2}"><a
 								th:href="@{/instructors/showExamFormForUpdate(id_internalExam=${exam.id})}"
 								class="btn btn-primary">EDYTUJ</a></td>
@@ -83,13 +83,20 @@
 				</table>
 			</div>
 		</div>
+	<div th:if="${resultAdded}"id="snackbar"  th:text="${resultAdded}"></div>
+		
 	</div>
 
 	<script>
 		$(document)
 				.ready(
 						function() {
-							$("#myInput")
+
+							var x = document.getElementById("snackbar");
+							  x.className = "show";
+							  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+						
+							  $("#myInput")
 									.on(
 											"keyup",
 											function() {
@@ -110,6 +117,5 @@
 											});
 						});
 	</script>
-
 </body>
 </HTML>
