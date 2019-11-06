@@ -24,5 +24,18 @@ public class ParticipantService {
 		participantRepository.delete(participant.get(0));
 		
 	}
-
+	
+	
+	public int getNumberHoursPaidForParticipant(int id_student, int id_course) {
+	
+	List<Participant> participants = participantRepository.findAll();
+	List<Participant> participant=participants.stream()
+			.filter(p -> p.getPrimaryKey().getCourse().getId() == id_course)
+			.filter(p -> p.getPrimaryKey().getStudent().getId() == id_student)
+			.collect(Collectors.toList());
+	
+	return participant.get(0).getNumberHoursPaid();
+	
+	
+}
 }

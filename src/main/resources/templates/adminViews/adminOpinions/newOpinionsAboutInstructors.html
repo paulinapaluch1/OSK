@@ -7,12 +7,12 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
-
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
+
 </head>
 
 <body
@@ -89,8 +89,41 @@
 				</table>
 			</div>
 		</div>
+						<div th:if="${ confirmed}"id="snackbar"  th:text="${confirmed}"></div>
+								<div th:if="${rejected}"id="snackbar"  th:text="${rejected}"></div>
+		
 	</div>
+<script>
+		$(document)
+				.ready(
+						function() {
+							var x = document.getElementById("snackbar");
+							  x.className = "show";
+							  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+						
+							
+							
+							$("#myInput")
+									.on(
+											"keyup",
+											function() {
+												var value = $(this).val()
+														.toLowerCase();
+												$("#myTable tr")
+														.filter(
+																function() {
+																	$(this)
+																			.toggle(
+																					$(
+																							this)
+																							.text()
+																							.toLowerCase()
+																							.indexOf(
+																									value) > -1)
+																});
+											});
+						});
+	</script>
+
 </body>
-
-
 </HTML>
