@@ -3,6 +3,7 @@ package pl.pracainz.osk.osk.controller;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -73,12 +74,12 @@ public class LectureController {
 	//@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@PostMapping("/save")
 	public String saveLecture(@ModelAttribute("lecture") Lecture theLecture, 
-			@RequestParam("date") @DateTimeFormat(iso = ISO.DATE_TIME) String date,
-			BindingResult result,Model theModel
+			//@RequestParam("date") @DateTimeFormat(iso = ISO.DATE) String date,
+			BindingResult result, Model theModel
 	) {
-		LocalDate lectureDate = LocalDate.parse(date);
-
-		theLecture.setDate(LocalDateTime.of(lectureDate, LocalTime.of(10, 10)));
+		//LocalDate lectureDate = LocalDate.parse(date);
+//		theLecture.setDate(LocalDateTime.of(lectureDate, LocalTime.of(10, 10)));
+		theLecture.setDeleted(0);
 		lectureRepository.save(theLecture);
 		return "redirect:/lectures/list";
 	}

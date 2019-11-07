@@ -43,8 +43,7 @@
 						th:if="${#fields.hasErrors('roomNumber')}" class="errorField"
 						th:errors="*{roomNumber}"></span>
 				</div>
-				<input type="hidden" th:field="*{date}" /> Data: <input type="date"
-					th:object="${date}" class="form-control col-4">
+				<input type="datetime-local" th:field="*{date}" />
 				<button type="submit" class="btn btn-info col-2">ZAPISZ</button>
 				<a th:href="@{/lectures/list}" class="btn btn-danger">ANULUJ</a>
 
