@@ -364,6 +364,7 @@ public class StudentController {
 	@GetMapping("/listCourses")
 	public String listCoursesForStudent(@RequestParam("id_student") int id, Model theModel) {
 		List<Course> theCourses = courseRepository.findCourses(id);
+		theModel.addAttribute("student",studentRepository.getOne(id));
 		theModel.addAttribute("courses", theCourses);
 		return "adminViews/adminStudents/courses";
 	}
@@ -428,7 +429,6 @@ public class StudentController {
 			@RequestParam(name = "date", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date,
 			@RequestParam("id_timetable") int id, Model theModel) {
 			boolean canReserve = false;
-	
 		for(Participant participant : getCurrentLoggedStudent().getParticipants()){
 		if(participant.getNumberHoursUsed()<=28 && participant.getNumberHoursPaid()>=2) {
 			int hours=participant.getNumberHoursUsed()+2;

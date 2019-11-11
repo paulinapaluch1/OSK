@@ -54,7 +54,7 @@
 					<form th:action="@{/courses/saveEditedCategory}"
 						th:object="${category}" method="POST">
 						Id <input type="number" th:field="*{id}" class="form-control " />
-						<br> Kategoria <input type="text" th:field="*{categoryName}"
+						<br> Nowa nazwa <input type="text" th:field="*{categoryName}"
 							class="form-control " /> <br>
 						<button type="submit" class="btn btn-info">ZMIEŃ</button>
 					</form>

@@ -45,7 +45,6 @@
 					<table class="table  table-hover table-sm">
 						<thead>
 							<tr class="table-primary">
-								<th>Id</th>
 								<th>Początek</td>
 								<th>Koniec</th>
 								<th>Samochód</th>
@@ -58,7 +57,6 @@
 					<tbody id="myTable">
 						<tr th:each="timetable:${timetablesToday}">
 							<span th:if=${instructor.id}==${timetable.instructor.id}>
-								<td th:text="${timetable.id}" />
 								<td th:text="${#temporals.format(timetable.begin,'HH:mm')}" />
 								<td th:text="${#temporals.format(timetable.end,'HH:mm')}" />
 								<td
@@ -68,10 +66,10 @@
 									<div th:if="${timetable.reserved} eq false">
 										<td th:text="niezarezerwowana" />
 									</div>
-									<div th:unless="${timetable.reserved} eq false">
-										<td
-											th:text="${timetable.driving.student.name   +' ' timetable.driving.student.surname}" />
-									</div>
+									
+										<td th:unless="${timetable.reserved} eq false"
+											th:text="${timetable.driving.student.name}  +' ' +${timetable.driving.student.surname}" />
+									
 							</span>
 
 						</tr>
