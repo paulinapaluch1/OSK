@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pl.pracainz.osk.osk.PasswordChanger;
 import pl.pracainz.osk.osk.PasswordGenerator;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.InternalExamRepository;
@@ -393,4 +394,42 @@ public class InstructorController {
 		return theModel;
 	}
 
+	
+
+	@GetMapping("/changePassword")
+	public String changePassword(Model theModel) {
+		PasswordChanger pchanger = new PasswordChanger();
+		theModel.addAttribute("pchanger", pchanger);
+		return "instructorsViews/changePassword";
+
+	}
+
+	@RequestMapping("/checkPassword")
+	public String checkPassword(@ModelAttribute("pchanger") PasswordChanger pchanger, Model theModel) {
+		User user = userRepository.findByUsername(getCurrentUserName());
+		if (encoder.matches(pchanger.getOldPassword(), user.getPassword())) {
+			if (pchanger.canPasswordBeChanged())
+				return changeUserPassword(pchanger.getNewPassword(), theModel);
+			else {
+				theModel.addAttribute("differentPasswords", "Hasła są różne");
+
+				return changePassword(theModel);
+			}
+		} else {
+			theModel.addAttribute("oldPaswordProblem", "Stare hasło jest niepoprawne");
+			return changePassword(theModel);
+
+		}
+	}
+
+	public String changeUserPassword(String password, Model model) {
+		User user = userRepository.findByUsername(getCurrentUserName());
+		user.setPassword(encoder.encode(password));
+		userRepository.save(user);
+		return showProfile(model);
+	}
+
+	
+	
+	
 }

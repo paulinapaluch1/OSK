@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,10 +20,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import pl.pracainz.osk.osk.dao.CourseRepository;
+import pl.pracainz.osk.osk.dao.ParticipantService;
 
 @Entity
 @Table(name = "students")
@@ -327,15 +325,18 @@ public class Student {
 	}
 
 
+	
 	public int getNumberHoursPaidForCourse(int id_course){
-for(Participant participant :getParticipants()) {
-	if(participant.getPrimaryKey().getCourse().getId()==id_course)
-		return participant.getNumberHoursPaid();
-}		
 		
-		return 1;
-		
-		
+//for(Participant participant :getParticipants()) {
+//	if(participant.getPrimaryKey().getCourse().getId()==id_course)
+		//return participant.getNumberHoursPaid();
+//}		
+		//return 1;
+		ParticipantService service = new ParticipantService();
+		Integer hours= service.getParticipantRepository().getNumberHoursPaid(id,id_course);
+		if(!(hours.equals(null))) return hours;
+		else return 12;
 	}
 	
 	

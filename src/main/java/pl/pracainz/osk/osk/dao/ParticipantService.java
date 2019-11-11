@@ -36,6 +36,16 @@ public class ParticipantService {
 	
 	return participant.get(0).getNumberHoursPaid();
 	
-	
 }
+
+	public ParticipantRepository getParticipantRepository() {
+		return participantRepository;
+	}
+
+
+	public void setParticipantRepository(ParticipantRepository participantRepository) {
+		this.participantRepository = participantRepository;
+	}
+	
+	
 }
