@@ -29,20 +29,42 @@
 
 				<input type="hidden" th:field="*{login}" /> <input type="hidden"
 					th:field="*{name}" /> <input type="hidden" th:field="*{surname}" />
+					<div class="row">
+					<div class="col">
 				Data urodzenia: <input type="date" th:field="*{birthdate}"
-					th:value="${birthdate}" class="form-control mb-4 col-4">
-				Ulica: <input type="text" th:field="*{street}"
-					class="form-control mb-4 col-4"> Numer domu: <input
+					th:value="${birthdate}" class="form-control mb-4 col-10"></div>
+				<div class="col">Ulica: <input type="text" th:field="*{street}"
+					class="form-control mb-4 col-10"> </div>
+					</div>
+										<div class="row">
+										<div class="col">
+					
+					Numer domu: <input
 					type="text" th:field="*{buildingNumber}"
-					class="form-control mb-4 col-4"> Numer mieszkania: <input
+					class="form-control mb-4 col-10"> </div>					<div class="col">
+					Numer mieszkania: <input
 					type="text" th:field="*{apartmentNumber}"
-					class="form-control mb-4 col-4"> Kod pocztowy: <input
-					type="text" th:field="*{postCode}" class="form-control mb-4 col-4">
+					class="form-control mb-4 col-10"> </div>
+					</div>
+										<div class="row">
+										<div class="col">
+					
+					Kod pocztowy: <input
+					type="text" th:field="*{postCode}" class="form-control mb-4 col-10"></div>					<div class="col">
+					
 				Miasto: <input type="text" th:field="*{city}"
-					class="form-control mb-4 col-4"> Telefon: <input
+					class="form-control mb-4 col-10"> </div>
+					</div>
+					<div class="row">
+										<div class="col">
+					
+					Telefon: <input
 					type="text" th:field="*{phoneNumber}"
-					class="form-control mb-4 col-4"> E-mail: <input type="text"
-					th:field="*{email}" class="form-control mb-4 col-4"> <input
+					class="form-control mb-4 col-10"></div> 					<div class="col">
+					 E-mail: <input type="text"
+					th:field="*{email}" class="form-control mb-4 col-10"> </div>
+					</div>
+					<input
 					type="hidden" th:field="*{pkk}" />
 
 

@@ -102,7 +102,7 @@
 									<td th:text="niezarezerwowana" />
 									</div>
 									<div th:unless="${timetable.reserved} eq false">
-									<td th:text="${timetable.driving.student.name   +' ' timetable.driving.student.surname}" />
+									<td th:text="${timetable.driving.student.name   +' '+ timetable.driving.student.surname}" />
 									</div>
 									
 							

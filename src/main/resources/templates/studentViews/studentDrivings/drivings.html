@@ -72,10 +72,14 @@
 							<div th:unless="${driving.cancelled} eq 0">
 								<td th:text="TAK" />
 							</div>
-							<td><span th:if="${driving.cancelled} eq 0 and ${driving.isDrivingDateInThePast() eq false} "> <a
+							<td th:if="${driving.cancelled} eq 0 and ${driving.isDrivingDateInThePast() eq false} "> <a
 									th:href="@{/drivings/cancelDriving(id_driving=${driving.id})}"
 									class="btn btn-danger">ODWOŁAJ JAZDĘ</a>
-							</span></td>
+						</td>
+							<td th:if="${driving.cancelled} eq 0 and ${driving.done} eq 1 "> <a
+									th:href="@{/drivings/cancelDriving(id_driving=${driving.id})}"
+									class="btn btn-outline-primary">ZOBACZ TRASĘ</a>
+							</td>
 						</tr>
 					</tbody>
 
