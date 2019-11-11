@@ -62,7 +62,7 @@
 						 
 							<td th:text="${student.name}" />
 							<td th:text="${student.surname}" />
-						<td > 30 </td>
+						<td th:text="${student.getNumberHoursPaidForCourse(course.id)}"> </td>
 						<td th:text="${student.id+20}"></td>
 							<td><a sec:authorize="hasRole('ADMIN')"
 								th:href="@{/courses/deleteParticipant(id_student=${student.id}, id_course=${course.id})}"

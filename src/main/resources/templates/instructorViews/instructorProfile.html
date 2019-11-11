@@ -40,7 +40,7 @@
 				<p th:text="'Telefon: ' + ${instructor.phoneNumber}" />
 				<p th:text="'E-mail: ' + ${instructor.email}" />
 				<a class="mb-2" th:href="@{/instructors/updateDataInstructor(id_instructor=${instructor.id})}"><button type="submit" class="btn btn-info">Edytuj</button></a>
-<a th:href="@{/}"><button
+<a th:href="@{/instructors/changePassword}"><button
 					type="button" class="btn btn-primary" >ZMIEŃ HASŁO</button></a>
 
 			

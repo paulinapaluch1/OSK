@@ -19,7 +19,7 @@ import javax.persistence.Transient;
         joinColumns = @JoinColumn(name = "id_course")) })
 public class Participant {
 	
-	private ParticipantId primaryKey = new ParticipantId();
+	private ParticipantId primaryKey;
 	
 	@Column
 	private int numberHoursPaid;
@@ -27,6 +27,11 @@ public class Participant {
 	@Column
 	private int numberHoursUsed;
 
+	
+	
+	public Participant() {
+		primaryKey = new ParticipantId();
+	}
 	@EmbeddedId
 	public ParticipantId getPrimaryKey() {
 		return primaryKey;

@@ -155,7 +155,7 @@ public class CourseController {
 		theModel.addAttribute("course", courseRepository.getOne(id));
 		theModel.addAttribute("students", students);
 		theModel.addAttribute("participants", courseRepository.getOne(id).getParticipants());
-		theModel.addAttribute("service",participantService);
+		theModel.addAttribute("service", participantService);
 
 		return "adminViews/adminCourses/participants";
 	}
