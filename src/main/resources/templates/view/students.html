@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Kursanci</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
+
+</head>
+
+<body
+	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+	<header th:insert="fragments/topNav.html :: navbar(returnPage = '/')">
+	</header>
+
+	<div class="page">
+	
+	
+	<div class="container list">
+		<h3 class="title">KURSANCI
+		<a th:href="@{'/createPdf'}" style="float:right;"><img th:src="@{/pdf-icon.png}" style="width:40px;"></a>
+		</h3>
+		
+		<div class="table-responsive">
+			<table class="table table-hover table-sm">
+				<thead>
+					<tr class="table-primary">
+						<th>Id</th>
+						<th>Imię</th>
+						<th>Nazwisko</th>
+						<th>Login</th>
+						<th>Hasło</th>
+						<th>Data ur.</th>
+						<th>Adres</th>
+						<th>Telefon</th>
+						<th>Email</th>
+						<th>PKK</th>
+					</tr>
+				</thead>
+				<tbody id="myTable">
+					<tr th:each="tempStudent:${students}">
+						<td th:text="${tempStudent.id}" />
+						<td th:text="${tempStudent.name}" />
+						<td th:text="${tempStudent.surname}" />
+						<td th:text="${tempStudent.login}" />
+						<td><a
+							th:href="@{/sendEmail(email=${tempStudent.email},id=${tempStudent.id})}"
+							class="btn btn-secondary">Wyślij hasło</a></td>
+						<td
+							th:text="${#dates.format(tempStudent.birthdate,'dd.MM.yyyy')} " />
+						<td
+							th:text="'ul. '+${tempStudent.street}+ ' ' +${tempStudent.buildingNumber}+ '/ ' +${tempStudent.apartmentNumber}+ ' ' +${tempStudent.postCode}+ ' ' +${tempStudent.city}" />
+						<td th:text="${tempStudent.phoneNumber}" />
+						<td th:text="${tempStudent.email}" />
+						<td th:text="${tempStudent.pkk}" />
+
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+	<div th:if="${studentSaved == true}"id="snackbar" >Zapisano dane kursanta</div>
+		<div th:if="${ emailSent== true}"id="snackbar" >Email został wysłany</div>
+	
+	
+	
+	</div>
+
+</body>
+</HTML>
