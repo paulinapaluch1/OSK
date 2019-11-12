@@ -400,7 +400,7 @@ public class InstructorController {
 	public String changePassword(Model theModel) {
 		PasswordChanger pchanger = new PasswordChanger();
 		theModel.addAttribute("pchanger", pchanger);
-		return "instructorsViews/changePassword";
+		return "instructorViews/changePassword";
 
 	}
 
