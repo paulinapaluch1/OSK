@@ -329,14 +329,27 @@ public class Student {
 	public int getNumberHoursPaidForCourse(int id_course){
 		
 //for(Participant participant :getParticipants()) {
-//	if(participant.getPrimaryKey().getCourse().getId()==id_course)
-		//return participant.getNumberHoursPaid();
+	//if(participant.getCourse().getId()==id_course)
+	//	return participant.getNumberHoursPaid();
 //}		
 		//return 1;
 		ParticipantService service = new ParticipantService();
-		Integer hours= service.getParticipantRepository().getNumberHoursPaid(id,id_course);
-		if(!(hours.equals(null))) return hours;
-		else return 12;
+		Integer hours= service.getNumberHoursPaidForParticipant(getId(),id_course);
+		return hours;
+		
+		
+		
+	//	if(!(hours.equals(null))) return hours;
+	//	else return 12;
+		
+		
+		
+		//return participants.stream()
+		//.filter(object -> object.getCourse().getId() ==id_course)
+		//.findFirst().get().getNumberHoursPaid();
+		
+		//if(participants.size()==0) return 1; 
+		//else return 4;
 	}
 	
 	

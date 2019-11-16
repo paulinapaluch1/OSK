@@ -1,6 +1,7 @@
 package pl.pracainz.osk.osk.controller;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -153,6 +154,22 @@ public class CourseController {
 	public String listParticipants(@RequestParam("id_course") int id, Model theModel) {
 		List<Student> students = courseRepository.findParticipants(id);
 		theModel.addAttribute("course", courseRepository.getOne(id));
+
+		Map<Student, Integer> hoursPaidMap = new LinkedHashMap<>();
+		for (Student student : students) {
+			hoursPaidMap.put(student, participantService.getNumberHoursPaidForParticipant(student.getId(), id));
+	
+		
+		}
+		
+		
+		Map<Student, Integer> hoursUsedMap = new HashMap<>();
+		for (Student student : students) {
+			hoursUsedMap.put(student, participantService.getNumberHoursUsedForParticipant(student.getId(), id));
+		}
+		
+		theModel.addAttribute("hoursPaidMap", hoursPaidMap);
+		theModel.addAttribute("hoursUsedMap", hoursUsedMap);
 		theModel.addAttribute("students", students);
 		theModel.addAttribute("participants", courseRepository.getOne(id).getParticipants());
 		theModel.addAttribute("service", participantService);
@@ -165,10 +182,28 @@ public class CourseController {
 			@RequestParam("id_course") int id_course, Model theModel) {
 		participantService.deleteParticipant(id_student, id_course);
 		Student student = studentRepository.getOne(id_student);
-		theModel.addAttribute("deleted","Usunięto uczestnika "+student.getName()+" "+student.getSurname());
+		theModel.addAttribute("deleted", "Usunięto uczestnika " + student.getName() + " " + student.getSurname());
 		return listParticipants(id_course, theModel);
 	}
 
+	@RequestMapping("/editHoursForParticipant")
+	public String editHoursForParticipant(@RequestParam("id_student") int id_student,
+			@RequestParam("id_course") int id_course, Model theModel) {
+		Participant participant = participantService.getParticipant(id_student, id_course);
+		theModel.addAttribute("participant", participant);
+		return "adminViews/adminCourses/editParticipant";
+	}
+
+	
+	@PostMapping("/participants/saveEdited")
+	public String saveEditedParticipant(@ModelAttribute("participant") Participant theParticipant, Model theModel) {
+		participantRepository.save(theParticipant);		
+		theModel.addAttribute("added", "Zapisano");
+
+		return listParticipants(theParticipant.getPrimaryKey().getCourse().getId(), theModel);
+	}
+	
+	
 	@GetMapping("/addParticipants")
 	public String addParticipants(Model theModel, @RequestParam("id") int courseId) {
 		Course course = courseRepository.getOne(courseId);
@@ -184,7 +219,7 @@ public class CourseController {
 	public String saveNewParticipant(@ModelAttribute("participant") Participant theParticipant, Model theModel) {
 		participantRepository.save(theParticipant);
 		Student student = theParticipant.getPrimaryKey().getStudent();
-		theModel.addAttribute("added","Dodano uczestnika "+student.getName()+" "+student.getSurname());
+		theModel.addAttribute("added", "Dodano uczestnika " + student.getName() + " " + student.getSurname());
 
 		return listParticipants(theParticipant.getPrimaryKey().getCourse().getId(), theModel);
 	}

@@ -46,8 +46,7 @@ public class Participant {
 		getPrimaryKey().setStudent(student);
 	}
 	
-	@Transient
-	private Course getCourse() {
+	@Transient public Course getCourse() {
 		return getPrimaryKey().getCourse();
 	}
 	
