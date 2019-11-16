@@ -1,8 +1,11 @@
 package pl.pracainz.osk.osk.controller;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -32,6 +35,7 @@ import pl.pracainz.osk.osk.dao.DrivingRepository;
 import pl.pracainz.osk.osk.dao.InstructorOpinionRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.ParticipantRepository;
+import pl.pracainz.osk.osk.dao.ParticipantService;
 import pl.pracainz.osk.osk.dao.StudentRepository;
 import pl.pracainz.osk.osk.dao.TimetableRepository;
 import pl.pracainz.osk.osk.dao.UserRepository;
@@ -66,6 +70,10 @@ public class StudentController {
 
 	@Autowired
 	private ParticipantRepository participantRepository;
+	
+	@Autowired
+	private ParticipantService participantService;
+
 
 	public StudentController(StudentRepository repository, InstructorRepository instructor,
 			InstructorOpinionRepository instructorOpinion, DrivingRepository drivingRepository,
@@ -238,13 +246,23 @@ public class StudentController {
 
 	@GetMapping("/showCourses")
 	public String listCourses(Model theModel) {
-		List<Course> theCourses = studentRepository.findCoursesForStudent(getCurrentLoggedStudentId());
-		/*
-		 * boolean isParticipant = false; for(Participant participant :
-		 * theCourses.get(0).getParticipants()) if(isParticipant==false)
-		 * theModel.addAttribute("participant", participant);
-		 */
-		theModel.addAttribute("courses", theCourses);
+		List<Course> courses = studentRepository.findCoursesForStudent(getCurrentLoggedStudentId());
+		Map<Course, Integer> hoursPaidMap = new LinkedHashMap<>();
+		for (Course course : courses) {
+			hoursPaidMap.put(course, participantService.getNumberHoursPaidForParticipant(getCurrentLoggedStudentId(), course.getId()));
+
+		}
+		
+		Map<Course, Integer> hoursUsedMap = new HashMap<>();
+		for (Course course : courses) {
+			hoursUsedMap.put(course, participantService.getNumberHoursUsedForParticipant(getCurrentLoggedStudentId(), course.getId()));
+		}
+		
+		theModel.addAttribute("hoursPaidMap", hoursPaidMap);
+		theModel.addAttribute("hoursUsedMap", hoursUsedMap);
+		
+	
+		theModel.addAttribute("courses", courses);
 		return "studentViews/studentCourses/courses";
 	}
 

@@ -46,14 +46,16 @@
 						</tr>
 					</thead>
 					<tbody id="myTable">
-						<tr th:each="course:${courses}">
-							<td th:text="${course.category.categoryName}" />
-							<td
-								th:text="${course.instructor.name}+' ' +${course.instructor.surname} " />
-							<td th:text="${#temporals.format(course.startDate,'dd.MM.yyyy')}" />
-					<td th:text="30" />
-					<td th:text="20"/>
-						
+					<tr th:each="entry:${hoursPaidMap}">
+						<td th:text="${entry.key.category.categoryName}" />
+							<td	th:text="${entry.key.instructor.name}+' ' +${entry.key.instructor.surname} " />
+							<td th:text="${#temporals.format(entry.key.startDate,'dd.MM.yyyy')}" />
+							<td th:text="${entry.value}" />
+							
+								<for:each th:each="used:${hoursUsedMap}">
+								<td th:if="${used.key.id}==${entry.key.id}" th:text="${used.value}"> </td>
+							</for:each>
+					
 						
 						</tr>
 					</tbody>
