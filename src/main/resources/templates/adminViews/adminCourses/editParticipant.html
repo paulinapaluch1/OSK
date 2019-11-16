@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Uczestnicy kursu - formularz</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
+
+</head>
+<body
+	th:style="'background: url(../car.jpg) no-repeat center center fixed;'">
+	<header
+		th:insert="fragments/topNav.html :: navbar(returnPage = '/courses/list')">
+	</header>
+
+
+	<div class="page">
+		<div class="container list form pb-3 pt-3">
+		<div class="row mb-2">	<div class="col"><h3 style="float:left">EDYCJA GODZIN</h3>
+			</div><div class="col">
+			<span  th:text="${participant.primaryKey.course.id} +'. Kategoria: '+${participant.primaryKey.course.category.categoryName}+' START: '+${#temporals.format(participant.primaryKey.course.startDate,'dd.MM.yyyy')}" />
+<span   th:text="${participant.primaryKey.student.name +' '+ participant.primaryKey.student.surname}"></span>
+</div>
+</div>
+
+
+			<form action="#" th:action="@{/courses/participants/saveEdited}"
+				th:object="${participant}" method="POST">
+
+				<input type="hidden" th:field="*{primaryKey.student}" />
+				<input type="hidden" th:field="*{primaryKey.course}" />
+
+
+				Godziny opłacone: <input type="number" th:field="*{numberHoursPaid}"
+					class="form-control mb-4 col-4">
+					
+				Godziny wykorzystane: <input type="number" th:field="*{numberHoursUsed}"
+					class="form-control mb-4 col-4">
+					
+			
+				<button type="submit" class="btn btn-info col-2">ZAPISZ</button>
+
+
+			</form>
+
+		</div>
+	</div>
+
+</body>
+</HTML>

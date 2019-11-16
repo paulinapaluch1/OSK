@@ -58,20 +58,24 @@
 						</tr>
 					</thead>
 					<tbody id="myTable">
-						<tr th:each="student:${students}">
 						 
-							<td th:text="${student.name}" />
-							<td th:text="${student.surname}" />
-						<td th:text="${student.getNumberHoursPaidForCourse(course.id)}"> </td>
-						<td th:text="${student.id+20}"></td>
+							
+		<tr th:each="entry:${hoursPaidMap}">
+						<td th:text="${entry.key.name}" />
+							<td th:text="${entry.key.surname}" />
+							<td th:text="${entry.value}" />
+								<for:each th:each="used:${hoursUsedMap}">
+								<td th:if="${used.key.id}==${entry.key.id}" th:text="${used.value}"> </td>
+							</for:each>
 							<td><a sec:authorize="hasRole('ADMIN')"
-								th:href="@{/courses/deleteParticipant(id_student=${student.id}, id_course=${course.id})}"
+								th:href="@{/courses/deleteParticipant(id_student=${entry.key.id}, id_course=${course.id})}"
 								class="btn btn-danger">USUŃ UCZESTNIKA</a></td>
 <td><a sec:authorize="hasRole('ADMIN')"
-								th:href="@{/courses/deleteParticipant(id_student=${student.id}, id_course=${course.id})}"
+								th:href="@{/courses/editHoursForParticipant(id_student=${entry.key.id}, id_course=${course.id})}"
 								class="btn btn-primary">EDYTUJ GODZINY</a></td>
-
+							
 						</tr>
+							
 					</tbody>
 				</table>
 			</div>

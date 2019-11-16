@@ -394,7 +394,6 @@ public class InstructorController {
 		return theModel;
 	}
 
-	
 
 	@GetMapping("/changePassword")
 	public String changePassword(Model theModel) {
