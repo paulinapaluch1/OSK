@@ -1,8 +1,11 @@
 package pl.pracainz.osk.osk.controller;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -32,6 +35,7 @@ import pl.pracainz.osk.osk.dao.DrivingRepository;
 import pl.pracainz.osk.osk.dao.InstructorOpinionRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.ParticipantRepository;
+import pl.pracainz.osk.osk.dao.ParticipantService;
 import pl.pracainz.osk.osk.dao.StudentRepository;
 import pl.pracainz.osk.osk.dao.TimetableRepository;
 import pl.pracainz.osk.osk.dao.UserRepository;
@@ -66,6 +70,10 @@ public class StudentController {
 
 	@Autowired
 	private ParticipantRepository participantRepository;
+	
+	@Autowired
+	private ParticipantService participantService;
+
 
 	public StudentController(StudentRepository repository, InstructorRepository instructor,
 			InstructorOpinionRepository instructorOpinion, DrivingRepository drivingRepository,
@@ -217,7 +225,6 @@ public class StudentController {
 	@GetMapping("/showDrivings")
 	public String listDrivings(Model theModel) {
 		List<Driving> theDrivings = studentRepository.findDrivingsForStudent(getCurrentLoggedStudentId());
-
 		theModel.addAttribute("drivings", theDrivings);
 		return "studentViews/studentDrivings/drivings";
 	}
@@ -238,13 +245,23 @@ public class StudentController {
 
 	@GetMapping("/showCourses")
 	public String listCourses(Model theModel) {
-		List<Course> theCourses = studentRepository.findCoursesForStudent(getCurrentLoggedStudentId());
-		/*
-		 * boolean isParticipant = false; for(Participant participant :
-		 * theCourses.get(0).getParticipants()) if(isParticipant==false)
-		 * theModel.addAttribute("participant", participant);
-		 */
-		theModel.addAttribute("courses", theCourses);
+		List<Course> courses = studentRepository.findCoursesForStudent(getCurrentLoggedStudentId());
+		Map<Course, Integer> hoursPaidMap = new LinkedHashMap<>();
+		for (Course course : courses) {
+			hoursPaidMap.put(course, participantService.getNumberHoursPaidForParticipant(getCurrentLoggedStudentId(), course.getId()));
+
+		}
+		
+		Map<Course, Integer> hoursUsedMap = new HashMap<>();
+		for (Course course : courses) {
+			hoursUsedMap.put(course, participantService.getNumberHoursUsedForParticipant(getCurrentLoggedStudentId(), course.getId()));
+		}
+		
+		theModel.addAttribute("hoursPaidMap", hoursPaidMap);
+		theModel.addAttribute("hoursUsedMap", hoursUsedMap);
+		
+	
+		theModel.addAttribute("courses", courses);
 		return "studentViews/studentCourses/courses";
 	}
 
@@ -424,19 +441,10 @@ public class StudentController {
 	public String reservePlannedDriving(
 			@RequestParam(name = "date", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date,
 			@RequestParam("id_timetable") int id, Model theModel) {
-		boolean canReserve = false;
-		for (Participant participant : getCurrentLoggedStudent().getParticipants()) {
-			if (participant.getNumberHoursUsed() <= 28 && participant.getNumberHoursPaid() >= 2) {
-				int hours = participant.getNumberHoursUsed() + 2;
-				participant.setNumberHoursUsed(hours);
-				canReserve = true;
-				participantRepository.save(participant);
-				break;
-
-			}
-		}
-
-		// if(canReserve == true) {
+	
+		boolean canReserve = participantService.canReserve(id, getCurrentLoggedStudentId());
+		
+		if(canReserve) {
 		Timetable timetableToReserve = timetableRepository.getOne(id);
 		Driving driving = new Driving();
 		driving.setTimetable(timetableToReserve);
@@ -447,14 +455,15 @@ public class StudentController {
 		drivingRepository.save(driving);
 		timetableToReserve.getDrivings().add(driving);
 		timetableRepository.save(timetableToReserve);
-		// }
-
+		participantService.reserve(id, getCurrentLoggedStudentId());
+		theModel.addAttribute("reserved", true);
+		}
+		
 		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(date.getDayOfMonth(),
 				date.getMonthValue(), date.getYear()));
 		theModel.addAttribute("today", date);
 		theModel.addAttribute("dayName", getDayName(date));
 
-		theModel.addAttribute("reserved", true);
 		return "studentViews/studentTimetable/timetable";
 	}
 

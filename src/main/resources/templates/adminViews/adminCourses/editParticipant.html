@@ -25,8 +25,6 @@
 <span   th:text="${participant.primaryKey.student.name +' '+ participant.primaryKey.student.surname}"></span>
 </div>
 </div>
-
-
 			<form action="#" th:action="@{/courses/participants/saveEdited}"
 				th:object="${participant}" method="POST">
 

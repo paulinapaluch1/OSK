@@ -171,9 +171,6 @@ public class CourseController {
 		theModel.addAttribute("hoursPaidMap", hoursPaidMap);
 		theModel.addAttribute("hoursUsedMap", hoursUsedMap);
 		theModel.addAttribute("students", students);
-		theModel.addAttribute("participants", courseRepository.getOne(id).getParticipants());
-		theModel.addAttribute("service", participantService);
-
 		return "adminViews/adminCourses/participants";
 	}
 
