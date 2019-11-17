@@ -225,7 +225,6 @@ public class StudentController {
 	@GetMapping("/showDrivings")
 	public String listDrivings(Model theModel) {
 		List<Driving> theDrivings = studentRepository.findDrivingsForStudent(getCurrentLoggedStudentId());
-
 		theModel.addAttribute("drivings", theDrivings);
 		return "studentViews/studentDrivings/drivings";
 	}
@@ -442,19 +441,10 @@ public class StudentController {
 	public String reservePlannedDriving(
 			@RequestParam(name = "date", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date,
 			@RequestParam("id_timetable") int id, Model theModel) {
-		boolean canReserve = false;
-		for (Participant participant : getCurrentLoggedStudent().getParticipants()) {
-			if (participant.getNumberHoursUsed() <= 28 && participant.getNumberHoursPaid() >= 2) {
-				int hours = participant.getNumberHoursUsed() + 2;
-				participant.setNumberHoursUsed(hours);
-				canReserve = true;
-				participantRepository.save(participant);
-				break;
-
-			}
-		}
-
-		// if(canReserve == true) {
+	
+		boolean canReserve = participantService.canReserve(id, getCurrentLoggedStudentId());
+		
+		if(canReserve) {
 		Timetable timetableToReserve = timetableRepository.getOne(id);
 		Driving driving = new Driving();
 		driving.setTimetable(timetableToReserve);
@@ -465,14 +455,15 @@ public class StudentController {
 		drivingRepository.save(driving);
 		timetableToReserve.getDrivings().add(driving);
 		timetableRepository.save(timetableToReserve);
-		// }
-
+		participantService.reserve(id, getCurrentLoggedStudentId());
+		theModel.addAttribute("reserved", true);
+		}
+		
 		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(date.getDayOfMonth(),
 				date.getMonthValue(), date.getYear()));
 		theModel.addAttribute("today", date);
 		theModel.addAttribute("dayName", getDayName(date));
 
-		theModel.addAttribute("reserved", true);
 		return "studentViews/studentTimetable/timetable";
 	}
 

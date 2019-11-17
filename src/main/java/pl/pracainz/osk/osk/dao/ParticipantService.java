@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import pl.pracainz.osk.osk.entity.Course;
 import pl.pracainz.osk.osk.entity.Participant;
+import pl.pracainz.osk.osk.entity.Student;
 
 @Service
 public class ParticipantService {
@@ -83,6 +84,37 @@ if(participant!=null) return parti.getNumberHoursPaid(); else return 8;
 				.collect(Collectors.toList());
 		
 		return participant.get(0);
+	}
+	public boolean canReserve(int id, int id_student) {
+		List<Participant> participants = participantRepository.findAll();
+		List<Participant> participant=participants.stream()
+				.filter(p -> p.getPrimaryKey().getStudent().getId() == id_student)
+				.collect(Collectors.toList());
+		
+		if(!participant.isEmpty()) {
+		for(Participant p: participant) {
+			if(p.getNumberHoursPaid()>=2&&( (p.getNumberHoursPaid()-p.getNumberHoursUsed())>=2))
+					return true;
+		}
+		}
+		return false;
+	}
+	
+	
+	public void reserve(int idTimetable, int currentLoggedStudentId) {
+		List<Participant> participants = participantRepository.findAll();
+		List<Participant> participant=participants.stream()
+				.filter(p -> p.getPrimaryKey().getStudent().getId() == currentLoggedStudentId)
+				.collect(Collectors.toList());
+		
+		if(!participant.isEmpty()) {
+		for(Participant p: participant) {
+			if(p.getNumberHoursPaid()>=2&&( (p.getNumberHoursPaid()-p.getNumberHoursUsed())>=2))
+					p.setNumberHoursUsed(p.getNumberHoursUsed()+2);
+			return;
+		}
+		}
+		
 	}
 
 	
