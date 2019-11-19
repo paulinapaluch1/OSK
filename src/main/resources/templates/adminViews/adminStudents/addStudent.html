@@ -38,7 +38,6 @@
 				<div class="row">
 
 
-<div class="col">
 				<input type="hidden" th:field="*{id}" /> <input type="hidden"
 					th:field="*{userId}" />
 					<div class="mb-3 col">
@@ -54,15 +53,10 @@
 							th:errors="*{surname}"></span>
 					</div>
 				
+									</div>
 				
 
-					<div class="mb-3 col">
-						Login: <input type="text" th:field="*{login}"
-							class="form-control  col-10"> <span
-							th:if="${#fields.hasErrors('login')}" class="errorField"
-							th:errors="*{login}"></span>
-					</div>
-					</div></div>
+					
 						<div class="row">
 					
 					<div class="mb-3 col">
@@ -139,14 +133,22 @@
 							th:if="${#fields.hasErrors('pkk')}" class="errorField"
 							th:errors="*{pkk}"></span>
 					</div>
-							<div class="col justify-content-end">	
+					
+					<div class="mb-3 col">
+						Login: <input type="text" th:field="*{login}"
+							class="form-control  col-10"> <span
+							th:if="${#fields.hasErrors('login')}" class="errorField"
+							th:errors="*{login}"></span>
+					</div>
+					</div>
+							<div class="nav justify-content-end">	
 					
 
-					<button type="submit" class="btn mt-4 btn-info col-5 mr-1 ">ZAPISZ</button>
+					<button type="submit" class="btn mt-4 btn-info col-2 mr-2  ">ZAPISZ</button>
 
 
-					<a th:href="@{/students/list}" class="btn mt-4 col-5 btn-danger ">ANULUJ</a>
-					</div></div>
+					<a th:href="@{/students/list}" class="btn mt-4 col-2 btn-danger mr-5 ">ANULUJ</a>
+					</div>
 					
 			</form>
 
