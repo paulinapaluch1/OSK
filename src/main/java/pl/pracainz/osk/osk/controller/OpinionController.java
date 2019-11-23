@@ -96,7 +96,7 @@ public class OpinionController {
 		InstructorOpinion theInstructorOpinion = instructorOpinionRepository.getOne(id);
 		theInstructorOpinion.setStatus("zatwierdzona");
 		instructorOpinionRepository.save(theInstructorOpinion);
-	theModel.addAttribute("confirmed", "Zatwierdzono opinię kursanta "+theInstructorOpinion.getStudent().getName()+" "+theInstructorOpinion.getStudent().getSurname());
+	theModel.addAttribute("confirmed", "Zatwierdzono opinię");
 		return listNewOpinions(theModel);
 	}
 

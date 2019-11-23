@@ -46,7 +46,6 @@
 							<th>Imię</th>
 							<th>Nazwisko</th>
 							<th>Login</th>
-							<th>Hasło</th>
 							<th>Data ur.</th>
 							<th>Adres</th>
 							<th>Telefon</th>
@@ -61,7 +60,6 @@
 							<td th:text="${tempStudent.name}" />
 							<td th:text="${tempStudent.surname}" />
 							<td th:text="${tempStudent.login}" />
-							<td><button name="sendPassword">Wyślij hasło</button></td>
 							<td
 								th:text="${#dates.format(tempStudent.birthdate,'dd.MM.yyyy')} " />
 							<td

@@ -13,7 +13,7 @@ public class ParticipantId implements Serializable {
 	private Student student;
 	private Course course;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.DETACH)
 	public Student getStudent() {
 		return student;
 	}
@@ -22,7 +22,7 @@ public class ParticipantId implements Serializable {
 		this.student = student;
 	}
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.DETACH)
 
 	public Course getCourse() {
 		return course;
