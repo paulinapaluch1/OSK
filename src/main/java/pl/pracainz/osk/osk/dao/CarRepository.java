@@ -10,5 +10,4 @@ public interface CarRepository extends JpaRepository<Car, Integer>{
 
 	public List<Car> findByDeleted(Integer deleted);
 	
-	
 }
