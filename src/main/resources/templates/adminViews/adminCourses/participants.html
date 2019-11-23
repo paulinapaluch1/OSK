@@ -25,12 +25,13 @@
 		<div class="container list">
 
 			<h3 class="title">UCZESTNICY KURSU</h3>
-		
+
 			<nav class="navbar  justify-content-end">
-			<span class="mr-3" th:text="${course.id} +'. Kategoria: '+${course.category.categoryName}+' START: '+${#temporals.format(course.startDate,'dd.MM.yyyy')}" />
-			
-				<a th:href="@{/courses/addParticipants(id=${course.id})}"><button type="button"
-						class="btn btn-outline-secondary mr-3 mb-2">Dodaj
+				<span class="mr-3"
+					th:text="${course.id} +'. Kategoria: '+${course.category.categoryName}+' START: '+${#temporals.format(course.startDate,'dd.MM.yyyy')}" />
+
+				<a th:href="@{/courses/addParticipants(id=${course.id})}"><button
+						type="button" class="btn btn-outline-secondary mr-3 mb-2">Dodaj
 						uczestnika</button></a> <a th:href="@{/courses/list}"><button type="button"
 						class="btn btn btn-primary mr-3 mb-2">KURSY</button></a>
 			</nav>
@@ -43,42 +44,42 @@
 							<th>Imię</th>
 							<th>Nazwisko</th>
 							<th>Godziny opłacone</th>
-							
+
 						</tr>
 					</thead>
 					<tbody id="myTable">
 						<tr th:each="student:${students}">
-						 
+
 							<td th:text="${student.name}" />
 							<td th:text="${student.surname}" />
-						<td th:text="${student.getNumberHoursPaidForCourse(course.id)}">  
-						 </td>
+							<td th:text="${student.getNumberHoursPaidForCourse(course.id)}">
+							</td>
 							<td><a
 								th:href="@{/courses/deleteParticipant(id_student=${student.id}, id_course=${course.id})}"
 								class="btn btn-danger">USUŃ UCZESTNIKA</a></td>
-
+							<td><a th:href="@{'/createPdf'}" style="float: left;"><img
+									th:src="@{/pdf-icon.png}" style="width: 40px;"></a></td>
 
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
-			<div th:if="${added}" th:text="${added}"  id="snackbar" ></div>
-			<div th:if="${deleted}" th:text="${deleted}" id="snackbar" ></div>
-		
+		<div th:if="${added}" th:text="${added}" id="snackbar"></div>
+		<div th:if="${deleted}" th:text="${deleted}" id="snackbar"></div>
+
 	</div>
 	<script>
 		$(document)
 				.ready(
 						function() {
-							
+
 							var x = document.getElementById("snackbar");
-							  x.className = "show";
-							  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-						
-							
-							
-							
+							x.className = "show";
+							setTimeout(function() {
+								x.className = x.className.replace("show", "");
+							}, 3000);
+
 							$("#myInput")
 									.on(
 											"keyup",

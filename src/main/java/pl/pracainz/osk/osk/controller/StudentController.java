@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.pracainz.osk.osk.PasswordGenerator;
 import pl.pracainz.osk.osk.dao.CarOpinionRepository;
@@ -42,11 +41,8 @@ import pl.pracainz.osk.osk.entity.Driving;
 import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.InstructorOpinion;
 import pl.pracainz.osk.osk.entity.InternalExam;
-
 import pl.pracainz.osk.osk.entity.Lecture;
-
 import pl.pracainz.osk.osk.entity.Participant;
-
 import pl.pracainz.osk.osk.entity.Student;
 import pl.pracainz.osk.osk.entity.Timetable;
 import pl.pracainz.osk.osk.entity.User;

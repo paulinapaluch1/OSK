@@ -6,18 +6,17 @@ import java.io.OutputStream;
 import java.util.List;
 
 import javax.servlet.ServletContext;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
-
-import pl.pracainz.osk.osk.entity.Student;
+import pl.pracainz.osk.osk.dao.DrivingRepository;
+import pl.pracainz.osk.osk.dao.StudentRepository;
+import pl.pracainz.osk.osk.dao.UserRepository;
+import pl.pracainz.osk.osk.entity.Driving;
 import pl.pracainz.osk.osk.service.PdfService;
 
 @Controller
@@ -26,21 +25,27 @@ public class PdfController {
 	@Autowired private PdfService pdfService;
 	@Autowired private ServletContext context;
 	
-	@GetMapping(value="/view")
-	public String allStudent(Model theModel) {
-		List<Student> students = pdfService.getAllStudents();
-		theModel.addAttribute("students", students);
-		
-		return "view/students";
-	}
+	private StudentRepository studentRepository;
+	private DrivingRepository drivingRepository;
+	
+	
+	
+//	@GetMapping(value="/view")
+//	public String allDriving(Model theModel) {
+//		List<Driving> drivings = pdfService.getDrivings();
+//		theModel.addAttribute("drivings", drivings);
+//		
+//		return "studentViews/studentDrivings/drivingsDone.html";
+//	}
 	
 	@GetMapping(value="/createPdf")
 	public void createPdf(HttpServletRequest request, HttpServletResponse response) {
-		List<Student> students = pdfService.getAllStudents();
-		boolean isFlag = pdfService.createPdf(students, context, request, response);
+		//List<Driving> drivings = studentRepository.findDoneDrivingsForStudentById(getCurrentLoggedStudentId());
+		List<Driving> drivings = pdfService.getDrivings();
+		boolean isFlag = pdfService.createPdf(drivings, context, request, response);
 		if(isFlag) {
-			String fullPath = request.getServletContext().getRealPath("/resources/reports/" +"students"+".pdf");
-			filedownload(fullPath, response, "students.pdf");
+			String fullPath = request.getServletContext().getRealPath("/resources/reports/" +"drivings"+".pdf");
+			filedownload(fullPath, response, "drivings.pdf");
 		}
 
 	}

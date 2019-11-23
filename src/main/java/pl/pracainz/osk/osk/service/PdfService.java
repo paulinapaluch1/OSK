@@ -6,12 +6,12 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pl.pracainz.osk.osk.entity.Student;
+import pl.pracainz.osk.osk.entity.Driving;
 
 public interface PdfService {
 
-	List<Student> getAllStudents();
+	List<Driving> getDrivings();
 
-	boolean createPdf(List<Student> students, ServletContext context, HttpServletRequest request,
+	boolean createPdf(List<Driving> drivings, ServletContext context, HttpServletRequest request,
 			HttpServletResponse response);
 }
