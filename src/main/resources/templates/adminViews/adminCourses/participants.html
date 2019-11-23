@@ -17,28 +17,19 @@
 <body
 	th:style="'background: url(/../car.jpg) no-repeat center center fixed;'">
 
-	<header sec:authorize="hasRole('ADMIN')"
+	<header
 		th:insert="fragments/topNav.html :: navbar(returnPage = '/courses/list')">
 	</header>
-<header sec:authorize="hasRole('INSTRUCTOR')"
-		th:insert="fragments/topNav.html :: navbar(returnPage = '/instructors/showCourses')">
-	</header>
+
 	<div class="page">
 		<div class="container list">
 
 			<h3 class="title">UCZESTNICY KURSU</h3>
 
 			<nav class="navbar  justify-content-end">
-
 				<span class="mr-3"
 					th:text="${course.id} +'. Kategoria: '+${course.category.categoryName}+' START: '+${#temporals.format(course.startDate,'dd.MM.yyyy')}" />
 
-				<a th:href="@{/courses/addParticipants(id=${course.id})}"><button
-						type="button" class="btn btn-outline-secondary mr-3 mb-2">Dodaj
-						uczestnika</button></a> <a th:href="@{/courses/list}"><button type="button"
-
-			<span class="mr-3" th:text="${course.id} +'. Kategoria: '+${course.category.categoryName}+' START: '+${#temporals.format(course.startDate,'dd.MM.yyyy')}" />
-			
 				<a sec:authorize="hasRole('ADMIN')" th:href="@{/courses/addParticipants(id=${course.id})}"><button type="button"
 						class="btn btn-outline-secondary mr-3 mb-2">Dodaj
 						uczestnika</button></a> 
@@ -47,12 +38,8 @@
 						<button sec:authorize="hasRole('ADMIN')" type="button"
 						class="btn btn btn-primary mr-3 mb-2">KURSY</button></a>
 		<a th:href="@{/instructors/showCourses}"> <button sec:authorize="hasRole('INSTRUCTOR')" type="button"
-
 						class="btn btn btn-primary mr-3 mb-2">KURSY</button></a>
-		
-		
-		
-			</nav>
+		</nav>
 			<input class="form-control col-3" id="myInput" type="text"
 				placeholder="Szukaj..."> <br>
 			<div class="table-responsive table-sm">
@@ -62,32 +49,12 @@
 							<th>Imię</th>
 							<th>Nazwisko</th>
 							<th>Godziny opłacone</th>
-
-
-						</tr>
-					</thead>
-					<tbody id="myTable">
-						<tr th:each="student:${students}">
-
-							<td th:text="${student.name}" />
-							<td th:text="${student.surname}" />
-							<td th:text="${student.getNumberHoursPaidForCourse(course.id)}">
-							</td>
-							<td><a
-								th:href="@{/courses/deleteParticipant(id_student=${student.id}, id_course=${course.id})}"
-								class="btn btn-danger">USUŃ UCZESTNIKA</a></td>
-							<td><a th:href="@{'/createPdf'}" style="float: left;"><img
-									th:src="@{/pdf-icon.png}" style="width: 40px;"></a></td>
-
-
 							<th>Godziny wykorzystane</th>
-						
+
 						</tr>
 					</thead>
 					<tbody id="myTable">
-						 
-							
-		<tr th:each="entry:${hoursPaidMap}">
+						<tr th:each="entry:${hoursPaidMap}">
 						<td th:text="${entry.key.name}" />
 							<td th:text="${entry.key.surname}" />
 							<td th:text="${entry.value}" />
@@ -101,9 +68,10 @@
 								th:href="@{/courses/editHoursForParticipant(id_student=${entry.key.id}, id_course=${course.id})}"
 								class="btn btn-primary">EDYTUJ GODZINY</a></td>
 							
+						<td><a th:href="@{/createPdf}" style="float: left;"><img
+									th:src="@{/pdf-icon.png}" style="width: 40px;"></a></td>
 
 						</tr>
-							
 					</tbody>
 				</table>
 			</div>
