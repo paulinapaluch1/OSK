@@ -53,7 +53,7 @@
 				<div class="card-body">
 					<form th:action="@{/courses/saveEditedCategory}"
 						th:object="${category}" method="POST">
-						Id <input type="number" th:field="*{id}" class="form-control " />
+						Nazwa<input type="text" th:field="*{id}" class="form-control " />
 						<br> Nowa nazwa <input type="text" th:field="*{categoryName}"
 							class="form-control " /> <br>
 						<button type="submit" class="btn btn-info">ZMIEŃ</button>

@@ -74,7 +74,6 @@ public class StudentController {
 	@Autowired
 	private ParticipantService participantService;
 
-
 	public StudentController(StudentRepository repository, InstructorRepository instructor,
 			InstructorOpinionRepository instructorOpinion, DrivingRepository drivingRepository,
 			TimetableRepository timetableRepository, CarRepository carRepository, CarOpinionRepository carOpinion,
@@ -183,9 +182,11 @@ public class StudentController {
 	}
 
 	@PostMapping("/data/save")
-	public String saveDataStudent(@ModelAttribute("student") Student theStudent) {
+	public String saveDataStudent(@ModelAttribute("student") Student theStudent, Model theModel) {
 		studentRepository.save(theStudent);
-		return "redirect:/students/profile";
+		theModel.addAttribute("dataSaved", "Zapisano");
+		
+		return showProfile(theModel);
 	}
 
 	@GetMapping("/showInstructors")
@@ -494,6 +495,7 @@ public class StudentController {
 	public String changePassword(Model theModel) {
 		PasswordChanger pchanger = new PasswordChanger();
 		theModel.addAttribute("pchanger", pchanger);
+
 		return "studentViews/changePassword";
 
 	}
@@ -520,6 +522,7 @@ public class StudentController {
 		User user = userRepository.findByUsername(getCurrentUserName());
 		user.setPassword(encoder.encode(password));
 		userRepository.save(user);
+		model.addAttribute("passwordChanged", "Zmieniono hasło");
 		return showProfile(model);
 	}
 

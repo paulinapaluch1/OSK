@@ -136,6 +136,15 @@ public class DrivingController {
 		return "redirect:/students/showDrivings";
 	}
 
+	// dla kursanta
+		@GetMapping("/showRoute")
+		public String showRoute(@RequestParam("id_driving") int id, Model theModel) {
+			Driving theDriving = drivingRepository.getOne(id);
+			theModel.addAttribute("driving", theDriving);
+			theModel.addAttribute("timetable",theDriving.getTimetable());
+			return "studentViews/studentDrivings/route";
+		}
+	
 	@GetMapping("/types")
 	public String editDrivingTypes(Model theModel) {
 		theModel.addAttribute("drivingTypeToAdd", new DrivingType());
