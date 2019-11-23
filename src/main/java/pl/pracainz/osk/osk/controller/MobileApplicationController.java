@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MobileApplicationController {
 
-	
 	@RequestMapping("/mobile/login")
 	public boolean loginToMobileApp(@RequestParam("username") String username, 
 			@RequestParam("password") String password) {
