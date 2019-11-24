@@ -1,6 +1,7 @@
 package pl.pracainz.osk.osk.entity;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -33,13 +33,13 @@ public class Lecture {
 	private String roomNumber;
 
 	@Column
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	private LocalDateTime date;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+	private Date date;
 	
 	@Column
 	private Integer deleted;
 
-	public Lecture(Course course, String roomNumber, LocalDateTime date, int deleted) {
+	public Lecture(Course course, String roomNumber, Date date, int deleted) {
 		super();
 		this.course = course;
 		this.roomNumber = roomNumber;
@@ -74,7 +74,7 @@ public class Lecture {
 	public void setRoomNumber(String roomNumber) {
 		this.roomNumber = roomNumber;
 	}
-
+/*
 	public LocalDateTime getDate() {
 		return date;
 	}
@@ -82,13 +82,21 @@ public class Lecture {
 	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
-
+*/
 	public Integer getDeleted() {
 		return deleted;
 	}
 
 	public void setDeleted(Integer deleted) {
 		this.deleted = deleted;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 }

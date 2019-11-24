@@ -39,7 +39,7 @@
 							<th>Id</th>
 							<th>Kategoria</th>
 							<th>Początek</th>
-
+							<th>Zakończony</th>
 
 						</tr>
 					</thead>
@@ -48,6 +48,20 @@
 							<td th:text="${course.id}" />
 							<td th:text="${course.category.categoryName}" />
 							<td th:text="${#temporals.format(course.startDate,'dd.MM.yyyy')}" />
+					
+					<div th:switch="${course.finished}" >
+						<div th:case=0> <td th:text="NIE"/>
+						</div>
+						<div th:case=1> <td th:text="TAK"/>
+						</div>
+						</div>
+					
+					
+					<td><a
+								th:href="@{/courses/showStudents(id_course=${course.id})}"
+								class="btn btn-info">ZOBACZ UCZESTNIKÓW</a></td>
+
+					
 						</tr>
 					</tbody>
 				</table>

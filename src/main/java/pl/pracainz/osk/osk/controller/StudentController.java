@@ -1,8 +1,11 @@
 package pl.pracainz.osk.osk.controller;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pl.pracainz.osk.osk.PasswordChanger;
 import pl.pracainz.osk.osk.PasswordGenerator;
 import pl.pracainz.osk.osk.dao.CarOpinionRepository;
 import pl.pracainz.osk.osk.dao.CarRepository;
@@ -31,6 +35,7 @@ import pl.pracainz.osk.osk.dao.DrivingRepository;
 import pl.pracainz.osk.osk.dao.InstructorOpinionRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.ParticipantRepository;
+import pl.pracainz.osk.osk.dao.ParticipantService;
 import pl.pracainz.osk.osk.dao.StudentRepository;
 import pl.pracainz.osk.osk.dao.TimetableRepository;
 import pl.pracainz.osk.osk.dao.UserRepository;
@@ -63,9 +68,11 @@ public class StudentController {
 	private UserRepository userRepository;
 	private PasswordEncoder encoder;
 
-
-	@Autowired 
+	@Autowired
 	private ParticipantRepository participantRepository;
+	
+	@Autowired
+	private ParticipantService participantService;
 
 	public StudentController(StudentRepository repository, InstructorRepository instructor,
 			InstructorOpinionRepository instructorOpinion, DrivingRepository drivingRepository,
@@ -175,9 +182,11 @@ public class StudentController {
 	}
 
 	@PostMapping("/data/save")
-	public String saveDataStudent(@ModelAttribute("student") Student theStudent) {
+	public String saveDataStudent(@ModelAttribute("student") Student theStudent, Model theModel) {
 		studentRepository.save(theStudent);
-		return "redirect:/students/profile";
+		theModel.addAttribute("dataSaved", "Zapisano");
+		
+		return showProfile(theModel);
 	}
 
 	@GetMapping("/showInstructors")
@@ -217,7 +226,6 @@ public class StudentController {
 	@GetMapping("/showDrivings")
 	public String listDrivings(Model theModel) {
 		List<Driving> theDrivings = studentRepository.findDrivingsForStudent(getCurrentLoggedStudentId());
-		
 		theModel.addAttribute("drivings", theDrivings);
 		return "studentViews/studentDrivings/drivings";
 	}
@@ -238,13 +246,23 @@ public class StudentController {
 
 	@GetMapping("/showCourses")
 	public String listCourses(Model theModel) {
-		List<Course> theCourses = studentRepository.findCoursesForStudent(getCurrentLoggedStudentId());
-	/*	boolean isParticipant = false;
-		for(Participant participant : theCourses.get(0).getParticipants())
-			if(isParticipant==false)
-			theModel.addAttribute("participant", participant);
-		*/
-		theModel.addAttribute("courses", theCourses);
+		List<Course> courses = studentRepository.findCoursesForStudent(getCurrentLoggedStudentId());
+		Map<Course, Integer> hoursPaidMap = new LinkedHashMap<>();
+		for (Course course : courses) {
+			hoursPaidMap.put(course, participantService.getNumberHoursPaidForParticipant(getCurrentLoggedStudentId(), course.getId()));
+
+		}
+		
+		Map<Course, Integer> hoursUsedMap = new HashMap<>();
+		for (Course course : courses) {
+			hoursUsedMap.put(course, participantService.getNumberHoursUsedForParticipant(getCurrentLoggedStudentId(), course.getId()));
+		}
+		
+		theModel.addAttribute("hoursPaidMap", hoursPaidMap);
+		theModel.addAttribute("hoursUsedMap", hoursUsedMap);
+		
+	
+		theModel.addAttribute("courses", courses);
 		return "studentViews/studentCourses/courses";
 	}
 
@@ -360,6 +378,7 @@ public class StudentController {
 	@GetMapping("/listCourses")
 	public String listCoursesForStudent(@RequestParam("id_student") int id, Model theModel) {
 		List<Course> theCourses = courseRepository.findCourses(id);
+		theModel.addAttribute("student", studentRepository.getOne(id));
 		theModel.addAttribute("courses", theCourses);
 		return "adminViews/adminStudents/courses";
 	}
@@ -423,39 +442,29 @@ public class StudentController {
 	public String reservePlannedDriving(
 			@RequestParam(name = "date", required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate date,
 			@RequestParam("id_timetable") int id, Model theModel) {
-			boolean canReserve = false;
 	
-		for(Participant participant : getCurrentLoggedStudent().getParticipants()){
-		if(participant.getNumberHoursUsed()<=28 && participant.getNumberHoursPaid()>=2) {
-			int hours=participant.getNumberHoursUsed()+2;
-			participant.setNumberHoursUsed(hours);
-			canReserve = true;
-			participantRepository.save(participant);
-			break;
-	
-		}
-		}
+		boolean canReserve = participantService.canReserve(id, getCurrentLoggedStudentId());
 		
-	//	if(canReserve == true) {
-			Timetable timetableToReserve = timetableRepository.getOne(id);
-			Driving driving = new Driving();
-			driving.setTimetable(timetableToReserve);
-			driving.setStudent(getCurrentLoggedStudent());
-			driving.setDone(0);
-			driving.setCancelled(0);
-			driving.setDeleted(0);
-			drivingRepository.save(driving);
-			timetableToReserve.getDrivings().add(driving);
-			timetableRepository.save(timetableToReserve);
-	//	}
-		
+		if(canReserve) {
+		Timetable timetableToReserve = timetableRepository.getOne(id);
+		Driving driving = new Driving();
+		driving.setTimetable(timetableToReserve);
+		driving.setStudent(getCurrentLoggedStudent());
+		driving.setDone(0);
+		driving.setCancelled(0);
+		driving.setDeleted(0);
+		drivingRepository.save(driving);
+		timetableToReserve.getDrivings().add(driving);
+		timetableRepository.save(timetableToReserve);
+		participantService.reserve(id, getCurrentLoggedStudentId());
+		theModel.addAttribute("reserved", true);
+		}
 		
 		theModel.addAttribute("timetablesToday", timetableRepository.queryByDayAndMonthAndYear(date.getDayOfMonth(),
 				date.getMonthValue(), date.getYear()));
 		theModel.addAttribute("today", date);
 		theModel.addAttribute("dayName", getDayName(date));
-		
-		theModel.addAttribute("reserved",true);
+
 		return "studentViews/studentTimetable/timetable";
 	}
 
@@ -484,44 +493,39 @@ public class StudentController {
 
 	@GetMapping("/changePassword")
 	public String changePassword(Model theModel) {
-		String newPassword = "";
-		String oldPassword = "";
-		String repeatedPassword = "";
-		theModel.addAttribute("newPassword", newPassword);
-		theModel.addAttribute("oldPassword", oldPassword);
-		theModel.addAttribute("repeatedPassword", repeatedPassword);
-		theModel.addAttribute("error", "");
+		PasswordChanger pchanger = new PasswordChanger();
+		theModel.addAttribute("pchanger", pchanger);
 
 		return "studentViews/changePassword";
 
 	}
 
 	@RequestMapping("/checkPassword")
-	public String checkPassword(@RequestParam("repeatedPassword") String password,
-			@ModelAttribute("newPassword") String newPassword, @RequestParam("oldPassword") String oldPassword,
-			Model theModel) {
+	public String checkPassword(@ModelAttribute("pchanger") PasswordChanger pchanger, Model theModel) {
 		User user = userRepository.findByUsername(getCurrentUserName());
-		oldPassword="student5";
-		if (!oldPassword.equals(encoder.encode(user.getPassword()))) {
-			theModel.addAttribute("error", "Stare hasło jest niepoprawne");
-			return "studentViews/changePassword";
-		} else if (!newPassword.equals(password)) {
-			theModel.addAttribute("error", "Hasła są różne");
-			return "studentViews/changePassword";
+		if (encoder.matches(pchanger.getOldPassword(), user.getPassword())) {
+			if (pchanger.canPasswordBeChanged())
+				return changeUserPassword(pchanger.getNewPassword(), theModel);
+			else {
+				theModel.addAttribute("differentPasswords", "Hasła są różne");
+
+				return changePassword(theModel);
+			}
 		} else {
-			theModel.addAttribute("error", "");
-		return changeUserPassword(newPassword);
+			theModel.addAttribute("oldPaswordProblem", "Stare hasło jest niepoprawne");
+			return changePassword(theModel);
+
 		}
 	}
 
-	public String changeUserPassword(String password) {
+	public String changeUserPassword(String password, Model model) {
 		User user = userRepository.findByUsername(getCurrentUserName());
 		user.setPassword(encoder.encode(password));
 		userRepository.save(user);
-
-		return "studentViews/studentProfile";
+		model.addAttribute("passwordChanged", "Zmieniono hasło");
+		return showProfile(model);
 	}
-	
+
 	@GetMapping("/showLectures")
 	public String listLectures(Model theModel) {
 		List<Lecture> theLectures = studentRepository.findLectures(getCurrentLoggedStudentId());
