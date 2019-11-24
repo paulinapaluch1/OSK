@@ -71,10 +71,11 @@
 					<tbody id="myTable">
 						<tr th:each="instructoropinion:${instructoropinions}">
 							<td th:text="${instructoropinion.id}" />
-							<td
-								th:text="${instructoropinion.student.name} + ' ' + ${instructoropinion.student.surname}" />
+							
 							<td
 								th:text="${instructoropinion.instructor.name} + ' ' + ${instructoropinion.instructor.surname}" />
+								<td
+								th:text="${instructoropinion.student.name} + ' ' + ${instructoropinion.student.surname}" />
 							<td th:text="${instructoropinion.instructorMark}" />
 							<td th:text="${instructoropinion.instructorOpinion}" />
 							<td><a
