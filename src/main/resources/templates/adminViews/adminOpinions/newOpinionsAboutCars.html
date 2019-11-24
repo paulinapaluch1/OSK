@@ -70,8 +70,7 @@
 					<tbody id="myTable">
 						<tr th:each="caropinion:${caropinions}">
 							<td th:text="${caropinion.id}" />
-							<td
-								th:text="${caropinion.student.name + ' ' + caropinion.student.surname}" />
+							<td th:text="${caropinion.student.name + ' ' + caropinion.student.surname}" />
 							<td th:text="${caropinion.car.registrationNumber}" />
 							<td th:text="${caropinion.carMark}" />
 							<td th:text="${caropinion.carOpinion}" />
