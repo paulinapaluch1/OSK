@@ -11,7 +11,7 @@ import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.UserRepository;
 import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.User;
-import pl.pracainz.osk.osk.jsonObject.InstructorJson;
+import pl.pracainz.osk.osk.json.InstructorJson;
 
 @RestController
 @RequestMapping("/mobile")
