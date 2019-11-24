@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import pl.pracainz.osk.jsonObject.InstructorJson;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.UserRepository;
 import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.User;
+import pl.pracainz.osk.osk.jsonObject.InstructorJson;
 
 @RestController
 @RequestMapping("/mobile")

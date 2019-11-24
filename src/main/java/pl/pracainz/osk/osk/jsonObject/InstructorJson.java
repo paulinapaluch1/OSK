@@ -1,4 +1,4 @@
-package pl.pracainz.osk.jsonObject;
+package pl.pracainz.osk.osk.jsonObject;
 
 
 
