@@ -11,5 +11,6 @@ public interface DrivingRepository extends JpaRepository<Driving, Integer>{
 	public List<Driving> findByDeleted(int deleted);
 	public List<Driving> findByCancelled(int cancelled);
 	public List<Driving> findByDone(int done);
+	public List<Driving> findById(int id);
 
 }
