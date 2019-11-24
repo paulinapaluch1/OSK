@@ -7,10 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import pl.pracainz.osk.osk.entity.Driving;
+import pl.pracainz.osk.osk.entity.Student;
 
 public interface PdfService {
 
-	List<Driving> getDrivings();
+	List<Driving> getDrivings(int id);
 
 	boolean createPdf(List<Driving> drivings, ServletContext context, HttpServletRequest request,
 			HttpServletResponse response);

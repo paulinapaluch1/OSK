@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
@@ -30,22 +31,33 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import pl.pracainz.osk.osk.dao.DrivingRepository;
+import pl.pracainz.osk.osk.dao.StudentRepository;
 import pl.pracainz.osk.osk.entity.Driving;
+import pl.pracainz.osk.osk.entity.Student;
 
 @Service
 @Transactional
 public class PdfServiceImpl implements PdfService {
 
 	String poz;
-	int i = 0;
+	int i;
 			
 	@Autowired
 	private DrivingRepository drivingRepository;
+	
+	@Autowired
+	private StudentRepository studentRepository;
 
+	int studentId;
+	
 	@Override
-	public List<Driving> getDrivings() {
+	public List<Driving> getDrivings(int id) {
 		//return (List<Driving>) drivingRepository.findAll().stream().filter(d->d.getStudent().getId());
-		return (List<Driving>) drivingRepository.findByDone(1);
+//		return (List<Driving>) drivingRepository.findByStudent(student);
+		studentId = id;
+		return (List<Driving>) studentRepository.findDoneDrivingsForStudentById(id);
+//		return (List<Driving>) drivingRepository.findByDone(1);
+//		return (List<Driving>) studentRepository.findDrivingsForStudent(id);
 	}
 
 	@Override
@@ -63,10 +75,13 @@ public class PdfServiceImpl implements PdfService {
 			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file + "/" + "drivings" + ".pdf"));
 			document.open();
 
-			BaseFont arial = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.EMBEDDED);
-			Font mainFont = new Font(arial, 12, Font.NORMAL);
-			Font titleFont = new Font(arial, 20, Font.BOLD);
-			Font titleColumn = new Font(arial, 9, Font.BOLD);
+			
+			BaseFont helvetica = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.EMBEDDED);
+
+			Font mainFont = new Font(helvetica, 10, Font.NORMAL);
+			Font titleFont = new Font(helvetica, 20, Font.BOLD);
+			Font titleColumn = new Font(helvetica, 9, Font.BOLD);
+			Font tableBody = new Font(helvetica, 9, Font.NORMAL);
 			
 //			Font mainFont = FontFactory.getFont("Arial", 10, BaseColor.BLACK);
 //			Font titleFont = FontFactory.getFont("Arial", 20, BaseColor.BLACK);
@@ -81,7 +96,7 @@ public class PdfServiceImpl implements PdfService {
 			
 			// get Date of creation
 			DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-			DateTimeFormatter hourFormat = DateTimeFormatter.ofPattern("hh:mm a");
+			DateTimeFormatter hourFormat = DateTimeFormatter.ofPattern("HH:mm");
 
 			LocalDateTime localDateTime = LocalDateTime.now();
 			 
@@ -96,19 +111,41 @@ public class PdfServiceImpl implements PdfService {
 			
 			document.add(newLineParagraph);
 			
-			Paragraph student = new Paragraph("Karta przeprowadzonych zajec", titleFont);
-			student.setAlignment(Element.ALIGN_CENTER);
+			Paragraph title = new Paragraph("Karta przeprowadzonych zajęć", titleFont);
+			title.setAlignment(Element.ALIGN_CENTER);
+			title.setIndentationLeft(30);
+			title.setIndentationRight(30);
+			title.setSpacingAfter(10);
+			document.add(title);
+					
+			document.add(newLineParagraph);
+
+//			PdfPCell instructorValue = new PdfPCell(new Paragraph(driving.getTimetable().getInstructor().getName().concat(" ".concat(driving.getTimetable().getInstructor().getSurname())), tableBody));
+
+			String studentData = "Kursant: ".concat(studentRepository.getOne(studentId).getName().concat(" ".concat(studentRepository.getOne(studentId).getSurname())));
+			Paragraph student = new Paragraph(studentData, mainFont);
+			student.setAlignment(Element.ALIGN_LEFT);
 			student.setIndentationLeft(30);
 			student.setIndentationRight(30);
 			student.setSpacingAfter(10);
 			document.add(student);
 			
-			Paragraph title = new Paragraph("Tu kursant", mainFont);
-			title.setAlignment(Element.ALIGN_LEFT);
-			title.setIndentationLeft(30);
-			title.setIndentationRight(30);
-			title.setSpacingAfter(10);
-			document.add(title);
+			String PKK = "PKK: ".concat(studentRepository.getOne(studentId).getPkk());
+			Paragraph studentPKK = new Paragraph(PKK, mainFont);
+			studentPKK.setAlignment(Element.ALIGN_LEFT);
+			studentPKK.setIndentationLeft(30);
+			studentPKK.setIndentationRight(30);
+			studentPKK.setSpacingAfter(10);
+			document.add(studentPKK);
+			
+			String birthdate = "Data urodzenia: ".concat(studentRepository.getOne(studentId).getPkk());
+			Paragraph studentBirthdate = new Paragraph(birthdate, mainFont);
+			studentBirthdate.setAlignment(Element.ALIGN_LEFT);
+			studentBirthdate.setIndentationLeft(30);
+			studentBirthdate.setIndentationRight(30);
+			studentBirthdate.setSpacingAfter(10);
+			document.add(studentBirthdate);
+			
 
 			document.add(newLineParagraph);
 			
@@ -118,15 +155,15 @@ public class PdfServiceImpl implements PdfService {
 			table.setSpacingAfter(10);
 
 //			Font tableHeader = FontFactory.getFont("Arial", 10, BaseColor.BLACK);
-			Font tableBody = FontFactory.getFont("Arial", 9, BaseColor.BLACK);
+//			Font tableBody = FontFactory.getFont("Arial", 9, BaseColor.BLACK);
 
-			float[] columnWidths = {0.6f, 1.6f, 1.3f, 1.3f, 1.3f, 2f, 1.5f};
+			float[] columnWidths = {0.6f, 1.8f, 1.3f, 1.3f, 1.3f, 1.8f, 2f};
 			table.setWidths(columnWidths);
 
-			PdfPCell id = new PdfPCell(new Paragraph("Poz.", titleColumn));
-			id.setBorderColor(BaseColor.BLACK);
-			id.setPaddingLeft(10);
-			table.addCell(id);
+			PdfPCell idCell = new PdfPCell(new Paragraph("Poz.", titleColumn));
+			idCell.setBorderColor(BaseColor.BLACK);
+			idCell.setPaddingLeft(10);
+			table.addCell(idCell);
 			
 			PdfPCell type = new PdfPCell(new Paragraph("Typ jazdy", titleColumn));
 			type.setBorderColor(BaseColor.BLACK);
@@ -138,12 +175,12 @@ public class PdfServiceImpl implements PdfService {
 			date.setPaddingLeft(10);
 			table.addCell(date);
 			
-			PdfPCell startHour = new PdfPCell(new Paragraph("Godz. rozpoczęcia", titleColumn));
+			PdfPCell startHour = new PdfPCell(new Paragraph("Godzina rozpoczęcia", titleColumn));
 			startHour.setBorderColor(BaseColor.BLACK);
 			startHour.setPaddingLeft(10);
 			table.addCell(startHour);
 			
-			PdfPCell finishHour = new PdfPCell(new Paragraph("Godz. zakończenia", titleColumn));
+			PdfPCell finishHour = new PdfPCell(new Paragraph("Godzina zakończenia", titleColumn));
 			finishHour.setBorderColor(BaseColor.BLACK);
 			finishHour.setPaddingLeft(10);
 			table.addCell(finishHour);
@@ -153,13 +190,13 @@ public class PdfServiceImpl implements PdfService {
 			instructor.setPaddingLeft(10);
 			table.addCell(instructor);
 			
-			PdfPCell car = new PdfPCell(new Paragraph("Nr rejestracyjny", titleColumn));
+			PdfPCell car = new PdfPCell(new Paragraph("Numer rejestracyjny", titleColumn));
 			car.setBorderColor(BaseColor.BLACK);
 			car.setPaddingLeft(10);
 			table.addCell(car);
 			
 		
-			
+			i = 0;
 			for (Driving driving : drivings) {
 				i++;
 				poz = String.valueOf(i);

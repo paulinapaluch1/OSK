@@ -57,7 +57,7 @@
 							<td><a
 								th:href="@{/courses/deleteParticipant(id_student=${student.id}, id_course=${course.id})}"
 								class="btn btn-danger">USUŃ UCZESTNIKA</a></td>
-							<td><a th:href="@{'/createPdf'}" style="float: left;"><img
+							<td><a th:href="@{/createPdf(id_student=${student.id})}" style="float: left;"><img
 									th:src="@{/pdf-icon.png}" style="width: 40px;"></a></td>
 
 						</tr>
