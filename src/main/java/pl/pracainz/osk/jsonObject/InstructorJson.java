@@ -5,7 +5,6 @@ package pl.pracainz.osk.jsonObject;
 public class InstructorJson {
 
 	public InstructorJson(String message) {
-		super();
 		this.message = message;
 	}
 	private String name;
