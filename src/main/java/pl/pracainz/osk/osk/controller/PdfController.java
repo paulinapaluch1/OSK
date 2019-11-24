@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pracainz.osk.osk.dao.DrivingRepository;
 import pl.pracainz.osk.osk.dao.StudentRepository;
-import pl.pracainz.osk.osk.dao.UserRepository;
 import pl.pracainz.osk.osk.entity.Driving;
 import pl.pracainz.osk.osk.service.PdfService;
 
@@ -29,19 +29,10 @@ public class PdfController {
 	private DrivingRepository drivingRepository;
 	
 	
-	
-//	@GetMapping(value="/view")
-//	public String allDriving(Model theModel) {
-//		List<Driving> drivings = pdfService.getDrivings();
-//		theModel.addAttribute("drivings", drivings);
-//		
-//		return "studentViews/studentDrivings/drivingsDone.html";
-//	}
-	
 	@GetMapping(value="/createPdf")
-	public void createPdf(HttpServletRequest request, HttpServletResponse response) {
-		//List<Driving> drivings = studentRepository.findDoneDrivingsForStudentById(getCurrentLoggedStudentId());
-		List<Driving> drivings = pdfService.getDrivings();
+	public void createPdf(@RequestParam("id_student") int id, HttpServletRequest request, HttpServletResponse response) {
+//		List<Driving> drivings = studentRepository.findDoneDrivingsForStudentById(7);
+		List<Driving> drivings = pdfService.getDrivings(id);
 		boolean isFlag = pdfService.createPdf(drivings, context, request, response);
 		if(isFlag) {
 			String fullPath = request.getServletContext().getRealPath("/resources/reports/" +"drivings"+".pdf");
