@@ -1,11 +1,10 @@
-package pl.pracainz.osk.jsonObject;
+package pl.pracainz.osk.osk.json;
 
 
 
 public class InstructorJson {
 
 	public InstructorJson(String message) {
-		super();
 		this.message = message;
 	}
 	private String name;
