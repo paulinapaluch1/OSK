@@ -24,11 +24,13 @@ public class Instructor {
 	private int id;
 
 	@Column(name = "name")
-	@Pattern(regexp = "^[A-ZŁŚ]{1}+[a-ząęółśżźćń]+$", message = "Wprowadz poprawne imię")
+	@NotEmpty(message = "Pole email nie może być puste")
+	@Pattern(regexp = "^[A-ZŁŚ]{1}+[a-ząęółśżźćń]+$", message = "Wprowadż poprawne imię")
 	private String name;
-
+	
 	@Column
-	@NotEmpty(message = "Pole nazwisko nie może być puste")
+	@Pattern(regexp = "	^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$\r\n", message = "Wprowadź poprawne nazwisko")
+	@NotEmpty(message = "Pole email nie może być puste")
 	private String surname;
 
 	@Column
@@ -36,12 +38,13 @@ public class Instructor {
 	private String login;
 
 	@Column
-	@Email(message = "Wprowadz poprawny email")
+	@Email(message = "Wprowadź poprawny email")
 	@NotEmpty(message = "Pole email nie może być puste")
 	private String email;
-
+	
 	@Column(name = "phoneNumber")
 	@NotEmpty(message = "Pole numer telefonu nie może być puste")
+	@Pattern(regexp = "	^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$\r\n", message = "Wprowadź poprawny numer telefon")
 	private String phoneNumber;
 
 	@Column

@@ -16,35 +16,26 @@ import pl.pracainz.osk.osk.json.InstructorJson;
 @RestController
 @RequestMapping("/mobile")
 public class MobileApplicationController {
-
 	@Autowired
 	UserRepository userRepository;
-
 	@Autowired
 	PasswordEncoder encoder;
-
 	@Autowired
 	InstructorRepository instructorRepository;
-	
 	@GetMapping("login/{username}/{password}")
-	public InstructorJson loginToMobileApp(@PathVariable String username, @PathVariable("password") String password) {
-
+	public InstructorJson loginToMobileApp(@PathVariable String username, 
+			@PathVariable("password") String password) {
 		InstructorJson json;
 		User user = userRepository.findByUsername(username);
-		if (null != user && encoder.matches(password, user.getPassword())) {
-
+		if (null != user && encoder.matches(password, user.getPassword())
+				&& instructorRepository.findByUserId(user.getId())!=null) {
 			json = new InstructorJson("true");
 			Instructor instructor = instructorRepository.findByUserId(user.getId());
 			json.setName(instructor.getName());
 			json.setSurname(instructor.getSurname());
-
 		} else {
 			json = new InstructorJson("false");
-
-		}
-		return json;
-
-	}
+		}return json;}
 
 	@GetMapping("hello")
 	public String sayHello() {
