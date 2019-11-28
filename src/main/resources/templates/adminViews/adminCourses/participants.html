@@ -68,7 +68,7 @@
 								th:href="@{/courses/editHoursForParticipant(id_student=${entry.key.id}, id_course=${course.id})}"
 								class="btn btn-primary">EDYTUJ GODZINY</a></td>
 							
-						<td><a th:href="@{/createPdf}" style="float: left;"><img
+					<td><a th:href="@{/createPdf(id_student=${student.id})}" style="float: left;"><img
 									th:src="@{/pdf-icon.png}" style="width: 40px;"></a></td>
 
 						</tr>
