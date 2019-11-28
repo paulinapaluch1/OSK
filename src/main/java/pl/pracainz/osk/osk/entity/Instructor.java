@@ -44,7 +44,7 @@ public class Instructor {
 	
 	@Column(name = "phoneNumber")
 	@NotEmpty(message = "Pole numer telefonu nie może być puste")
-	@Pattern(regexp = "	^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$\r\n", message = "Wprowadź poprawny numer telefon")
+	@Pattern(regexp = "	^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$\r\n", message = "Wprowadź poprawny numer telefonu")
 	private String phoneNumber;
 
 	@Column
