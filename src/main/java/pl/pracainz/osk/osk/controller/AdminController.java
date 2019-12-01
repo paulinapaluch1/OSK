@@ -19,7 +19,6 @@ public class AdminController {
 	public String showAdminProfile() {
 		return "adminViews/adminProfile";
 	}
-
 	@GetMapping("/login")
 	public String login() {
 	return "login";
