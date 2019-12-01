@@ -70,7 +70,7 @@
 
 			</form>
 		</div>
-					<div id="snackbar" >Login już istnieje</div>
+					<div th:if="${loginExists}" id="snackbar" >Login już istnieje</div>
 		
 	</div>
 <script>
@@ -79,7 +79,7 @@
 						function() {
 							var x = document.getElementById("snackbar");
 							  x.className = "show";
-							  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000000);
+							  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
 						
 							
 							
