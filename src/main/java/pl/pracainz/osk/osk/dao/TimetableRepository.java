@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import pl.pracainz.osk.osk.entity.Car;
 import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.Timetable;
+import pl.pracainz.osk.osk.json.TimetableJson;
 
 public interface TimetableRepository extends JpaRepository<Timetable, Integer>{
 	
@@ -39,5 +40,9 @@ public interface TimetableRepository extends JpaRepository<Timetable, Integer>{
 			+" and t.begin between :monday and :sunday")
 	List<Timetable> queryByInstructorAndWeek(@Param("instructor")Instructor instructor, 
 			@Param("monday")LocalDateTime monday, @Param("sunday")LocalDateTime sunday);
+
+
+	
+	
 	
 }

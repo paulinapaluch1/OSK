@@ -6,6 +6,10 @@ public class InstructorJson {
 	private String name;
 	private String surname;
 	private String message;
+	private String email;
+	private String login;
+	private String phoneNumber;
+	private double markAverage;
 
 	public InstructorJson(String message) {
 		this.message = message;
@@ -16,6 +20,21 @@ public class InstructorJson {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
+	}
+
+	public InstructorJson(String message, int id2, String name2, String surname2, String email2, String login2,
+			String phoneNumber2, double markAverage2) {
+		
+		this.id=id2;
+		this.name=name2;
+		this.surname=surname2;
+		this.message=message;
+		this.email=email2;
+		this.login=login2;
+		this.phoneNumber=phoneNumber2;
+		this.markAverage=markAverage2;
+		
+		
 	}
 
 	public String getMessage() {
@@ -49,5 +68,41 @@ public class InstructorJson {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public double getMarkAverage() {
+		return markAverage;
+	}
+
+	public void setMarkAverage(double markAverage) {
+		this.markAverage = markAverage;
+	}
+
+
+
+
 
 }
