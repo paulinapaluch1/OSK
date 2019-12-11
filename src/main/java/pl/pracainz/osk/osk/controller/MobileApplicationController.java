@@ -1,6 +1,5 @@
 package pl.pracainz.osk.osk.controller;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +27,7 @@ import pl.pracainz.osk.osk.json.InstructorJson;
 import pl.pracainz.osk.osk.json.LocationJson;
 import pl.pracainz.osk.osk.json.Message;
 import pl.pracainz.osk.osk.json.TimetableJson;
+import pl.pracainz.osk.osk.service.DrivinService;
 import pl.pracainz.osk.osk.service.MobileService;
 
 @RestController
@@ -51,6 +51,9 @@ public class MobileApplicationController {
 	@Autowired 
 	StudentRepository studentRepository;
 	
+	@Autowired
+	DrivinService drivingService;
+	
 	public MobileApplicationController(MobileService service) {
 		this.service = service;
 	}
@@ -73,21 +76,20 @@ public class MobileApplicationController {
 	@PostMapping("send/{instructor}")
 	public Message getCoordinates(@RequestBody ArrayList<LocationJson> coordinates,
 			@PathVariable("instructor") Integer id) {
-		
 		GpsPoint gps;
+		Integer idDriving;
 		for(LocationJson json : coordinates) {
-			gps=new GpsPoint(json.getNs(), json.getNw(), json.getTime(), 1,1);
+			idDriving = drivingService.getDrivingByTimeAndIdInstructor(json.getTime(), id);
+			gps=new GpsPoint(json.getNs(), json.getNw(), json.getTime(),idDriving ,id);
 			gpsRepository.save(gps);
-			
 		}
-		
 		
 		return new Message("true");
 	}
 	
 	
     @GetMapping("timetable/{id}")
-    public List<TimetableJson> getTimetable(@PathVariable("id") Integer id){
+    public ArrayList<TimetableJson> getTimetable(@PathVariable("id") Integer id){
     	List<TimetableJson> timetableJsonList = new ArrayList<>();
     	LocalDateTime today = LocalDateTime.now();
     
@@ -101,8 +103,7 @@ public class MobileApplicationController {
     			getDayName(today)+" "+today.getDayOfMonth()+"."+today.getMonthValue()+"."+today.getYear()+"r.");
     	timetableJsonList.add(json);
     	}
-    	
-    	return timetableJsonList;
+    	return (ArrayList<TimetableJson>) timetableJsonList;
     	
     }
 
@@ -111,10 +112,6 @@ public class MobileApplicationController {
 		return "Hello world!";
 	}
 
-	
-	
-	
-	
 	public String getDayName(LocalDateTime date) {
 		int dayNumber = date.getDayOfWeek().getValue();
 		switch (dayNumber) {
