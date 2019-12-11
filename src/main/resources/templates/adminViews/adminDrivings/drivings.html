@@ -59,15 +59,12 @@
 								th:text="${#temporals.format(driving.timetable.begin,'HH:mm')}" />
 							<td
 								th:text="${#temporals.format(driving.timetable.end,'HH:mm')}" />
-
 							<div th:if="${driving.done} eq 0">
 								<td th:text="NIE" />
 							</div>
 							<div th:unless="${driving.done} eq 0">
 								<td th:text="TAK" />
 							</div>
-
-
 
 							<div th:if="${driving.cancelled} eq 0">
 								<td th:text="NIE" />

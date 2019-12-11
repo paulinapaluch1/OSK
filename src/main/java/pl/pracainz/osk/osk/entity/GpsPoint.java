@@ -58,6 +58,18 @@ public class GpsPoint {
 		this.id_instructor = j;
 	}
 
+	public GpsPoint(String ns, String nw, String time2, int i, int j) {
+		
+		this.gps_ns = ns;
+		this.gps_ew = nw;
+		
+		this.time = new Date();
+		this.id_driving = i;
+		this.id_instructor = j;
+		
+		
+	}
+
 	public int getId() {
 		return id;
 	}
