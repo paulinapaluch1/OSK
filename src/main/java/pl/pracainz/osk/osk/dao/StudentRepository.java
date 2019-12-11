@@ -71,4 +71,5 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 
 	public Student findByPkk(String pkk);
 
+
 }
