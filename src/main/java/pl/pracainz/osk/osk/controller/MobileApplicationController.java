@@ -27,7 +27,7 @@ import pl.pracainz.osk.osk.json.InstructorJson;
 import pl.pracainz.osk.osk.json.LocationJson;
 import pl.pracainz.osk.osk.json.Message;
 import pl.pracainz.osk.osk.json.TimetableJson;
-import pl.pracainz.osk.osk.service.DrivinService;
+import pl.pracainz.osk.osk.service.DrivingService;
 import pl.pracainz.osk.osk.service.MobileService;
 
 @RestController
@@ -52,7 +52,7 @@ public class MobileApplicationController {
 	StudentRepository studentRepository;
 	
 	@Autowired
-	DrivinService drivingService;
+	DrivingService drivingService;
 	
 	public MobileApplicationController(MobileService service) {
 		this.service = service;
