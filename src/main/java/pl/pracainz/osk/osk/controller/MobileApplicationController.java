@@ -40,7 +40,6 @@ public class MobileApplicationController {
 	@Autowired
 	InstructorRepository instructorRepository;
 	
-	//@Autowired
 	MobileService service;
 
 	@Autowired
