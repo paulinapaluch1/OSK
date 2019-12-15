@@ -24,8 +24,6 @@ public class GpsPoint {
 	@Column(name = "GPS_EW")
 	private String gps_ew;
 
-	@Column(name = "GPS_Z")
-	private String gps_z;
 
 	@Column(name = "time")
 	private Date time;
@@ -44,7 +42,6 @@ public class GpsPoint {
 		super();
 		this.gps_ns = gps_ns;
 		this.gps_ew = gps_ew;
-		this.gps_z = gps_z;
 		this.time = time;
 		this.id_driving = id_driving;
 		this.id_instructor = id_instructor;
@@ -94,13 +91,6 @@ public class GpsPoint {
 		this.gps_ew = gps_ew;
 	}
 
-	public String getGps_z() {
-		return gps_z;
-	}
-
-	public void setGps_z(String gps_z) {
-		this.gps_z = gps_z;
-	}
 
 	public Date getTime() {
 		return time;
