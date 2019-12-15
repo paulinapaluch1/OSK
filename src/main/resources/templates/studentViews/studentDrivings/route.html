@@ -13,12 +13,15 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
 <style>
-       /* Set the size of the div element that contains the map */
-      #map {
-        height: 400px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
-       }
-    </style>
+/* Set the size of the div element that contains the map */
+#map {
+	height: 450px; /* The height is 400 pixels */
+	width: 60%; /* The width is the width of the web page */
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+</style>
 
 </head>
 <body
@@ -29,21 +32,285 @@
 
 	<div class="page">
 
-	<div class="container pt-3  list">
+		<div class="container pt-3  list">
 			<div class="flex-fill pb-2 mb-3">
-				<h3 >TRASA</h3>
-				<p th:text="'jazdy'+' '+	${#temporals.format(driving.timetable.begin,'dd.MM.yyyy')} 
+				<h3>TRASA</h3>
+				<p
+					th:text="'jazdy'+' '+	${#temporals.format(driving.timetable.begin,'dd.MM.yyyy')} 
 				+' ' +${#temporals.format(driving.timetable.begin,'HH:mm')}+'-'+${#temporals.format(driving.timetable.end,'HH:mm')}
-				+' ' + 'z instruktorem '+${timetable.instructor.name}+' '+${timetable.instructor.surname} +' o typie: ' +${timetable.drivingType.type}" />	
-</p>
+				+' ' + 'z instruktorem '+${timetable.instructor.name}+' '+${timetable.instructor.surname} +' o typie: ' +${timetable.drivingType.type}" >
+				</p>
 			</div>
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19985.836086460688!2d22.500163124403407!3d51.23326789385396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4722577729316bd9%3A0x442236391b743bc!2sPolitechnika%20Lubelska%2C%2020-618%20Lublin!5e0!3m2!1spl!2spl!4v1574934313566!5m2!1spl!2spl" width="800" height="600" frameborder="0" style="border:0;" allowfullscreen=""></iframe>	</div>
+
+			<table class="table table-hover table-sm">
+
+				<tbody id="myTable">
+					<tr th:each="point:${gpspoints}">
+						<td th:text="${point.gps_ns}" />
+						<td th:text="${point.gps_ew}" />
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
-	
-    </script>
-   
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBI0sXO1I6aOWhAtU99fYU2u-FqKADdJlA&callback=initMap">
-    </script>
-  </body>
+
+	<div id="map"></div>
+	<script>
+		function initMap() {
+
+			var options = {
+				zoom : 14,
+				center : {
+					lat : 51.2372563,
+					lng : 22.5467313
+				}
+			}
+
+			// New map
+			var map = new google.maps.Map(document.getElementById('map'),
+					options);
+
+			var table = document.getElementById('myTable'), rindex;
+			var x;
+			var y;
+
+
+			for (var i = 0; i < table.rows.length; i++) {
+
+				rIndex = this.rowIndex;
+				x = parseInt(table.rows[i].cells[0].innerHTML);
+				y = parseInt(table.rows[i].cells[1].innerHTML);
+				var marker = new google.maps.Marker({
+					position : {
+						lat : x,
+						lng : y
+					},
+					map : map
+				});
+
+			}
+			
+
+			/*
+			// Add marker
+			var marker = new google.maps.Marker({
+			  position:{lat:42.4668,lng:-70.9495},
+			  map:map,
+			  icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+			});
+
+			var infoWindow = new google.maps.InfoWindow({
+			  content:'<h1>Lynn MA</h1>'
+			});
+
+			marker.addListener('click', function(){
+			  infoWindow.open(map, marker);
+			});
+			 */
+			/*
+			var znaczniki = [];
+			function addPoints(x, y) {
+			var z = [ {
+				coords : {
+					lat : x,
+					lng : y
+				}
+			} ];
+			znaczniki.push(z); 
+			}
+			
+			for (var i = 0; i < znaczniki.length; i++) {
+			addMarker(znaczniki[i]);
+			}
+			
+			addPoints(42.4668, -70.9495);
+			 */
+			// Array of markers
+			
+			var markers = [ {
+				coords : {
+					lat : 51.237295,
+					lng : 22.549016
+				},
+			}, {
+				coords : {
+					lat : 51.239074,
+					lng : 22.552239
+				},
+			}, {
+				coords : {
+					lat : 51.235119,
+					lng : 22.556947
+				}
+			},  {
+				coords : {
+					lat : 51.234602,
+					lng : 22.570312
+				},
+			}, {
+				coords : {
+					lat : 51.236322,
+					lng : 22.576341
+				},
+			}, {
+				coords : {
+					lat : 51.232205,
+					lng : 22.561980
+				},
+			}, {
+				coords : {
+					lat : 51.237816,
+					lng : 22.579451
+				},
+			},  {
+				coords : {
+					lat : 51.240100,
+					lng : 22.584430
+				},
+			}, {
+				coords : {
+					lat : 51.241605,
+					lng : 22.587734
+				},
+			}, {
+				coords : {
+					lat : 51.242679,
+					lng : 22.591382
+				},
+			}, {
+				coords : {
+					lat : 51.242249,
+					lng : 22.596274
+				},
+			}, {
+				coords : {
+					lat : 51.243646,
+					lng : 22.598077
+				},
+			}, {
+				coords : {
+					lat : 51.244560,
+					lng : 22.597218
+				},
+			}, {
+				coords : {
+					lat : 51.245473,
+					lng : 22.595158
+				},
+			}, {
+				coords : {
+					lat : 51.246172,
+					lng : 22.593699
+				},
+			}, {
+				coords : {
+					lat : 51.247004,
+					lng : 22.593270
+				},
+			}, {
+				coords : {
+					lat : 51.249046,
+					lng : 22.594214
+				},
+			}, {
+				coords : {
+					lat : 51.250262,
+					lng : 22.595316
+				},
+			}, {
+				coords : {
+					lat : 51.251417,
+					lng : 22.597333
+				},
+			}, {
+				coords : {
+					lat : 51.252491,
+					lng : 22.599479
+				},
+			}, {
+				coords : {
+					lat : 51.234136,
+					lng : 22.567441
+				},
+			}, {
+				coords : {
+					lat : 51.234969,
+					lng : 22.573836
+				},
+			}, {
+				coords : {
+					lat : 51.236326,
+					lng : 22.547142
+				},
+			}, {
+				coords : {
+					lat : 51.235359,
+					lng : 22.545190
+				},
+			}, {
+				coords : {
+					lat : 51.234754,
+					lng : 22.543602
+				},
+			}, {
+				coords : {
+					lat : 51.234768,
+					lng : 22.541456
+				},
+			}, {
+				coords : {
+					lat : 51.235010,
+					lng : 22.539246
+				},
+			}, {
+				coords : {
+					lat : 51.235453,
+					lng : 22.537293
+				},
+			}, {
+				coords : {
+					lat : 51.236219,
+					lng : 22.534976
+				},
+			}, {
+				coords : {
+					lat : 51.237025,
+					lng : 22.532508
+				},
+			}, {
+				coords : {
+					lat : 51.237562,
+					lng : 22.530684
+				},
+			}
+			
+			];
+
+			for (var i = 0; i < markers.length; i++) {
+				addMarker(markers[i]);
+			}
+			 
+			// Add Marker Function
+			function addMarker(props) {
+				var marker = new google.maps.Marker({
+					position : props.coords,
+					map : map,
+				//icon:props.iconImage
+				});
+
+				// Check for customicon
+				if (props.iconImage) {
+					// Set icon image
+					marker.setIcon(props.iconImage);
+				}
+
+			}
+		}
+	</script>
+
+	<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBI0sXO1I6aOWhAtU99fYU2u-FqKADdJlA&callback=initMap">
+		
+	</script>
+</body>
 </html>

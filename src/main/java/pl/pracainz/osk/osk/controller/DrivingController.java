@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.pracainz.osk.osk.dao.DrivingRepository;
 import pl.pracainz.osk.osk.dao.DrivingTypeRepository;
+import pl.pracainz.osk.osk.dao.GpsPointRepository;
 import pl.pracainz.osk.osk.dao.InstructorRepository;
 import pl.pracainz.osk.osk.dao.StudentRepository;
 import pl.pracainz.osk.osk.dao.TimetableRepository;
 import pl.pracainz.osk.osk.entity.Car;
 import pl.pracainz.osk.osk.entity.Driving;
 import pl.pracainz.osk.osk.entity.DrivingType;
+import pl.pracainz.osk.osk.entity.GpsPoint;
 import pl.pracainz.osk.osk.entity.Instructor;
 import pl.pracainz.osk.osk.entity.Student;
 import pl.pracainz.osk.osk.entity.Timetable;
@@ -35,15 +37,17 @@ public class DrivingController {
 	private StudentRepository studentRepository;
 	private InstructorRepository instructorRepository;
 	private TimetableRepository timetableRepository;
+	private GpsPointRepository gpsRepository;
 
 	public DrivingController(DrivingRepository repository, DrivingTypeRepository drivingTypeRepository,
 			StudentRepository studentRepository, InstructorRepository instructorRepository,
-			TimetableRepository timetableRepository) {
+			TimetableRepository timetableRepository, GpsPointRepository gpsRepository) {
 		this.drivingRepository = repository;
 		this.drivingTypeRepository = drivingTypeRepository;
 		this.studentRepository = studentRepository;
 		this.instructorRepository = instructorRepository;
 		this.timetableRepository = timetableRepository;
+		this.gpsRepository = gpsRepository;
 	}
 
 	@GetMapping("/list")
@@ -140,7 +144,10 @@ public class DrivingController {
 		@GetMapping("/showRoute")
 		public String showRoute(@RequestParam("id_driving") int id, Model theModel) {
 			Driving theDriving = drivingRepository.getOne(id);
+//			List<GpsPoint> points = gpsRepository.findById_Driving(id);
+			List<GpsPoint> points = gpsRepository.findPoints(id);
 			theModel.addAttribute("driving", theDriving);
+			theModel.addAttribute("gpspoints", points);
 			theModel.addAttribute("timetable",theDriving.getTimetable());
 			return "studentViews/studentDrivings/route";
 		}

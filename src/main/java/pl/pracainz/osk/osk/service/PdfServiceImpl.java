@@ -93,8 +93,6 @@ public class PdfServiceImpl implements PdfService {
 			newLineParagraph.setIndentationRight(50);
 			newLineParagraph.setSpacingAfter(10);
 
-			
-			// get Date of creation
 			DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 			DateTimeFormatter hourFormat = DateTimeFormatter.ofPattern("HH:mm");
 
@@ -120,8 +118,6 @@ public class PdfServiceImpl implements PdfService {
 					
 			document.add(newLineParagraph);
 
-//			PdfPCell instructorValue = new PdfPCell(new Paragraph(driving.getTimetable().getInstructor().getName().concat(" ".concat(driving.getTimetable().getInstructor().getSurname())), tableBody));
-
 			String studentData = "Kursant: ".concat(studentRepository.getOne(studentId).getName().concat(" ".concat(studentRepository.getOne(studentId).getSurname())));
 			Paragraph student = new Paragraph(studentData, mainFont);
 			student.setAlignment(Element.ALIGN_LEFT);
@@ -138,7 +134,9 @@ public class PdfServiceImpl implements PdfService {
 			studentPKK.setSpacingAfter(10);
 			document.add(studentPKK);
 			
-			String birthdate = "Data urodzenia: ".concat(studentRepository.getOne(studentId).getPkk());
+			String birthday = studentRepository.getOne(studentId).getBirthdate().toString();
+			
+			String birthdate = "Data urodzenia: ".concat(studentRepository.getOne(studentId).getBirthdate().toString());
 			Paragraph studentBirthdate = new Paragraph(birthdate, mainFont);
 			studentBirthdate.setAlignment(Element.ALIGN_LEFT);
 			studentBirthdate.setIndentationLeft(30);
